@@ -1,0 +1,98 @@
+[
+  {
+    "Configuration": "L16_β0.3",
+    "Method": "SAC_golden",
+    "Average Reward": 8.131431938075124,
+    "Max Reward": 13.137212225778185,
+    "Std Dev": 1.0204618619378636,
+    "Convergence Step": 12397
+  },
+  {
+    "Configuration": "L16_β0.3",
+    "Method": "SAC_mismatch",
+    "Average Reward": 6.026655155476292,
+    "Max Reward": 11.149691449848337,
+    "Std Dev": 1.670278320193053,
+    "Convergence Step": 9307
+  },
+  {
+    "Configuration": "L16_β0.3",
+    "Method": "Beta_Space_Exp_SAC_mismatch",
+    "Average Reward": 5.549828658492828,
+    "Max Reward": 10.00290080299965,
+    "Std Dev": 0.7661975872534321,
+    "Convergence Step": 11649
+  },
+  {
+    "Configuration": "L16_β0.3",
+    "Method": "Random_Baseline",
+    "Average Reward": 1.8745401188473625,
+    "Max Reward": 1.9745401188473626,
+    "Std Dev": 0.1,
+    "Convergence Step": 19000
+  },
+  {
+    "Configuration": "L32_β0.6",
+    "Method": "SAC_golden",
+    "Average Reward": 7.312183164705211,
+    "Max Reward": 9.9650097839186,
+    "Std Dev": 0.8021492258498077,
+    "Convergence Step": 14880
+  },
+  {
+    "Configuration": "L32_β0.6",
+    "Method": "SAC_mismatch",
+    "Average Reward": 8.097767774529208,
+    "Max Reward": 13.29509758586497,
+    "Std Dev": 0.8980365292594436,
+    "Convergence Step": 11169
+  },
+  {
+    "Configuration": "L32_β0.6",
+    "Method": "Beta_Space_Exp_SAC_mismatch",
+    "Average Reward": 9.481019318687741,
+    "Max Reward": 15.434418309628759,
+    "Std Dev": 1.3977290138772804,
+    "Convergence Step": 11631
+  },
+  {
+    "Configuration": "L32_β0.6",
+    "Method": "Random_Baseline",
+    "Average Reward": 1.8745401188473625,
+    "Max Reward": 1.9745401188473626,
+    "Std Dev": 0.1,
+    "Convergence Step": 19000
+  },
+  {
+    "Configuration": "L64_β0.6",
+    "Method": "SAC_golden",
+    "Average Reward": 7.17892276589892,
+    "Max Reward": 12.794893869001275,
+    "Std Dev": 1.6581602517879688,
+    "Convergence Step": 13902
+  },
+  {
+    "Configuration": "L64_β0.6",
+    "Method": "SAC_mismatch",
+    "Average Reward": 6.044988703953746,
+    "Max Reward": 13.974529034438241,
+    "Std Dev": 1.5894573960334204,
+    "Convergence Step": 13884
+  },
+  {
+    "Configuration": "L64_β0.6",
+    "Method": "Beta_Space_Exp_SAC_mismatch",
+    "Average Reward": 5.366406716400236,
+    "Max Reward": 12.833523025018911,
+    "Std Dev": 1.573750340119548,
+    "Convergence Step": 13490
+  },
+  {
+    "Configuration": "L64_β0.6",
+    "Method": "Random_Baseline",
+    "Average Reward": 1.8745401188473625,
+    "Max Reward": 1.9745401188473626,
+    "Std Dev": 0.1,
+    "Convergence Step": 19000
+  }
+]

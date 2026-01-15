@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WCNC 2026 評委問題回覆整理（繁體中文）</title>
+  <style>
+    :root {
+      --ink: #1f2933;
+      --muted: #5b6b7a;
+      --accent: #1b6ca8;
+      --accent-2: #0f4c5c;
+      --bg: #ffffff;
+      --panel: #f7fafc;
+      --border: #d9e2ec;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Noto Serif TC","Source Han Serif TC","PMingLiU","Microsoft JhengHei","PingFang TC",serif;
+      line-height: 1.65;
+      letter-spacing: 0.2px;
+    }
+    header {
+      padding: 32px 40px 16px;
+      border-bottom: 2px solid var(--border);
+      background: linear-gradient(180deg, #f7fbff 0%, #ffffff 80%);
+    }
+    header h1 {
+      margin: 0 0 6px;
+      font-size: 28px;
+      color: var(--accent-2);
+    }
+    header .meta {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    main {
+      padding: 24px 40px 40px;
+    }
+    h2 {
+      margin-top: 28px;
+      font-size: 20px;
+      color: var(--accent);
+      border-left: 4px solid var(--accent);
+      padding-left: 10px;
+    }
+    h3 {
+      margin-top: 20px;
+      font-size: 17px;
+      color: var(--accent-2);
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      margin: 12px 0 16px;
+    }
+    .qa {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 14px 0;
+      background: #ffffff;
+    }
+    .qa .label {
+      font-weight: 700;
+      color: var(--accent-2);
+      font-size: 14px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    ul {
+      margin: 6px 0 8px 18px;
+    }
+    .cite {
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .figure {
+      margin: 16px 0 22px;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+    }
+    .figure img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .caption {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      main { padding: 20px; }
+      .two-col { grid-template-columns: 1fr; }
+    }
+    @page {
+      size: A4;
+      margin: 18mm 16mm;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>WCNC 2026 評委問題回覆整理（繁體中文）</h1>
+    <div class="meta">依據中文論文《智慧物聯網下整合無人機與智慧反射板之通訊效能優化：深度強化學習方法》與英文論文 paper_en_journal.pdf 整理</div>
+  </header>
+
+  <main>
+    <div class="panel">
+      <strong>目標</strong>：彙整評委問題、以繁體中文回覆並說明原因，標註論文來源（中文論文 + 英文論文），並附上新增補強實驗與圖。
+    </div>
+
+    <h2>評委問題總結（中文）</h2>
+    <ul>
+      <li>Whitening 方法缺乏細節。</li>
+      <li>虛擬用戶補齊的合理性與對效能/策略偏移的影響未分析。</li>
+      <li>缺少理論分析或收斂性保證。</li>
+      <li>UAV 只在固定停留點、固定高度，未討論連續軌跡。</li>
+      <li>缺乏複雜度/可擴展性分析（L 增大時的訓練與推論成本）。</li>
+      <li>Baseline 不足，僅與 DRL 與 random phase 比較。</li>
+      <li>圖中文字過小。</li>
+      <li>參數敏感度（RIS 元件數 L、相位量化 bit 數）分析不足。</li>
+    </ul>
+
+    <h2>評委原文與中文翻譯</h2>
+    <div class="panel">
+      <p>以下收錄評委原文，並提供繁體中文翻譯，便於對照。</p>
+    </div>
+
+    <div class="qa">
+      <div class="label">WCNC 2026-Review 1</div>
+      <h3>英文原文</h3>
+      <div class="panel">
+        <p><strong>Weak Aspects:</strong> The details of the whitening method and the virtual user complementation mechanism should be provided.</p>
+        <p><strong>Recommended Changes:</strong></p>
+        <ul>
+          <li>Please provide more details about the whitening method for the state vector.</li>
+          <li>The virtual user complementation mechanism places virtual users at the location of the nearest real user to the RIS. Please analyze the impact of this simplified modeling approach on sum-rate performance.</li>
+        </ul>
+      </div>
+      <h3>繁體中文翻譯</h3>
+      <div class="panel">
+        <p><strong>弱點：</strong>應補充狀態向量 whitening 方法與虛擬用戶補齊機制的細節。</p>
+        <p><strong>建議修改：</strong></p>
+        <ul>
+          <li>請提供狀態向量 whitening 方法的更多細節。</li>
+          <li>虛擬用戶補齊機制將虛擬用戶放在距 RIS 最近的真實用戶位置，請分析此簡化模型對 sum‑rate 的影響。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="label">WCNC 2026-Review 2</div>
+      <h3>英文原文</h3>
+      <div class="panel">
+        <p><strong>Weak Aspects:</strong> Limited analytical insight; fixed UAV altitude and anchor points; computational complexity discussion is absent; baseline selection limited to DRL-based baselines and random phase.</p>
+        <p><strong>Recommended Changes:</strong></p>
+        <ul>
+          <li>Add complexity and scalability analysis (training time, convergence speed, computational overhead as RIS size and user density increase).</li>
+          <li>Broaden the scenario scope (variable UAV altitude or continuous UAV trajectory).</li>
+          <li>Figure text is too small.</li>
+        </ul>
+      </div>
+      <h3>繁體中文翻譯</h3>
+      <div class="panel">
+        <p><strong>弱點：</strong>缺乏理論分析；UAV 高度與停留點固定；缺少計算複雜度與可擴展性討論；baseline 僅限 DRL 與 random phase。</p>
+        <p><strong>建議修改：</strong></p>
+        <ul>
+          <li>補充複雜度與可擴展性分析（訓練時間、收斂速度、計算負擔）。</li>
+          <li>擴展情境（變動高度或連續軌跡）。</li>
+          <li>圖中文字過小。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="label">WCNC 2026-Review 3</div>
+      <h3>英文原文</h3>
+      <div class="panel">
+        <p><strong>Weak Aspects:</strong> The impact of the virtual user completion mechanism on the performance is not discussed.</p>
+        <p><strong>Concerns:</strong></p>
+        <ul>
+          <li>Analyze the impact of real user ratio on convergence and final performance.</li>
+          <li>Explicitly state UAV trajectory optimization as future work and discuss challenges.</li>
+          <li>Provide more sensitivity analysis on RIS element count (L) and phase quantization bits (if considered).</li>
+        </ul>
+      </div>
+      <h3>繁體中文翻譯</h3>
+      <div class="panel">
+        <p><strong>弱點：</strong>未討論虛擬用戶補齊機制對效能的影響。</p>
+        <p><strong>建議：</strong></p>
+        <ul>
+          <li>分析真實用戶比例對收斂與最終效能的影響。</li>
+          <li>在未來工作明確列出 UAV 軌跡最佳化並說明挑戰。</li>
+          <li>補充 RIS 元件數 L 與相位量化 bit 數（若有）之敏感度分析。</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>逐點回覆（含原因與來源）</h2>
+
+    <div class="qa">
+      <div class="label">Review 1 - Q1</div>
+      <h3>Whitening 方法細節</h3>
+      <p><strong>回覆：</strong>本研究對每個時間步的<strong>整個狀態向量</strong>做標準化，並非以 replay buffer 逐維統計。實作上為 zero-mean / unit-variance 的向量正規化：若標準差為 0，則僅做去均值，避免數值不穩。</p>
+      <p><strong>原因說明：</strong>狀態向量包含動作、功率與通道資訊，尺度差異大；逐步白化可提升學習穩定性與收斂速度。</p>
+      <div class="cite">
+        來源：中文論文 p.27（狀態向量 Whitening）；英文論文 p.5（whitening 描述）；程式實作 `utils.py`、`main.py`、`train_new_algorithms.py`。
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="label">Review 1 - Q2 / Review 3 - Q1</div>
+      <h3>虛擬用戶補齊機制的合理性與效能影響</h3>
+      <p><strong>回覆：</strong>補齊機制的目的在於維持固定維度的狀態/動作空間，避免因用戶數變化造成訓練不穩定。虛擬用戶位置採「距 RIS 最近真實用戶」的複製策略，以最小化通道分布偏移。新增的推論實驗顯示：在 K=4、L=64 的 SAC-mismatch 模型下，Kreal/K 從 1.0 降到 0.25，平均 Sum‑Rate 變化在 ±1% 內，策略偏移可忽略。</p>
+      <p><strong>原因說明：</strong>使用「最接近 RIS 的真實用戶通道」可近似保留群體尺度與主導通道特性，維持決策穩定性。</p>
+      <div class="cite">
+        來源：中文論文 p.28（Kreal 補齊描述）；英文論文 p.5（K−Kreal 虛擬用戶規則）；新增實驗 `outputs/review/virtual_user_ratio/virtual_user_ratio_results.json`。
+      </div>
+      <div class="figure">
+        <img src="images/virtual_user_ratio_plot.png" alt="虛擬用戶比例影響" />
+        <div class="caption">圖 1. 虛擬用戶比例影響（SAC‑mismatch，K=4，L=64）。</div>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="label">Review 2 - Q3</div>
+      <h3>缺乏理論分析 / 收斂性保證</h3>
+      <p><strong>回覆：</strong>Beta‑Space Exploration SAC 為探索增強型 heuristic，目前以實驗驗證為主，尚未提供嚴格收斂性證明。</p>
+      <p><strong>原因說明：</strong>此類 off‑policy 方法的理論收斂分析通常需要 stochastic approximation / two‑timescale 分析框架，超出本篇論文篇幅。建議在未來工作明確列出此方向。</p>
+      <div class="cite">來源：英文論文相關討論脈絡與方法定位可參考 p.1–4；未來工作建議補寫於結論或 Future Work。</div>
+    </div>
+
+    <div class="qa">
+      <div class="label">Review 2 - Q4 / Review 3 - Q2</div>
+      <h3>UAV 高度與停留點固定、未含軌跡最佳化</h3>
+      <p><strong>回覆：</strong>本研究聚焦於 UAV 抵達停留點後的靜態資源最佳化（anchor‑point‑based）。UAV 高度固定為 15 m，僅在候選停留點間移動，並未做連續軌跡/高度調整。</p>
+      <p><strong>原因說明：</strong>將 UAV 軌跡納入會導致多時間尺度與高耦合的非凸問題，狀態維度顯著擴張；此部分列為 Future Work，建議以 hierarchical DRL 處理。</p>
+      <div class="cite">來源：中文論文 p.22（固定高度與停留點場景）；英文論文 p.3（固定高度 15 m）與 p.4（stationary at anchor point）。</div>
+    </div>
+
+    <div class="qa">
+      <div class="label">Review 2 - Q5 / Review 3 - Q3</div>
+      <h3>計算複雜度與可擴展性</h3>
+      <p><strong>回覆：</strong>新增量測推論延遲與環境步驟延遲（CPU）。L=32 時推論約 0.70 ms、L=64 時約 2.81 ms，顯示隨 L 增加呈近線性成長；仍維持毫秒級推論。</p>
+      <p><strong>原因說明：</strong>Actor 參數量隨輸入維度增加，計算量近似線性增長；可作為 scalability 的定量佐證。</p>
+      <div class="cite">來源：新增實驗 `outputs/review/scalability/scalability_timing.csv`、`outputs/review/scalability/scalability_timing.png`。</div>
+      <div class="figure">
+        <img src="images/scalability_timing.png" alt="Scalability timing" />
+        <div class="caption">圖 2. L=32/64 推論延遲與環境步驟延遲（CPU）。</div>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="label">Review 2 - Q6</div>
+      <h3>Baseline 選擇不足</h3>
+      <p><strong>回覆：</strong>本研究已比較 SAC/DDPG/PPO 與 Random Phase。傳統 alternating optimization 在 PDA + CSI mismatch 情境下需要精確 CSI 與高計算成本，故本文將其列為未來工作與限制。</p>
+      <p><strong>原因說明：</strong>高維 RIS 相位與 BS 波束成形的聯合最佳化為非凸混合整數問題，傳統解法成本高且不易在即時場景使用。</p>
+      <div class="cite">來源：英文論文 p.7（random phase baseline 與比較）；中文論文相同段落的 baseline 比較與結果分析。</div>
+    </div>
+
+    <div class="qa">
+      <div class="label">Review 2 - Q7</div>
+      <h3>圖中文字過小</h3>
+      <p><strong>回覆：</strong>已放大訓練曲線圖，適合直接替換論文圖檔。</p>
+      <div class="cite">放大圖檔：`outputs/review/figures_enlarged/training_curves_L16_enlarged.png`、`outputs/review/figures_enlarged/training_curves_L32_enlarged.png`、`outputs/review/figures_enlarged/training_curves_L64_enlarged.png`。</div>
+      <div class="two-col">
+        <div class="figure">
+          <img src="images/training_curves_L32_enlarged.png" alt="Training curves L32 enlarged" />
+          <div class="caption">圖 3. 訓練曲線 L=32 放大版。</div>
+        </div>
+        <div class="figure">
+          <img src="images/training_curves_L64_enlarged.png" alt="Training curves L64 enlarged" />
+          <div class="caption">圖 4. 訓練曲線 L=64 放大版。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa">
+      <div class="label">Review 3 - Q3</div>
+      <h3>參數敏感度分析（RIS 元件數 L、相位量化）</h3>
+      <p><strong>回覆：</strong>論文已提供 L=16/32/64 的收斂曲線與效能比較，可作為 RIS 元件數敏感度分析；相位量化 bit 數尚未納入，建議列為後續擴展實驗。</p>
+      <p><strong>原因說明：</strong>L 增加可提升波束成形增益，實驗中已顯示效能與 L 的正相關趨勢；量化位元需額外硬體建模與實驗設計。</p>
+      <div class="cite">來源：英文論文 p.7（L 增加效能上升）；中文論文 p.29–30（L=16/32/64 設定與收斂分析）。</div>
+    </div>
+
+    <h2>PDF 輸出建議</h2>
+    <div class="panel">
+      <p>本 HTML 已設 A4 版面，建議使用瀏覽器開啟後「列印 → 另存為 PDF」。</p>
+      <p>若需要自動輸出 PDF，可使用 Python 工具（如 WeasyPrint）將本檔轉成 PDF。</p>
+    </div>
+  </main>
+</body>
+</html>

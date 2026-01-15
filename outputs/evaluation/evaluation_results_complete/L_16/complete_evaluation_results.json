@@ -1,0 +1,43 @@
+{
+  "individual_results": {
+    "random_phase": {
+      "algorithm": "random_phase",
+      "episodes": 3,
+      "average": 186.6786184231506,
+      "std": 4.972204973616734,
+      "max": 193.39490039351722,
+      "min": 181.51689743686262,
+      "all_rewards": [
+        193.39490039351722,
+        181.51689743686262,
+        185.12405743907198
+      ],
+      "ris_position_rewards": {
+        "0": [
+          193.39490039351722
+        ],
+        "1": [
+          181.51689743686262
+        ],
+        "2": [
+          185.12405743907198
+        ]
+      }
+    }
+  },
+  "performance_ranking": [
+    [
+      "random_phase",
+      {
+        "average": 186.6786184231506,
+        "std": 4.972204973616734
+      }
+    ]
+  ],
+  "evaluation_config": {
+    "num_episodes": 3,
+    "L_value": 16,
+    "beta_min": 0.3,
+    "timestamp": "2025-07-24T13:46:30.415446"
+  }
+}

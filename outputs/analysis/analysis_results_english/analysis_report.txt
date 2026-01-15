@@ -1,0 +1,75 @@
+New Algorithm RIS Training Results Analysis Report
+============================================================
+Generation Time: 2025-07-31 06:50:07
+
+Analysis Overview:
+- Total analyzed training results: 16
+- Covering 4 different L values: [4, 16, 32, 64]
+- Including algorithms: ['Beta_Space_Exp_SAC_mismatch', 'DDPG_mismatch', 'PPO_mismatch', 'SAC_golden', 'SAC_mismatch']
+
+Performance Ranking for Each L Value:
+------------------------------
+
+L = 4:
+  1. Beta-Space SAC: 5.0592
+
+L = 16:
+  1. SAC (Golden): 8.3731
+  2. SAC (Mismatch): 5.8048
+  3. Beta-Space SAC: 5.4821
+  4. DDPG: 2.5634
+  5. PPO: 1.8011
+  Performance gap: 6.5720 (78.5%)
+
+L = 32:
+  1. Beta-Space SAC: 9.4141
+  2. SAC (Mismatch): 7.9818
+  3. SAC (Golden): 7.3013
+  4. PPO: 1.9329
+  5. DDPG: 1.7144
+  Performance gap: 7.6996 (81.8%)
+
+L = 64:
+  1. SAC (Golden): 7.4854
+  2. SAC (Mismatch): 5.6953
+  3. Beta-Space SAC: 5.3139
+  4. DDPG: 1.8874
+  5. PPO: 1.7811
+  Performance gap: 5.7043 (76.2%)
+
+
+Overall Algorithm Performance Analysis:
+------------------------------
+1. SAC (Golden): 7.7200 (average)
+2. SAC (Mismatch): 6.4940 (average)
+3. Beta-Space SAC: 6.3173 (average)
+4. DDPG: 2.0551 (average)
+5. PPO: 1.8384 (average)
+
+
+Convergence Analysis:
+------------------------------
+
+L = 16:
+  Beta-Space SAC: ~23 steps to converge
+  DDPG: ~1 steps to converge
+  PPO: ~1 steps to converge
+  SAC (Golden): ~5550 steps to converge
+  SAC (Mismatch): ~2907 steps to converge
+
+L = 32:
+  Beta-Space SAC: ~6896 steps to converge
+  DDPG: ~0 steps to converge
+  PPO: ~4 steps to converge
+  SAC (Golden): ~6057 steps to converge
+  SAC (Mismatch): ~8186 steps to converge
+
+L = 4:
+  Beta-Space SAC: ~275 steps to converge
+
+L = 64:
+  Beta-Space SAC: ~392 steps to converge
+  DDPG: ~1 steps to converge
+  PPO: ~1 steps to converge
+  SAC (Golden): ~10409 steps to converge
+  SAC (Mismatch): ~4489 steps to converge

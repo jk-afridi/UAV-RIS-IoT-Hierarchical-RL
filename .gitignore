@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+.env
+
+# Model weights (keep folder, ignore contents)
+Models/*
+!Models/.gitkeep

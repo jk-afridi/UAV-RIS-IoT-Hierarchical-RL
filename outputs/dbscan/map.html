@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLOS Test Environment 3D Model</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0f4c75 0%, #3282b8 100%);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+        .controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            max-width: 320px;
+        }
+        .legend {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 12px;
+            backdrop-filter: blur(10px);
+            max-width: 300px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        .legend-color {
+            width: 20px;
+            height: 15px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+        .title {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px 25px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .toggle-btn {
+            background: #3282b8;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px 0;
+            font-size: 12px;
+        }
+        .toggle-btn:hover {
+            background: #2c6e95;
+        }
+        .parameters {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: white;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 11px;
+            backdrop-filter: blur(10px);
+            max-width: 280px;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <strong>🎮 NLOS Environment Controls</strong><br><br>
+        <strong>📱 Navigation:</strong><br>
+        Mouse Drag: Rotate View<br>
+        Scroll Wheel: Zoom In/Out<br>
+        Right Click + Drag: Pan<br><br>
+        <strong>🔧 Display Options:</strong><br>
+        <button class="toggle-btn" onclick="toggleVoronoi()">📐 Toggle Voronoi Diagram</button><br>
+        <button class="toggle-btn" onclick="toggleConnections()">📡 Toggle Communication Links</button><br>
+        <button class="toggle-btn" onclick="toggleClusters()">👥 Toggle User Clusters</button><br>
+        <button class="toggle-btn" onclick="toggleLabels()">🏷️ Toggle RIS Labels</button>
+    </div>
+    
+    <div class="legend">
+        <strong>📊 NLOS Test Environment Components</strong><br><br>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #e74c3c;"></div>
+            🗼 Base Station (BS) - Center Position
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #3498db;"></div>
+            🚁 RIS Hovering Points (22 Locations)
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #2ecc71;"></div>
+            📱 IoT Devices (80 Units, NLOS)
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #f39c12;"></div>
+            🏢 Building Obstacles (NLOS Blockage)
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #9b59b6;"></div>
+            👥 DBSCAN User Clusters
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #1abc9c;"></div>
+            📐 Voronoi Candidate Regions
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #ff6b9d;"></div>
+            📡 RIS-IoT Service Links
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #e74c3c;"></div>
+            🔗 BS-RIS Backhaul Links
+        </div>
+    </div>
+
+    <div class="title">
+        📡 NLOS Test Environment Layout<br>
+        <span style="font-size: 14px;">BS + 22 RIS Hovering Points + 80 IoT Devices</span><br>
+        <span style="font-size: 12px;">Based on DBSCAN Clustering & Voronoi Diagram</span>
+    </div>
+
+    <div class="parameters">
+        <strong>📋 System Parameters</strong><br><br>
+        <strong>Environment:</strong><br>
+        • Area: 100×100 m²<br>
+        • Total IoT Devices: 80<br>
+        • RIS Hovering Points: 22<br>
+        • Cluster Size K: 4 users<br><br>
+        <strong>Hardware:</strong><br>
+        • BS Antennas (M): 4<br>
+        • RIS Elements (L): 16/32/64<br>
+        • UAV/RIS Height: 15 m<br>
+        • BS Height: 15 m<br><br>
+        <strong>Algorithms:</strong><br>
+        • DBSCAN Clustering<br>
+        • Voronoi Diagram<br>
+        • Beta-Space SAC DRL
+    </div>
+
+    <script>
+        // Scene Setup
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x2c3e50);
+        scene.fog = new THREE.Fog(0x2c3e50, 80, 200);
+
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        // Lighting Setup
+        const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(50, 50, 50);
+        directionalLight.castShadow = true;
+        directionalLight.shadow.mapSize.width = 2048;
+        directionalLight.shadow.mapSize.height = 2048;
+        directionalLight.shadow.camera.left = -60;
+        directionalLight.shadow.camera.right = 60;
+        directionalLight.shadow.camera.top = 60;
+        directionalLight.shadow.camera.bottom = -60;
+        scene.add(directionalLight);
+
+        // Point light enhancement
+        const pointLight = new THREE.PointLight(0x3498db, 0.5, 100);
+        pointLight.position.set(0, 20, 0);
+        scene.add(pointLight);
+
+        // Environment grid - 100x100m
+        const gridHelper = new THREE.GridHelper(100, 20, 0x34495e, 0x2c3e50);
+        gridHelper.position.y = 0.1;
+        scene.add(gridHelper);
+
+        // Ground plane
+        const groundGeometry = new THREE.PlaneGeometry(100, 100);
+        const groundMaterial = new THREE.MeshLambertMaterial({ 
+            color: 0x34495e,
+            transparent: true,
+            opacity: 0.8
+        });
+        const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+        ground.rotation.x = -Math.PI / 2;
+        ground.receiveShadow = true;
+        scene.add(ground);
+
+        // Base Station (BS) - Center position (50, 50, 15)
+        function createBaseStation() {
+            const group = new THREE.Group();
+            
+            // Main tower
+            const towerGeometry = new THREE.CylinderGeometry(0.8, 1.2, 15, 8);
+            const towerMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0xe74c3c,
+                shininess: 100
+            });
+            const tower = new THREE.Mesh(towerGeometry, towerMaterial);
+            tower.position.y = 7.5;
+            tower.castShadow = true;
+            group.add(tower);
+
+            // Antenna Array (M=4)
+            for (let i = 0; i < 4; i++) {
+                const antennaGeometry = new THREE.BoxGeometry(0.3, 4, 0.3);
+                const antennaMaterial = new THREE.MeshPhongMaterial({ color: 0xffffff });
+                const antenna = new THREE.Mesh(antennaGeometry, antennaMaterial);
+                const angle = (i * Math.PI) / 2;
+                antenna.position.x = Math.cos(angle) * 2.5;
+                antenna.position.z = Math.sin(angle) * 2.5;
+                antenna.position.y = 17;
+                antenna.castShadow = true;
+                group.add(antenna);
+            }
+
+            // Base platform
+            const baseGeometry = new THREE.CylinderGeometry(3, 3, 2, 8);
+            const baseMaterial = new THREE.MeshPhongMaterial({ color: 0xc0392b });
+            const base = new THREE.Mesh(baseGeometry, baseMaterial);
+            base.position.y = 1;
+            base.castShadow = true;
+            group.add(base);
+
+            // BS identifier ring
+            const textGeometry = new THREE.RingGeometry(1, 2, 8);
+            const textMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0xff0000,
+                transparent: true,
+                opacity: 0.7
+            });
+            const textRing = new THREE.Mesh(textGeometry, textMaterial);
+            textRing.rotation.x = -Math.PI / 2;
+            textRing.position.y = 0.2;
+            group.add(textRing);
+
+            return group;
+        }
+
+        // RIS Hovering Points - Based on 22 positions from paper
+        function createRISStation(id) {
+            const group = new THREE.Group();
+            
+            // RIS platform
+            const platformGeometry = new THREE.CylinderGeometry(1.5, 1.5, 0.3, 6);
+            const platformMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0x3498db,
+                transparent: true,
+                opacity: 0.8
+            });
+            const platform = new THREE.Mesh(platformGeometry, platformMaterial);
+            platform.position.y = 15.15;
+            platform.castShadow = true;
+            group.add(platform);
+
+            // RIS panel
+            const panelGeometry = new THREE.PlaneGeometry(2.5, 2.5);
+            const panelMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0x2980b9,
+                transparent: true,
+                opacity: 0.9,
+                side: THREE.DoubleSide
+            });
+            const panel = new THREE.Mesh(panelGeometry, panelMaterial);
+            panel.position.y = 15.5;
+            panel.rotation.x = Math.PI / 8;
+            group.add(panel);
+
+            // Support column
+            const supportGeometry = new THREE.CylinderGeometry(0.1, 0.1, 15, 8);
+            const supportMaterial = new THREE.MeshPhongMaterial({ color: 0x2c3e50 });
+            const support = new THREE.Mesh(supportGeometry, supportMaterial);
+            support.position.y = 7.5;
+            support.castShadow = true;
+            group.add(support);
+
+            // ID label
+            const labelGeometry = new THREE.SphereGeometry(0.3, 8, 6);
+            const labelMaterial = new THREE.MeshBasicMaterial({ color: 0xf1c40f });
+            const label = new THREE.Mesh(labelGeometry, labelMaterial);
+            label.position.y = 16.5;
+            group.add(label);
+
+            // Add text label
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = 64;
+            canvas.height = 64;
+            context.fillStyle = '#000000';
+            context.fillRect(0, 0, 64, 64);
+            context.fillStyle = '#ffffff';
+            context.font = 'Bold 20px Arial';
+            context.textAlign = 'center';
+            context.fillText(`R${id}`, 32, 40);
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+            const sprite = new THREE.Sprite(spriteMaterial);
+            sprite.position.y = 17.5;
+            sprite.scale.set(2, 2, 1);
+            group.add(sprite);
+
+            return group;
+        }
+
+        // IoT Device
+        function createIoTDevice(clusterId) {
+            const group = new THREE.Group();
+            
+            // Device body
+            const deviceGeometry = new THREE.BoxGeometry(0.6, 1.2, 0.6);
+            const clusterColors = [
+                0x2ecc71, 0xe67e22, 0x9b59b6, 0x1abc9c, 0xf39c12,
+                0xe74c3c, 0x3498db, 0x95a5a6, 0x27ae60, 0xd35400,
+                0x8e44ad, 0x16a085, 0x2980b9, 0xc0392b, 0xd68910,
+                0x7d3c98, 0x138d75, 0x1f618d, 0xa93226, 0xb7950b
+            ];
+            const deviceMaterial = new THREE.MeshPhongMaterial({ 
+                color: clusterColors[clusterId % clusterColors.length]
+            });
+            const device = new THREE.Mesh(deviceGeometry, deviceMaterial);
+            device.position.y = 0.6;
+            device.castShadow = true;
+            group.add(device);
+
+            // Antenna
+            const antennaGeometry = new THREE.CylinderGeometry(0.03, 0.03, 1.5, 8);
+            const antennaMaterial = new THREE.MeshPhongMaterial({ color: 0x2c3e50 });
+            const antenna = new THREE.Mesh(antennaGeometry, antennaMaterial);
+            antenna.position.y = 1.95;
+            group.add(antenna);
+
+            // Cluster identifier ring
+            const ringGeometry = new THREE.RingGeometry(0.8, 1.2, 8);
+            const ringMaterial = new THREE.MeshBasicMaterial({ 
+                color: clusterColors[clusterId % clusterColors.length],
+                transparent: true,
+                opacity: 0.3
+            });
+            const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+            ring.rotation.x = -Math.PI / 2;
+            ring.position.y = 0.1;
+            group.add(ring);
+
+            return group;
+        }
+
+        // Building - Based on irregular shapes from paper figure
+        function createBuilding(vertices, height) {
+            const shape = new THREE.Shape();
+            if (vertices.length > 0) {
+                shape.moveTo(vertices[0].x, vertices[0].y);
+                for (let i = 1; i < vertices.length; i++) {
+                    shape.lineTo(vertices[i].x, vertices[i].y);
+                }
+                shape.lineTo(vertices[0].x, vertices[0].y);
+            }
+
+            const extrudeSettings = {
+                depth: height,
+                bevelEnabled: false
+            };
+
+            const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+            const material = new THREE.MeshLambertMaterial({ 
+                color: 0xf39c12,
+                transparent: true,
+                opacity: 0.8
+            });
+            const building = new THREE.Mesh(geometry, material);
+            building.rotation.x = -Math.PI / 2;
+            building.position.y = 0;
+            building.castShadow = true;
+            building.receiveShadow = true;
+            return building;
+        }
+
+        // Create scene elements based on paper Figure 5.4
+        
+        // Base Station position (center)
+        const bs = createBaseStation();
+        bs.position.set(0, 0, 0); // Relative to 100x100 scene center
+        scene.add(bs);
+
+        // 22 RIS hovering point positions (based on Voronoi diagram generated candidates)
+        const risPositions = [
+            // Outer ring hovering points
+            [-35, 0, -35], [-20, 0, -40], [0, 0, -45], [20, 0, -40], [35, 0, -35],
+            [40, 0, -20], [45, 0, 0], [40, 0, 20], [35, 0, 35],
+            [20, 0, 40], [0, 0, 45], [-20, 0, 40], [-35, 0, 35],
+            [-40, 0, 20], [-45, 0, 0], [-40, 0, -20],
+            // Inner ring hovering points
+            [-20, 0, -20], [20, 0, -20], [20, 0, 20], [-20, 0, 20],
+            // Middle ring hovering points
+            [-30, 0, 0], [30, 0, 0]
+        ];
+
+        const risStations = [];
+        risPositions.forEach((pos, index) => {
+            const ris = createRISStation(index + 1);
+            ris.position.set(pos[0], pos[1], pos[2]);
+            risStations.push(ris);
+            scene.add(ris);
+        });
+
+        // Building obstacles (based on irregular polygons from paper figure)
+        const buildingData = [
+            {
+                vertices: [
+                    {x: -25, y: -25}, {x: -15, y: -25}, {x: -15, y: -10}, 
+                    {x: -20, y: -5}, {x: -25, y: -10}
+                ],
+                height: 12
+            },
+            {
+                vertices: [
+                    {x: 15, y: -30}, {x: 30, y: -30}, {x: 30, y: -15}, 
+                    {x: 25, y: -10}, {x: 15, y: -15}
+                ],
+                height: 15
+            },
+            {
+                vertices: [
+                    {x: -35, y: 10}, {x: -20, y: 10}, {x: -20, y: 25}, {x: -35, y: 25}
+                ],
+                height: 10
+            },
+            {
+                vertices: [
+                    {x: 20, y: 15}, {x: 35, y: 15}, {x: 40, y: 25}, 
+                    {x: 30, y: 30}, {x: 20, y: 25}
+                ],
+                height: 18
+            },
+            {
+                vertices: [
+                    {x: -10, y: -5}, {x: 10, y: -5}, {x: 10, y: 5}, {x: -10, y: 5}
+                ],
+                height: 8
+            }
+        ];
+
+        buildingData.forEach(data => {
+            const building = createBuilding(data.vertices, data.height);
+            scene.add(building);
+        });
+
+        // 80 IoT devices (based on DBSCAN clustering results)
+        const allIotPositions = [];
+        const clusterAssignments = [];
+
+        // Create DBSCAN-style cluster distribution
+        for (let cluster = 0; cluster < 20; cluster++) {
+            const clusterCenter = {
+                x: (Math.random() - 0.5) * 80,
+                z: (Math.random() - 0.5) * 80
+            };
+            
+            // Ensure not inside buildings and away from base station
+            let validPosition = false;
+            let attempts = 0;
+            while (!validPosition && attempts < 100) {
+                clusterCenter.x = (Math.random() - 0.5) * 80;
+                clusterCenter.z = (Math.random() - 0.5) * 80;
+                
+                // Check if too close to BS
+                const distanceToBS = Math.sqrt(clusterCenter.x * clusterCenter.x + clusterCenter.z * clusterCenter.z);
+                if (distanceToBS > 15) {
+                    validPosition = true;
+                }
+                attempts++;
+            }
+
+            // 4 devices per cluster
+            for (let i = 0; i < 4; i++) {
+                const devicePos = [
+                    clusterCenter.x + (Math.random() - 0.5) * 8, // Within DBSCAN radius
+                    0,
+                    clusterCenter.z + (Math.random() - 0.5) * 8
+                ];
+                allIotPositions.push(devicePos);
+                clusterAssignments.push(cluster);
+            }
+        }
+
+        const iotDevices = [];
+        allIotPositions.forEach((pos, index) => {
+            const iot = createIoTDevice(clusterAssignments[index]);
+            iot.position.set(pos[0], pos[1], pos[2]);
+            iotDevices.push(iot);
+            scene.add(iot);
+        });
+
+        // Voronoi diagram visualization (toggleable)
+        const voronoiLines = [];
+        function createVoronoiVisualization() {
+            // Simplified Voronoi boundary lines
+            const voronoiEdges = [
+                [[-50, 0, -50], [50, 0, -50]],
+                [[50, 0, -50], [50, 0, 50]],
+                [[50, 0, 50], [-50, 0, 50]],
+                [[-50, 0, 50], [-50, 0, -50]],
+                // Internal division lines
+                [[-25, 0, -50], [-25, 0, 50]],
+                [[25, 0, -50], [25, 0, 50]],
+                [[-50, 0, -25], [50, 0, -25]],
+                [[-50, 0, 25], [50, 0, 25]]
+            ];
+
+            voronoiEdges.forEach(edge => {
+                const geometry = new THREE.BufferGeometry();
+                const positions = new Float32Array([
+                    edge[0][0], edge[0][1], edge[0][2],
+                    edge[1][0], edge[1][1], edge[1][2]
+                ]);
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                
+                const material = new THREE.LineBasicMaterial({ 
+                    color: 0x1abc9c,
+                    transparent: true,
+                    opacity: 0.4
+                });
+                
+                const line = new THREE.Line(geometry, material);
+                voronoiLines.push(line);
+                scene.add(line);
+            });
+        }
+
+        // Communication links (toggleable)
+        const communicationLinks = [];
+        function createCommunicationLinks() {
+            // BS to all RIS links
+            risPositions.forEach(risPos => {
+                const geometry = new THREE.BufferGeometry();
+                const positions = new Float32Array([
+                    0, 15, 0, // BS position
+                    risPos[0], 15, risPos[2] // RIS position
+                ]);
+                geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                
+                const material = new THREE.LineBasicMaterial({ 
+                    color: 0xe74c3c,
+                    transparent: true,
+                    opacity: 0.6
+                });
+                
+                const link = new THREE.Line(geometry, material);
+                communicationLinks.push(link);
+                scene.add(link);
+            });
+
+            // RIS to nearby IoT device links (selective display)
+            for (let i = 0; i < Math.min(risPositions.length, 10); i++) {
+                const risPos = risPositions[i];
+                const nearbyDevices = allIotPositions.filter((iotPos, index) => {
+                    const distance = Math.sqrt(
+                        Math.pow(iotPos[0] - risPos[0], 2) + 
+                        Math.pow(iotPos[2] - risPos[2], 2)
+                    );
+                    return distance < 20; // Within 20m range
+                }).slice(0, 4); // Max 4 devices
+
+                nearbyDevices.forEach(iotPos => {
+                    const geometry = new THREE.BufferGeometry();
+                    const positions = new Float32Array([
+                        risPos[0], 15, risPos[2], // RIS position
+                        iotPos[0], 1, iotPos[2] // IoT position
+                    ]);
+                    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+                    
+                    const material = new THREE.LineBasicMaterial({ 
+                        color: 0xff6b9d,
+                        transparent: true,
+                        opacity: 0.5
+                    });
+                    
+                    const link = new THREE.Line(geometry, material);
+                    communicationLinks.push(link);
+                    scene.add(link);
+                });
+            }
+        }
+
+        // Initialize visualization elements
+        createVoronoiVisualization();
+        createCommunicationLinks();
+
+        // Display control functions
+        let showVoronoi = true;
+        let showConnections = true;
+        let showClusters = true;
+        let showLabels = true;
+
+        window.toggleVoronoi = function() {
+            showVoronoi = !showVoronoi;
+            voronoiLines.forEach(line => {
+                line.visible = showVoronoi;
+            });
+        };
+
+        window.toggleConnections = function() {
+            showConnections = !showConnections;
+            communicationLinks.forEach(link => {
+                link.visible = showConnections;
+            });
+        };
+
+        window.toggleClusters = function() {
+            showClusters = !showClusters;
+            iotDevices.forEach(device => {
+                device.children[2].visible = showClusters; // Cluster identifier ring
+            });
+        };
+
+        window.toggleLabels = function() {
+            showLabels = !showLabels;
+            risStations.forEach(station => {
+                station.children[4].visible = showLabels; // Text label sprite
+            });
+        };
+
+        // Camera controls
+        let mouseDown = false;
+        let mouseX = 0;
+        let mouseY = 0;
+        let cameraDistance = 80;
+        let cameraAngleX = 0.4;
+        let cameraAngleY = 0.8;
+
+        function updateCamera() {
+            camera.position.x = Math.cos(cameraAngleY) * Math.cos(cameraAngleX) * cameraDistance;
+            camera.position.y = Math.sin(cameraAngleX) * cameraDistance + 25;
+            camera.position.z = Math.sin(cameraAngleY) * Math.cos(cameraAngleX) * cameraDistance;
+            camera.lookAt(0, 5, 0);
+        }
+
+        renderer.domElement.addEventListener('mousedown', (e) => {
+            mouseDown = true;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        renderer.domElement.addEventListener('mousemove', (e) => {
+            if (mouseDown) {
+                const deltaX = e.clientX - mouseX;
+                const deltaY = e.clientY - mouseY;
+                
+                if (e.buttons === 1) { // Left click
+                    cameraAngleY += deltaX * 0.01;
+                    cameraAngleX += deltaY * 0.01;
+                    cameraAngleX = Math.max(-Math.PI/2 + 0.1, Math.min(Math.PI/2 - 0.1, cameraAngleX));
+                }
+                
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            }
+        });
+
+        renderer.domElement.addEventListener('mouseup', () => {
+            mouseDown = false;
+        });
+
+        renderer.domElement.addEventListener('wheel', (e) => {
+            cameraDistance += e.deltaY * 0.1;
+            cameraDistance = Math.max(30, Math.min(150, cameraDistance));
+        });
+
+        // Animation loop
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.01;
+
+            // RIS panel slight rotation
+            risStations.forEach((ris, index) => {
+                ris.children[1].rotation.y = Math.sin(time + index * 0.5) * 0.1;
+            });
+
+            // IoT device status indicator blinking
+            iotDevices.forEach((device, index) => {
+                const intensity = 0.5 + 0.5 * Math.sin(time * 2 + index * 0.3);
+                device.children[0].material.emissive.setHex(
+                    device.children[0].material.color.getHex()
+                );
+                device.children[0].material.emissiveIntensity = intensity * 0.2;
+            });
+
+            // Communication link dynamic effects
+            communicationLinks.forEach((link, index) => {
+                if (link.visible) {
+                    const opacity = 0.3 + 0.3 * Math.sin(time * 3 + index * 0.2);
+                    link.material.opacity = opacity;
+                }
+            });
+
+            updateCamera();
+            renderer.render(scene, camera);
+        }
+
+        // Responsive design
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Initialize
+        updateCamera();
+        animate();
+    </script>
+</body>
+</html>
