@@ -173,13 +173,16 @@ class GaussianPolicy(nn.Module):
 
     def compute_power(self, action):
         """
-        計算並歸一化發射功率
+        計算並歸一化發射功率 (Optimized with pure PyTorch)
         """
-        G_real = action[:, :self.M ** 2].cpu().data.numpy()
-        G_imag = action[:, self.M ** 2:2 * self.M ** 2].cpu().data.numpy()
-        G = G_real.reshape(G_real.shape[0], self.M, self.K) + 1j * G_imag.reshape(G_imag.shape[0], self.M, self.K)
-        GG_H = np.matmul(G, np.transpose(G.conj(), (0, 2, 1)))
-        current_power_t = torch.sqrt(torch.from_numpy(np.real(np.trace(GG_H, axis1=1, axis2=2)))).reshape(-1, 1).to(self.device)
+        G_real = action[:, :self.M ** 2]
+        G_imag = action[:, self.M ** 2:2 * self.M ** 2]
+        
+        # trace(G @ G^H) is exactly the squared Frobenius norm (sum of squared elements)
+        power_real = torch.sum(G_real ** 2, dim=1)
+        power_imag = torch.sum(G_imag ** 2, dim=1)
+        
+        current_power_t = torch.sqrt(power_real + power_imag).reshape(-1, 1)
         return current_power_t
 
     def compute_phase(self, action):

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-智慧城市RIS環境
-包含實際的物理位置約束和服務範圍限制
+Smart City RIS Environment
+Includes realistic physical location constraints and service coverage limits
 """
 
 import gym
@@ -13,13 +13,13 @@ from .environment import RIS_MISO_PDA
 
 class SmartCityRISEnvironment(RIS_MISO_PDA):
     """
-    智慧城市中的RIS環境
+    RIS Environment for Smart City IoT Deployment
     
-    環境設定：
-    - 100x100米的城市區域
-    - 基地臺位於中央(50, 50)，高度15米
-    - RIS高度15米，服務範圍限制60度
-    - 10個RIS位置，每個服務4個用戶
+    Environment setup:
+    - 100x100 meter urban area
+    - Base Station located at center (50, 50), height 15m
+    - RIS height 15m, service coverage limited to 60 degrees
+    - 10 RIS positions, each serving 4 users
     """
     
     def __init__(self, num_antennas=4,
@@ -39,37 +39,37 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
                  ris_height=15,
                  max_service_angle=60):
         """
-        初始化智慧城市RIS環境
+        Initialize Smart City RIS Environment
         
-        參數:
-            city_size (float): 城市大小 (米)
-            bs_height (float): 基地臺高度 (米)
-            ris_height (float): RIS高度 (米)
-            max_service_angle (float): 最大服務角度 (度)
+        Args:
+            city_size (float): City size (meters)
+            bs_height (float): Base Station height (meters)
+            ris_height (float): RIS height (meters)
+            max_service_angle (float): Maximum service angle (degrees)
         """
         
-        # 城市環境參數
+        # City environment parameters
         self.city_size = city_size
         self.bs_height = bs_height
         self.ris_height = ris_height
-        self.max_service_angle = np.radians(max_service_angle)  # 轉換為弧度
+        self.max_service_angle = np.radians(max_service_angle)  # Convert to radians
         
-        # 基地臺位置 (城市中央)
+        # Base Station position (city center)
         self.bs_position = np.array([city_size/2, city_size/2, bs_height])
         
-        # 初始化RIS和用戶位置
-        self.num_ris_groups = 10  # 10個RIS群組
-        self.users_per_ris = 4    # 每個RIS服務4個用戶
-        self.total_users = self.num_ris_groups * self.users_per_ris  # 總共40個用戶
+        # Initialize RIS and user positions
+        self.num_ris_groups = 10  # 10 RIS groups
+        self.users_per_ris = 4    # Each RIS serves 4 users
+        self.total_users = self.num_ris_groups * self.users_per_ris  # 40 total users
         
-        # 生成RIS位置和對應的用戶位置
+        # Generate RIS positions and corresponding user positions
         self._generate_ris_positions()
         self._generate_user_positions()
         
-        # 當前服務的RIS群組ID
+        # Currently served RIS group ID
         self.current_ris_group = 0
         
-        # 調用父類初始化
+        # Call parent class initialization
         super().__init__(
             num_antennas=num_antennas,
             num_RIS_elements=num_RIS_elements,
@@ -86,11 +86,11 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
         )
         
     def _generate_ris_positions(self):
-        """生成RIS位置"""
-        np.random.seed(42)  # 固定種子以保證可重現性
+        """Generate RIS positions across the city."""
+        np.random.seed(42)  # Fixed seed for reproducibility
         
-        # 在城市中隨機分布RIS位置，避免太靠近邊界
-        margin = 10  # 邊界裕度
+        # Randomly distribute RIS positions, avoiding edges
+        margin = 10  # Edge margin
         
         self.ris_positions = []
         for i in range(self.num_ris_groups):
@@ -102,35 +102,35 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
         self.ris_positions = np.array(self.ris_positions)
         
     def _generate_user_positions(self):
-        """根據RIS位置和服務範圍生成用戶位置"""
+        """Generate user positions within each RIS service area."""
         self.user_positions = []
-        self.user_ris_mapping = {}  # 用戶到RIS的映射關係
+        self.user_ris_mapping = {}  # User-to-RIS mapping
         
         for ris_idx, ris_pos in enumerate(self.ris_positions):
             ris_users = []
             
-            # 計算RIS的服務範圍
+            # Calculate RIS service radius
             max_service_radius = self.ris_height / np.tan(self.max_service_angle)
             
             for user_idx in range(self.users_per_ris):
-                # 在服務範圍內隨機生成用戶位置
+                # Randomly generate user position within service area
                 attempts = 0
-                while attempts < 100:  # 最多嘗試100次
-                    # 在圓形範圍內隨機選擇位置
+                while attempts < 100:  # Max 100 attempts
+                    # Random position within circular service area
                     angle = np.random.uniform(0, 2*np.pi)
-                    radius = np.random.uniform(1, max_service_radius * 0.9)  # 留些裕度
+                    radius = np.random.uniform(1, max_service_radius * 0.9)  # Leave margin
                     
                     user_x = ris_pos[0] + radius * np.cos(angle)
                     user_y = ris_pos[1] + radius * np.sin(angle)
-                    user_z = 1.5  # 用戶高度1.5米
+                    user_z = 1.5  # User height 1.5 meters
                     
-                    # 檢查是否在城市範圍內
+                    # Check if within city boundaries
                     if (0 <= user_x <= self.city_size and 
                         0 <= user_y <= self.city_size):
                         
                         user_pos = np.array([user_x, user_y, user_z])
                         
-                        # 驗證服務角度
+                        # Verify service angle
                         if self._check_service_angle(ris_pos, user_pos):
                             ris_users.append(user_pos)
                             global_user_idx = ris_idx * self.users_per_ris + user_idx
@@ -140,8 +140,8 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
                     attempts += 1
                 
                 if attempts >= 100:
-                    # 如果無法找到合適位置，使用默認位置
-                    print(f"警告：無法為RIS {ris_idx} 的用戶 {user_idx} 找到合適位置")
+                    # If no suitable position found, use default position
+                    print(f"WARNING: Could not find valid position for RIS {ris_idx}, User {user_idx}")
                     user_pos = np.array([ris_pos[0] + 5, ris_pos[1] + 5, 1.5])
                     ris_users.append(user_pos)
                     global_user_idx = ris_idx * self.users_per_ris + user_idx
@@ -152,85 +152,84 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
         self.user_positions = np.array(self.user_positions)
         
     def _check_service_angle(self, ris_pos, user_pos):
-        """檢查RIS到用戶的角度是否在服務範圍內"""
-        # 計算水平距離
+        """Check if the angle from RIS to user is within service range."""
+        # Horizontal distance
         horizontal_dist = np.sqrt((ris_pos[0] - user_pos[0])**2 + 
                                  (ris_pos[1] - user_pos[1])**2)
         
-        # 計算垂直距離
+        # Vertical distance
         vertical_dist = ris_pos[2] - user_pos[2]
         
-        # 計算角度
-        if horizontal_dist == 0:
-            angle = np.pi/2
-        else:
-            angle = np.arctan(vertical_dist / horizontal_dist)
+        # Compute angle from vertical boresight
+        if vertical_dist <= 0:
+            return False
+        angle_from_vertical = np.arctan(horizontal_dist / vertical_dist)
         
-        return angle <= self.max_service_angle
+        return angle_from_vertical <= self.max_service_angle
         
     def _compute_channel_with_distance(self, pos1, pos2):
-        """根據距離計算通道矩陣"""
+        """Compute channel matrix based on distance between two positions."""
         distance = np.linalg.norm(pos1 - pos2)
         
-        # 路徑損失模型 (自由空間路徑損失)
+        # Path loss model (free-space path loss)
         frequency = 2.4e9  # 2.4 GHz
-        c = 3e8  # 光速
+        c = 3e8  # Speed of light
         path_loss_db = 20 * np.log10(distance) + 20 * np.log10(frequency) + 20 * np.log10(4*np.pi/c)
         path_loss_linear = 10**(-path_loss_db/20)
         
-        # 生成瑞利衰落通道
+        # Generate Rayleigh fading channel
         channel_real = np.random.normal(0, np.sqrt(0.5), (self.L, self.M)) * path_loss_linear
         channel_imag = np.random.normal(0, np.sqrt(0.5), (self.L, self.M)) * path_loss_linear
         
         return channel_real + 1j * channel_imag
         
     def set_current_ris_group(self, ris_group_id):
-        """設置當前服務的RIS群組"""
+        """Set the currently active RIS group."""
         if 0 <= ris_group_id < self.num_ris_groups:
             self.current_ris_group = ris_group_id
         else:
-            raise ValueError(f"RIS群組ID必須在0到{self.num_ris_groups-1}之間")
+            raise ValueError(f"RIS group ID must be between 0 and {self.num_ris_groups-1}")
             
     def get_current_users(self):
-        """獲取當前RIS群組服務的用戶"""
+        """Get the users served by the currently active RIS group."""
         start_idx = self.current_ris_group * self.users_per_ris
         end_idx = start_idx + self.users_per_ris
         return self.user_positions[start_idx:end_idx]
         
     def reset(self):
-        """重置環境"""
+        """Reset the environment."""
         self.episode_t = 0
         self.info["true reward"] = 0
         
-        # 獲取當前RIS位置
+        # Get current RIS position
         current_ris_pos = self.ris_positions[self.current_ris_group]
         current_users = self.get_current_users()
         
-        # 根據物理位置計算通道矩陣
-        # H1: 基地臺到RIS的通道
+        # Compute channel matrices based on physical positions
+        # H1: Base Station to RIS channel
         self.H_1 = self._compute_channel_with_distance(self.bs_position, current_ris_pos)
         
-        # H2: RIS到用戶的通道
+        # H2: RIS to Users channel
         h2_channels = []
         for user_pos in current_users:
             h2_user = self._compute_channel_with_distance(current_ris_pos, user_pos)
-            h2_channels.append(h2_user[:, 0])  # 每個用戶只有一根天線
+            h2_channels.append(h2_user[:, 0])  # Each user has a single antenna
         
         self.H_2 = np.column_stack(h2_channels)
         
-        # 初始化其他參數
+        # Initialize other parameters
         self.G = np.eye(self.M, dtype=complex)
         self.Phi = np.eye(self.L, dtype=complex)
         self.Phi_mismatch = np.eye(self.L, dtype=complex)
         
-        # 構建初始狀態
+        # Construct initial state
         init_action_G = np.hstack((np.real(self.G.reshape(1, -1)), 
                                   np.imag(self.G.reshape(1, -1))))
         init_action_Phi = np.hstack((np.real(np.diag(self.Phi)).reshape(1, -1), 
                                    np.imag(np.diag(self.Phi)).reshape(1, -1)))
         init_action = np.hstack((init_action_G, init_action_Phi))
         
-        # 計算功率和通道信息
+        # Compute power and channel information
         power_t = np.real(np.diag(self.G.conjugate().T @ self.G)).reshape(1, -1) ** 2
         
         if self.cascaded_channels:
@@ -249,36 +248,36 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
         return self.state
         
     def visualize_environment(self, save_path=None):
-        """可視化環境佈局"""
+        """Visualize the environment layout."""
         fig, ax = plt.subplots(1, 1, figsize=(12, 10))
         
-        # 設置中文字體
-        plt.rcParams['font.sans-serif'] = ['SimHei', 'DejaVu Sans']
+        # Font settings
+        plt.rcParams['font.sans-serif'] = ['DejaVu Sans']
         plt.rcParams['axes.unicode_minus'] = False
         
-        # 繪製城市邊界
+        # Draw city boundary
         ax.add_patch(plt.Rectangle((0, 0), self.city_size, self.city_size, 
                                   fill=False, edgecolor='black', linewidth=2))
         
-        # 繪製基地臺
+        # Draw Base Station
         ax.scatter(self.bs_position[0], self.bs_position[1], 
-                  c='red', marker='^', s=200, label=f'基地臺 (高度: {self.bs_height}m)')
+                  c='red', marker='^', s=200, label=f'BS (height: {self.bs_height}m)')
         
-        # 繪製RIS位置和服務範圍
+        # Draw RIS positions and service areas
         colors = plt.cm.tab10(np.linspace(0, 1, self.num_ris_groups))
         
         for i, (ris_pos, color) in enumerate(zip(self.ris_positions, colors)):
-            # 繪製RIS位置
+            # Draw RIS position
             ax.scatter(ris_pos[0], ris_pos[1], c=[color], marker='s', s=150, 
                       label=f'RIS {i+1}' if i < 5 else '')  # 只顯示前5個標籤避免擁擠
             
-            # 繪製服務範圍圓圈
+            # Draw service coverage circle
             max_radius = self.ris_height / np.tan(self.max_service_angle)
             circle = plt.Circle((ris_pos[0], ris_pos[1]), max_radius, 
                               fill=False, color=color, alpha=0.3, linestyle='--')
             ax.add_patch(circle)
             
-            # 繪製對應的用戶
+            # Draw corresponding users
             start_idx = i * self.users_per_ris
             end_idx = start_idx + self.users_per_ris
             user_group = self.user_positions[start_idx:end_idx]
@@ -286,20 +285,20 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
             ax.scatter(user_group[:, 0], user_group[:, 1], 
                       c=[color], marker='o', s=50, alpha=0.7)
             
-            # 繪製RIS到用戶的連線
+            # Draw RIS-to-user connections
             for user_pos in user_group:
                 ax.plot([ris_pos[0], user_pos[0]], [ris_pos[1], user_pos[1]], 
                        color=color, alpha=0.3, linewidth=1)
         
-        # 設置圖表屬性
+        # Set chart properties
         ax.set_xlim(-5, self.city_size + 5)
         ax.set_ylim(-5, self.city_size + 5)
-        ax.set_xlabel('X座標 (公尺)', fontsize=12)
-        ax.set_ylabel('Y座標 (公尺)', fontsize=12)
-        ax.set_title('智慧城市RIS佈局\n' + 
-                    f'城市大小: {self.city_size}×{self.city_size}m, ' +
-                    f'RIS數量: {self.num_ris_groups}, ' +
-                    f'總用戶數: {self.total_users}', fontsize=14)
+        ax.set_xlabel('X Coordinate (meters)', fontsize=12)
+        ax.set_ylabel('Y Coordinate (meters)', fontsize=12)
+        ax.set_title('Smart City RIS Layout\n' + 
+                    f'City size: {self.city_size}x{self.city_size}m, ' +
+                    f'RIS count: {self.num_ris_groups}, ' +
+                    f'Total users: {self.total_users}', fontsize=14)
         ax.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
         ax.grid(True, alpha=0.3)
         ax.set_aspect('equal')
@@ -308,14 +307,14 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
         
         if save_path:
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
-            print(f"環境佈局圖已保存至: {save_path}")
+            print(f"Environment layout saved to: {save_path}")
         
         plt.show()
         
         return fig, ax
     
     def get_environment_info(self):
-        """獲取環境信息"""
+        """Get environment configuration info."""
         info = {
             'city_size': self.city_size,
             'bs_position': self.bs_position.tolist(),

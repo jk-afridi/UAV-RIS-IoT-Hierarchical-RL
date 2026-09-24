@@ -270,9 +270,9 @@ class RIS_MISO_PDA(gym.Env):
 
         # 根據是否考慮失配更新Phi矩陣
         if self.mismatch:
-            self.Phi = np.eye(self.L, dtype=complex) * (Phi_real + 1j * Phi_imag) * betas
+            self.Phi = np.diag(np.exp(1j * angles).flatten() * betas.flatten())
         else:
-            self.Phi = np.eye(self.L, dtype=complex) * (Phi_real + 1j * Phi_imag)
+            self.Phi = np.diag(np.exp(1j * angles).flatten())
 
             if custom_betas is not None:
                 Phi_real_custom = action[:, -2 * self.L:-self.L] / custom_betas

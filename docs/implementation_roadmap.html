@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Implementation Roadmap — AoI-Aware UAV-RIS</title>
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 11pt;
+      line-height: 1.5;
+      max-width: 850px;
+      margin: 0 auto;
+      color: #000;
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 16pt;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: 14pt;
+      font-weight: bold;
+      margin-top: 30px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #000;
+      padding-bottom: 5px;
+    }
+
+    h3 {
+      font-size: 13pt;
+      font-weight: bold;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    h4 {
+      font-size: 12pt;
+      font-style: italic;
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+
+    p {
+      margin-bottom: 15px;
+      text-align: justify;
+    }
+
+    ul,
+    ol {
+      margin-top: 5px;
+      margin-bottom: 15px;
+      padding-left: 25px;
+    }
+
+    li {
+      margin-bottom: 8px;
+    }
+
+    .math-block {
+      text-align: center;
+      margin: 15px 0;
+      font-size: 11pt;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 11pt;
+    }
+
+    th,
+    td {
+      border: 1px solid #000;
+      padding: 8px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [["$", "$"], ["\\(", "\\)"]]
+      },
+      startup: {
+        pageReady: () => {
+          return MathJax.startup.defaultPageReady().then(() => {
+            const el = document.createElement("div");
+            el.id = "mathjax-done";
+            document.body.appendChild(el);
+          });
+        }
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+</head>
+
+<body>
+
+  <h1>Technical Roadmap: Joint UAV Trajectory and RIS Optimization for AoI-Aware Data Collection</h1>
+
+  <p><strong>Date:</strong> July 21, 2026<br />
+    <strong>Prepared by:</strong> Jawad Afridi<br />
+    <strong>Base Repository:</strong> hyaochen/UAV-mounted-RIS-IOT-RL (WCNC 2026)<br />
+    <strong>Subject:</strong> Implementation plan and technical roadmap for the Phase 2 research extension
+  </p>
+
+  <h2>1. Research Context and Novelty</h2>
+
+  <p>Building upon our accepted WCNC 2026 methodology, the goal of this extension is to transition from a static
+    downlink sum-rate maximization paradigm to a dynamic, IoT-centric uplink data collection framework. The core
+    objective shifts to minimizing the Age of Information (AoI) while actively incorporating Unmanned Aerial Vehicle
+    (UAV) 3D mobility constraints.</p>
+
+  <p>A comprehensive review of the 2024–2026 literature reveals a distinct research gap. While substantial work exists
+    on UAV trajectory optimization for AoI minimization (often utilizing DDPG or PPO algorithms), and the integration of
+    Reconfigurable Intelligent Surface (RIS) technology to aid UAV communications is well-established, the specific
+    intersection of these domains under realistic hardware constraints remains entirely unexplored. The vast majority of
+    current studies assume ideal RIS elements characterized by unit-amplitude reflection coefficients regardless of the
+    applied phase shift.</p>
+
+  <p>Our previous work demonstrated that this ideal assumption leads to significant performance degradation due to
+    Phase-Dependent Amplitude (PDA) mismatch. Therefore, optimizing UAV trajectory and scheduling for AoI minimization
+    while explicitly accounting for the non-linear PDA characteristics of the RIS constitutes a highly novel, four-way
+    research intersection (UAV + RIS + AoI + PDA) with strong potential for top-tier IEEE journal publication.</p>
+
+  <h2>2. Extended System Model</h2>
+
+  <p>We preserve the foundational DBSCAN-based clustering architecture established in our preliminary work. We consider
+    a 100&times;100m urban area containing 80 IoT devices segregated into 10 clusters.</p>
+
+  <h3>2.1 UAV Mobility and Energy Consumption</h3>
+  <p>The UAV operates as a mobile aerial relay equipped with an $L$-element RIS. Its continuous 3D trajectory over a
+    mission duration $T$ is discretized into time slots $\Delta t$. The position at slot $t$ is denoted by
+    $\mathbf{q}(t) = [x(t), y(t), z(t)]^T$. The UAV is subject to practical aerodynamic constraints:</p>
+
+  <div class="math-block">
+    $||\mathbf{q}(t+1) - \mathbf{q}(t)|| \leq V_{\max} \Delta t$
+  </div>
+
+  <p>We adopt a rigorous rotary-wing UAV propulsion energy model derived by Zeng and Zhang (IEEE TWC, 2019). The
+    instantaneous power consumption $P(v)$ as a function of the UAV speed $v(t)$ encompasses blade profile power,
+    induced power, and parasite power. The total energy expended must satisfy the battery capacity $E_{\text{budget}}$.
+  </p>
+
+  <h3>2.2 Age of Information Evolution</h3>
+  <p>Data transmission occurs in the uplink from the ground devices to the UAV-mounted RIS, and subsequently to a
+    central base station. Let $s_k(t) \in \{0, 1\}$ represent the scheduling indicator for device $k$. The continuous
+    AoI evolution $\Delta_k(t)$ is defined as:</p>
+
+  <div class="math-block">
+    $\Delta_k(t+1) = \begin{cases} 1, & s_k(t)=1 \text{ and } R_k(t) \geq R_{\min} \\ \Delta_k(t) + 1, &
+    \text{otherwise} \end{cases}$
+  </div>
+
+  <p>where $R_k(t)$ is the achievable uplink rate given the current channel state and RIS configuration.</p>
+
+  <h3>2.3 Realistic Channel and PDA Model</h3>
+  <p>To accurately characterize the air-to-ground communication links subject to UAV mobility, we replace the previous
+    Rayleigh fading assumption with a distance-dependent Rician fading model. This incorporates a strong Line-of-Sight
+    (LoS) component parameterised by the Rician K-factor $K_{\text{rice}}$.</p>
+
+  <p>Crucially, we retain the exact PDA model from the original work. The amplitude coefficient $\beta_l$ is intricately
+    coupled to the phase shift $\theta_l$ via the non-linear relationship:</p>
+
+  <div class="math-block">
+    $\beta_l(\theta_l) = (1 - \beta_{\min})\left(\frac{\sin(\theta_l - \bar{\theta}) + 1}{2}\right)^{\bar{\kappa}} +
+    \beta_{\min}$
+  </div>
+
+  <h2>3. Problem Formulation and Architecture</h2>
+
+  <p>The global optimization objective is the minimization of the time-average AoI across all devices over the mission
+    duration:</p>
+
+  <div class="math-block">
+    $\min_{\{\mathbf{q}, \boldsymbol{\Phi}, \mathbf{G}, \mathbf{s}\}} \quad \frac{1}{K}\sum_{k=1}^{K}
+    \mathbb{E}\left[\frac{1}{T}\sum_{t=1}^{T} \Delta_k(t)\right]$
+  </div>
+
+  <p>This formulation yields a highly non-convex, mixed-integer non-linear programming (MINLP) problem. To tackle the
+    curse of dimensionality and ensure stable convergence, we propose a Hierarchical Deep Reinforcement Learning (DRL)
+    architecture.</p>
+
+  <h3>3.1 High-Level Macro-Planner (PPO)</h3>
+  <p>The macro-planner operates at a lower temporal resolution to manage long-term spatial dependencies. Utilizing
+    Proximal Policy Optimization (PPO), it observes the global state $\mathcal{S}_{\text{high}} = \{\mathbf{q}(t),
+    \boldsymbol{\Delta}(t), E_{\text{rem}}(t)\}$. The network outputs a hybrid action tuple determining the next target
+    cluster ID (discrete) and the necessary continuous velocity vector $\mathbf{v}(t)$. The reward function is strictly
+    the negative average AoI.</p>
+
+  <h3>3.2 Low-Level Micro-Optimizer (Beta-Space SAC)</h3>
+  <p>Operating at high resolution within the vicinity of a targeted cluster, the micro-optimizer utilizes the Beta-Space
+    Exploration Soft Actor-Critic (SAC) algorithm previously developed. It ingests the instantaneous channel state
+    information $\mathcal{S}_{\text{low}} = \{\mathbf{H}_1(t), \mathbf{H}_2(t)\}$ and continuously optimizes the RIS
+    phase matrix $\boldsymbol{\Phi}(t)$ and BS receive beamforming $\mathbf{G}(t)$ to maximize localized sum-rate,
+    thereby satisfying the minimum rate requirement $R_{\min}$ for the scheduled devices to successfully reset their
+    AoI.</p>
+
+  <h2>4. Implementation Strategy and Timeline</h2>
+
+  <p>The execution of this roadmap will span five distinct phases over an 8-week horizon. Phase 1 (Environment
+    Extension) has been completed, encompassing the integration of the Zeng &amp; Zhang energy model, Rician channels,
+    and AoI tracking logic within the <code>AoIUAVRISEnvironment</code> class.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Phase</th>
+        <th>Task Description</th>
+        <th>Estimated Duration</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Phase 1</td>
+        <td>Environment Extension (UAV Mobility, Energy Model, AoI Tracking)</td>
+        <td>Completed (Weeks 1-2)</td>
+      </tr>
+      <tr>
+        <td>Phase 2</td>
+        <td>High-Level PPO Agent Development (Hybrid Action Space)</td>
+        <td>Weeks 2-3</td>
+      </tr>
+      <tr>
+        <td>Phase 3</td>
+        <td>Hierarchical Integration (Curriculum Learning Strategy)</td>
+        <td>Weeks 3-4</td>
+      </tr>
+      <tr>
+        <td>Phase 4</td>
+        <td>Baseline Implementation (Greedy, Round-Robin, Fixed-UAV)</td>
+        <td>Weeks 4-5</td>
+      </tr>
+      <tr>
+        <td>Phase 5</td>
+        <td>Evaluation, Data Generation, and Manuscript Preparation</td>
+        <td>Weeks 5-8</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Phase 2 involves the construction of the hybrid PPO agent, followed by Phase 3 which integrates both networks using
+    a curriculum learning approach. Pre-trained weights from the WCNC 2026 experiments will initialize the low-level SAC
+    agent to significantly accelerate convergence.</p>
+
+  <h2>5. Target Venues and Discussion Points</h2>
+
+  <p>We propose a phased publication strategy to balance rapid dissemination and high academic impact.</p>
+
+  <ul>
+    
+  </ul>
+
+  <h3>5.1 Questions for Discussion</h3>
+  <p>Before proceeding deeply into Phase 2 development, guidance is requested on the following aspects:</p>
+  <ol>
+    <li>Shall we go with the Hierarchical DRL approach, or would you prefer investigating a flat architecture
+      first despite the dimensionality challenges?</li>
+    <li>Is there a specific baseline method (e.g., purely mathematical optimization via SDR) you feel is mandatory to
+      include for this problem domain?</li>
+  </ol>
+
+</body>
+
+</html>

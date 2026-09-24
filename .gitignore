@@ -1,10 +1,13 @@
+# Python virtual environments
+venv/
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-.venv/
-.env
 
-# Model weights (keep folder, ignore contents)
-Models/*
-!Models/.gitkeep
+# Massive PyTorch model weights (Keep these local to save 9GB of space)
+*.pt
+*.pth
+sac_checkpoint_*
+sac_final_*
+
+# Allow results folders but the above rules will filter out the heavy weights
+!results/

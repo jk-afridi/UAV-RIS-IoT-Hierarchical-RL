@@ -1,6 +1,6 @@
 New Algorithm RIS Training Results Analysis Report
 ============================================================
-Generation Time: 2025-07-31 06:50:07
+Generation Time: 2026-07-10 02:02:35
 
 Analysis Overview:
 - Total analyzed training results: 16
@@ -50,26 +50,26 @@ Overall Algorithm Performance Analysis:
 Convergence Analysis:
 ------------------------------
 
-L = 16:
-  Beta-Space SAC: ~23 steps to converge
-  DDPG: ~1 steps to converge
-  PPO: ~1 steps to converge
-  SAC (Golden): ~5550 steps to converge
-  SAC (Mismatch): ~2907 steps to converge
-
-L = 32:
-  Beta-Space SAC: ~6896 steps to converge
-  DDPG: ~0 steps to converge
-  PPO: ~4 steps to converge
-  SAC (Golden): ~6057 steps to converge
-  SAC (Mismatch): ~8186 steps to converge
-
 L = 4:
   Beta-Space SAC: ~275 steps to converge
 
 L = 64:
-  Beta-Space SAC: ~392 steps to converge
-  DDPG: ~1 steps to converge
   PPO: ~1 steps to converge
-  SAC (Golden): ~10409 steps to converge
+  Beta-Space SAC: ~392 steps to converge
   SAC (Mismatch): ~4489 steps to converge
+  SAC (Golden): ~10409 steps to converge
+  DDPG: ~1 steps to converge
+
+L = 16:
+  PPO: ~1 steps to converge
+  Beta-Space SAC: ~23 steps to converge
+  SAC (Mismatch): ~2907 steps to converge
+  SAC (Golden): ~5550 steps to converge
+  DDPG: ~1 steps to converge
+
+L = 32:
+  PPO: ~4 steps to converge
+  Beta-Space SAC: ~6896 steps to converge
+  SAC (Mismatch): ~8186 steps to converge
+  SAC (Golden): ~6057 steps to converge
+  DDPG: ~0 steps to converge

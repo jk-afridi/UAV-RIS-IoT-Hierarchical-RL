@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Research Proposal — Extending UAV-RIS Toward IoT-Centric Optimization</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@400;600;700&display=swap');
+
+    :root {
+      --ink: #1a1a2e;
+      --muted: #555e6e;
+      --accent: #16537e;
+      --accent-light: #e8f0f8;
+      --bg: #ffffff;
+      --border: #c8d1dc;
+      --panel-bg: #f5f7fa;
+    }
+
+    @page {
+      size: A4;
+      margin: 22mm 20mm 22mm 20mm;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Source Serif 4', 'Georgia', 'Times New Roman', serif;
+      font-size: 11.5pt;
+      line-height: 1.72;
+      padding: 36px 48px 48px;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    /* --- Header --- */
+    .doc-header {
+      border-bottom: 2.5px solid var(--accent);
+      padding-bottom: 16px;
+      margin-bottom: 28px;
+    }
+    .doc-header h1 {
+      font-family: 'Source Sans 3', 'Helvetica Neue', sans-serif;
+      font-size: 20pt;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    .meta-row {
+      font-size: 10pt;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .meta-row strong { color: var(--ink); }
+
+    /* --- Sections --- */
+    h2 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 14pt;
+      font-weight: 700;
+      color: var(--accent);
+      margin-top: 32px;
+      margin-bottom: 10px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h3 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 12pt;
+      font-weight: 700;
+      color: #1a3a5c;
+      margin-top: 22px;
+      margin-bottom: 6px;
+    }
+
+    h4 {
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 11pt;
+      font-weight: 600;
+      color: var(--muted);
+      margin-top: 16px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    p { margin-bottom: 10px; text-align: justify; }
+
+    ul, ol {
+      margin: 6px 0 12px 22px;
+    }
+    li { margin-bottom: 5px; }
+
+    /* --- Panels --- */
+    .panel {
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      margin: 12px 0 16px;
+      font-size: 10.5pt;
+    }
+
+    .math-block {
+      background: var(--panel-bg);
+      border-left: 3px solid var(--accent);
+      padding: 12px 18px;
+      margin: 14px 0;
+      font-family: 'Courier New', monospace;
+      font-size: 10pt;
+      line-height: 1.8;
+      white-space: pre-wrap;
+      overflow-x: auto;
+    }
+
+    /* --- Tables --- */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0 18px;
+      font-size: 10pt;
+    }
+    th {
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+      padding: 8px 10px;
+      text-align: left;
+      font-size: 9.5pt;
+    }
+    td {
+      padding: 7px 10px;
+      border-bottom: 1px solid #e0e4ea;
+      vertical-align: top;
+    }
+    tr:nth-child(even) td { background: #fafbfc; }
+
+    /* --- Misc --- */
+    .signature {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-style: italic;
+      color: var(--muted);
+      font-size: 10.5pt;
+    }
+
+    .page-break { page-break-before: always; }
+
+    strong { font-weight: 600; }
+    em { font-style: italic; }
+  </style>
+</head>
+<body>
+
+  <div class="doc-header">
+    <h1>Research Proposal: Extending UAV-RIS Systems<br/>Toward IoT-Centric Optimization</h1>
+    <div class="meta-row">
+      <strong>Prepared by:</strong> Jawad Afridi &nbsp;&bull;&nbsp;
+      <strong>Date:</strong> July 13, 2026<br/>
+      <strong>Base Repository:</strong> hyaochen/UAV-mounted-RIS-IOT-RL (WCNC 2026)<br/>
+      <strong>Subject:</strong> Proposed research directions for extending UAV-mounted RIS work with IoT integration
+    </div>
+  </div>
+
+  <!-- ===================== SECTION 1 ===================== -->
+  <h2>1. Analysis of the Existing Work</h2>
+
+  <p>After thoroughly studying the WCNC 2026 codebase and both the Chinese and English manuscripts, I want to summarize what the current system does and where the natural extension points are.</p>
+
+  <p>The existing paper addresses joint optimization of base station beamforming and RIS phase shift configuration in a UAV-mounted RIS-aided MISO downlink system. The core contribution is a novel reinforcement learning algorithm called <strong>Beta-Space Exploration SAC</strong>, which introduces a dedicated Explorer network that manipulates the amplitude coefficients of RIS elements within the Phase-Dependent Amplitude (PDA) model. This is compared against standard SAC, DDPG, and PPO under realistic conditions — cascaded channel estimation errors and PDA mismatch.</p>
+
+  <p>The simulation environment models a 100&times;100m urban area with a central base station, 10 RIS service groups, and DBSCAN-based clustering of 80 ground devices. Each cluster is served by a RIS with 4 users per group (with a virtual user padding mechanism for clusters smaller than 4).</p>
+
+  <h3>Limitations identified in the current system</h3>
+
+  <p>Based on the paper content, the reviewer feedback (three WCNC 2026 reviewers), and the codebase structure, the following limitations are directly acknowledged by the authors or raised by reviewers:</p>
+
+  <ol>
+    <li><strong>UAV mobility is absent.</strong> The UAV is treated as stationary at predetermined anchor points. There is no trajectory design, no flight energy model, and altitude is fixed at 15m. Reviewer 2 specifically asked for variable altitude or continuous trajectory, and Reviewer 3 recommended explicitly listing trajectory optimization as future work.</li>
+
+    <li><strong>IoT devices are modeled as passive receivers.</strong> The ground nodes are treated as generic single-antenna users whose only role is to receive downlink signals. There is no uplink data collection, no sensor data generation model, no heterogeneous QoS requirements, and no device energy constraints.</li>
+
+    <li><strong>No data freshness or timeliness metric.</strong> The sole optimization objective is sum-rate (bits/s/Hz). For IoT applications, data freshness — formalized as Age of Information (AoI) — is often more relevant than raw throughput.</li>
+
+    <li><strong>No energy harvesting.</strong> IoT sensors in practice have limited batteries. The possibility of using the RIS-reflected RF signals for simultaneous wireless information and power transfer (SWIPT) is not explored.</li>
+
+    <li><strong>Single-UAV only.</strong> The system considers one UAV. Scalability to multiple cooperating UAVs is not addressed.</li>
+
+    <li><strong>Limited baseline comparison.</strong> Only DRL-based methods and random phase are compared. No traditional optimization baselines (SDR, alternating optimization) are included, though the authors argue this is due to the computational intractability of PDA-aware joint optimization.</li>
+  </ol>
+
+  <p>These gaps are not weaknesses of the original contribution — the paper had a focused scope (RIS phase optimization under PDA mismatch). But they do represent well-defined openings for follow-up work, which is what I want to pursue.</p>
+
+  <!-- ===================== SECTION 2 ===================== -->
+  <div class="page-break"></div>
+  <h2>2. Proposed Research Directions</h2>
+
+  <p>I have identified three distinct directions, each building directly on top of the existing codebase. I describe each in detail — the technical formulation, what changes in the code, the expected difficulty, and the kind of results we would produce.</p>
+
+  <!-- --- Direction A --- -->
+  <h3>Direction A — Joint UAV Trajectory and RIS Optimization for AoI-Aware IoT Data Collection</h3>
+
+  <h4>Core Idea</h4>
+  <p>Transform the system from a static downlink rate maximization problem into a dynamic data collection problem. The UAV flies between IoT device clusters, collects sensor data via RIS-enhanced uplink, and the objective shifts from sum-rate to minimizing the average Age of Information across all devices.</p>
+
+  <h4>System Model Changes</h4>
+  <ul>
+    <li>The UAV becomes mobile with position <strong>q</strong>(t) = [x(t), y(t), z(t)], subject to speed constraint &Vert;<strong>q</strong>(t+1) &minus; <strong>q</strong>(t)&Vert; &le; V<sub>max</sub> &middot; &Delta;t and altitude bounds z<sub>min</sub> &le; z(t) &le; z<sub>max</sub>.</li>
+    <li>Each IoT device <em>k</em> generates a status update packet at regular intervals. The AoI for device <em>k</em> at time <em>t</em> is defined as &Delta;<sub>k</sub>(t) = t &minus; U<sub>k</sub>(t), where U<sub>k</sub>(t) is the timestamp of the most recently received update from device <em>k</em>.</li>
+    <li>Channel matrices H<sub>1</sub> and H<sub>2</sub> become functions of UAV position (distance-dependent path loss with Rician fading for the air-to-ground link, which is more realistic than the current Rayleigh model).</li>
+    <li>UAV energy consumption includes both propulsion energy (a function of velocity, from the rotary-wing UAV model of Zeng &amp; Zhang, IEEE TWC 2019) and communication-related energy.</li>
+  </ul>
+
+  <h4>Optimization Formulation</h4>
+  <div class="math-block">minimize   (1/K) &Sigma;<sub>k</sub> &Epsilon;[&Delta;<sub>k</sub>(T)]
+
+subject to &Vert;q(t+1) &minus; q(t)&Vert; &le; V<sub>max</sub> &middot; &Delta;t         (speed constraint)
+           z<sub>min</sub> &le; z(t) &le; z<sub>max</sub>                    (altitude bounds)
+           &Sigma;<sub>t</sub> E<sub>fly</sub>(t) + E<sub>comm</sub>(t) &le; E<sub>total</sub>      (energy budget)
+           R<sub>k</sub>(t) &ge; R<sub>min</sub>  for served devices       (minimum rate)
+
+decision variables: q(t), &Phi;(t), G(t), s(t) &isin; {0,1}<sup>K</sup> (scheduling)</div>
+
+  <h4>Algorithm Design</h4>
+  <p>The action space includes UAV movement (3 continuous dimensions for velocity vector) appended to the existing beamforming + phase shift actions. The state space adds UAV position, device AoI values, and remaining energy. I would extend the Beta-Space Exploration SAC architecture, keeping the Explorer network for RIS amplitude and adding the trajectory dimensions to the Actor.</p>
+
+  <p>An alternative worth considering is a hierarchical approach: a high-level policy (e.g., PPO) selects the next cluster to visit, while a low-level policy (the existing Beta-Space SAC) handles RIS+beamforming once the UAV arrives. This would reduce the dimensionality burden and might converge faster.</p>
+
+  <h4>Implementation Effort</h4>
+  <p>The DBSCAN clustering infrastructure and the SmartCityRISEnvironment class already provide the 80-device urban layout with buildings, line-of-sight calculations, and Voronoi-based candidate RIS positions. The key new code is: (i) a UAV mobility model, (ii) AoI tracking logic, (iii) distance-dependent channel updates at each timestep, and (iv) the modified reward function. Estimated timeline: 2&ndash;3 weeks for the environment, 1&ndash;2 weeks for algorithm modifications.</p>
+
+  <h4>Expected Results and Figures</h4>
+  <ul>
+    <li>UAV trajectory overlaid on the smart city map (showing the flight path visiting clusters)</li>
+    <li>Average AoI vs. training episodes — convergence comparison across algorithms</li>
+    <li>Average AoI vs. number of IoT devices (scalability)</li>
+    <li>Performance comparison: proposed method vs. nearest-cluster greedy, vs. fixed-position (original), vs. random trajectory</li>
+    <li>Impact of RIS element count (L = 16, 32, 64) on AoI performance</li>
+  </ul>
+
+  <h4>Rationale</h4>
+  <p>AoI minimization in UAV-assisted IoT networks is among the most actively studied problems in wireless communications at present. The combination with RIS and the PDA-aware model from the original paper gives us a distinctive angle — most existing AoI+UAV papers assume ideal RIS or ignore PDA effects entirely. The hierarchical DRL approach is also relatively novel in this specific problem setting.</p>
+
+  <!-- --- Direction B --- -->
+  <div class="page-break"></div>
+  <h3>Direction B — RIS-Aided SWIPT for Energy-Constrained IoT Networks</h3>
+
+  <h4>Core Idea</h4>
+  <p>IoT sensors have finite batteries. The RIS-reflected signals can be used not only for information transfer but also for energy harvesting via SWIPT (Simultaneous Wireless Information and Power Transfer). The optimization objective becomes maximizing network lifetime or total harvested energy while maintaining minimum data rate guarantees.</p>
+
+  <h4>System Model Changes</h4>
+  <ul>
+    <li>Each IoT device uses a power-splitting (PS) receiver: a fraction &rho;<sub>k</sub> of received signal power is directed to the energy harvesting circuit, and (1 &minus; &rho;<sub>k</sub>) to the information decoder.</li>
+    <li>Harvested power at device <em>k</em>: P<sub>harvest,k</sub> = &eta; &middot; &rho;<sub>k</sub> &middot; |<strong>h</strong><sub>2,k</sub><sup>H</sup> <strong>&Phi;</strong> <strong>H</strong><sub>1</sub> <strong>g</strong><sub>k</sub>|&sup2;, where &eta; &isin; (0, 1) is the energy conversion efficiency.</li>
+    <li>Device battery state evolves as B<sub>k</sub>(t+1) = B<sub>k</sub>(t) + P<sub>harvest,k</sub>(t) &middot; &Delta;t &minus; P<sub>circuit</sub> &middot; &Delta;t.</li>
+    <li>The achievable rate depends on the information fraction: R<sub>k</sub> = log<sub>2</sub>(1 + SINR<sub>k</sub> / (1 &minus; &rho;<sub>k</sub>)).</li>
+  </ul>
+
+  <h4>Optimization Formulation</h4>
+  <div class="math-block">maximize   min<sub>k</sub> B<sub>k</sub>(T)                           (max-min battery lifetime)
+
+subject to R<sub>k</sub>(t) &ge; R<sub>min</sub>                           (minimum rate per device)
+           0 &le; &rho;<sub>k</sub> &le; 1                              (power splitting ratio)
+           Tr(G<sup>H</sup> G) &le; P<sub>t</sub>                          (transmit power constraint)
+
+decision variables: &Phi;(t), G(t), &rho;(t) &isin; [0,1]<sup>K</sup></div>
+
+  <h4>Implementation Effort</h4>
+  <p>This direction requires fewer structural changes than Direction A — the UAV stays stationary (as in the original), so no mobility model is needed. The main additions are the power-splitting model, battery tracking, harvested energy computation, and the modified reward. Estimated timeline: 1&ndash;2 weeks for the environment, 1 week for algorithm changes.</p>
+
+  <h4>Expected Results and Figures</h4>
+  <ul>
+    <li>Harvested energy vs. number of RIS elements</li>
+    <li>Sum-rate vs. harvested energy trade-off (Pareto frontier)</li>
+    <li>Battery lifetime comparison: with RIS vs. without RIS</li>
+    <li>Impact of power-splitting ratio on joint rate-energy performance</li>
+    <li>Convergence curves under different &beta;<sub>min</sub> values</li>
+  </ul>
+
+  <h4>Rationale</h4>
+  <p>SWIPT is well-studied in general, but the interaction between SWIPT and the PDA model is unexplored. When the RIS amplitude depends on phase (PDA), the energy harvesting performance is directly affected in a non-obvious way — this gives a concrete, novel angle.</p>
+
+  <!-- --- Direction C --- -->
+  <h3>Direction C — Multi-UAV Cooperative Coverage with NOMA</h3>
+
+  <h4>Core Idea</h4>
+  <p>Deploy 2&ndash;3 UAVs, each carrying an RIS, to cooperatively cover the 80 IoT devices. Use NOMA (Non-Orthogonal Multiple Access) to serve multiple devices per time slot within each cluster, and use multi-agent reinforcement learning (MARL) for decentralized decision-making.</p>
+
+  <h4>System Model Changes</h4>
+  <ul>
+    <li>Multiple UAVs, each with independent RIS. UAV <em>j</em> has position <strong>q</strong><sub>j</sub>(t) and RIS phase matrix <strong>&Phi;</strong><sub>j</sub>(t).</li>
+    <li>NOMA: within each served cluster, devices are ordered by channel gain. The strongest-channel device decodes and cancels the weakest device's signal (successive interference cancellation). This increases the number of simultaneously served devices.</li>
+    <li>Inter-UAV interference must be modeled — signals reflected by one UAV's RIS may interfere with devices served by another.</li>
+  </ul>
+
+  <h4>Algorithm Design</h4>
+  <p>Multi-Agent Deep Deterministic Policy Gradient (MADDPG) — centralized training with decentralized execution. Each UAV agent observes its local state and acts independently during execution, but during training the critic has access to all agents' observations and actions.</p>
+
+  <h4>Implementation Effort</h4>
+  <p>This is significantly more complex. NOMA requires implementing SIC decoding and power allocation logic. MADDPG requires a fundamentally different training loop. Estimated timeline: 3&ndash;4 weeks for the environment, 2&ndash;3 weeks for the MARL algorithm, plus debugging.</p>
+
+  <h4>Rationale</h4>
+  <p>Multi-UAV + NOMA + RIS is a combination with very few published results, especially with PDA-aware modeling. The novelty would be high, but the implementation risk is also high — MARL training is notoriously unstable and may require significant hyperparameter tuning.</p>
+
+  <!-- ===================== SECTION 3 ===================== -->
+  <div class="page-break"></div>
+  <h2>3. Comparative Summary</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Criterion</th>
+        <th>Direction A (AoI)</th>
+        <th>Direction B (SWIPT)</th>
+        <th>Direction C (Multi-UAV)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Novelty</strong></td>
+        <td>High — AoI + PDA-aware RIS is unexplored</td>
+        <td>Medium — SWIPT+RIS exists, PDA angle is new</td>
+        <td>Very high — multi-UAV NOMA + PDA RIS is rare</td>
+      </tr>
+      <tr>
+        <td><strong>Implementation difficulty</strong></td>
+        <td>Moderate</td>
+        <td>Low&ndash;Moderate</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><strong>Code reuse</strong></td>
+        <td>High (DBSCAN, SmartCity env)</td>
+        <td>Very high (minimal structural changes)</td>
+        <td>Low (needs new MARL framework)</td>
+      </tr>
+      <tr>
+        <td><strong>Risk of training failure</strong></td>
+        <td>Low&ndash;Moderate</td>
+        <td>Low</td>
+        <td>High (MARL instability)</td>
+      </tr>
+      <tr>
+        <td><strong>Publication potential</strong></td>
+        <td>Strong for conference and journal</td>
+        <td>Suitable for conference</td>
+        <td>Strong for journal if successful</td>
+      </tr>
+      <tr>
+        <td><strong>Timeline estimate</strong></td>
+        <td>8&ndash;10 weeks</td>
+        <td>5&ndash;7 weeks</td>
+        <td>12&ndash;16 weeks</td>
+      </tr>
+      <tr>
+        <td><strong>Addresses reviewer feedback</strong></td>
+        <td>Directly (trajectory, scalability)</td>
+        <td>Partially (adds IoT dimension)</td>
+        <td>Partially (scalability)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>My recommendation is Direction A.</strong> It strikes the right balance between novelty, feasibility, and relevance. AoI is the dominant metric in current IoT literature, the trajectory extension directly responds to the original paper's reviewer feedback, and the existing DBSCAN infrastructure provides a ready-made 80-device urban environment. Direction B could serve as a secondary contribution or a follow-up paper if time permits.</p>
+
+  <!-- ===================== SECTION 4 ===================== -->
+  <h2>4. Conference vs. Journal — Venue Considerations</h2>
+
+  <h3>Conference route (3&ndash;4 month timeline)</h3>
+  <p>A conference paper (6 pages, double-column) would focus tightly on one aspect. For Direction A, a conference-scope version would include fixed-altitude UAV (2D trajectory only), one RIS element count (L = 64), 3 baselines, and 3&ndash;4 figures.</p>
+
+  <p>Suitable venues:</p>
+  <ul>
+    <li><strong>IEEE GLOBECOM 2026</strong> or <strong>IEEE ICC 2027</strong> — top-tier wireless communications conferences.</li>
+    <li><strong>IEEE VTC</strong> — slightly lower tier but good acceptance rate and fast turnaround.</li>
+    <li><strong>IEEE WCNC 2027</strong> — natural fit since the original paper was submitted to WCNC 2026.</li>
+  </ul>
+
+  <h3>Journal route (5&ndash;8 month timeline)</h3>
+  <p>A journal paper (12&ndash;15 pages) would include the full system: 3D trajectory with variable altitude, multiple RIS configurations (L = 16, 32, 64), AoI + sum-rate multi-objective analysis, 5&ndash;6 baselines including traditional optimization, detailed complexity and convergence analysis, and 8&ndash;12 figures.</p>
+
+  <p>Suitable venues:</p>
+  <ul>
+    <li><strong>IEEE Internet of Things Journal</strong> (IF &approx; 8.2) — directly aligned with UAV-IoT.</li>
+    <li><strong>IEEE Transactions on Vehicular Technology</strong> (IF &approx; 6.8) — good fit for UAV communications.</li>
+    <li><strong>IEEE Wireless Communications Letters</strong> (IF &approx; 4.6) — shorter format (4 pages), faster review cycle (~2 months).</li>
+  </ul>
+
+  <h3>Suggested approach</h3>
+  <p>Start with the conference-scope version (2D trajectory, focused experiments), submit to GLOBECOM or ICC, and simultaneously expand toward the full journal version for IEEE IoT Journal or IEEE TVT. This gives one guaranteed submission quickly and a stronger publication to follow. The conference paper establishes priority on the idea; the journal paper provides the full treatment.</p>
+
+  <!-- ===================== SECTION 5 ===================== -->
+  <h2>5. Feasibility Notes</h2>
+
+  <p><strong>Computation.</strong> All experiments in the existing repo run on CPU — no GPU is required. The neural networks are small (state dimension ~1200, 2&ndash;3 hidden layers of 1024 neurons). Training 20,000 steps with L=64 takes approximately 30&ndash;60 minutes on a standard laptop CPU. Even with the trajectory extension adding 3 action dimensions, training should not exceed 2 hours per configuration.</p>
+
+  <p><strong>Hardware.</strong> No physical drone or RIS hardware is needed. This is entirely simulation-based research, consistent with the standard methodology in this field. The channels are modeled mathematically (Rayleigh/Rician fading, free-space path loss), the UAV trajectory is a sequence of 3D coordinates, and the RIS is a diagonal phase shift matrix.</p>
+
+  <p><strong>Software.</strong> The existing environment (Python 3.12, PyTorch, OpenAI Gym, NumPy, SciPy, scikit-learn) is already set up and verified. No additional software licenses or tools are needed.</p>
+
+  <!-- ===================== SECTION 6 ===================== -->
+  <h2>6. Proposed Next Steps</h2>
+
+  <p>Pending feedback on the direction and venue choice, my proposed immediate actions would be:</p>
+
+  <ol>
+    <li>Conduct a targeted literature review on the chosen direction (1&ndash;2 weeks), identifying 15&ndash;20 key references from 2023&ndash;2025.</li>
+    <li>Write the formal system model and problem formulation (mathematical notation, constraints, objective function).</li>
+    <li>Begin implementing the extended environment class, building on the existing SmartCityRISEnvironment.</li>
+    <li>Design the experiment plan (parameter settings, baselines, figure list).</li>
+  </ol>
+
+  <p>I would appreciate your thoughts on:</p>
+  <ul>
+    <li>Which direction aligns best with our group's research focus?</li>
+    <li>Whether you have a preferred target venue?</li>
+    <li>Any additional constraints or requirements I should factor in?</li>
+  </ul>
+
+  <div class="signature">
+    — Jawad Afridi
+  </div>
+
+</body>
+</html>

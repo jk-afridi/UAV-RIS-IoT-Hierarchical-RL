@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Research Extension Proposal - Supervisor Discussion</title>
+  <style>
+    body {
+      font-family: Calibri, Arial, sans-serif;
+      font-size: 12pt;
+      line-height: 1.6;
+      max-width: 780px;
+      margin: 0 auto;
+      color: #000;
+      padding: 50px 60px;
+    }
+
+    h1 {
+      font-size: 16pt;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 11pt;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    h2 {
+      font-size: 13pt;
+      font-weight: bold;
+      margin-top: 28px;
+      margin-bottom: 8px;
+      padding-bottom: 3px;
+      border-bottom: 1px solid #999;
+    }
+
+    h3 {
+      font-size: 12pt;
+      font-weight: bold;
+      margin-top: 18px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-bottom: 12px;
+      text-align: justify;
+      text-indent: 24px;
+    }
+
+    p.no-indent {
+      text-indent: 0;
+    }
+
+    ul, ol {
+      margin-top: 4px;
+      margin-bottom: 12px;
+      padding-left: 28px;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 11pt;
+    }
+
+    th, td {
+      border: 1px solid #666;
+      padding: 6px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background-color: #eee;
+      font-weight: bold;
+    }
+
+    .math {
+      text-align: center;
+      margin: 10px 0;
+      font-family: "Times New Roman", serif;
+      font-size: 12pt;
+    }
+
+    .ref {
+      font-size: 10pt;
+      margin-bottom: 4px;
+      text-indent: 0;
+      padding-left: 24px;
+      text-indent: -24px;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+  <script>
+    MathJax = {
+      tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]] },
+      startup: {
+        pageReady: () => {
+          return MathJax.startup.defaultPageReady().then(() => {
+            const el = document.createElement("div");
+            el.id = "mathjax-done";
+            document.body.appendChild(el);
+          });
+        }
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+
+<h1>Proposed Research Extension: AoI-Aware UAV-RIS Optimization<br>with Phase-Dependent Amplitude Constraints</h1>
+<div class="subtitle">
+  Discussion Document for Supervisor Review<br>
+  Jawad Afridi | August 2026
+</div>
+
+<!-- ============================================================ -->
+<h2>1. Purpose of This Document</h2>
+
+<p>This document outlines a proposed extension of our published WCNC 2026 / IoTJ paper on UAV-mounted RIS-assisted communications. The extension transitions the existing static downlink sum-rate framework into a dynamic uplink data collection system targeting Age of Information (AoI) minimization. The purpose is to present the technical direction, justify the novelty claim, acknowledge the limitations honestly, and identify discussion points that require supervisor guidance before proceeding further.</p>
+
+<!-- ============================================================ -->
+<h2>2. Summary of Published Work</h2>
+
+<p>Our published paper studies a UAV-mounted RIS-assisted downlink MU-MISO system deployed in an urban IoT environment. The UAV carries an L-element RIS and hovers at fixed anchor points above DBSCAN-clustered user groups. The primary contribution is the Beta-Space Exploration SAC algorithm, which addresses the performance degradation caused by the Phase-Dependent Amplitude (PDA) effect of practical RIS elements. The paper compares five DRL algorithms (SAC-Golden, SAC-Mismatch, Beta-Space SAC, DDPG, PPO) across three RIS scales (L = 16, 32, 64).</p>
+
+<p>The key findings of the published work are:</p>
+<ul>
+  <li>The PDA effect causes significant sum-rate degradation (up to 20%) when the agent is unaware of the amplitude-phase coupling.</li>
+  <li>Beta-Space Exploration SAC recovers most of this lost performance by guiding exploration toward regions of the action space where the PDA mismatch is largest.</li>
+  <li>The Virtual User Complementation Mechanism enables stable training across variable-size user clusters.</li>
+</ul>
+
+<p>However, the published work has several deliberate scope limitations that it acknowledges explicitly:</p>
+<ul>
+  <li>The UAV remains at fixed positions. No trajectory optimization is performed.</li>
+  <li>The objective is instantaneous sum-rate. No temporal metrics like AoI are considered.</li>
+  <li>The channel model uses Rayleigh fading with no position-dependent path loss.</li>
+  <li>UAV energy consumption is not modeled.</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2>3. Proposed Extension</h2>
+
+<h3>3.1 High-Level Idea</h3>
+
+<p>We propose to extend the system from a static downlink throughput optimizer into a dynamic uplink IoT data collection system. The UAV now flies continuously through the urban area, visiting clusters of IoT sensors to collect time-sensitive data. The optimization objective shifts from maximizing instantaneous sum-rate to minimizing the time-average Age of Information across all 80 IoT devices.</p>
+
+<p>The core technical question becomes: how should the UAV plan its trajectory and schedule cluster visits to keep all sensor data as fresh as possible, while operating under a finite energy budget and accounting for realistic RIS hardware imperfections (PDA)?</p>
+
+<h3>3.2 Specific Changes from Published Work</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width:25%;">Aspect</th>
+      <th style="width:37%;">Published Paper</th>
+      <th style="width:38%;">Proposed Extension</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Link direction</td>
+      <td>Downlink (BS to users, 30 dBm)</td>
+      <td>Uplink (IoT to BS, 10 dBm)</td>
+    </tr>
+    <tr>
+      <td>Optimization metric</td>
+      <td>Sum-rate (bps/Hz)</td>
+      <td>Average AoI (time slots)</td>
+    </tr>
+    <tr>
+      <td>UAV mobility</td>
+      <td>Fixed at 10 static anchor points</td>
+      <td>Continuous 2D/3D trajectory with speed constraint $V_{\max}$</td>
+    </tr>
+    <tr>
+      <td>Energy model</td>
+      <td>Not considered</td>
+      <td>Rotary-wing propulsion (Zeng and Zhang, TWC 2019)</td>
+    </tr>
+    <tr>
+      <td>Channel model</td>
+      <td>Rayleigh fading (i.i.d.)</td>
+      <td>Rician fading with distance-dependent path loss</td>
+    </tr>
+    <tr>
+      <td>DRL architecture</td>
+      <td>Single-level (flat action space)</td>
+      <td>Two-level hierarchy (macro-planner + micro-optimizer)</td>
+    </tr>
+    <tr>
+      <td>RIS / PDA model</td>
+      <td>PDA-aware (primary contribution)</td>
+      <td>Same PDA model, reused</td>
+    </tr>
+    <tr>
+      <td>Baselines</td>
+      <td>5 DRL algorithms</td>
+      <td>5 DRL + greedy, round-robin, random-walk, fixed-position</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>3.3 System Model Overview</h3>
+
+<p>We consider the same 100 x 100 m urban area with 80 IoT devices grouped into 10 DBSCAN clusters. A single UAV carrying an L-element RIS flies at variable speed (up to $V_{\max}$ = 10 m/s) through the area. At each discrete time slot $\Delta t$, the UAV selects a cluster to serve, moves toward it, and attempts to collect uplink data from the cluster's devices via RIS-enhanced reflection to the ground base station.</p>
+
+<p>The AoI for each device $k$ evolves as follows. If the device is successfully served (its uplink rate exceeds a minimum threshold $R_{\min}$), its AoI resets to 1. Otherwise, it increments by 1. The optimization objective is to minimize the time-average AoI across all $K$ devices over a mission of $T$ time slots.</p>
+
+<p>The UAV's total flight energy is constrained by a finite battery budget $E_{\text{budget}}$. The propulsion power follows the Zeng and Zhang rotary-wing model, which captures blade profile power, induced power, and fuselage drag as functions of flight speed.</p>
+
+<p>The RIS phase-shift optimization retains the PDA model from our published paper. The reflection amplitude $\beta_l$ of each element is coupled to its phase shift $\theta_l$ through the nonlinear relationship established in our previous work. This coupling means that the micro-level RIS optimizer cannot simply set arbitrary phases without incurring amplitude penalties.</p>
+
+<h3>3.4 Proposed Algorithm: Hierarchical DRL</h3>
+
+<p>The joint optimization of UAV trajectory, cluster scheduling, RIS phase shifts, and BS beamforming produces a mixed-integer nonlinear problem that is intractable for flat DRL due to the combined action dimensionality. We propose a two-level hierarchical decomposition:</p>
+
+<p><b>Level 1 (Macro-Planner, PPO):</b> Operates at low temporal resolution. Observes the UAV position, all device AoI values (normalized), and remaining energy. Outputs a continuous velocity vector and a discrete cluster selection. The reward is the negative average AoI.</p>
+
+<p><b>Level 2 (Micro-Optimizer, Beta-Space SAC):</b> Operates at high temporal resolution within a single time slot. Given the selected cluster and updated channel matrices, it optimizes the RIS phase shifts and BS receive beamforming to maximize the uplink sum-rate for that cluster. This is essentially the same optimization that our published paper solves, so we can initialize this level with pre-trained weights from the WCNC 2026 experiments.</p>
+
+<p>The curriculum learning strategy trains the micro-optimizer first (or loads pre-trained weights), then trains the macro-planner while keeping the micro-optimizer frozen or slowly fine-tuning.</p>
+
+<!-- ============================================================ -->
+<h2>4. Novelty Assessment</h2>
+
+<h3>4.1 The Combination Claim</h3>
+
+<p>The primary novelty claim is that no existing paper simultaneously addresses all four of the following:</p>
+<ol>
+  <li>UAV trajectory optimization (continuous, energy-constrained)</li>
+  <li>RIS phase-shift optimization</li>
+  <li>AoI minimization as the objective function</li>
+  <li>Phase-Dependent Amplitude (PDA) hardware constraint on the RIS</li>
+</ol>
+
+<p>This has been verified against the 2024 to 2026 literature. The closest existing works address three of the four but never all together:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Paper</th>
+      <th>UAV Mobility</th>
+      <th>RIS Phase</th>
+      <th>AoI</th>
+      <th>PDA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fan et al. (TVT, 2023)</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Tyrovolas et al. (TCOM, 2023)</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Liu and Zhang (TWC, 2023)</td>
+      <td>Yes</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Emami et al. (TVT, 2024)</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Our published paper (2025)</td>
+      <td>No</td>
+      <td>Yes</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td><b>Proposed extension</b></td>
+      <td><b>Yes</b></td>
+      <td><b>Yes</b></td>
+      <td><b>Yes</b></td>
+      <td><b>Yes</b></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>4.2 Honest Limitations of the Novelty</h3>
+
+<p>It is important to acknowledge that this is a combination novelty, not a fundamental novelty. Each individual component (UAV trajectory optimization, RIS phase design, AoI minimization, PDA modeling) has been studied extensively in isolation. The contribution lies in demonstrating that their interaction produces new and practically significant behavior that cannot be predicted from studying them separately.</p>
+
+<p>Specifically, the following aspects are not new on their own:</p>
+<ul>
+  <li>The PDA model is reused directly from our published paper.</li>
+  <li>The Zeng and Zhang energy model dates from 2019 and has been widely adopted.</li>
+  <li>Rician fading with distance-dependent path loss is a standard channel model.</li>
+  <li>Hierarchical DRL for UAV systems was introduced by Shi et al. (IoTJ, 2021).</li>
+</ul>
+
+<p>The strength of the claim depends entirely on whether the combination produces a genuinely new insight. If we can demonstrate that PDA-unaware AoI optimization leads to catastrophic decode failures in mobile uplink (a finding that does not exist in static downlink), then the paper has a strong technical justification beyond mere combination.</p>
+
+<h3>4.3 The Key Insight We Need to Demonstrate</h3>
+
+<p>The central hypothesis is that PDA mismatch has a qualitatively different and more severe impact on AoI in mobile uplink than on sum-rate in static downlink. The reasoning is as follows:</p>
+
+<p>In the published downlink scenario, the BS transmits at 30 dBm (1 W). Even with PDA-induced amplitude degradation, the received signal at each user remains above the noise floor for most phase configurations. The result is a gradual sum-rate reduction (roughly 15 to 20%), but communication is never completely disrupted.</p>
+
+<p>In the proposed uplink scenario, IoT devices transmit at only 10 dBm (10 mW), which is 100 times weaker. The RIS reflection gain is therefore critical for the received signal to exceed the minimum decode threshold $R_{\min}$. When the agent is unaware of PDA and configures phases that it believes produce unit-amplitude reflections, the actual reflected signal may fall below $R_{\min}$, resulting in a complete decode failure. A decode failure means the device's AoI is not reset and continues to grow.</p>
+
+<p>Furthermore, because the UAV is mobile, the channel conditions change with position. A phase configuration that works at one location may fail at another due to the combined effect of distance-dependent path loss and PDA coupling. This creates what we hypothesize to be a "distance-dependent decode failure zone" where, beyond a certain UAV-to-device distance, no phase configuration under PDA mismatch can achieve $R_{\min}$. This phenomenon would fundamentally alter the trajectory planning problem because the agent must learn to approach clusters more closely than a PDA-unaware agent would.</p>
+
+<p>If this hypothesis is confirmed through simulation, it constitutes a finding that is genuinely new and cannot be derived from any single existing paper.</p>
+
+<!-- ============================================================ -->
+<h2>5. Proposed Experimental Plan</h2>
+
+<h3>5.1 Performance Metrics</h3>
+
+<ul>
+  <li><b>Average AoI:</b> Time-average AoI across all 80 devices over the mission duration.</li>
+  <li><b>Peak AoI:</b> Maximum AoI observed for any single device during the mission.</li>
+  <li><b>AoI Fairness:</b> Jain's fairness index computed over per-device average AoI values.</li>
+  <li><b>Decode Success Rate:</b> Fraction of service attempts where $R_k \geq R_{\min}$ is achieved.</li>
+  <li><b>Energy Efficiency:</b> Average AoI achieved per Joule of propulsion energy consumed.</li>
+</ul>
+
+<h3>5.2 Baseline Methods</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Baseline</th>
+      <th>Description</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fixed-Position</td>
+      <td>UAV stays at best anchor point (published paper's setting)</td>
+      <td>Shows the value of trajectory optimization</td>
+    </tr>
+    <tr>
+      <td>Nearest-AoI Greedy</td>
+      <td>Always flies to the cluster with highest current AoI</td>
+      <td>Standard heuristic baseline for AoI problems</td>
+    </tr>
+    <tr>
+      <td>Round-Robin</td>
+      <td>Visits clusters in fixed cyclic order</td>
+      <td>Shows the value of intelligent scheduling</td>
+    </tr>
+    <tr>
+      <td>Random-Walk</td>
+      <td>Random velocity at each step, serves nearest cluster</td>
+      <td>Ablation for trajectory intelligence</td>
+    </tr>
+    <tr>
+      <td>Flat SAC</td>
+      <td>Single-agent SAC optimizing all variables jointly</td>
+      <td>Shows the value of hierarchical decomposition</td>
+    </tr>
+    <tr>
+      <td>Ideal-RIS Hierarchical</td>
+      <td>Our hierarchy but assuming unit-amplitude RIS (no PDA)</td>
+      <td>Isolates the impact of PDA awareness on AoI</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>5.3 Planned Figures</h3>
+
+<ol>
+  <li>System model diagram showing UAV, RIS, IoT clusters, and BS</li>
+  <li>Training convergence curves (average AoI vs. episodes) for all methods</li>
+  <li>Learned UAV trajectory visualization (top-down 2D view with cluster locations)</li>
+  <li>Device-level AoI heatmap over time (x-axis: time, y-axis: device ID, color: AoI)</li>
+  <li>Average AoI vs. RIS size (L = 16, 32, 64, optionally 128)</li>
+  <li>Average AoI vs. PDA severity ($\beta_{\min}$ = 0.3, 0.5, 0.7, 0.9, 1.0)</li>
+  <li>AoI-Energy Pareto frontier (varying energy budget)</li>
+  <li>CDF of per-device average AoI across baselines (fairness comparison)</li>
+</ol>
+
+<h3>5.4 Target Performance Improvements</h3>
+
+<p>For the paper to withstand review, we need to demonstrate substantial improvements, not marginal ones. The minimum targets are:</p>
+
+<ul>
+  <li>30% or greater reduction in average AoI versus the fixed-position baseline.</li>
+  <li>At least 2x reduction in peak AoI versus round-robin scheduling.</li>
+  <li>15% or greater improvement in decode success rate due to PDA awareness versus ideal-RIS assumption.</li>
+  <li>Jain's fairness index above 0.85, compared to below 0.70 for greedy baselines.</li>
+</ul>
+
+<p>If these targets are not met in simulation, the paper's novelty argument will be difficult to defend regardless of the combination claim.</p>
+
+<!-- ============================================================ -->
+<h2>6. Target Publication Venues</h2>
+
+<p>Given the scope and depth of the proposed work, the following venues are under consideration:</p>
+
+<ul>
+  <li><b>IEEE Internet of Things Journal</b> (Impact Factor approximately 8.2): Our published paper is already under review here. Submitting the extension to the same journal strengthens the narrative of a coherent research program.</li>
+  <li><b>IEEE Transactions on Vehicular Technology</b> (Impact Factor approximately 6.8): Strong fit for UAV trajectory and mobile communications work.</li>
+  <li><b>IEEE GLOBECOM or ICC</b> (conference): A shorter version with fixed altitude and fewer baselines could be submitted first to establish priority.</li>
+</ul>
+
+<!-- ============================================================ -->
+<h2>7. Implementation Status</h2>
+
+<p>Phase 1 (environment development) has been completed. The AoI-aware environment class extends the existing SmartCityRISEnvironment with UAV mobility, Rician channels, AoI tracking, and the Zeng and Zhang energy model. The environment has been validated through unit tests confirming that mobility constraints, energy accounting, and AoI evolution all function correctly.</p>
+
+<p>Remaining phases:</p>
+<ol>
+  <li>Phase 2: Develop the high-level PPO agent with hybrid action space (2 weeks)</li>
+  <li>Phase 3: Integrate the two-level hierarchy with curriculum learning (1 week)</li>
+  <li>Phase 4: Implement all baseline methods (1 week)</li>
+  <li>Phase 5: Run experiments, generate figures, and draft the manuscript (3 weeks)</li>
+</ol>
+
+<!-- ============================================================ -->
+<h2>8. Points for Discussion</h2>
+
+<p>The following questions require supervisor input before proceeding further:</p>
+
+<ol>
+  <li><b>Is the combination novelty sufficient for the target venue?</b> If you feel that the four-way intersection alone is not strong enough, we could add a theoretical component such as a closed-form upper bound on achievable AoI under PDA constraints, or a convergence analysis for the hierarchical DRL.</li>
+
+  <li><b>Hierarchical vs. flat architecture:</b> The hierarchical decomposition adds algorithmic complexity. Would you prefer we first establish a flat DRL baseline to verify that the hierarchy is necessary, or should we commit directly to the two-level approach?</li>
+
+  <li><b>Mandatory baselines:</b> Are there specific baseline methods (such as semidefinite relaxation or successive convex approximation) that you consider essential for this problem domain?</li>
+
+  <li><b>Scope of UAV mobility:</b> Should we limit the study to 2D trajectory (fixed altitude) to reduce complexity, or is the 3D case (variable altitude) important for the target journal?</li>
+
+  <li><b>Multi-UAV:</b> Reviewers may ask why we do not consider multiple UAVs. Should we include multi-UAV as a simulation variant, or is it sufficient to acknowledge it as future work?</li>
+
+  <li><b>Timeline and priority:</b> Given the risk that a competing paper may fill this gap, should we prioritize a conference submission (GLOBECOM/ICC) first to establish priority, or go directly for the journal?</li>
+</ol>
+
+<!-- ============================================================ -->
+<h2>9. References</h2>
+
+<p class="ref">[1] Y.-C. Huang and Z.-S. Chen, "UAV-Mounted RIS-Assisted IoT Communications with PDA-Aware DRL," submitted to IEEE Internet of Things Journal, 2025. (Our published paper)</p>
+
+<p class="ref">[2] X. Fan, M. Liu, Y. Chen, S. Sun, Z. Li, and X. Guo, "RIS-Assisted UAV for Fresh Data Collection in 3D Urban Environments: A Deep Reinforcement Learning Approach," IEEE Trans. Veh. Technol., vol. 72, no. 1, pp. 632-647, Jan. 2023.</p>
+
+<p class="ref">[3] D. Tyrovolas et al., "Energy-Aware Design of UAV-Mounted RIS Networks for IoT Data Collection," IEEE Trans. Commun., vol. 71, no. 2, pp. 1168-1178, Feb. 2023.</p>
+
+<p class="ref">[4] Y. Emami et al., "Age of Information Minimization Using Multi-Agent UAVs Based on AI-Enhanced Mean Field Resource Allocation," IEEE Trans. Veh. Technol., vol. 73, no. 9, pp. 13368-13380, Sept. 2024.</p>
+
+<p class="ref">[5] Y. Zeng and R. Zhang, "Energy-Efficient UAV Communication with Trajectory Optimization," IEEE Trans. Wireless Commun., vol. 16, no. 6, pp. 3747-3760, June 2017.</p>
+
+<p class="ref">[6] W. Shi, J. Li, H. Wu, C. Zhou, N. Cheng, and X. Shen, "Drone-Cell Trajectory Planning and Resource Allocation for Highly Mobile Networks: A Hierarchical DRL Approach," IEEE Internet of Things Journal, vol. 8, no. 12, pp. 9800-9813, June 2021.</p>
+
+<p class="ref">[7] J. Liu and H. Zhang, "Height-Fixed UAV Enabled Energy-Efficient Data Collection in RIS-Aided Wireless Sensor Networks," IEEE Trans. Wireless Commun., vol. 22, no. 11, pp. 7452-7463, Nov. 2023.</p>
+
+</body>
+</html>
