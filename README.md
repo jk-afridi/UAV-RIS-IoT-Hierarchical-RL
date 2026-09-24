@@ -1,134 +1,63 @@
-# UAV‑RIS DRL 實驗專案（整理版）
+# UAV-mounted RIS-assisted IoT Networks: A Hierarchical DRL Approach
 
-本專案為 WCNC 2026 論文與中文論文之實驗重整版本，只保留 **模型訓練** 與 **產生論文圖片** 相關程式。評委回覆所需新增實驗與報告也已整理在固定位置。
+This repository contains the official implementation of our research on optimizing Age of Information (AoI) and Decode Rate in IoT networks using a UAV-mounted Reconfigurable Intelligent Surface (RIS). 
 
-## 目錄結構
+We propose a **Hierarchical Deep Reinforcement Learning (DRL)** framework consisting of a PPO-based macro-agent for UAV trajectory optimization and a SAC-based micro-agent for RIS phase alignment, accounting for realistic Phase-Dependent Amplitude (PDA) hardware impairments.
 
+## 🚀 Key Results
+Our hierarchical approach simultaneously minimizes AoI and maximizes the successful decode rate, proving robust even under severe PDA hardware impairments:
+- **10% reduction** in Average AoI compared to random baselines.
+- **3.7× improvement** in Decode Rate compared to trajectory-only (PPO-only) optimization.
+- Achieves **~80% of the theoretical upper bound** of ideal, flawless RIS hardware.
+
+*(Detailed publication-ready figures can be found in the `results/figures_4way/` directory).*
+
+## 🏗️ Repository Structure
+```text
+├── src/
+│   ├── algorithms/       # Core DRL agents (PPO, SAC, Hierarchical)
+│   ├── core/             # Environment physics, AoI logic, and PDA models
+│   ├── train/            # Final training loops for all baselines
+│   └── experiments/      # Figure generation and statistical analysis scripts
+├── results/              # Final evaluation metrics and generated figures
+├── docs/                 # Research proposals and implementation roadmaps
+└── README.md
 ```
-.
-├─ src/                      # 主要程式（訓練與產圖）
-│  ├─ algorithms/            # SAC / DDPG / PPO / Beta‑Space 等演算法
-│  ├─ core/                  # 環境與共用工具
-│  ├─ train/                 # 訓練入口
-│  └─ figures/               # 產圖與評估腳本
-├─ Models/                   # 模型權重（Git 會忽略檔案內容）
-├─ Results/                  # 訓練結果 .npy
-├─ outputs/                  # 產圖與分析輸出
-│  ├─ analysis/              # 訓練曲線等分析
-│  ├─ ris_analysis/          # RIS 位置/效能比較圖
-│  ├─ evaluation/            # 評估結果
-│  ├─ dbscan/                # DBSCAN/Voronoi 環境輸出
-│  └─ review/                # 評委回覆新增實驗
-├─ experiments/review/       # 評委回覆新增實驗腳本
-├─ reports/reviewer_response # 評委回覆 HTML/PDF 與圖片
-├─ docs/papers               # 論文 PDF
-└─ requirements.txt
-```
 
-## 環境安裝
+*(Note: Legacy scripts and heavy historical outputs are preserved on the `archive/legacy-scripts` and `archive/historical-data` branches).*
 
-建議使用 Python 3.10+。
+## ⚙️ Installation
 
-1. 建立虛擬環境（選用）
-2. 安裝基本依賴：
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/jk-afridi/UAV-RIS-IoT-Hierarchical-RL.git
+   cd UAV-RIS-IoT-Hierarchical-RL
+   ```
+2. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+## 🧠 Running the Code
+
+### 1. Training the Agents
+You can train the three main architectures (Proposed, PPO-Only, Random) by running the scripts in the `src/train/` directory.
 
 ```bash
-pip install -r requirements.txt
+# Train the proposed Hierarchical (PPO + SAC) agent
+python -m src.train.train_hierarchical
+
+# Train the PPO-Only baseline (Trajectory optimization only)
+python -m src.train.train_ppo_only_baseline
+
+# Train the Random Baseline
+python -m src.train.train_random_baseline
 ```
 
-3. 產圖與環境生成常用套件（如尚未安裝）：
+### 2. Generating Publication Figures
+Once training is complete and results are stored in the `results/` folder, you can generate the 6 IEEE-formatted comparison figures:
 
 ```bash
-pip install matplotlib seaborn tqdm scipy scikit-learn shapely networkx
+python -m src.experiments.generate_4way_figures
 ```
-
-## 訓練模型
-
-請在專案根目錄執行：
-
-### SAC / Beta‑Space SAC 訓練
-
-```bash
-python src/train/main.py --policy Beta_Space_Exp_SAC --num_RIS_elements 64 --beta_min 0.6
-```
-
-### DDPG / PPO 訓練
-
-```bash
-python src/train/train_new_algorithms.py --algorithm DDPG --num_RIS_elements 64 --beta_min 0.6
-```
-
-### 批次訓練
-
-```bash
-python src/train/batch_training.py
-python src/train/train_all_new_models.py
-```
-
-訓練輸出：
-- 權重：`Models/`
-- 訓練曲線數據：`Results/`
-
-## 產生論文圖片（重點腳本）
-
-### 訓練收斂曲線
-
-```bash
-python src/figures/analyze_new_results_english.py --results_dir ./Results
-```
-
-輸出：`outputs/analysis/analysis_results_english/`
-
-### DBSCAN + Voronoi 環境與可視化
-
-```bash
-python src/figures/dbscan.py
-python src/figures/dbscan_visualization_english_complete.py
-```
-
-輸出：`outputs/dbscan/`
-
-### RIS 位置效能比較（L=16/32/64）
-
-```bash
-python src/figures/simplified_ris_location_analysis_english.py
-```
-
-輸出：`outputs/ris_analysis/modified_ris_analysis_english/`
-
-## 評委回覆新增實驗
-
-### 虛擬用戶比例影響
-
-```bash
-python experiments/review/virtual_user_ratio_experiment.py --model_path "Models/..."
-```
-
-輸出：`outputs/review/virtual_user_ratio/`
-
-### 可擴展性延遲（CPU）
-
-```bash
-python experiments/review/scalability_timing.py
-```
-
-輸出：`outputs/review/scalability/`
-
-## 評委回覆報告
-
-HTML / PDF 報告位置：
-- `reports/reviewer_response/reviewer_response_cn.html`
-- `reports/reviewer_response/reviewer_response_cn.pdf`
-
-若要重新輸出 PDF（需 Playwright）：
-
-```bash
-pip install playwright
-python -m playwright install chromium
-```
-
-## 注意事項
-
-- 執行腳本請**從專案根目錄**啟動，以確保相對路徑正確。
-- `Models/` 內權重已被 `.gitignore` 忽略，但資料夾會保留於 Git。
-- 論文 PDF 位置：`docs/papers/中文完成.pdf`、`docs/papers/paper_en_journal.pdf`。
+Figures will be outputted in both `.png` and `.pdf` formats in the `results/figures_4way/` directory.
