@@ -387,7 +387,9 @@ class Beta_Space_Exp_SAC(object):
             action[:, -2 * beta.shape[1]:] *= beta.repeat(1, 2)
         else:
             # 評估模式：直接使用策略網絡的均值動作
+            beta = self.explorer(state, exp_regularization)
             _, _, action = self.actor.sample(state)
+            action[:, -2 * beta.shape[1]:] *= beta.repeat(1, 2)
 
         return action.detach().cpu().numpy(), beta.detach().cpu().numpy()
 

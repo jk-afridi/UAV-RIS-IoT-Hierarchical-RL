@@ -11,3 +11,19 @@ sac_final_*
 
 # Allow results folders but the above rules will filter out the heavy weights
 !results/
+
+# LaTeX build artifacts
+paper/*.aux
+paper/*.log
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/*.pdf
+paper/missfont.log
+
+# Temp/debug scripts
+test_aoi.py
+test_ppo_mean.py
+save_context.sh
+OUTPUT_FILE
+$OUTPUT_FILE
