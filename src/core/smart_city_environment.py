@@ -37,7 +37,8 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
                  city_size=100,
                  bs_height=15,
                  ris_height=15,
-                 max_service_angle=60):
+                 max_service_angle=60,
+                 layout_seed=42):
         """
         Initialize Smart City RIS Environment
         
@@ -62,6 +63,12 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
         self.users_per_ris = 4    # Each RIS serves 4 users
         self.total_users = self.num_ris_groups * self.users_per_ris  # 40 total users
         
+        # Layout RNG is local: it no longer re-seeds the GLOBAL numpy RNG (previous
+        # code called np.random.seed(42) here, which silently gave every run the
+        # same city layout and overrode the caller's seed).
+        self.layout_seed = layout_seed
+        self._layout_rng = np.random.RandomState(layout_seed)
+
         # Generate RIS positions and corresponding user positions
         self._generate_ris_positions()
         self._generate_user_positions()
@@ -87,15 +94,15 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
         
     def _generate_ris_positions(self):
         """Generate RIS positions across the city."""
-        np.random.seed(42)  # Fixed seed for reproducibility
-        
+        rng = self._layout_rng
+
         # Randomly distribute RIS positions, avoiding edges
         margin = 10  # Edge margin
-        
+
         self.ris_positions = []
         for i in range(self.num_ris_groups):
-            x = np.random.uniform(margin, self.city_size - margin)
-            y = np.random.uniform(margin, self.city_size - margin)
+            x = rng.uniform(margin, self.city_size - margin)
+            y = rng.uniform(margin, self.city_size - margin)
             z = self.ris_height
             self.ris_positions.append(np.array([x, y, z]))
         
@@ -117,8 +124,8 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
                 attempts = 0
                 while attempts < 100:  # Max 100 attempts
                     # Random position within circular service area
-                    angle = np.random.uniform(0, 2*np.pi)
-                    radius = np.random.uniform(1, max_service_radius * 0.9)  # Leave margin
+                    angle = self._layout_rng.uniform(0, 2*np.pi)
+                    radius = self._layout_rng.uniform(1, max_service_radius * 0.9)  # Leave margin
                     
                     user_x = ris_pos[0] + radius * np.cos(angle)
                     user_y = ris_pos[1] + radius * np.sin(angle)
@@ -217,6 +224,15 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
         
         self.H_2 = np.column_stack(h2_channels)
         
+        return self._build_initial_state()
+
+    def _build_initial_state(self):
+        """Build the low-level state from the CURRENT self.H_1 / self.H_2.
+
+        Split out of reset() so that subclasses (e.g. the UAV environment) can
+        supply their own, position-dependent channels without reset() redrawing
+        and overwriting them.
+        """
         # Initialize other parameters
         self.G = np.eye(self.M, dtype=complex)
         self.Phi = np.eye(self.L, dtype=complex)

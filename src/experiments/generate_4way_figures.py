@@ -127,6 +127,12 @@ proposed = load_npz(RESULTS_BASE / 'hierarchical' / 'beta0.2_rmin1 (2).25_seed42
 ideal    = load_npz(RESULTS_BASE / 'hierarchical' / 'beta1.0_rmin1.25_seed42' / 'training_metrics.npz')
 ppo_only = load_npz(RESULTS_BASE / 'ppo_only' / 'beta0.2_rmin1.25_seed42' / 'training_metrics.npz')
 random_b = load_npz(RESULTS_BASE / 'random' / 'beta0.2_rmin1.25_seed42' / 'training_metrics_random.npz')
+# Legacy random-baseline files store decode_rates as a 0-1 FRACTION while every other
+# method stores PERCENT; plotting them together understated the random baseline 100x
+# (0.03% shown instead of 2.76%). train_random_baseline.py now stores percent; this
+# rescales files produced by the old version.
+if random_b['decode_rates'].max() <= 1.0:
+    random_b['decode_rates'] = random_b['decode_rates'] * 100.0
 
 ALL = {
     'proposed': proposed,

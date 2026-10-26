@@ -301,7 +301,8 @@ class Beta_Space_Exp_SAC(object):
                  device,
                  beta_min=0.6,
                  discount=0.99,
-                 tau=0.001):
+                 tau=0.001,
+                 use_beta=True):
         """
         初始化Beta空間探索SAC算法
         
@@ -338,6 +339,10 @@ class Beta_Space_Exp_SAC(object):
         self.automatic_entropy_tuning = automatic_entropy_tuning
         self.device = device
         self.updates = 0
+        # use_beta=False gives a vanilla SAC (no Explorer scaling) for the ablation that
+        # the original repo never ran. NOTE: in the original environment the Explorer
+        # scaling provably had no effect on the rate (rate depends only on arctan2 angle).
+        self.use_beta = use_beta
 
         # 初始化網絡
         self.critic = Critic(state_dim, action_space.shape[0], hidden_size).to(device=self.device)
@@ -384,12 +389,14 @@ class Beta_Space_Exp_SAC(object):
             beta = self.explorer(state, exp_regularization)
             action, _, _ = self.actor.sample(state)
             # 將beta值應用到相位相關的動作分量
-            action[:, -2 * beta.shape[1]:] *= beta.repeat(1, 2)
+            if self.use_beta:
+                action[:, -2 * beta.shape[1]:] *= beta.repeat(1, 2)
         else:
             # 評估模式：直接使用策略網絡的均值動作
             beta = self.explorer(state, exp_regularization)
             _, _, action = self.actor.sample(state)
-            action[:, -2 * beta.shape[1]:] *= beta.repeat(1, 2)
+            if self.use_beta:
+                action[:, -2 * beta.shape[1]:] *= beta.repeat(1, 2)
 
         return action.detach().cpu().numpy(), beta.detach().cpu().numpy()
 
@@ -411,7 +418,8 @@ class Beta_Space_Exp_SAC(object):
             # 為下一個狀態選擇目標平滑化動作
             next_beta = self.explorer_target(next_state_batch, exp_regularization)
             next_state_action, next_state_log_pi, _ = self.actor.sample(next_state_batch)
-            next_state_action[:, -2 * next_beta.shape[1]:] *= next_beta.repeat(1, 2)
+            if self.use_beta:
+                next_state_action[:, -2 * next_beta.shape[1]:] *= next_beta.repeat(1, 2)
 
             # 計算目標Q值
             qf1_next_target, qf2_next_target = self.critic_target(next_state_batch, next_state_action)
@@ -436,7 +444,8 @@ class Beta_Space_Exp_SAC(object):
 
         # 計算策略損失
         pi, log_pi, _ = self.actor.sample(state_batch)
-        pi[:, -2 * beta.shape[1]:] *= beta.repeat(1, 2)
+        if self.use_beta:
+            pi[:, -2 * beta.shape[1]:] *= beta.repeat(1, 2)
 
         qf1_pi, qf2_pi = self.critic(state_batch, pi)
         min_qf_pi = torch.min(qf1_pi, qf2_pi)

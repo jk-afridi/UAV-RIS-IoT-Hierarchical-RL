@@ -217,7 +217,7 @@ def train_ppo_only(args):
     env = AoIUAVRISEnvironment(
         num_antennas=4, num_RIS_elements=64, num_users=4,
         beta_min=args.beta_min, AWGN_var=1e-14, channel_noise_var=1e-14,
-        cascaded_channels=True, channel_est_error=False, seed=args.seed,
+        cascaded_channels=True, channel_est_error=True, seed=args.seed, layout_seed=args.seed, k_rice_bs=1.0,
         v_max=10.0, h_min=10.0, h_max=50.0, energy_budget=300000.0,
         episode_length=args.episode_length, delta_t=1.0, r_min=args.r_min,
         k_rice=10.0, iot_tx_power_dbm=10.0
@@ -344,11 +344,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='PPO-Only Baseline (No RIS Optimization)')
     parser.add_argument('--episodes', type=int, default=5000)
-    parser.add_argument('--episode_length', type=int, default=50)
+    parser.add_argument('--episode_length', type=int, default=200)
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--gpu', type=int, default=0)
     parser.add_argument('--beta_min', type=float, default=0.2)
-    parser.add_argument('--r_min', type=float, default=1.25)
+    parser.add_argument('--r_min', type=float, default=0.5)
     parser.add_argument('--ppo_lr', type=float, default=3e-4)
     args = parser.parse_args()
     train_ppo_only(args)

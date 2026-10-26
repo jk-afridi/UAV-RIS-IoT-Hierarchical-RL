@@ -293,7 +293,7 @@ class LowLevelSACWrapper:
     """
 
     def __init__(self, env, device, beta_min=0.2, inner_steps=5,
-                 lr=1e-4, buffer_size=20000, batch_size=16):
+                 lr=1e-4, buffer_size=20000, batch_size=16, use_beta=True):
         from algorithms import Beta_Space_Exp_SAC
 
         self.env = env
@@ -319,6 +319,7 @@ class LowLevelSACWrapper:
             discount=0.99,
             tau=1e-3,
             beta_min=beta_min,
+            use_beta=use_beta,
         )
 
         # Replay buffer
@@ -390,6 +391,15 @@ class LowLevelSACWrapper:
 
         return best_rates, best_action
 
+    def act_deterministic(self, low_state):
+        """Single deterministic policy action -- NO oracle best-of-N selection.
+        Use this (not optimize_for_cluster) when reporting evaluation results,
+        otherwise the learned policy is compared against baselines that do not
+        get the same free true-rate feedback."""
+        state = utils.whiten(low_state)
+        action, _ = self.agent.select_action(state, 0.0, evaluate=True)
+        return action[0] if getattr(action, 'ndim', 1) > 1 else action
+
     def save(self, path):
         self.agent.save(path)
         print(f"  [SAC] Model saved to {path}")
@@ -442,7 +452,9 @@ def train_hierarchical(args):
         delta_t=1.0,
         r_min=args.r_min,
         k_rice=10.0,
-        iot_tx_power_dbm=10.0,
+        k_rice_bs=args.k_rice_bs,
+        iot_tx_power_dbm=args.power_dbm,
+        layout_seed=args.seed,
     )
 
     env_info = env.get_env_info()
@@ -480,6 +492,7 @@ def train_hierarchical(args):
         lr=args.sac_lr,
         buffer_size=args.buffer_size,
         batch_size=16,
+        use_beta=not args.no_beta,
     )
 
     # Create results directory
@@ -488,6 +501,13 @@ def train_hierarchical(args):
         f'beta{args.beta_min}_rmin{args.r_min}_seed{args.seed}'
     )
     os.makedirs(results_dir, exist_ok=True)
+    import json, subprocess
+    try:
+        commit = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=SRC_DIR.parent).decode().strip()
+    except Exception:
+        commit = 'unknown'
+    with open(os.path.join(results_dir, 'config.json'), 'w') as f:
+        json.dump(dict(args=vars(args), git_commit=commit, env_info={k: str(v) for k, v in env_info.items()}), f, indent=2)
 
     # Training metrics
     episode_rewards = []
@@ -646,8 +666,13 @@ if __name__ == '__main__':
     # Environment
     parser.add_argument('--beta_min', type=float, default=0.2,
                         help='PDA severity (default: 0.2, cheap hardware)')
-    parser.add_argument('--r_min', type=float, default=1.25,
-                        help='Decode threshold in bps/Hz (default: 1.25)')
+    parser.add_argument('--r_min', type=float, default=0.5,
+                        help='Decode threshold in bps/Hz (default: 0.5; 1.25 is infeasible in the fixed environment)')
+    parser.add_argument('--k_rice_bs', type=float, default=1.0,
+                        help='Rician K of the BS<->RIS link (default 1.0)')
+    parser.add_argument('--power_dbm', type=float, default=10.0)
+    parser.add_argument('--no_beta', action='store_true',
+                        help='vanilla SAC ablation (disable Beta-space explorer scaling)')
 
     # PPO (High-Level)
     parser.add_argument('--ppo_lr', type=float, default=3e-4,

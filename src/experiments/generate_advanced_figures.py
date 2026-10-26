@@ -170,7 +170,7 @@ def main():
             # Compute ACTUAL synthesized Beta by parsing the hardware-constrained phase
             Phi_real = action_low[-2 * env.L:-env.L]
             Phi_imag = action_low[-env.L:]
-            angles = np.arctan2(Phi_imag, Phi_real)
+            angles = np.arctan2(Phi_real, Phi_imag)  # same argument order as core/environment.py (was swapped -> wrong beta in Fig.10)
             actual_betas = env._compute_PDA(angles)
             all_betas.append(actual_betas) # Save the 64 mapped amplitude values
         
@@ -215,7 +215,7 @@ def main():
     ax.set_ylim(0, env.city_size)
     ax.set_xlabel('X Coordinate (m)')
     ax.set_ylabel('Y Coordinate (m)')
-    ax.set_title('UAV 2D Trajectory across IoT Clusters')
+    ax.set_title('UAV 2D Trajectory (AoI-greedy macro-controller, NOT the learned PPO policy)', fontsize=10)
     ax.legend(loc='upper right')
     fig.tight_layout()
     fig.savefig(fig_dir / 'fig7_trajectory.pdf')
@@ -231,7 +231,7 @@ def main():
     
     ax.set_xlabel('Time Step ($t$)')
     ax.set_ylabel('Instantaneous AoI')
-    ax.set_title('Dynamic Age of Information Evolution (Sawtooth Waveform)')
+    ax.set_title('AoI evolution under the AoI-greedy macro-controller', fontsize=11)
     ax.legend(loc='upper left')
     fig.tight_layout()
     fig.savefig(fig_dir / 'fig8_aoi_sawtooth.pdf')

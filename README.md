@@ -4,13 +4,12 @@ This repository contains the official implementation of our research on optimizi
 
 We propose a **Hierarchical Deep Reinforcement Learning (DRL)** framework consisting of a PPO-based macro-agent for UAV trajectory optimization and a SAC-based micro-agent for RIS phase alignment, accounting for realistic Phase-Dependent Amplitude (PDA) hardware impairments.
 
-## 🚀 Key Results
-Our hierarchical approach simultaneously minimizes AoI and maximizes the successful decode rate, proving robust even under severe PDA hardware impairments:
-- **10% reduction** in Average AoI compared to random baselines.
-- **3.7× improvement** in Decode Rate compared to trajectory-only (PPO-only) optimization.
-- Achieves **~80% of the theoretical upper bound** of ideal, flawless RIS hardware.
-
-*(Detailed publication-ready figures can be found in the `results/figures_4way/` directory).*
+## ⚠️ Status of the results
+The headline numbers in earlier versions of this README (10 % AoI reduction, 3.7x decode gain, "80 % of the
+theoretical upper bound") were produced by an environment in which the UAV position did not affect the
+channel, and were compared only against random RIS phases. See [`AUDIT.md`](AUDIT.md) for the audit, the fixes
+on this branch, and a multi-seed benchmark of strong non-learning baselines (alternating optimisation +
+AoI-greedy scheduling) that any learned method must now beat.
 
 ## 🏗️ Repository Structure
 ```text
@@ -21,6 +20,7 @@ Our hierarchical approach simultaneously minimizes AoI and maximizes the success
 │   └── experiments/      # Figure generation and statistical analysis scripts
 ├── results/              # Final evaluation metrics and generated figures
 ├── docs/                 # Research proposals and implementation roadmaps
+├── tests/                # regression tests for the audit findings
 └── README.md
 ```
 
@@ -61,3 +61,9 @@ Once training is complete and results are stored in the `results/` folder, you c
 python -m src.experiments.generate_4way_figures
 ```
 Figures will be outputted in both `.png` and `.pdf` formats in the `results/figures_4way/` directory.
+
+### 3. Evaluating (multi-seed, per-seed layouts)
+```bash
+python -m src.eval.evaluate --seeds 5 --episodes 3          # non-learning baselines
+python -m src.eval.evaluate_drl --ckpt_dir results/hierarchical/<run> --seeds 5   # trained PPO+SAC
+```

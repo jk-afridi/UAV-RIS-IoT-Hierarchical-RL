@@ -53,7 +53,9 @@ class AoIUAVRISEnvironment(SmartCityRISEnvironment):
                  r_min=0.5,
                  k_rice=10.0,
                  iot_tx_power_dbm=10.0,
-                 enable_3d_trajectory=False):
+                 enable_3d_trajectory=False,
+                 layout_seed=42,
+                 k_rice_bs=None):
         """
         Parameters (new ones only):
             v_max (float): Maximum UAV speed (m/s)
@@ -63,7 +65,11 @@ class AoIUAVRISEnvironment(SmartCityRISEnvironment):
             episode_length (int): Number of timesteps per episode
             delta_t (float): Duration of each timestep (seconds)
             r_min (float): Minimum uplink rate for successful decode (bps/Hz)
-            k_rice (float): Rician K-factor (linear scale)
+            k_rice (float): Rician K-factor (linear) of the device<->RIS links
+            k_rice_bs (float|None): Rician K-factor of the BS<->RIS link (default: k_rice).
+                A strongly LoS (large K) BS link makes H1 ~rank-1, which makes
+                simultaneous multi-device (SDMA) separation impossible; set a small
+                value to model a scattering-rich BS side.
             iot_tx_power_dbm (float): IoT device transmit power (dBm)
             enable_3d_trajectory (bool): If True, UAV altitude is variable
         """
@@ -76,6 +82,7 @@ class AoIUAVRISEnvironment(SmartCityRISEnvironment):
         self.delta_t = delta_t
         self.r_min = r_min
         self.k_rice = k_rice
+        self.k_rice_bs = k_rice if k_rice_bs is None else k_rice_bs
         self.iot_tx_power_dbm = iot_tx_power_dbm
         self.iot_tx_power = 10 ** (iot_tx_power_dbm / 10) * 1e-3  # Convert to Watts
         self.enable_3d = enable_3d_trajectory
@@ -107,7 +114,8 @@ class AoIUAVRISEnvironment(SmartCityRISEnvironment):
             city_size=city_size,
             bs_height=bs_height,
             ris_height=ris_height,
-            max_service_angle=max_service_angle
+            max_service_angle=max_service_angle,
+            layout_seed=layout_seed
         )
 
         # --- AoI state variables ---
@@ -190,52 +198,59 @@ class AoIUAVRISEnvironment(SmartCityRISEnvironment):
     # Channel Model (Rician)
     # ============================
 
-    def _compute_rician_channel(self, pos1, pos2, shape):
-        """
-        Compute Rician fading channel between two positions.
-        H = sqrt(K/(1+K)) * H_LoS + sqrt(1/(1+K)) * H_NLoS
-        """
-        distance = np.linalg.norm(pos1 - pos2)
-        if distance < 0.1:
-            distance = 0.1
+    def _ris_steering(self, direction):
+        """LoS array response of the RIS (square UPA, half-wavelength spacing,
+        in the x-y plane) towards unit vector `direction`."""
+        nx = int(np.ceil(np.sqrt(self.L)))
+        idx = np.arange(self.L)
+        m, n = idx // nx, idx % nx
+        return np.exp(1j * np.pi * (m * direction[0] + n * direction[1]))
 
-        # Free-space path loss
+    def _bs_steering(self, direction):
+        """LoS array response of the BS ULA (along x, half-wavelength spacing)."""
+        return np.exp(1j * np.pi * np.arange(self.M) * direction[0])
+
+    def _compute_rician_channel(self, pos1, pos2, shape, los=None, k_rice=None):
+        """
+        Rician fading channel between two positions.
+        H = sqrt(K/(1+K)) * H_LoS + sqrt(1/(1+K)) * H_NLoS
+        `los` (optional, shape `shape`) is a unit-modulus geometric LoS
+        response; if omitted the LoS term is all-ones (legacy behaviour).
+        """
+        distance = max(np.linalg.norm(pos1 - pos2), 0.1)
+
+        # Free-space path loss (amplitude)
         freq = 2.4e9
         c = 3e8
         pl_db = 20 * np.log10(distance) + 20 * np.log10(freq) + 20 * np.log10(4 * np.pi / c)
         pl_linear = 10 ** (-pl_db / 20)
 
-        # LoS component (deterministic steering vector)
-        H_LoS = np.ones(shape, dtype=complex) * pl_linear
-
-        # NLoS component (Rayleigh)
+        H_LoS = (np.ones(shape, dtype=complex) if los is None else los) * pl_linear
         H_NLoS = (np.random.normal(0, np.sqrt(0.5), shape) +
                   1j * np.random.normal(0, np.sqrt(0.5), shape)) * pl_linear
 
-        # Combine with Rician K-factor
-        K = self.k_rice
-        H = np.sqrt(K / (1 + K)) * H_LoS + np.sqrt(1 / (1 + K)) * H_NLoS
-
-        return H
+        K = self.k_rice if k_rice is None else k_rice
+        return np.sqrt(K / (1 + K)) * H_LoS + np.sqrt(1 / (1 + K)) * H_NLoS
 
     def _update_channels_for_position(self):
-        """Recompute all channel matrices based on current UAV position."""
-        current_ris_pos = self.uav_pos  # RIS is mounted on UAV
+        """Recompute H_1 / H_2 from the CURRENT UAV (= RIS) position."""
+        ris = self.uav_pos  # RIS is mounted on the UAV
 
-        # H1: BS → RIS (uplink: this becomes RIS → BS relay path)
-        self.H_1 = self._compute_rician_channel(
-            self.bs_position, current_ris_pos, (self.L, self.M)
-        )
+        # H1: RIS <-> BS (L x M), geometric LoS
+        d_bs = self.bs_position - ris
+        d_bs = d_bs / max(np.linalg.norm(d_bs), 1e-9)
+        los1 = np.outer(self._ris_steering(d_bs), self._bs_steering(-d_bs))
+        self.H_1 = self._compute_rician_channel(self.bs_position, ris, (self.L, self.M), los1,
+                                             k_rice=self.k_rice_bs)
 
-        # H2: RIS → IoT devices (uplink: devices → RIS)
-        current_users = self.get_current_users()
-        h2_channels = []
-        for user_pos in current_users:
-            h2_user = self._compute_rician_channel(
-                current_ris_pos, user_pos, (self.L, 1)
-            )
-            h2_channels.append(h2_user[:, 0])
-        self.H_2 = np.column_stack(h2_channels)
+        # H2: devices <-> RIS (L x K), geometric LoS per device
+        cols = []
+        for user_pos in self.get_current_users():
+            d_u = user_pos - ris
+            d_u = d_u / max(np.linalg.norm(d_u), 1e-9)
+            los2 = self._ris_steering(d_u).reshape(-1, 1)
+            cols.append(self._compute_rician_channel(ris, user_pos, (self.L, 1), los2)[:, 0])
+        self.H_2 = np.column_stack(cols)
 
     # ============================
     # AoI Logic
@@ -317,8 +332,12 @@ class AoIUAVRISEnvironment(SmartCityRISEnvironment):
         self.set_current_ris_group(cluster_id)
         self._update_channels_for_position()
 
-        # 4. Get low-level state (for external SAC optimizer)
-        low_state = self.reset()  # recomputes state with new channels
+        # 4. Low-level state from the position-aware channels computed above.
+        #    (Previously this called self.reset(), which redrew Rayleigh channels at
+        #    the *static* cluster position and silently discarded the UAV position.)
+        self.episode_t = 0
+        self.info["true reward"] = 0
+        low_state = self._build_initial_state()
 
         # 5. Compute achieved rates (placeholder — will be filled by low-level)
         # For now, return the low_state so the external loop can run SAC

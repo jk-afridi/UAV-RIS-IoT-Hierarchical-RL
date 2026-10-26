@@ -23,7 +23,7 @@ def train_random(args):
         AWGN_var=1e-14,
         channel_noise_var=1e-14,
         cascaded_channels=True,
-        channel_est_error=False,
+        channel_est_error=True,
         seed=args.seed,
         v_max=10.0,
         h_min=10.0,
@@ -33,6 +33,8 @@ def train_random(args):
         delta_t=1.0,
         r_min=args.r_min,
         k_rice=10.0,
+        k_rice_bs=1.0,
+        layout_seed=args.seed,
         iot_tx_power_dbm=10.0
     )
 
@@ -93,7 +95,7 @@ def train_random(args):
         # Calculate metrics
         avg_aoi = np.mean(step_aois)
         peak_aoi = env.get_peak_aoi()
-        decode_pct = np.sum(step_decode_counts) / (args.episode_length * env.K)
+        decode_pct = 100.0 * np.sum(step_decode_counts) / (len(step_decode_counts) * env.K)  # PERCENT (was a 0-1 fraction)
 
         episode_rewards.append(episode_reward)
         episode_avg_aois.append(avg_aoi)
@@ -104,7 +106,7 @@ def train_random(args):
         if (episode + 1) % 1 == 0:
             print(f"  Ep {episode+1:5d}/{args.episodes} | Reward: {episode_reward:8.2f} | "
                   f"Avg AoI: {avg_aoi:6.1f} | Peak AoI: {peak_aoi:6.1f} | "
-                  f"Decode%: {100*decode_pct:5.1f}% | Time: {int(time.time() - start_time)}s")
+                  f"Decode%: {decode_pct:5.1f}% | Time: {int(time.time() - start_time)}s")
 
     # Save metrics
     metrics_file = os.path.join(results_dir, "training_metrics_random.npz")
@@ -120,20 +122,20 @@ def train_random(args):
     print(f"  Total time: {int(time.time() - start_time)}s")
     print(f"  Final Avg AoI: {np.mean(episode_avg_aois[-50:]):.2f}")
     print(f"  Final Peak AoI: {np.mean(episode_peak_aois[-50:]):.2f}")
-    print(f"  Final Decode%: {np.mean(episode_decode_rates[-50:])*100:.1f}%")
+    print(f"  Final Decode%: {np.mean(episode_decode_rates[-50:]):.1f}%")
     print(f"  Metrics saved to {metrics_file}")
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Random Baseline for AoI-Aware UAV-RIS')
     parser.add_argument('--episodes', type=int, default=1000,
                         help='Number of training episodes (default: 1000)')
-    parser.add_argument('--episode_length', type=int, default=50,
+    parser.add_argument('--episode_length', type=int, default=200,
                         help='Timesteps per episode (default: 50)')
     parser.add_argument('--seed', type=int, default=42,
                         help='Random seed (default: 42)')
     parser.add_argument('--beta_min', type=float, default=0.2,
                         help='PDA severity (default: 0.2, cheap hardware)')
-    parser.add_argument('--r_min', type=float, default=1.25,
+    parser.add_argument('--r_min', type=float, default=0.5,
                         help='Decode threshold in bps/Hz (default: 1.25)')
     args = parser.parse_args()
     train_random(args)
