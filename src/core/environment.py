@@ -1,5 +1,4 @@
-import gym
-from gym import spaces
+from ._gym_compat import gym, spaces
 import numpy as np
 
 class RIS_MISO_PDA(gym.Env):

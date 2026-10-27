@@ -5,8 +5,7 @@ Smart City RIS Environment
 Includes realistic physical location constraints and service coverage limits
 """
 
-import gym
-from gym import spaces
+from ._gym_compat import gym, spaces
 import numpy as np
 import matplotlib.pyplot as plt
 from .environment import RIS_MISO_PDA
@@ -92,6 +91,13 @@ class SmartCityRISEnvironment(RIS_MISO_PDA):
             seed=seed
         )
         
+    def reset_layout(self, layout_seed):
+        """Draw a new city layout (cluster centres + devices) without rebuilding the env."""
+        self.layout_seed = layout_seed
+        self._layout_rng = np.random.RandomState(layout_seed)
+        self._generate_ris_positions()
+        self._generate_user_positions()
+
     def _generate_ris_positions(self):
         """Generate RIS positions across the city."""
         rng = self._layout_rng

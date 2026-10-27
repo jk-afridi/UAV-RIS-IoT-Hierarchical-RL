@@ -62,7 +62,11 @@ python -m src.experiments.generate_4way_figures
 ```
 Figures will be outputted in both `.png` and `.pdf` formats in the `results/figures_4way/` directory.
 
-### 3. Evaluating (multi-seed, per-seed layouts)
+### 3. Running the paper experiments (Colab, GPU)
+See [`PAPER_PLAN.md`](PAPER_PLAN.md) for the plan and decision rules and `colab/paper_experiments.ipynb` (or
+`bash scripts/run_colab.sh quick|full`).
+
+### 4. Evaluating (multi-seed, per-seed layouts)
 ```bash
 python -m src.eval.evaluate --seeds 5 --episodes 3          # non-learning baselines
 python -m src.eval.evaluate_drl --ckpt_dir results/hierarchical/<run> --seeds 5   # trained PPO+SAC

@@ -56,3 +56,8 @@ Any DRL claim must be made against the first rows, not against random phases.
 * Cite Saglam et al. (arXiv 2211.09702) and state exactly which components are inherited; verify whether the
   Explorer / Beta-space idea originates there before calling it novel.
 * PDA model-mismatch test (solver given wrong beta_min/kappa) is the most promising place for DRL to win.
+
+## Update (branch `feat/paper-v2`)
+New components (written, **not yet executed**): hardware-mismatch model in the env, AO under nominal/ideal/true
+amplitude models, CEM probe-budget baselines, physics-guided residual SAC, hybrid-action macro PPO, mismatch and
+episode-level studies, report generator, Colab runner. See `PAPER_PLAN.md`.

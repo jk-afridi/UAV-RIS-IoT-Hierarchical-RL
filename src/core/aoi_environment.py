@@ -11,8 +11,7 @@ Extends the SmartCityRISEnvironment with:
   5. UAV propulsion energy model (Zeng & Zhang, IEEE TWC 2019)
 """
 
-import gym
-from gym import spaces
+from ._gym_compat import gym, spaces
 import numpy as np
 from .smart_city_environment import SmartCityRISEnvironment
 
@@ -118,6 +117,10 @@ class AoIUAVRISEnvironment(SmartCityRISEnvironment):
             layout_seed=layout_seed
         )
 
+        # Nominal (assumed-by-the-designer) PDA model. The TRUE hardware can be changed
+        # with set_hardware(); model-based solvers only know the nominal values.
+        self.nominal_pda = (float(beta_min), float(kappa_bar), float(theta_bar))
+
         # --- AoI state variables ---
         self.K_total = self.total_users  # Total IoT devices
         self.aoi = np.ones(self.K_total)  # AoI counters (init to 1)
@@ -130,7 +133,10 @@ class AoIUAVRISEnvironment(SmartCityRISEnvironment):
 
         # --- High-level state/action spaces ---
         # High-level state: [uav_x, uav_y, uav_z, aoi_1..aoi_K, e_remain]
-        self.high_state_dim = 3 + self.K_total + 1
+        # v2 state: [uav_xy/city (2), energy frac (1), cluster centres relative to UAV /city (2*C),
+        #           per-device AoI / episode_length (K_total)]. Cluster positions MUST be observable
+        # because every seed now has its own city layout.
+        self.high_state_dim = 3 + 2 * self.num_ris_groups + self.K_total
         # High-level action: [v_x, v_y, (v_z if 3D), cluster_id]
         vel_dim = 3 if self.enable_3d else 2
         self.high_action_dim = vel_dim  # cluster_id is discrete, handled separately
@@ -142,6 +148,33 @@ class AoIUAVRISEnvironment(SmartCityRISEnvironment):
         self.high_action_space = spaces.Box(
             low=-1.0, high=1.0,
             shape=(self.high_action_dim,), dtype=np.float64
+        )
+
+    # ============================
+    # Hardware (PDA) model
+    # ============================
+
+    def set_hardware(self, beta_min=None, kappa_bar=None, theta_bar=None):
+        """Override the TRUE PDA parameters (scalars or length-L arrays). The rate computation
+        uses these; model-based baselines keep using `self.nominal_pda`."""
+        if beta_min is not None:
+            self.beta_min = beta_min
+        if kappa_bar is not None:
+            self.kappa_bar = kappa_bar
+        if theta_bar is not None:
+            self.theta_bar = theta_bar
+
+    def sample_hardware(self, rng, spread=1.0):
+        """Draw a per-element hardware instance around the nominal model (manufacturing
+        variation / ageing). spread=0 -> nominal. Returns kwargs for set_hardware().
+        beta_min_l ~ N(b0, (0.15*spread)^2) clipped to [0.05, 0.95]; kappa_l = k0*exp(N(0,(0.3*spread)^2));
+        theta_l ~ N(t0, (0.5*spread)^2) rad."""
+        b0, k0, t0 = self.nominal_pda
+        L = self.L
+        return dict(
+            beta_min=np.clip(b0 + 0.15 * spread * rng.normal(size=L), 0.05, 0.95),
+            kappa_bar=k0 * np.exp(0.3 * spread * rng.normal(size=L)),
+            theta_bar=t0 + 0.5 * spread * rng.normal(size=L),
         )
 
     # ============================
@@ -285,13 +318,14 @@ class AoIUAVRISEnvironment(SmartCityRISEnvironment):
     # ============================
 
     def get_high_level_state(self):
-        """Construct the high-level state vector."""
-        state = np.concatenate([
-            self.uav_pos,                              # 3
-            self.aoi / self.episode_length,             # K_total (normalized)
-            [self.energy_remaining / self.energy_budget] # 1 (normalized)
+        """Construct the (normalised) high-level state vector."""
+        rel = (self.ris_positions[:, :2] - self.uav_pos[:2]) / self.city_size      # (C, 2)
+        return np.concatenate([
+            self.uav_pos[:2] / self.city_size,                    # 2
+            [self.energy_remaining / self.energy_budget],         # 1
+            rel.ravel(),                                          # 2*C
+            self.aoi / self.episode_length,                       # K_total
         ])
-        return state
 
     def high_level_reset(self):
         """Reset the entire episode."""
@@ -302,7 +336,7 @@ class AoIUAVRISEnvironment(SmartCityRISEnvironment):
                                  self.ris_height], dtype=np.float64)
         return self.get_high_level_state()
 
-    def high_level_step(self, velocity, cluster_id):
+    def high_level_step(self, velocity, cluster_id, build_low_state=True):
         """
         Execute one high-level timestep:
           1. Move UAV
@@ -337,7 +371,7 @@ class AoIUAVRISEnvironment(SmartCityRISEnvironment):
         #    the *static* cluster position and silently discarded the UAV position.)
         self.episode_t = 0
         self.info["true reward"] = 0
-        low_state = self._build_initial_state()
+        low_state = self._build_initial_state() if build_low_state else None
 
         # 5. Compute achieved rates (placeholder — will be filled by low-level)
         # For now, return the low_state so the external loop can run SAC
