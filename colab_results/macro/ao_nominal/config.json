@@ -1,0 +1,26 @@
+{
+  "args": {
+    "episodes": 1500,
+    "rollout_episodes": 5,
+    "episode_length": 200,
+    "train_layouts": 50,
+    "lowlevel": "ao_nominal",
+    "ckpt": null,
+    "spread": 0.0,
+    "ao_sweeps": 2,
+    "reward_scale": 50.0,
+    "eval_every": 100,
+    "eval_layouts": 5,
+    "L": 64,
+    "beta_min": 0.2,
+    "r_min": 0.5,
+    "k_rice": 10.0,
+    "k_rice_bs": 1.0,
+    "power_dbm": 10.0,
+    "energy_budget": 300000.0,
+    "seed": 0,
+    "device": "cuda",
+    "out": "results/macro/ao_nominal"
+  },
+  "git_commit": "edbcb9c3c6f2651e914e212b40f82c8afa9b6713"
+}

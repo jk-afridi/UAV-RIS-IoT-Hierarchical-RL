@@ -1,0 +1,27 @@
+{
+  "args": {
+    "seed": 0,
+    "spread": 1.0,
+    "train_slots": 8000,
+    "L": 64,
+    "beta_min": 0.2,
+    "r_min": 0.5,
+    "k_rice": 10.0,
+    "k_rice_bs": 1.0,
+    "power_dbm": 10.0,
+    "max_dist": 20.0,
+    "delta_max": 1.0,
+    "ao_sweeps": 2,
+    "lr": 0.0003,
+    "batch": 256,
+    "buffer": 30000,
+    "warmup": 512,
+    "collect_per_iter": 8,
+    "updates_per_iter": 8,
+    "eval_every": 1000,
+    "eval_slots": 100,
+    "device": "cuda",
+    "out": "results/residual/seed0_spread1.0"
+  },
+  "git_commit": "edbcb9c3c6f2651e914e212b40f82c8afa9b6713"
+}

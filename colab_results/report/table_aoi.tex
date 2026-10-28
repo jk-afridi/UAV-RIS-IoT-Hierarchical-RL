@@ -1,0 +1,21 @@
+\begin{tabular}{lrrr}
+\toprule
+Scheduler + RIS policy & Avg AoI & Peak AoI & Decode \% \\
+\midrule
+greedy\_aoi\_travel+ao\_nominal & 11.6$\pm$3.4 & 55.6$\pm$14.3 & 64.7$\pm$14.2 \\
+greedy\_aoi+ao\_nominal & 11.9$\pm$3.3 & 66.3$\pm$17.9 & 57.0$\pm$12.0 \\
+round\_robin+ao\_nominal & 16.1$\pm$6.8 & 161.3$\pm$61.0 & 65.2$\pm$13.1 \\
+random+ao\_nominal & 62.4$\pm$15.8 & 200.8$\pm$0.6 & 15.1$\pm$5.7 \\
+ppo+ao\_nominal & 27.6$\pm$25.1 & 124.3$\pm$81.6 & 38.7$\pm$24.2 \\
+greedy\_aoi\_travel+ao\_calibrated & 10.7$\pm$3.5 & 52.1$\pm$16.8 & 67.9$\pm$15.4 \\
+greedy\_aoi+ao\_calibrated & 10.7$\pm$2.8 & 62.5$\pm$12.7 & 61.6$\pm$13.6 \\
+round\_robin+ao\_calibrated & 15.4$\pm$7.1 & 157.1$\pm$66.0 & 68.8$\pm$13.5 \\
+random+ao\_calibrated & 61.3$\pm$15.4 & 199.1$\pm$5.4 & 16.4$\pm$6.1 \\
+ppo+ao\_calibrated & 28.6$\pm$28.4 & 136.5$\pm$75.9 & 39.9$\pm$28.1 \\
+greedy\_aoi\_travel+residual & 17.9$\pm$6.0 & 83.0$\pm$26.9 & 45.7$\pm$10.0 \\
+greedy\_aoi+residual & 21.0$\pm$10.2 & 110.4$\pm$46.8 & 35.7$\pm$13.4 \\
+round\_robin+residual & 25.9$\pm$11.2 & 183.9$\pm$29.1 & 45.3$\pm$15.2 \\
+random+residual & 72.1$\pm$15.9 & 201.0$\pm$0.0 & 9.4$\pm$5.0 \\
+ppo+residual & 43.1$\pm$34.2 & 151.3$\pm$65.1 & 22.6$\pm$17.3 \\
+\bottomrule
+\end{tabular}
