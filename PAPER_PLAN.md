@@ -9,6 +9,19 @@ an honest ceiling, so the obvious reviewer attacks are already answered. This pl
 > tracebacks. The numbers in `AUDIT.md` were produced earlier on the fixed environment; nothing from the new
 > components has been measured yet.
 
+## 0. What the first Colab run showed (results-colab-20261028-0020, code 2bfeb5a)
+- Hardware-mismatch gap (AO true curve - AO nominal): 0.4 / 1.4 / 1.8 / 8.1 pp decode at spread 0 / 0.5 / 1 / 2.
+  Inside the CI except at spread 2 -> the mismatch story alone is weak.
+- Residual SAC (v2) fell BELOW its own prior (47 % vs 75 % decode, also at spread 0): training problem, fixed in v3.
+- AO+CEM with 45 true-rate probes reached 88 % even at spread 0, so "AO with the true curve" is NOT a ceiling:
+  the headroom is AO suboptimality / CSI noise. v3 adds `ao_*_perfcsi` rows to decompose it.
+- PPO macro lost to greedy_aoi_travel (27.6 vs 11.6 AoI) -> no learned-scheduling claim.
+v3 (this commit): paired reward + zero anchors + L2 + fixed alpha + best-validation snapshot (never worse than the
+prior on validation), perfect-CSI decomposition, paired CIs vs ao_nominal. Results go to `results/residual_v3`.
+Decision after the v3 run: if `residual_sac` still has paired d-decode <= 0 vs `ao_nominal` (CI includes 0), go to Branch B.
+A zero-probe policy cannot learn per-slot CSI noise, only systematic bias; the perfcsi rows show how much of the
+CEM gain is systematic (learnable) vs per-slot (needs probes).
+
 ## 1. The question the paper has to answer
 The audit showed that in this environment a classical solver (alternating optimisation, AO) with a known
 PDA curve already gets most of the gain, and the original DRL results were not better than random search

@@ -59,6 +59,7 @@ def slot_reward(rates, r_min):
 
 
 def evaluate_vs_prior(env, agent, rng, n, max_dist, sweeps):
+    """Paired evaluation on the same slots and the same CSI estimate: -> (policy, prior) mean slot reward."""
     pol, pri = [], []
     for _ in range(n):
         sample_slot(env, rng, max_dist)
@@ -71,18 +72,28 @@ def evaluate_vs_prior(env, agent, rng, n, max_dist, sweeps):
 
 
 def train(env, a, rng, device, log=print):
+    """Trains the residual policy on PAIRED rewards (reward(prior+delta) - reward(prior), same channel and
+    CSI estimate) and returns the snapshot with the best paired gain on a fixed validation stream
+    (the zero-residual policy, gain 0, is the fallback), so the result can never be worse than its prior
+    on validation."""
     in_dim, act_dim = feature_dim(env), env.L
-    agent = ResidualSAC(in_dim, act_dim, device=device, delta_max=a.delta_max, lr=a.lr)
+    agent = ResidualSAC(in_dim, act_dim, device=device, delta_max=a.delta_max, lr=a.lr,
+                        alpha_init=a.alpha, auto_alpha=a.auto_alpha, l2=a.l2, anchor_frac=a.anchor_frac)
     X = np.zeros((a.buffer, in_dim), np.float32); A = np.zeros((a.buffer, act_dim), np.float32)
     R = np.zeros(a.buffer, np.float32); n = ptr = 0
     history, t0 = [], time.time()
     slots = 0
+    best_gain, best_state = 0.0, agent.snapshot()
+    best_state = {k: v * 0 if k.startswith('mu.') else v for k, v in best_state.items()}   # exact zero-residual fallback
     while slots < a.train_slots:
         for _ in range(a.collect_per_iter):
             sample_slot(env, rng, a.max_dist)
-            act, x, delta = residual_action(env, rng, agent, deterministic=False, sweeps=a.ao_sweeps)
+            Dh = cascaded_csi(env, rng, noisy=True)
+            th, G = ao_solution(env, rng, Dh=Dh, model='nominal', sweeps=a.ao_sweeps)
+            r0 = slot_reward(env.compute_rates_from_action(pack_action(env, G, th)), env.r_min)
+            act, x, delta = residual_action(env, rng, agent, Dh=Dh, deterministic=False, prior_theta=th)
             r = slot_reward(env.compute_rates_from_action(act), env.r_min)
-            X[ptr], A[ptr], R[ptr] = x, delta / a.delta_max, r      # store the tanh-space action
+            X[ptr], A[ptr], R[ptr] = x, delta / a.delta_max, r - r0     # paired reward, tanh-space action
             ptr = (ptr + 1) % a.buffer; n = min(n + 1, a.buffer); slots += 1
         if n >= a.warmup:
             for _ in range(a.updates_per_iter):
@@ -91,9 +102,16 @@ def train(env, a, rng, device, log=print):
                                     torch.as_tensor(A[idx] * a.delta_max, device=agent.device),
                                     torch.as_tensor(R[idx], device=agent.device))
         if slots % a.eval_every < a.collect_per_iter:
-            pol, pri = evaluate_vs_prior(env, agent, np.random.default_rng(slots), a.eval_slots, a.max_dist, a.ao_sweeps)
-            history.append(dict(slots=slots, policy_reward=pol, prior_reward=pri, time_s=time.time() - t0))
-            log(f"slots {slots:>7d} | policy {pol:.3f} | AO-prior {pri:.3f} | gain {pol - pri:+.3f} | {time.time() - t0:.0f}s")
+            pol, pri = evaluate_vs_prior(env, agent, np.random.default_rng(777), a.eval_slots, a.max_dist, a.ao_sweeps)
+            gain = pol - pri
+            if gain > best_gain:
+                best_gain, best_state = gain, agent.snapshot()
+            history.append(dict(slots=slots, policy_reward=pol, prior_reward=pri, gain=gain, best_gain=best_gain,
+                                time_s=time.time() - t0))
+            log(f"slots {slots:>7d} | policy {pol:.3f} | AO-prior {pri:.3f} | gain {gain:+.3f} | best {best_gain:+.3f} "
+                f"| {time.time() - t0:.0f}s")
+    if a.select_best:
+        agent.restore(best_state)
     return agent, history
 
 
@@ -112,13 +130,19 @@ def build_parser():
     p.add_argument('--delta_max', type=float, default=1.0, help='max phase residual (rad)')
     p.add_argument('--ao_sweeps', type=int, default=2)
     p.add_argument('--lr', type=float, default=3e-4)
+    p.add_argument('--alpha', type=float, default=0.02, help='entropy weight (fixed unless --auto_alpha)')
+    p.add_argument('--auto_alpha', action='store_true')
+    p.add_argument('--l2', type=float, default=0.5, help='penalty on the squared normalised residual')
+    p.add_argument('--anchor_frac', type=float, default=0.25, help='zero-residual anchor samples per batch')
+    p.add_argument('--no_select_best', dest='select_best', action='store_false',
+                   help='keep the final policy instead of the best-validation snapshot')
     p.add_argument('--batch', type=int, default=256)
     p.add_argument('--buffer', type=int, default=30000)
     p.add_argument('--warmup', type=int, default=512)
     p.add_argument('--collect_per_iter', type=int, default=8)
     p.add_argument('--updates_per_iter', type=int, default=8)
     p.add_argument('--eval_every', type=int, default=2000)
-    p.add_argument('--eval_slots', type=int, default=100)
+    p.add_argument('--eval_slots', type=int, default=200)
     p.add_argument('--device', default='cuda' if torch.cuda.is_available() else 'cpu')
     p.add_argument('--out', default=None)
     return p

@@ -36,7 +36,7 @@ from eval.evaluate import ci                                                    
 from train.train_residual import build_parser, make_slot_env, sample_slot                          # noqa: E402
 
 PROBES = {'ao_nominal': 0, 'ao_ideal': 0, 'ao_calibrated': 0, 'cem6': 6, 'cem15': 15, 'cem45': 45,
-          'best_of_45': 45, 'residual_sac': 0}
+          'best_of_45': 45, 'residual_sac': 0, 'ao_nominal_perfcsi': 0, 'ao_calibrated_perfcsi': 0}
 
 
 def methods(env, rng, Dh, agent, a):
@@ -51,6 +51,9 @@ def methods(env, rng, Dh, agent, a):
         'cem15':         lambda: cem_ris(env, rng, 15, Dh=Dh, model='nominal', ao_sweeps=a.ao_sweeps),
         'cem45':         lambda: cem_ris(env, rng, 45, Dh=Dh, model='nominal', ao_sweeps=a.ao_sweeps),
         'best_of_45':    lambda: best_of_n(env, 45, rng),
+        # headroom decomposition: same solvers but with PERFECT cascaded CSI (rates are still the true ones)
+        'ao_nominal_perfcsi':    lambda: ao_ris(env, rng, Dh=cascaded_csi(env, rng, noisy=False), model='nominal', sweeps=a.ao_sweeps),
+        'ao_calibrated_perfcsi': lambda: ao_ris(env, rng, Dh=cascaded_csi(env, rng, noisy=False), model='true', sweeps=a.ao_sweeps),
     }
     if agent is not None:
         m['residual_sac'] = lambda: residual_action(env, rng, agent, Dh=Dh, deterministic=True, prior_theta=prior_th)[0]
@@ -115,15 +118,22 @@ def main():
             for metric in ('decode_pct', 'min_rate', 'mean_rate'):
                 m, c = ci([raw[(spread, s)][n][metric] for s in range(a.seeds)])
                 summary[str(spread)][n][metric] = dict(mean=m, ci95=c)
+            if n != 'ao_nominal':        # PAIRED difference vs ao_nominal (same layout, hardware, slots, CSI)
+                for metric in ('decode_pct', 'min_rate'):
+                    d = [raw[(spread, s)][n][metric] - raw[(spread, s)]['ao_nominal'][metric] for s in range(a.seeds)]
+                    m, c = ci(d)
+                    summary[str(spread)][n]['paired_' + metric] = dict(mean=m, ci95=c)
     out = Path(a.study_out); out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(dict(config={k: v for k, v in vars(a).items()}, summary=summary,
                                    per_seed={f'{k[0]}|{k[1]}': v for k, v in raw.items()}), indent=2, default=str))
     for spread in a.spreads:
         print(f'\n=== hardware spread {spread}  (mean +- 95% CI over {a.seeds} seeds)')
-        print(f"{'method':15s} {'probes':>6s} {'decode %':>16s} {'min rate':>16s}")
+        print(f"{'method':21s} {'probes':>6s} {'decode %':>16s} {'min rate':>16s} {'paired d-decode vs ao_nominal':>32s}")
         for n, v in summary[str(spread)].items():
-            print(f"{n:15s} {v['probes_per_slot']:6d} {v['decode_pct']['mean']:8.1f} +-{v['decode_pct']['ci95']:5.1f} "
-                  f"{v['min_rate']['mean']:8.3f} +-{v['min_rate']['ci95']:5.3f}")
+            pd = v.get('paired_decode_pct')
+            pds = f"{pd['mean']:+8.1f} +-{pd['ci95']:5.1f}" if pd else ''
+            print(f"{n:21s} {v['probes_per_slot']:6d} {v['decode_pct']['mean']:8.1f} +-{v['decode_pct']['ci95']:5.1f} "
+                  f"{v['min_rate']['mean']:8.3f} +-{v['min_rate']['ci95']:5.3f} {pds:>32s}")
     print('saved', out)
 
 

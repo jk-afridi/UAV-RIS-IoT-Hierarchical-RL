@@ -10,14 +10,15 @@ tests()           { python -m pytest tests -q; }
 baselines()       { python -m src.eval.evaluate --seeds 5 --episodes 3 --out results/eval_v2/baselines.json; }
 mismatch_base()   { python -m src.eval.mismatch_study --skip_drl --seeds 5 --spreads 0 0.5 1 2 --study_slots 200 \
                       --study_out results/mismatch_study/baselines_only.json; }
+# residual_v3 = new training recipe (paired reward, zero anchors, best-validation snapshot); do not mix with old results/residual
 residual_try()    { python -m src.train.train_residual --seed 0 --spread 1.0 --train_slots 8000 --eval_every 1000 \
-                      --out results/residual/seed0_spread1.0; }          # watch "gain" in the log: must become > 0
+                      --out results/residual_v3/seed0_spread1.0; }          # watch "gain" in the log: must become > 0
 mismatch_full()   { python -m src.eval.mismatch_study --seeds 5 --spreads 0 0.5 1 2 --train_slots 30000 --study_slots 200 \
-                      --save_root results/residual --ckpt_root results/residual \
+                      --save_root results/residual_v3 --ckpt_root results/residual_v3 \
                       --study_out results/mismatch_study/mismatch_study.json; }
 macro()           { python -m src.train.train_macro --lowlevel ao_nominal --episodes 1500 --out results/macro/ao_nominal; }
 aoi()             { python -m src.eval.aoi_study --seeds 5 --spread 1.0 --lowlevels ao_nominal ao_calibrated residual \
-                      --residual_root results/residual --ppo_ckpt results/macro/ao_nominal/ppo_final.pt \
+                      --residual_root results/residual_v3 --ppo_ckpt results/macro/ao_nominal/ppo_final.pt \
                       --out results/aoi_study/aoi_study.json; }
 report()          { python -m src.eval.make_report --out results/report; }
 

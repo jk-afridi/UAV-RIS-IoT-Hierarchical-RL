@@ -13,10 +13,12 @@ import matplotlib.pyplot as plt
 
 plt.rcParams.update({'font.family': 'serif', 'font.size': 10, 'axes.grid': True, 'grid.alpha': 0.3,
                      'savefig.bbox': 'tight', 'figure.dpi': 150})
-NAMES = {'ao_nominal': 'AO (nominal PDA)', 'ao_ideal': 'AO (ideal RIS assumed)', 'ao_calibrated': 'AO (calibrated, ceiling)',
+NAMES = {'ao_nominal': 'AO (nominal PDA)', 'ao_ideal': 'AO (ideal RIS assumed)', 'ao_calibrated': 'AO (true PDA curve, noisy CSI)',
+         'ao_nominal_perfcsi': 'AO (nominal PDA, perfect CSI)', 'ao_calibrated_perfcsi': 'AO (true PDA, perfect CSI)',
          'cem6': 'AO+CEM, 6 probes', 'cem15': 'AO+CEM, 15 probes', 'cem45': 'AO+CEM, 45 probes',
          'best_of_45': 'Random search, 45 probes', 'residual_sac': 'Physics-guided residual SAC (proposed)'}
-ORDER = ['ao_ideal', 'ao_nominal', 'best_of_45', 'cem6', 'cem15', 'cem45', 'residual_sac', 'ao_calibrated']
+ORDER = ['ao_ideal', 'ao_nominal', 'best_of_45', 'cem6', 'cem15', 'cem45', 'residual_sac', 'ao_calibrated',
+         'ao_nominal_perfcsi', 'ao_calibrated_perfcsi']
 
 
 def mismatch(path, out):

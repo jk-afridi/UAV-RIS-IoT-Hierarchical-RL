@@ -7,7 +7,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
 from core.aoi_environment import AoIUAVRISEnvironment                                   # noqa: E402
 from baselines.ris_baselines import (ao_ris, cascaded_csi, feature_dim, slot_features,   # noqa: E402
-                                     ao_solution, residual_action, cem_ris)
+                                     ao_solution, residual_action, cem_ris, pack_action)
 
 
 def make(seed=2):
@@ -89,3 +89,32 @@ def test_macro_ppo_roundtrip():
         _, done, _ = env.high_level_step(vel * env.v_max, c, build_low_state=False)
         ppo.store(s, c, raw, logp, -1.0, float(t == 15), val); s = env.get_high_level_state()
     assert 'pg' in ppo.update()
+
+
+def test_zero_mu_gives_exactly_zero_residual():
+    """The fallback used by train(): a policy with mu == 0 must reproduce AO_nominal exactly."""
+    import torch
+    from algorithms.residual_sac import ResidualSAC
+    env, rng = make(), np.random.default_rng(0)
+    agent = ResidualSAC(feature_dim(env), env.L, device='cpu')
+    st = agent.snapshot()
+    agent.restore({k: (v * 0 if k.startswith('mu.') else v) for k, v in st.items()})
+    _slot(env, rng); Dh = cascaded_csi(env, rng)
+    th, G = ao_solution(env, rng, Dh=Dh, model='nominal', sweeps=1)
+    a, _, delta = residual_action(env, rng, agent, Dh=Dh, deterministic=True, prior_theta=th)
+    assert np.all(delta == 0.0)
+    assert np.allclose(env.compute_rates_from_action(a),
+                       env.compute_rates_from_action(pack_action(env, G, th)))
+
+
+def test_residual_train_never_worse_than_prior_on_validation():
+    """Tiny end-to-end smoke test of the v3 training loop (paired reward, best-snapshot fallback)."""
+    import torch
+    from train.train_residual import build_parser, make_slot_env, train
+    a = build_parser().parse_args(['--L', '16', '--train_slots', '48', '--warmup', '16', '--collect_per_iter', '8',
+                                   '--updates_per_iter', '2', '--batch', '16', '--buffer', '64', '--eval_every', '16',
+                                   '--eval_slots', '6', '--ao_sweeps', '1', '--spread', '1.0', '--device', 'cpu'])
+    env = make_slot_env(0, a)
+    agent, hist = train(env, a, np.random.default_rng(0), 'cpu', log=lambda *x: None)
+    assert len(hist) >= 1 and all(np.isfinite(h['gain']) for h in hist)
+    assert all(h['best_gain'] >= 0.0 for h in hist)
