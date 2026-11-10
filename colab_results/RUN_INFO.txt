@@ -1,0 +1,5 @@
+date: 2026-11-10T10:47:52Z
+code_commit: b1f46755676acea281cf8cdd9da38c1012ca5e8a
+python: Python 3.13.16
+torch: 2.14.1+cu130 cuda: True
+GPU 0: Tesla T4 (UUID: GPU-fe926308-bb99-41be-bdbf-8b25e0fe8d05)
