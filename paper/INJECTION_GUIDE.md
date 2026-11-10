@@ -55,3 +55,14 @@ exploration as a contribution (no effect on the rate in this model).
 3. Copy final JSON into `paper/data/`, run `python paper/make_tables.py`, write sections IV.F-G.
 4. Rewrite abstract, intro, contributions, conclusion from the final numbers; compile; check every number
    against `paper/data/`.
+
+## Status after the rewrite (main.tex v2, same file, edited in place)
+- Rewritten: title, abstract, introduction, Section III (methods compared), Section IV (evaluation), conclusion.
+- Kept from the original: Section II (network, PDA channel, AoI), with added hardware-mismatch and CSI paragraphs.
+- Removed: Algorithm 1, Beta-space description and all old figures (Figs. 1-10); energy claims dropped.
+- Tables are `\input` from `paper/tables/*.tex` (regenerate with `python paper/make_tables.py`).
+- Compile: `pdflatex main; bibtex main; pdflatex main; pdflatex main` (needs IEEEtran.bst, included in standard TeX
+  distributions and on Overleaf).
+- TODO before submission: verify every entry in `references.bib` (page numbers, venue of the Saglam et al.
+  preprint) and add related work on UAV-RIS AoI, PDA models and DRL-for-RIS; fill author/affiliation/funding;
+  re-check every number in the text against `paper/data/` and the generated tables.

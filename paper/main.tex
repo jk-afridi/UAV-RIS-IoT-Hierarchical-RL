@@ -1,8 +1,9 @@
 \documentclass[journal]{IEEEtran}
-\usepackage{amsmath,amsfonts}
+\usepackage{amsmath,amsfonts,amssymb}
 \usepackage{algorithmic}
 \usepackage{algorithm}
 \usepackage{array}
+\usepackage{booktabs}
 \usepackage{textcomp}
 \usepackage{url}
 \usepackage{verbatim}
@@ -13,44 +14,42 @@
 
 \begin{document}
 
-\title{Hierarchical Deep Reinforcement Learning for Age of Information Minimization in UAV-Mounted RIS-Assisted IoT Networks}
+\title{What Does Learning Buy in UAV-Mounted RIS Data Collection? Hardware Mismatch, Objective Design, and Probing Baselines}
 
 \author{Your Name, \IEEEmembership{Member, IEEE}, Co-Author Name, \IEEEmembership{Senior Member, IEEE}
 \thanks{This work was supported in part by... (Insert funding info here).}
 \thanks{The authors are with the Department of... (Insert affiliation here).}}
 
 % The paper headers
-\markboth{Journal Name,~Vol.~X, No.~X, August~2026}%
+\markboth{Journal Name,~Vol.~X, No.~X, 2026}%
 {Author \MakeLowercase{\textit{et al.}}: Title}
 
 \maketitle
 
 \begin{abstract}
-The rapid proliferation of Internet of Things (IoT) devices demands timely data collection and reliable communication. Unmanned Aerial Vehicles (UAVs) equipped with Reconfigurable Intelligent Surfaces (RIS) offer a promising solution to enhance coverage and freshness of data, quantified by the Age of Information (AoI). However, jointly optimizing the UAV trajectory and RIS phase shifts under realistic hardware impairments, such as Phase-Dependent Amplitude (PDA), presents a complex non-convex challenge. In this paper, we propose a novel Hierarchical Deep Reinforcement Learning (DRL) framework to simultaneously minimize the average AoI and maximize the successful decode rate. The framework consists of a Proximal Policy Optimization (PPO) macro-agent for continuous trajectory planning and a Soft Actor-Critic (SAC) micro-agent for granular RIS phase alignment. Extensive simulations demonstrate that our proposed hierarchical approach significantly outperforms conventional baselines, achieving a 10\% reduction in average AoI and a 3.7$\times$ improvement in decode rate compared to trajectory-only optimization, effectively approaching the performance upper bound of ideal RIS hardware.
+Reconfigurable intelligent surfaces (RIS) mounted on UAVs can keep the information of IoT devices fresh, but practical unit cells have a phase-dependent amplitude (PDA) response that a designer knows only approximately. Recent work addresses this with deep reinforcement learning (DRL), usually without strong model-based baselines, several seeds, or held-out layouts. We build an audited UAV-RIS data-collection benchmark and ask what limits the successful decode rate and what learning adds. Under a controlled protocol (per-seed layouts and hardware instances, paired differences, 95\% confidence intervals), we find that (i) the objective of the classical alternating optimisation (AO) matters more than hardware knowledge: a decode-aware objective raises decode rate by $7.7\pm3.5$ percentage points over max-min AO with zero extra measurements and improves in all 11 parameter settings we tested; (ii) hardware mismatch costs only a few points at realistic spread, and a rough calibration (error of 25\% of the mismatch scale) recovers most of it; (iii) probing the true rate $B$ times per slot gains more, but its advantage depends on the regime: a zero-probe decode-aware AO matches or beats 45 probes at low transmit power and strict rate thresholds, while probing wins at high power; (iv) at the episode level, the decode-aware solver lowers average AoI by $1.65\pm0.58$ time slots ($\approx$14\%) under the best heuristic scheduler. A physics-guided residual SAC policy and a hybrid-action PPO scheduler, which we implemented and trained, did not beat these baselines; we report them as negative results.
 \end{abstract}
 
 \begin{IEEEkeywords}
-Age of Information (AoI), Internet of Things (IoT), Reconfigurable Intelligent Surface (RIS), Unmanned Aerial Vehicle (UAV), Hierarchical Deep Reinforcement Learning (DRL).
+Age of Information (AoI), Reconfigurable Intelligent Surface (RIS), UAV, phase-dependent amplitude, hardware impairment, benchmark, reinforcement learning.
 \end{IEEEkeywords}
 
 \section{Introduction}
 
-\IEEEPARstart{T}{he} exponential growth of the Internet of Things (IoT) has driven an unprecedented demand for massive, real-time data collection across distributed networks. In time-critical IoT applications such as smart city monitoring, autonomous coordination, and industrial automation, the freshness of collected data is of paramount importance. The Age of Information (AoI) has emerged as the definitive metric to quantify this data freshness, measuring the time elapsed since the generation of the most recently received update. In urban environments, however, direct line-of-sight (LoS) communication between terrestrial IoT devices and the Base Station (BS) is frequently severed by blockages, severely degrading data decoding rates and leading to unbounded AoI growth.
+\IEEEPARstart{T}{imely} data collection is central to smart-city monitoring and industrial IoT, and the Age of Information (AoI) \cite{kaul2012real} measures how fresh the collected data is. In urban settings, blockage cuts the direct links between IoT devices and the base station (BS). UAVs carrying a reconfigurable intelligent surface (RIS) can restore these links by reflecting uplink signals towards the BS \cite{wu2019intelligent}, and a moving UAV can serve distributed device clusters over time.
 
-To overcome these blockages, Unmanned Aerial Vehicles (UAVs) acting as mobile relays have been widely deployed due to their high mobility and inherent probability of establishing LoS links. Recently, the integration of Reconfigurable Intelligent Surfaces (RIS) onto UAV platforms has garnered significant attention. An RIS comprises a large array of low-cost, passive reflecting elements capable of intelligently altering the phase of incident electromagnetic waves, thereby synthesizing focused reflection beams without the need for power-hungry active RF chains. While UAV-mounted RIS systems present a revolutionary paradigm for dynamic network coverage, the vast majority of existing literature relies on a fundamentally flawed assumption: that RIS elements operate with an ideal, constant unit amplitude regardless of the induced phase shift.
+Most RIS designs assume that each element reflects with unit amplitude whatever phase it applies. Real unit cells do not: the reflection amplitude depends on the phase shift, and a phase-dependent amplitude (PDA) model describes this coupling \cite{abeywickrama2020intelligent}. A designer works with a nominal PDA curve, while the fabricated surface differs from it element by element. Deep reinforcement learning has been proposed for RIS control under such hardware impairments \cite{saglam2022drl}, and hierarchical variants combine a trajectory agent with a phase-control agent. These studies typically compare against weak baselines (random phases or an ideal-RIS design that ignores the hardware), report training curves from a single seed and layout, and let the learner use information that a deployed controller would not have. It is therefore unclear what the learning component contributes.
 
-In practical hardware implementations, the reflection amplitude and phase shift of an RIS element are heavily coupled due to the non-linear properties of the underlying semiconductor components. This Phase-Dependent Amplitude (PDA) impairment dictates that forcing a phase shift of zero degrees results in a catastrophic collapse of the reflection amplitude. Consequently, theoretical optimization algorithms that assume ideal hardware fail spectacularly when deployed on real-world RIS architectures, as their naive phase-matching strategies inadvertently choke the cascaded channel's signal strength, plunging the decode rate to near zero. Furthermore, the problem of jointly optimizing the continuous 3D UAV trajectory and the non-convex PDA-constrained RIS phase matrix represents a highly complex, coupled optimization challenge that traditional Deep Reinforcement Learning (DRL) algorithms struggle to solve due to vanishing gradients in the amplitude domain.
-
-To address these critical challenges, this paper proposes a novel Hierarchical Deep Reinforcement Learning (HDRL) framework designed specifically for AoI minimization in UAV-mounted RIS-assisted IoT networks operating under realistic PDA constraints. The primary contributions of this work are summarized as follows:
+This paper does not propose a new DRL algorithm. We instead build a benchmark in which every method is scored by the same rate function on the same channel realisation and CSI estimate, and ask three questions. (Q1) Where does the loss in decode rate come from: hardware mismatch, channel-estimation error, or the optimisation objective? (Q2) How much does measuring the true rate per slot (probing) add, and when? (Q3) Do learned components (a residual policy for the RIS and a PPO scheduler) beat well-designed non-learning baselines? Our contributions are:
 \begin{itemize}
-    \item We formulate a rigorous System Markov Decision Process (SMDP) that explicitly models the non-linear coupling between reflection amplitude and phase shift in practical RIS hardware, accurately reflecting the physical limitations of the cascaded channel.
-    \item We develop a two-tier HDRL architecture that effectively decouples the optimization timescales. A Proximal Policy Optimization (PPO) macro-agent governs the continuous UAV trajectory to optimize long-term AoI, while a Soft Actor-Critic (SAC) micro-agent handles the granular, high-frequency RIS phase alignment.
-    \item To overcome the vanishing gradient problem inherent in PDA optimization, we introduce a novel Beta-Space exploration strategy for the SAC micro-agent. By exploring directly in the amplitude domain, the agent learns to explicitly navigate the hardware's phase-amplitude trade-off, synthesizing optimal beams that avoid catastrophic signal attenuation.
-    \item Extensive simulations demonstrate that our proposed Beta-Space HDRL framework achieves a massive 3.7$\times$ improvement in the successful packet decode rate and a 10\% reduction in average AoI compared to standard trajectory-only optimization baselines, successfully bridging the gap between realistic hardware degradation and ideal theoretical limits.
+    \item \textbf{An audited benchmark.} A UAV-RIS data-collection simulator with geometric LoS channels, per-element hardware mismatch, cascaded CSI with estimation error, and per-seed layouts and hardware instances. All results report paired differences with 95\% confidence intervals.
+    \item \textbf{A decomposition of the decode-rate loss.} Max-min AO loses to a decode-aware AO that needs no extra measurements; hardware mismatch and channel-estimation error account for smaller parts (Section~\ref{sec:headroom}).
+    \item \textbf{A calibration-sensitivity and probing study.} A rough calibration recovers most of the mismatch loss, and the benefit of per-slot probing is regime-dependent (Sections~\ref{sec:headroom}--\ref{sec:sweeps}).
+    \item \textbf{Episode-level evidence and negative results.} The decode-aware solver lowers AoI inside full episodes with heuristic scheduling, whereas a physics-guided residual SAC policy and a PPO scheduler did not beat the baselines (Sections~\ref{sec:episode}--\ref{sec:negative}).
 \end{itemize}
+Our simulator and the SAC low-level wrapper descend from the public code accompanying Saglam \emph{et al.}~\cite{saglam2022drl}; we state what we changed in Section~\ref{sec:setup}.
 
 \section{System Model and Problem Formulation}
-
 
 \subsection{Network Architecture}
 
@@ -72,6 +71,8 @@ The 3D coordinates of the BS are fixed at $\mathbf{p}_{\text{BS}} = (x_{\text{BS
 \end{equation}
 where $P_0$ and $P_i$ are the blade profile and induced powers, respectively. The total energy consumed over a trajectory is constrained by the UAV's battery budget $E_{\text{budget}}$.
 
+In all episodes of our evaluation the energy budget is not binding (about 9\% of $E_{\text{budget}}$ is used), so propulsion energy does not drive any result; we therefore make no energy claims.
+
 \subsection{Channel Model and PDA Hardware Impairment}
 Unlike ideal RIS models that assume a constant unit amplitude reflection coefficient regardless of the phase shift, we adopt a practical Phase-Dependent Amplitude (PDA) model. The reflection matrix of the RIS is defined as $\mathbf{\Phi} = \text{diag}(\beta_1 e^{j\theta_1}, \dots, \beta_L e^{j\theta_L})$, where $\theta_l \in [-\pi, \pi]$ and $\beta_l \in (0, 1]$ are the phase shift and amplitude of the $l$-th element, respectively. Based on the equivalent circuit model, the amplitude $\beta_l$ is intrinsically coupled with the phase shift $\theta_l$ as follows:
 \begin{equation}
@@ -91,6 +92,10 @@ The effective channel from the $k$-th device to the BS is given by $\mathbf{h}_{
 \end{equation}
 and the achievable data rate is $R_k = \log_2(1 + \text{SINR}_k)$.
 
+\paragraph*{Hardware mismatch.} Element $l$ has its own true PDA parameters $(\beta_{\text{min},l}, \bar{\kappa}_l, \bar{\theta}_l)$, while the designer knows only the nominal $(\beta_{\text{min}}, \bar{\kappa}, \bar{\theta})$. We generate a hardware instance of mismatch level $s$ as $\beta_{\text{min},l}\sim\mathcal{N}(\beta_{\text{min}},(0.15s)^2)$ clipped to $[0.05,0.95]$, $\bar{\kappa}_l=\bar{\kappa}\exp(\mathcal{N}(0,(0.3s)^2))$, and $\bar{\theta}_l\sim\mathcal{N}(\bar{\theta},(0.5s)^2)$; $s=0$ means no mismatch. This is a plausible synthetic model, not a measured one (see Section~\ref{sec:limits}).
+
+\paragraph*{CSI.} Solvers see the cascaded channels $\mathbf{D}_k=\text{diag}(\mathbf{h}_{2,k})\mathbf{H}_1$ plus complex Gaussian estimation error of variance $10^{-14}$ per entry; rates are always computed from the true channels and true hardware. The device--RIS link is Rician with factor $K_{\text{rice}}$ and uses geometric LoS steering; the RIS--BS link uses a separate factor $K_{\text{rice,BS}}$.
+
 \subsection{Age of Information (AoI) Model}
 We utilize Age of Information (AoI) to quantify the freshness of data collected from the IoT devices. Let $A_k(t)$ denote the AoI of device $k$ at time slot $t$. If device $k$ is scheduled and successfully transmits its data (i.e., $R_k \geq R_{\text{min}}$), its AoI is reset to 1. Otherwise, the AoI increases linearly:
 \begin{equation}
@@ -98,203 +103,108 @@ We utilize Age of Information (AoI) to quantify the freshness of data collected 
 \end{equation}
 
 \subsection{Problem Formulation}
-The objective is to jointly optimize the UAV trajectory, cluster scheduling, BS beamforming, and RIS phase shifts to minimize the network-wide average AoI over the operational period, subject to the UAV's energy budget and mobility constraints. The optimization problem is formulated as:
-\begin{align}
-    \min_{\mathbf{v}(t), c(t), \mathbf{W}, \mathbf{\Theta}} \quad & \frac{1}{T K_{\text{total}}} \sum_{t=1}^{T} \sum_{k=1}^{K_{\text{total}}} A_k(t) \\
-    \text{s.t.} \quad & \sum_{t=1}^{T} P(\|\mathbf{v}(t)\|) \Delta t \leq E_{\text{budget}}, \\
-    & \|\mathbf{v}(t)\| \leq V_{\text{max}}, \quad \forall t, \\
-    & \theta_l \in [-\pi, \pi], \quad \forall l.
-\end{align}
-This problem is highly non-convex and involves mixed-integer variables operating over different timescales, making it intractable for conventional optimization techniques. Therefore, we propose a Hierarchical Deep Reinforcement Learning (HDRL) framework to solve it efficiently.
+\paragraph*{Slot level (P1).} For the scheduled cluster at a given UAV position, choose the BS combiner $\mathbf{G}$ and RIS phases $\boldsymbol{\theta}$ from the CSI estimate to maximise the number of decoded devices, $\max \sum_{k}\mathbb{1}[R_k\ge R_{\text{min}}]$, with rates evaluated on the true hardware and channel.
 
-\section{Proposed Hierarchical DRL Framework}
-To minimize the network-wide average AoI while satisfying the UAV's energy budget, we formulate the problem as a Semi-Markov Decision Process (SMDP) and propose a Hierarchical Reinforcement Learning (HRL) framework. The framework consists of a macro-agent for high-level planning (trajectory and scheduling) and a micro-agent for low-level control (beamforming and phase alignment).
-
-\subsection{Macro-Agent: UAV Trajectory Optimization (PPO)}
-The high-level agent operates at a macro timescale to determine the UAV's trajectory and cluster scheduling using the Proximal Policy Optimization (PPO) algorithm.
-\begin{itemize}
-    \item \textbf{State Space $\mathcal{S}_{\text{high}}$:} Includes the UAV's 3D position $\mathbf{p}_{\text{UAV}}(t)$, remaining energy $E_{\text{rem}}(t)$, and the current AoI of all clusters $\mathbf{A}(t)$.
-    \item \textbf{Action Space $\mathcal{A}_{\text{high}}$:} Continuous velocity vector $\mathbf{v}(t)$ and discrete cluster selection $c(t)$.
-    \item \textbf{Reward $r_{\text{high}}$:} Defined as the negative average AoI of the network to guide the agent towards freshness preservation:
-    \begin{equation}
-        r_{\text{high}}(t) = -\frac{1}{K_{\text{total}}} \sum_{k=1}^{K_{\text{total}}} A_k(t).
-    \end{equation}
-\end{itemize}
-The PPO macro-agent updates its trajectory policy $\pi_\phi$ by maximizing the clipped surrogate objective function:
+\paragraph*{Episode level (P2).} Jointly choose the UAV velocity and the cluster to serve at each step to minimise the network-average AoI,
 \begin{equation}
-    L^{\text{CLIP}}(\phi) = \hat{\mathbb{E}}_t \left[ \min\left( \rho_t(\phi) \hat{A}_t, \text{clip}(\rho_t(\phi), 1-\epsilon, 1+\epsilon) \hat{A}_t \right) \right],
+    \min \; \frac{1}{T K_{\text{total}}} \sum_{t=1}^{T} \sum_{k=1}^{K_{\text{total}}} A_k(t) \quad \text{s.t.}\; \|\mathbf{v}(t)\|\le V_{\text{max}},\; \sum_t P(\|\mathbf{v}(t)\|)\Delta t \le E_{\text{budget}},
 \end{equation}
-where $\rho_t(\phi) = \frac{\pi_\phi(a_t|s_t)}{\pi_{\phi_{\text{old}}}(a_t|s_t)}$ is the probability ratio, $\hat{A}_t$ is the advantage estimate, and $\epsilon$ is the clipping hyperparameter that prevents destructively large policy updates.
+where each slot's decoding outcome comes from the P1 solver. Problem P1 is the part that depends on hardware and CSI; P2 adds scheduling and travel.
 
-\subsection{Micro-Agent: RIS Phase Alignment (SAC)}
-Given the selected cluster and UAV position from the macro-agent, the low-level agent optimizes the continuous BS beamforming vectors and RIS phase shifts at a micro timescale using Soft Actor-Critic (SAC).
-\begin{itemize}
-    \item \textbf{State Space $\mathcal{S}_{\text{low}}$:} Includes the cascaded channel state information (CSI) for the scheduled cluster.
-    \item \textbf{Action Space $\mathcal{A}_{\text{low}}$:} Continuous BS beamforming matrix $\mathbf{W}$ and RIS phase shifts $\mathbf{\Theta}$.
-    \item \textbf{Beta-Space Exploration:} To mitigate the vanishing gradient problem caused by the non-linear PDA model, we introduce a novel Beta-Space exploration strategy. Instead of purely random phase exploration, the algorithm explores directly in the amplitude domain ($\beta$-space), forcing the policy to explicitly navigate the fundamental amplitude-phase trade-off. The mapped physical action is scaled as:
-    \begin{equation}
-        \tilde{a}_{\text{phase}}^{(l)} = a_{\text{phase}}^{(l)} \odot [\beta^{(l)}, \beta^{(l)}], \quad \forall l \in \{1,\dots,L\},
-    \end{equation}
-    where $\beta^{(l)}$ is the explored PDA amplitude bound.
-\end{itemize}
-The SAC micro-agent updates its twin Q-networks (Critic) by minimizing the Bellman residual:
-\begin{equation}
-    J_Q(\omega_i) = \mathbb{E}_{(s,a) \sim \mathcal{D}} \left[ \frac{1}{2} \left( Q_{\omega_i}(s,a) - y \right)^2 \right], \quad i \in \{1,2\},
-\end{equation}
-with the soft target $y = r_{\text{low}} + \gamma \left( \min_{j=1,2} Q_{\bar{\omega}_j}(s',a') - \alpha \log \pi_\theta(a'|s') \right)$. 
-The actor policy is concurrently updated by minimizing the entropy-regularized objective:
-\begin{equation}
-    J_\pi(\theta) = \mathbb{E}_{s \sim \mathcal{D}, a \sim \pi_\theta} \left[ \alpha \log \pi_\theta(a|s) - \min_{i=1,2} Q_{\omega_i}(s,a) \right].
-\end{equation}
+\section{Methods Compared}
+\label{sec:methods}
 
-\begin{algorithm}[t]
-\caption{Beta-Space HDRL for PDA-Constrained Networks}
-\label{alg:hdrl}
-\begin{algorithmic}[1]
-\STATE \textbf{Initialize:} PPO macro-agent network $\phi$, SAC micro-agent actor $\theta$, critics $\omega_{1,2}$, and experience buffers.
-\FOR{episode $= 1, 2, \dots, M_{\text{episodes}}$}
-    \STATE Reset environment, obtain initial state $\mathbf{s}_{\text{high}}$.
-    \FOR{step $t = 1, 2, \dots, T$}
-        \STATE \textbf{Macro Step:} PPO samples UAV velocity $\mathbf{v}(t)$ and selects cluster $c(t)$ using $\pi_\phi(\mathbf{s}_{\text{high}})$.
-        \STATE Update UAV position $\mathbf{p}_{\text{UAV}}(t+1)$ and estimate cascaded CSI $\mathbf{s}_{\text{low}}$ for $c(t)$.
-        \STATE \textbf{Micro Step:} SAC explores Beta-Space $\beta \in [\beta_{\text{min}}, 1]$.
-        \STATE SAC selects beamforming $\mathbf{W}$ and RIS phases $\mathbf{\Theta}$ via $\pi_\theta(\mathbf{s}_{\text{low}})$, scaling phase actions by $\beta$.
-        \STATE Calculate SINR, data rates $R_k$, and update network AoI $A_k(t+1)$.
-        \STATE Compute macro reward $r_{\text{high}}$ (Eq. 7) and store transitions.
-        \IF{Update Condition Met}
-            \STATE Update SAC Actor ($\theta$) and Critic ($\omega_{1,2}$) using Eq. 10 and 11.
-            \STATE Update PPO Macro-agent ($\phi$) using Eq. 8.
-        \ENDIF
-    \ENDFOR
-\ENDFOR
-\end{algorithmic}
-\end{algorithm}
+\subsection{Schedulers (episode level)}
+\emph{Round robin}; \emph{greedy AoI} (serve the cluster with the largest summed AoI, flying towards it); \emph{greedy AoI with travel} (the same, discounting clusters by the travel time needed to reach them); \emph{random}; and a learned hybrid-action \emph{PPO} scheduler (categorical cluster choice plus Gaussian velocity) trained on a pool of layouts and evaluated on held-out layouts.
 
-\section{Simulation Results and Discussion}
-To evaluate the performance of the proposed Hierarchical Deep Reinforcement Learning (HDRL) framework, we conduct extensive simulations. The system parameters are set as follows: a $100\text{ m} \times 100\text{ m}$ area, $C=10$ clusters, $K=4$ devices per cluster, $M=4$ BS antennas, and an RIS with $L=64$ elements. The PDA hardware model is configured with $\beta_{\text{min}} = 0.2$ and $\bar{\kappa} = 1.5$. We compare our proposed Beta-Space SAC algorithm against three baselines: 1) \textbf{Ideal RIS (Upper Bound)}, which assumes a perfect hardware model ($\beta_{\text{min}} = 1.0$) unconstrained by the phase-amplitude coupling; 2) \textbf{PPO-Only}, where the UAV trajectory is optimized but the RIS phases are strictly random; and 3) \textbf{Random Baseline}, where both the UAV trajectory and RIS configurations are chosen randomly.
+\subsection{RIS solvers (slot level)}
+\paragraph*{AO with a max-min objective.} Alternate between (a) the zero-forcing combiner for the effective channel $\sum_l v_l \mathbf{D}_{\cdot,l}$ and (b) a per-element search over 64 phase grid points that maximises the minimum user rate. The solver assumes an amplitude model: \emph{ideal} (unit modulus), \emph{nominal} (the designer's PDA curve), or \emph{true} (the actual hardware, which requires a calibration campaign). Evaluation always uses the true hardware.
 
-\subsection{Average Age of Information Convergence}
+\paragraph*{Calibration-error AO.} AO with the true PDA parameters perturbed by a fixed error of $e$ times the mismatch scale of $s=1$ ($e\in\{0.25,0.5\}$). This is a sensitivity model that answers how accurate a calibration must be; it is not a probe-based estimator.
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/fig1_avg_aoi_4way.pdf}
-    \caption{Convergence of the network-wide average Age of Information (AoI) over 5,000 training episodes. The proposed Beta-Space HDRL tightly approaches the physically unachievable Ideal RIS upper bound.}
-    \label{fig:avg_aoi}
-\end{figure}
+\paragraph*{Decode-aware AO.} Same alternation, but each element is chosen to maximise $\sum_k \sigma\!\big((R_k-R_{\text{min}}(1+\epsilon))/\tau\big)+0.01\,\min_k R_k/R_{\text{min}}$, with $\sigma$ the logistic function, $\tau=0.2R_{\text{min}}$ and margin $\epsilon=0.15$, warm-started from the max-min solution. It uses no measurements beyond the CSI estimate. (A first version with a hard decoded-count objective had flat regions that made the element choice arbitrary and lost about 20 points; we replaced it before the results reported here.)
 
-Fig. \ref{fig:avg_aoi} illustrates the convergence behavior of the network-wide average AoI across 5,000 training episodes. The Random Baseline exhibits the worst performance, stagnating at an average AoI of approximately 25.34. Crucially, the PPO-Only baseline fails to provide any meaningful improvement, plateauing at 25.06. This underscores a fundamental characteristic of the cascaded channel: optimizing the UAV trajectory alone is insufficient if the RIS elements are not actively aligned, resulting in severe signal attenuation.
+\paragraph*{Probing baselines.} A cross-entropy method initialised at the nominal AO solution that may measure the true rate $B\in\{6,15,45\}$ times per slot (three iterations, elite fraction 0.25), and random search with 45 measurements. These receive the feedback a learning agent trains on, but at test time rather than in advance.
 
-In contrast, our proposed Beta-Space HDRL framework successfully learns to navigate the complex PDA hardware constraint ($\beta_{\text{min}} = 0.2$), steadily reducing the average AoI and converging to 22.81. This performance is remarkably close to the theoretical Ideal RIS upper bound (21.89), demonstrating that the Beta-Space exploration mechanism effectively mitigates the severe amplitude penalties associated with forcing naive phase alignment.
+\paragraph*{Perfect-CSI diagnostic.} The same AO with error-free CSI, to separate the effect of channel estimation.
 
-\subsection{Successful Decode Rate Analysis}
+\paragraph*{Learned residual (SAC).} $\boldsymbol{\theta}=\boldsymbol{\theta}_{\text{AO,nominal}}+\boldsymbol{\delta}(\mathbf{x})$ with a tanh-bounded residual from a soft actor-critic policy trained on a contextual-bandit reward. We evaluated two training recipes (Section~\ref{sec:negative}).
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/fig2_decode_rate_4way.pdf}
-    \caption{Evolution of the successful packet decode rate ($R_k \geq R_{\text{min}}$). The Beta-Space SAC micro-agent substantially outperforms the PPO-Only baseline by actively mitigating the PDA signal attenuation.}
-    \label{fig:decode_rate}
-\end{figure}
+\section{Evaluation}
 
-To further understand the mechanics driving the AoI reduction, we analyze the successful decode rate, defined as the percentage of time slots where the achieved data rate exceeds the required threshold $R_{\text{min}}$. Fig. \ref{fig:decode_rate} demonstrates that without active RIS optimization, the PPO-Only baseline achieves a dismal decode rate of just 4.07\%. This severe bottleneck explains the high AoI observed previously; even if the UAV is positioned optimally over a cluster, the misaligned passive RIS elements fail to establish a sufficiently strong cascaded link, leading to continuous packet drops.
+\subsection{Setup and protocol}
+\label{sec:setup}
+Unless stated otherwise: a $100\,\text{m}\times100\,\text{m}$ area, $C=10$ clusters of $K=4$ devices, $M=4$ BS antennas, $L=64$ RIS elements, UAV altitude 15\,m, $V_{\text{max}}=10$\,m/s, 200-step episodes, nominal PDA $\beta_{\text{min}}=0.2$ and $\bar{\kappa}=1.5$, device transmit power 10\,dBm, $R_{\text{min}}=0.5$\,bit/s/Hz, $K_{\text{rice}}=10$, $K_{\text{rice,BS}}=1$. Relative to the public code we (i) replaced oracle best-of-$N$ action selection inside the SAC wrapper by explicit probing baselines, (ii) made layouts and hardware instances seed-dependent, (iii) added geometric LoS and a separate BS-link factor, and (iv) scored all methods with one rate function. We chose $R_{\text{min}}$ and $K_{\text{rice,BS}}$ so that decoding is neither trivial nor impossible, and test their influence in Section~\ref{sec:sweeps}.
 
-By contrast, the proposed HDRL framework actively manipulates the phase matrix $\mathbf{\Phi}$ while strictly adhering to the non-linear amplitude boundaries of the PDA model, boosting the decode success rate to nearly 15.0\%. The theoretical Ideal RIS limit yields an 18.8\% decode rate. This massive 3.7$\times$ empirical improvement over the PPO-Only baseline definitively proves that our micro-agent's Beta-Space exploration policy learns to synthesize optimal reflection beams that explicitly avoid the catastrophic amplitude collapse ($\beta \approx 0.48$) associated with naive phase-matching strategies.
+Each of the 5 seeds has its own city layout and its own hardware instance. Slot-level studies use 200 held-out slots per seed (UAV at 0, 5, 10 and 15\,m horizontal distance from the cluster centre), with all methods scored on the same slot, channel and CSI estimate. We report decode rate (\% of devices with $R_k\ge R_{\text{min}}$), and the paired difference to nominal-PDA max-min AO per seed, with 95\% $t$-intervals over the 5 seeds. With five seeds the intervals are wide; paired differences are much tighter than the raw ones because they remove layout variance.
 
-\subsection{Simultaneous Optimization Dynamics}
+\subsection{Headroom decomposition}
+\label{sec:headroom}
+Table~\ref{tab:headroom} reports decode rate at mismatch levels $s\in\{0,1,2\}$.
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/fig3_dual_axis_4way.pdf}
-    \caption{Dual-axis training dynamics showing the simultaneous optimization of Average AoI (solid lines) and Decode Rate (dashed lines). The PPO macro-planner and SAC micro-optimizer learn in perfect synchronization.}
-    \label{fig:dual_axis}
-\end{figure}
+\begin{table*}[t]
+\centering
+\caption{Decode rate (\%) and paired difference to nominal-PDA AO (percentage points), mean $\pm$ 95\% CI over 5 seeds. Mismatch level $s$ scales the per-element deviation of the true hardware from the nominal curve.}
+\label{tab:headroom}
+\resizebox{\textwidth}{!}{\input{tables/table_headroom.tex}}
+\end{table*}
 
-To definitively prove that the two tiers of the HDRL framework are optimizing their respective objectives in tandem, Fig. \ref{fig:dual_axis} superimposes the AoI and decode rate convergence curves on a dual-axis plot. The strong inverse correlation is visually apparent in the proposed method: exactly as the SAC micro-optimizer learns to align the RIS phases (evidenced by the rising dashed blue line), the PPO macro-planner successfully exploits these stronger cascaded links to reduce the network-wide AoI (evidenced by the falling solid blue line). This simultaneous convergence verifies that the hierarchical decoupling effectively prevents the two agents from oscillating or diverging.
+\emph{Assuming an ideal RIS is costly:} AO that ignores the PDA loses 14--24 points to nominal-PDA AO at every mismatch level, so modelling the hardware, even nominally, is the first-order effect. \emph{Hardware mismatch is second order at realistic spread:} knowing the true curve gains $0.2\pm1.7$ points at $s=0$, $3.2\pm2.1$ at $s=1$ and $8.7\pm2.7$ at $s=2$. \emph{A rough calibration suffices:} with a calibration error of 0.25 the decode-aware solver recovers $13.7\pm3.1$ of the $15.4\pm3.2$ points of the true-curve decode-aware solver at $s=2$. \emph{Channel-estimation error costs about 6 points:} perfect CSI gains $6.5\pm6.2$ ($s=0$) and $6.0\pm7.4$ ($s=1$) with nominal max-min AO. \emph{The objective matters as much:} decode-aware AO with the nominal model gains $7.2\pm2.3$, $6.8\pm1.5$ and $7.9\pm1.3$ points at $s=0,1,2$ with no extra measurements, i.e.\ as much as removing the estimation error. \emph{Probing gains more but costs measurements:} CEM with 15 probes gains $7.3\pm2.3$ to $11.3\pm2.6$ points and with 45 probes $13.1\pm2.8$ to $18.7\pm2.2$; with only 6 probes it is worse than AO, because a few noisy samples replace a good solution. Random search with 45 probes is $14$--$17$ points worse than AO.
 
-\subsection{Algorithm Stability and Reward Convergence}
+\subsection{Robustness to the scenario}
+\label{sec:sweeps}
+Table~\ref{tab:sweeps} varies one parameter at a time around the default scenario at $s=1$ (100 slots per seed, 5 seeds).
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/fig5_reward_4way.pdf}
-    \caption{Cumulative episode reward over 5,000 training episodes. The proposed two-tier HDRL framework exhibits stable learning convergence despite the highly non-convex nature of the PDA hardware impairment.}
-    \label{fig:reward}
-\end{figure}
+\begin{table*}[t]
+\centering
+\caption{One-at-a-time sweeps at $s=1$: decode rate of nominal-PDA AO and paired differences to it (percentage points, mean $\pm$ 95\% CI over 5 seeds). \texttt{margin} is the decode-aware margin $\epsilon$; ``default'' is $R_{\text{min}}=0.5$, $K_{\text{rice,BS}}=1$, 10\,dBm, $L=64$, $\epsilon=0.15$.}
+\label{tab:sweeps}
+\resizebox{\textwidth}{!}{\input{tables/table_sweeps.tex}}
+\end{table*}
 
-To confirm the algorithmic stability of our proposed two-tier framework, we evaluate the cumulative episode reward across the training phase, as depicted in Fig. \ref{fig:reward}. Because the system continuously penalizes high AoI, all rewards are natively negative. The theoretical Ideal RIS provides a performance ceiling, converging smoothly to a maximum reward of approximately $-1095$. 
+The decode-aware solver improves on max-min AO in all 11 settings, with intervals excluding zero in each, from $+3.8\pm1.5$ points ($R_{\text{min}}=0.25$, where decoding is already easy at 90.6\%) to $+19.4\pm7.5$ (0\,dBm). The margin $\epsilon$ has little effect ($+7.5$, $+7.5$, $+8.2$ for $\epsilon=0,0.3,0.5$). The comparison with probing depends on the regime. At low transmit power, a zero-probe decode-aware AO ($+19.4$) beats 45 probes ($+11.8$); at $R_{\text{min}}=1.0$ the true-curve decode-aware solver ($+25.5$) matches 45 probes ($+22.8$). At 20\,dBm probing wins clearly (45 probes $+22.6$ against $+4.7$ for the decode-aware solver), and with $L=128$ it also leads ($+9.9$ against $+6.5$). Knowing the true curve alone (max-min AO) adds only $+1.1$ to $+5.0$ points in every setting. We did not run a full factorial; conclusions are about one-at-a-time changes.
 
-The proposed Beta-Space HDRL algorithm demonstrates robust, monotonic learning, rising steadily over the 5,000 episodes to plateau at $-1141$. This proves that both the PPO macro-planner and the SAC micro-optimizer successfully reach their respective optimal policies without divergence, despite the complex coupling of the continuous phase-amplitude variables. Conversely, the PPO-Only baseline remains trapped at a severely suboptimal reward plateau of $-1253$, as its inability to synthesize reflection beams prevents it from earning decode-driven reward bonuses.
+\subsection{Episode-level effect}
+\label{sec:episode}
+Table~\ref{tab:aoi} runs the decode-aware solver inside 200-step episodes (2 episodes per seed, 5 seeds) at $s=1$ under two heuristic schedulers; Table~\ref{tab:aoi2} repeats it at $s=2$.
 
-\subsection{Final Converged Performance Analysis}
+\begin{table}[t]
+\centering
+\caption{Episode-level results at $s=1$. $\Delta$ columns are paired per-seed differences to nominal-PDA AO under the same scheduler (95\% CI, 5 seeds).}
+\label{tab:aoi}
+\resizebox{\columnwidth}{!}{\input{tables/table_aoi.tex}}
+\end{table}
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/fig4_summary_bars_4way.pdf}
-    \caption{Summary of final converged performance (averaged over the final 500 training episodes). The proposed framework successfully bridges the gap between a random RIS configuration and the ideal, unimpaired RIS hardware bound.}
-    \label{fig:summary_bars}
-\end{figure}
+\begin{table}[t]
+\centering
+\caption{Episode-level results at $s=2$ (same protocol as Table~\ref{tab:aoi}).}
+\label{tab:aoi2}
+\resizebox{\columnwidth}{!}{\input{tables/table_aoi_spread2.tex}}
+\end{table}
 
-To provide a definitive summary of the steady-state performance, Fig. \ref{fig:summary_bars} presents the average network metrics calculated over the final 500 training episodes. The side-by-side comparison sharply illustrates the central thesis of this work: while optimizing the UAV trajectory alone (PPO-Only) provides a negligible improvement over a purely random system, coupling it with a PDA-aware RIS optimizer yields transformative gains. The proposed framework achieves a converged Average AoI of 22.8 (an approximate 10\% reduction versus the baseline) and a stable Decode Rate of 15.0\%. This allows the realistic, impaired system to capture roughly 80\% of the maximum possible performance defined by the unachievable Ideal RIS scenario.
+Under greedy AoI with travel, the nominal decode-aware solver lowers average AoI by $1.65\pm0.58$ slots at $s=1$ ($11.8\to10.1$, about 14\%) and $1.87\pm1.01$ at $s=2$, and raises decode rate by $6.8\pm3.1$ and $7.0\pm2.5$ points; every seed improves. With the true curve the reductions are $2.19\pm0.64$ and $2.88\pm0.94$ slots. Under greedy AoI without travel the effects are similar ($-2.11\pm1.57$ and $-2.33\pm1.56$ slots for the nominal decode-aware solver). Most raw intervals overlap because layouts differ across seeds; the paired differences do not.
 
-\subsection{Ablation Study: Isolating the Beta-Space Contribution}
+\subsection{Learned components: negative results}
+\label{sec:negative}
+\paragraph*{Residual SAC.} A first recipe with an unpaired reward made the policy worse than its own physics prior (47\% against 75\% decode in the mismatch study, including at $s=0$). A second recipe uses a paired reward (reward of the residual action minus that of the prior on the same channel and CSI), zero-residual anchor samples, an $\ell_2$ penalty and a fixed entropy weight, and keeps the snapshot with the best validation gain, with the zero-residual policy as fallback. After 8000 training slots at $s=1$ no checkpoint beat the prior (Table~\ref{tab:residual}), so the learned policy reduces to the AO solution. Given the headroom analysis, the room left for a policy that sees only the CSI estimate is small: the remaining gap to 45-probe search is mostly noise in the individual slot's estimate.
 
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{figures/fig6_ablation_waterfall.pdf}
-    \caption{Ablation study isolating the empirical contribution of each algorithmic component to the final decode rate.}
-    \label{fig:ablation}
-\end{figure}
+\begin{table}[t]
+\centering
+\caption{Learned residual SAC versus its AO prior (slot reward units; evaluation on fresh slots).}
+\label{tab:residual}
+\resizebox{\columnwidth}{!}{\input{tables/table_residual.tex}}
+\end{table}
 
-To definitively isolate the contribution of our novel Beta-Space exploration mechanism, we present an ablation study in Fig. \ref{fig:ablation}. Starting from a fully random baseline (0.0\% decode rate), introducing only the PPO trajectory macro-planner yields a modest $+4.0$ percentage point (pp) improvement. However, activating the SAC micro-optimizer with our Beta-Space exploration strategy results in a massive $+10.9$ pp jump, bringing the total decode rate to 15.0\%. 
+\paragraph*{PPO scheduler.} The hybrid-action PPO scheduler trained on a pool of layouts reached an average AoI of $27.6\pm25.1$ on held-out layouts against $11.6\pm3.4$ for greedy AoI with travel (same low level, 5 seeds), so we make no claim for learned scheduling in this environment. We did not tune it exhaustively, and the result applies to this heuristic-friendly setting, in which a one-cluster-per-step AoI problem is close to solved by greedy rules.
 
-This breakdown reveals a critical insight: intelligent RIS beamforming contributes nearly 3$\times$ more to the system's success than UAV trajectory optimization alone. Without the micro-agent explicitly navigating the non-linear PDA trade-off, the physical degradation of the cascaded channel completely undermines the macro-agent's positioning efforts. The remaining 3.8 pp gap to the Ideal RIS upper bound (18.8\%) highlights the absolute physical limit imposed by the $\beta_{\text{min}} = 0.2$ hardware constraint.
-
-\subsection{Dynamic Spatial MAC Scheduling and UAV Trajectory}
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{../results/figures_advanced/fig7_trajectory.pdf}
-    \caption{2D spatial scheduling trajectory of the UAV over a 200-second evaluation episode. The trajectory dynamically routes between the distributed IoT clusters, explicitly prioritizing physical proximity to the clusters experiencing the most severe data starvation (highest Age of Information).}
-    \label{fig:trajectory}
-\end{figure}
-
-To definitively prove that the trained macro-agent acts as a rigorous spatial MAC scheduler, we evaluate the UAV's 2D flight trajectory during a deterministic testing episode, as visualized in Fig. \ref{fig:trajectory}. In contrast to traditional, static patrol routes (e.g., circular or lawnmower patterns), the trajectory generated by our algorithm explicitly optimizes the multi-cluster routing based on real-time data urgency. The UAV dynamically maneuvers between the randomly distributed IoT clusters, balancing the strict aerodynamic propulsion constraints against the need to minimize physical path loss ($h_{1,k}$) for the most starved sensors. The purposeful routing toward clusters with the highest accumulated Age of Information proves that the macro-agent successfully translates the theoretical objective function into a physically responsive, real-time spatial scheduling policy.
-
-\subsection{Instantaneous Data Freshness and AoI Sawtooth Dynamics}
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{../results/figures_advanced/fig8_aoi_sawtooth.pdf}
-    \caption{Instantaneous Age of Information (AoI) evolution over a 200-second evaluation flight. The strictly linear ascent represents sensor starvation, while the sharp sawtooth drops physically verify successful packet decoding ($R_k \geq R_{\text{min}}$) achieved by the RIS Beta-Space beamforming.}
-    \label{fig:aoi_sawtooth}
-\end{figure}
-
-While network-wide averages demonstrate algorithmic convergence, visualizing the instantaneous AoI exposes the raw queuing dynamics of the MAC scheduler. Fig. \ref{fig:aoi_sawtooth} isolates the temporal evolution of two distinct IoT clusters. The unserved cluster exhibits a strict linear asymptote (slope $m=1$), perfectly mirroring theoretical data starvation as the UAV allocates its energy budget elsewhere. Conversely, the served cluster displays a rigorous sawtooth waveform. The sharp resets in AoI serve as an undeniable physical proof: when the UAV physically arrives at the cluster, the SAC micro-agent successfully synthesizes a cascaded RIS reflection beam strong enough to overcome the $-110$ dBm thermal noise floor and satisfy the strict decoding threshold. This micro-level verification guarantees that the macro-level AoI reductions are driven by genuine physical-layer link closures, not merely statistical averaging anomalies.
-
-\subsection{Rotary-Wing Aerodynamics and Propulsion Energy Depletion}
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{../results/figures_advanced/fig9_energy.pdf}
-    \caption{UAV propulsion energy depletion over the 200-second evaluation flight. The non-linear depletion curve rigorously adheres to the Zeng \& Zhang rotary-wing aerodynamic power model, accounting for instantaneous variations in blade profile power, induced power, and parasitic drag.}
-    \label{fig:energy_depletion}
-\end{figure}
-
-To guarantee that the optimized spatial scheduling policy is practically implementable, we evaluate the UAV's instantaneous energy consumption, depicted in Fig. \ref{fig:energy_depletion}. Unlike theoretical models that assume a trivial linear battery discharge, this evaluation strictly enforces the non-linear Zeng \& Zhang rotary-wing aerodynamic power model. The depletion curve integrates three distinct physical power consumptions dynamically calculated at each time step: (1) the blade profile power ($P_0$), (2) the induced power ($P_i$), and (3) the parasitic drag, which scales rigorously with the cube of the UAV's velocity ($\propto \|v\|^3$). The dynamic slope of the energy curve visualizes the physical exertion of the UAV as it accelerates between IoT clusters and hovers to establish cascaded RIS links. By seamlessly bounding the entire 200-second mission within the strict 300 kJ energy budget, we definitively prove that the macro-agent's routing policy is fully viable for real-world aerospace deployments, completely avoiding catastrophic mid-flight battery depletion.
-
-\subsection{Hardware Impairments and Beta-Space PDA Exploration}
-
-\begin{figure}[t]
-    \centering
-    \includegraphics[width=\columnwidth]{../results/figures_advanced/fig10_beta_heatmap.pdf}
-    \caption{Heatmap of the synthesized Phase-Dependent Amplitudes ($\beta_l$) across all 64 RIS elements during the 200-second flight. The continuous variations prove the SAC micro-agent actively navigates the non-convex PDA hardware impairment, dynamically trading off phase alignment for amplitude preservation.}
-    \label{fig:beta_heatmap}
-\end{figure}
-
-Finally, to provide conclusive evidence that our proposed framework successfully solves the core hardware impairment problem, Fig. \ref{fig:beta_heatmap} visualizes the exact synthesized reflection amplitudes ($\beta_l$) across the entire RIS array. In classical RL algorithms that falsely assume an ideal RIS, this heatmap would manifest as a uniform solid block at $\beta = 1.0$. In stark contrast, our Beta-Space SAC micro-agent produces a highly dynamic heatmap, strictly constrained by the physical PDA coupling equation. The continuous temporal and spatial variations explicitly prove that the algorithm does not simply ignore amplitude degradation. Rather than naively forcing phase alignment—which physically induces catastrophic amplitude collapse—the agent continuously explores the "Beta-Space" to synthesize optimal compromise beams. This verifies that the algorithm is deeply hardware-aware and fundamentally capable of bridging the gap between theoretical optimization and practical, impaired RF environments.
+\subsection{Limitations and threats to validity}
+\label{sec:limits}
+Results come from simulation with a synthetic hardware-mismatch model and a Rician/LoS channel; no ray-traced or measured channels are used. All parameter sweeps are one-at-a-time, and the number of seeds is five, so intervals are wide. The decode-aware objective has a hand-set sigmoid width and margin; the margin is insensitive but the width was not swept. Pilot overhead, RIS switching time and phase quantisation are not modelled. The episode study uses two heuristic schedulers and no learned scheduler. The residual policy was trained for one hardware instance per seed and on one seed in the final recipe; a stronger or differently structured learner could behave differently.
 
 \section{Conclusion}
-% TODO: Wrap up the paper.
+On an audited UAV-RIS data-collection benchmark, the largest controllable losses in decode rate came from the optimisation objective and from ignoring the PDA hardware, not from a lack of learning. A decode-aware alternating optimisation with no extra measurements improves decode rate in every setting we tried and lowers AoI by about 14\% under a good scheduler. Hardware mismatch is a second-order effect that a rough calibration removes, and per-slot probing adds the most at high power. A learned residual policy and a PPO scheduler did not beat these baselines. We recommend that future RIS-DRL claims be reported against such baselines, with paired statistics over seeds and held-out layouts. Code, configurations and the curated result files are released with the repository.
 
 \bibliographystyle{IEEEtran}
-\bibliography{references} % Create a references.bib file later
+\bibliography{references}
 
 \end{document}
