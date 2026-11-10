@@ -64,14 +64,17 @@ def methods(env, rng, Dh, agent, a):
     }
     if getattr(a, 'extra', False):
         # (1) decoding-aware AO: no probes, same objective the probing baselines optimise
-        m['ao_decode_nominal']    = lambda: pack_ao(ao_decode(env, rng, Dh=Dh, model='nominal', sweeps=a.ao_sweeps), Dh, env)
-        m['ao_decode_calibrated'] = lambda: pack_ao(ao_decode(env, rng, Dh=Dh, model='true', sweeps=a.ao_sweeps), Dh, env)
+        m['ao_decode_nominal']    = lambda: pack_ao(ao_decode(env, rng, Dh=Dh, model='nominal', sweeps=a.ao_sweeps, margin=getattr(a, 'margin', 0.15)), Dh, env)
+        m['ao_decode_calibrated'] = lambda: pack_ao(ao_decode(env, rng, Dh=Dh, model='true', sweeps=a.ao_sweeps, margin=getattr(a, 'margin', 0.15)), Dh, env)
         # (2) calibrate-then-AO: model parameters known only up to a calibration error (units of spread-1 sd)
         m['ao_cal0.25'] = lambda: ao_ris(env, rng, Dh=Dh, model='cal:0.25', sweeps=a.ao_sweeps)
         m['ao_cal0.5']  = lambda: ao_ris(env, rng, Dh=Dh, model='cal:0.5', sweeps=a.ao_sweeps)
-        m['ao_decode_cal0.25'] = lambda: pack_ao(ao_decode(env, rng, Dh=Dh, model='cal:0.25', sweeps=a.ao_sweeps), Dh, env)
+        m['ao_decode_cal0.25'] = lambda: pack_ao(ao_decode(env, rng, Dh=Dh, model='cal:0.25', sweeps=a.ao_sweeps, margin=getattr(a, 'margin', 0.15)), Dh, env)
     if agent is not None:
         m['residual_sac'] = lambda: residual_action(env, rng, agent, Dh=Dh, deterministic=True, prior_theta=prior_th)[0]
+    only = getattr(a, 'only', None)
+    if only:                                   # lambdas are lazy, so dropping methods also drops their cost
+        m = {k: v for k, v in m.items() if k in only or k == 'ao_nominal'}
     return m
 
 
@@ -113,6 +116,8 @@ def main():
     p.add_argument('--study_slots', type=int, default=200, help='held-out evaluation slots per (seed, spread)')
     p.add_argument('--eval_dists', type=float, nargs='+', default=[0.0, 5.0, 10.0, 15.0])
     p.add_argument('--skip_drl', action='store_true')
+    p.add_argument('--margin', type=float, default=0.15, help='decode-aware AO margin above r_min')
+    p.add_argument('--only', nargs='+', default=None, help='restrict to these methods (ao_nominal always kept)')
     p.add_argument('--extra', action='store_true', help='add decoding-aware AO and calibration-error AO baselines')
     p.add_argument('--ckpt_root', default=None, help='dir with seed{S}_spread{X}/residual_sac.pt to reuse')
     p.add_argument('--save_root', default=None, help='where to save policies trained inside this script')

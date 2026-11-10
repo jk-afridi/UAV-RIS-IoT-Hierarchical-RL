@@ -39,8 +39,8 @@ exploration as a contribution (no effect on the rate in this model).
 | IV.C Calibration sensitivity | rows `ao_cal0.25/0.5`, `ao_decode_cal0.25` | same table | **ready** |
 | IV.D Probing vs model-based | `cem6/15/45`, `best_of_45` | same table | **ready** |
 | IV.E Learned residual (negative) | v2 vs v3 | `04_residual_learning/*` -> `tables/table_residual.tex` (+ `fig_residual_learning.pdf` from `make_report.py`) | ready |
-| IV.F Episode-level AoI | schedulers x low levels | `05_macro_and_aoi/aoi_study_run1.json` | **needs re-run with decode-aware AO as low level** (pending code) |
-| IV.G Robustness sweeps | R_min, K_bs, power, L, decode margin | new stage `sweeps` | **pending code + Colab run** |
+| IV.F Episode-level AoI | schedulers x low levels | `05_macro_and_aoi/aoi_v5.json` (+ `aoi_v5_spread2.json`) -> `tables/table_aoi.tex`, `table_aoi_spread2.tex` | code ready; run stages `aoi_v5`, `aoi_v5_s2` |
+| IV.G Robustness sweeps | R_min, K_bs, power, L, decode margin | `07_sweeps/sweeps.json` -> `tables/table_sweeps.tex` | code ready; run stage `sweeps` (resumable) |
 | IV.H Limitations | simulation only, single scenario family, synthetic hardware spread, no pilot overhead | text | ready |
 
 ## Why the two pending items exist
@@ -51,7 +51,7 @@ exploration as a contribution (no effect on the rate in this model).
 
 ## Order of work
 1. [done] curated data in `paper/data/`, table generator, this guide.
-2. [next] code `sweeps` stage and decode-aware low level in `aoi_study`; you run both on Colab; push results branch.
+2. [code done] stages `sweeps`, `aoi_v5`, `aoi_v5_s2`; run on Colab (CPU), push results branch.
 3. Copy final JSON into `paper/data/`, run `python paper/make_tables.py`, write sections IV.F-G.
 4. Rewrite abstract, intro, contributions, conclusion from the final numbers; compile; check every number
    against `paper/data/`.

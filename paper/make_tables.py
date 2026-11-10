@@ -66,8 +66,39 @@ def residual(path_v2, path_v3, out):
     Path(out).write_text('\n'.join(rows) + '\n')
 
 
+def sweeps(path, out):
+    d = json.loads(Path(path).read_text())
+    cols = [('ao_decode_nominal', 'Decode-aware AO'), ('ao_decode_cal0.25', 'Decode-aware, cal. 0.25'),
+            ('ao_calibrated', 'AO, true PDA'), ('cem15', 'CEM 15'), ('cem45', 'CEM 45')]
+    rows = [r'\begin{tabular}{l' + 'r' * (1 + len(cols)) + '}', r'\toprule',
+            'Setting & AO nominal (dec.\\,\\%) & ' + ' & '.join(c[1] for c in cols) + r' \\', r'\midrule']
+    for key, v in d.items():
+        s = v['summary']
+        cells = [pm(s[m]['paired_decode_pct']) for m, _ in cols]
+        rows.append(key.replace('_', r'\_') + ' & ' + f"{s['ao_nominal']['decode_pct']['mean']:.1f}" + ' & ' + ' & '.join(cells) + r' \\')
+    rows += [r'\bottomrule', r'\end{tabular}']
+    Path(out).write_text('\n'.join(rows) + '\n')
+
+
+def aoi(path, out):
+    s = json.loads(Path(path).read_text())['summary']
+    rows = [r'\begin{tabular}{llrrr}', r'\toprule', r'Scheduler & RIS solver & Avg AoI & Peak AoI & Decode \% \\', r'\midrule']
+    for k, v in s.items():
+        sc, ll = k.split('+', 1)
+        rows.append(f"{sc.replace('_', ' ')} & {ll.replace('_', ' ')} & {pm(v['avg_aoi'])} & {pm(v['peak_aoi'], '{:.0f}')} & {pm(v['decode_pct'])} \\\\")
+    rows += [r'\bottomrule', r'\end{tabular}']
+    Path(out).write_text('\n'.join(rows) + '\n')
+
+
 if __name__ == '__main__':
     headroom(DATA / '03_headroom' / 'headroom_v5_FINAL_code_d66def0.json', OUT / 'table_headroom.tex')
     residual(DATA / '04_residual_learning' / 'residual_v2_history.json',
              DATA / '04_residual_learning' / 'residual_v3_history.json', OUT / 'table_residual.tex')
+    for name, fn, rel, dst in (('sweeps', sweeps, '07_sweeps/sweeps.json', 'table_sweeps.tex'),
+                               ('aoi', aoi, '05_macro_and_aoi/aoi_v5.json', 'table_aoi.tex'),
+                               ('aoi_spread2', aoi, '05_macro_and_aoi/aoi_v5_spread2.json', 'table_aoi_spread2.tex')):
+        if (DATA / rel).exists():
+            fn(DATA / rel, OUT / dst)
+        else:
+            print(f'skip {name}: {rel} not in paper/data yet')
     print('wrote', *sorted(p.name for p in OUT.glob('*.tex')))

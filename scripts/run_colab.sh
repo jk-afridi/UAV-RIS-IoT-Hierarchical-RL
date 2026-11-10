@@ -14,6 +14,17 @@ mismatch_base()   { python -m src.eval.mismatch_study --skip_drl --seeds 5 --spr
 # new baselines only (CPU, no torch needed): decoding-aware AO + calibration-error AO, on top of the base set
 headroom_v5()     { python -m src.eval.mismatch_study --skip_drl --extra --seeds 5 --spreads 0 1 2 --study_slots 200 \
                       --study_out results/mismatch_study/headroom_v5.json; }
+# robustness sweeps (R_min, BS-link K, power, L, margin); resumable, CPU only
+sweeps()          { python -m src.eval.sweeps --seeds 5 --spread 1.0 --study_slots 100 --out results/sweeps/sweeps.json; }
+# episode-level: decode-aware AO as the low level under the heuristic schedulers (no PPO, no residual)
+aoi_v5()          { python -m src.eval.aoi_study --seeds 5 --episodes 2 --spread 1.0 \
+                      --scheds greedy_aoi_travel greedy_aoi \
+                      --lowlevels ao_nominal ao_decode_nominal ao_decode_calibrated ao_calibrated \
+                      --out results/aoi_study/aoi_v5.json; }
+aoi_v5_s2()       { python -m src.eval.aoi_study --seeds 5 --episodes 2 --spread 2.0 \
+                      --scheds greedy_aoi_travel greedy_aoi \
+                      --lowlevels ao_nominal ao_decode_nominal ao_decode_calibrated ao_calibrated \
+                      --out results/aoi_study/aoi_v5_spread2.json; }
 residual_try()    { python -m src.train.train_residual --seed 0 --spread 1.0 --train_slots 8000 --eval_every 1000 \
                       --out results/residual_v3/seed0_spread1.0; }          # watch "gain" in the log: must become > 0
 mismatch_full()   { python -m src.eval.mismatch_study --seeds 5 --spreads 0 0.5 1 2 --train_slots 30000 --study_slots 200 \

@@ -137,3 +137,19 @@ def test_calibration_error_model():
     assert all(np.allclose(x, y) for x, y in zip(t, c0))                       # err 0 == true hardware
     assert any(not np.allclose(x, y) for x, y in zip(t, c1))                   # err > 0 differs
     assert all(np.allclose(x, y) for x, y in zip(c1, _params(env, 'cal:0.5')))  # fixed per hardware instance
+
+
+def test_lowlevel_factory_decode_aware():
+    from baselines.lowlevel import make_lowlevel
+    env, rng = make(), np.random.default_rng(0)
+    _slot(env, rng)
+    for name in ('ao_decode', 'ao_decode_calibrated', 'ao_decode_cal0.25', 'ao_cal0.25'):
+        a = make_lowlevel(name, rng, ao_sweeps=1)(env)
+        assert a.shape == (2 * env.M * env.M + 2 * env.L,) and np.all(np.isfinite(env.compute_rates_from_action(a)))
+
+
+def test_sweep_grid_keys():
+    from eval.sweeps import settings, METHODS
+    keys = [k for k, _ in settings()]
+    assert keys[0] == 'default' and 'L=128' in keys and 'margin=0.3' in keys and len(set(keys)) == len(keys)
+    assert 'ao_nominal' in METHODS
