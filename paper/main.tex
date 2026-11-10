@@ -140,7 +140,7 @@ Each of the 5 seeds has its own city layout and its own hardware instance. Slot-
 
 \subsection{Headroom decomposition}
 \label{sec:headroom}
-Table~\ref{tab:headroom} reports decode rate at mismatch levels $s\in\{0,1,2\}$.
+Table~\ref{tab:headroom} and Fig.~\ref{fig:headroom} report decode rate at mismatch levels $s\in\{0,1,2\}$.
 
 \begin{table*}[t]
 \centering
@@ -151,9 +151,16 @@ Table~\ref{tab:headroom} reports decode rate at mismatch levels $s\in\{0,1,2\}$.
 
 \emph{Assuming an ideal RIS is costly:} AO that ignores the PDA loses 14--24 points to nominal-PDA AO at every mismatch level, so modelling the hardware, even nominally, is the first-order effect. \emph{Hardware mismatch is second order at realistic spread:} knowing the true curve gains $0.2\pm1.7$ points at $s=0$, $3.2\pm2.1$ at $s=1$ and $8.7\pm2.7$ at $s=2$. \emph{A rough calibration suffices:} with a calibration error of 0.25 the decode-aware solver recovers $13.7\pm3.1$ of the $15.4\pm3.2$ points of the true-curve decode-aware solver at $s=2$. \emph{Channel-estimation error costs about 6 points:} perfect CSI gains $6.5\pm6.2$ ($s=0$) and $6.0\pm7.4$ ($s=1$) with nominal max-min AO. \emph{The objective matters as much:} decode-aware AO with the nominal model gains $7.2\pm2.3$, $6.8\pm1.5$ and $7.9\pm1.3$ points at $s=0,1,2$ with no extra measurements, i.e.\ as much as removing the estimation error. \emph{Probing gains more but costs measurements:} CEM with 15 probes gains $7.3\pm2.3$ to $11.3\pm2.6$ points and with 45 probes $13.1\pm2.8$ to $18.7\pm2.2$; with only 6 probes it is worse than AO, because a few noisy samples replace a good solution. Random search with 45 probes is $14$--$17$ points worse than AO.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig_headroom.pdf}
+\caption{Paired decode-rate gain over nominal-PDA AO at mismatch levels $s=0,1,2$ (mean $\pm$ 95\% CI over 5 seeds). The decode-aware objective gains about as much as removing the CSI error, and per-slot probing adds the most but needs measurements.}
+\label{fig:headroom}
+\end{figure}
+
 \subsection{Robustness to the scenario}
 \label{sec:sweeps}
-Table~\ref{tab:sweeps} varies one parameter at a time around the default scenario at $s=1$ (100 slots per seed, 5 seeds).
+Table~\ref{tab:sweeps} and Fig.~\ref{fig:sweeps} vary one parameter at a time around the default scenario at $s=1$ (100 slots per seed, 5 seeds).
 
 \begin{table*}[t]
 \centering
@@ -164,9 +171,16 @@ Table~\ref{tab:sweeps} varies one parameter at a time around the default scenari
 
 The decode-aware solver improves on max-min AO in all 11 settings, with intervals excluding zero in each, from $+3.8\pm1.5$ points ($R_{\text{min}}=0.25$, where decoding is already easy at 90.6\%) to $+19.4\pm7.5$ (0\,dBm). The margin $\epsilon$ has little effect ($+7.5$, $+7.5$, $+8.2$ for $\epsilon=0,0.3,0.5$). The comparison with probing depends on the regime. At low transmit power, a zero-probe decode-aware AO ($+19.4$) beats 45 probes ($+11.8$); at $R_{\text{min}}=1.0$ the true-curve decode-aware solver ($+25.5$) matches 45 probes ($+22.8$). At 20\,dBm probing wins clearly (45 probes $+22.6$ against $+4.7$ for the decode-aware solver), and with $L=128$ it also leads ($+9.9$ against $+6.5$). Knowing the true curve alone (max-min AO) adds only $+1.1$ to $+5.0$ points in every setting. We did not run a full factorial; conclusions are about one-at-a-time changes.
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig_sweeps.pdf}
+\caption{One-at-a-time sweeps at $s=1$: paired decode-rate gain over nominal-PDA AO for the zero-probe decode-aware solver and for probing (mean $\pm$ 95\% CI, 5 seeds). Probing wins at high power; the decode-aware solver wins at low power.}
+\label{fig:sweeps}
+\end{figure}
+
 \subsection{Episode-level effect}
 \label{sec:episode}
-Table~\ref{tab:aoi} runs the decode-aware solver inside 200-step episodes (2 episodes per seed, 5 seeds) at $s=1$ under two heuristic schedulers; Table~\ref{tab:aoi2} repeats it at $s=2$.
+Table~\ref{tab:aoi} runs the decode-aware solver inside 200-step episodes (2 episodes per seed, 5 seeds) at $s=1$ under two heuristic schedulers; Table~\ref{tab:aoi2} repeats it at $s=2$; Fig.~\ref{fig:aoi} summarises the paired changes.
 
 \begin{table}[t]
 \centering
@@ -183,6 +197,13 @@ Table~\ref{tab:aoi} runs the decode-aware solver inside 200-step episodes (2 epi
 \end{table}
 
 Under greedy AoI with travel, the nominal decode-aware solver lowers average AoI by $1.65\pm0.58$ slots at $s=1$ ($11.8\to10.1$, about 14\%) and $1.87\pm1.01$ at $s=2$, and raises decode rate by $6.8\pm3.1$ and $7.0\pm2.5$ points; every seed improves. With the true curve the reductions are $2.19\pm0.64$ and $2.88\pm0.94$ slots. Under greedy AoI without travel the effects are similar ($-2.11\pm1.57$ and $-2.33\pm1.56$ slots for the nominal decode-aware solver). Most raw intervals overlap because layouts differ across seeds; the paired differences do not.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig_aoi.pdf}
+\caption{Paired change in average AoI relative to nominal-PDA AO under two heuristic schedulers (negative is better; mean $\pm$ 95\% CI over 5 seeds).}
+\label{fig:aoi}
+\end{figure}
 
 \subsection{Learned components: negative results}
 \label{sec:negative}
