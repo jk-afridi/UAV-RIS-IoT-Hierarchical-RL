@@ -30,13 +30,20 @@ SRC_DIR = Path(__file__).resolve().parents[1]
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from baselines.ris_baselines import (cascaded_csi, ao_ris, cem_ris, best_of_n, residual_action,   # noqa: E402
+from baselines.ris_baselines import (cascaded_csi, ao_ris, ao_decode, cem_ris, best_of_n, residual_action,   # noqa: E402
                                      ao_solution, pack_action)
 from eval.evaluate import ci                                                                       # noqa: E402
 from train.train_residual import build_parser, make_slot_env, sample_slot                          # noqa: E402
 
 PROBES = {'ao_nominal': 0, 'ao_ideal': 0, 'ao_calibrated': 0, 'cem6': 6, 'cem15': 15, 'cem45': 45,
-          'best_of_45': 45, 'residual_sac': 0, 'ao_nominal_perfcsi': 0, 'ao_calibrated_perfcsi': 0}
+          'best_of_45': 45, 'residual_sac': 0, 'ao_nominal_perfcsi': 0, 'ao_calibrated_perfcsi': 0,
+          'ao_decode_nominal': 0, 'ao_decode_calibrated': 0, 'ao_cal0.25': 0, 'ao_cal0.5': 0, 'ao_decode_cal0.25': 0}
+
+
+def pack_ao(sol, Dh, env):
+    """(theta, G) from ao_solution -> flat action."""
+    th, G = sol
+    return pack_action(env, G, th)
 
 
 def methods(env, rng, Dh, agent, a):
@@ -55,6 +62,14 @@ def methods(env, rng, Dh, agent, a):
         'ao_nominal_perfcsi':    lambda: ao_ris(env, rng, Dh=cascaded_csi(env, rng, noisy=False), model='nominal', sweeps=a.ao_sweeps),
         'ao_calibrated_perfcsi': lambda: ao_ris(env, rng, Dh=cascaded_csi(env, rng, noisy=False), model='true', sweeps=a.ao_sweeps),
     }
+    if getattr(a, 'extra', False):
+        # (1) decoding-aware AO: no probes, same objective the probing baselines optimise
+        m['ao_decode_nominal']    = lambda: pack_ao(ao_decode(env, rng, Dh=Dh, model='nominal', sweeps=a.ao_sweeps), Dh, env)
+        m['ao_decode_calibrated'] = lambda: pack_ao(ao_decode(env, rng, Dh=Dh, model='true', sweeps=a.ao_sweeps), Dh, env)
+        # (2) calibrate-then-AO: model parameters known only up to a calibration error (units of spread-1 sd)
+        m['ao_cal0.25'] = lambda: ao_ris(env, rng, Dh=Dh, model='cal:0.25', sweeps=a.ao_sweeps)
+        m['ao_cal0.5']  = lambda: ao_ris(env, rng, Dh=Dh, model='cal:0.5', sweeps=a.ao_sweeps)
+        m['ao_decode_cal0.25'] = lambda: pack_ao(ao_decode(env, rng, Dh=Dh, model='cal:0.25', sweeps=a.ao_sweeps), Dh, env)
     if agent is not None:
         m['residual_sac'] = lambda: residual_action(env, rng, agent, Dh=Dh, deterministic=True, prior_theta=prior_th)[0]
     return m
@@ -98,6 +113,7 @@ def main():
     p.add_argument('--study_slots', type=int, default=200, help='held-out evaluation slots per (seed, spread)')
     p.add_argument('--eval_dists', type=float, nargs='+', default=[0.0, 5.0, 10.0, 15.0])
     p.add_argument('--skip_drl', action='store_true')
+    p.add_argument('--extra', action='store_true', help='add decoding-aware AO and calibration-error AO baselines')
     p.add_argument('--ckpt_root', default=None, help='dir with seed{S}_spread{X}/residual_sac.pt to reuse')
     p.add_argument('--save_root', default=None, help='where to save policies trained inside this script')
     p.add_argument('--study_out', default='results/mismatch_study/mismatch_study.json')

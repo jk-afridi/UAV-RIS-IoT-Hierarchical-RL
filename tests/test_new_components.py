@@ -7,7 +7,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'src'))
 from core.aoi_environment import AoIUAVRISEnvironment                                   # noqa: E402
 from baselines.ris_baselines import (ao_ris, cascaded_csi, feature_dim, slot_features,   # noqa: E402
-                                     ao_solution, residual_action, cem_ris, pack_action)
+                                     ao_solution, residual_action, cem_ris, pack_action, ao_decode, _params)
 
 
 def make(seed=2):
@@ -118,3 +118,22 @@ def test_residual_train_never_worse_than_prior_on_validation():
     agent, hist = train(env, a, np.random.default_rng(0), 'cpu', log=lambda *x: None)
     assert len(hist) >= 1 and all(np.isfinite(h['gain']) for h in hist)
     assert all(h['best_gain'] >= 0.0 for h in hist)
+
+
+def test_decode_aware_ao_valid_and_default_objective_unchanged():
+    env, rng = make(), np.random.default_rng(0)
+    _slot(env, rng); Dh = cascaded_csi(env, rng)
+    th, G = ao_decode(env, rng, Dh=Dh, model='nominal', sweeps=1)
+    a = pack_action(env, G, th)
+    assert a.shape == (2 * env.M * env.M + 2 * env.L,) and np.all(np.isfinite(env.compute_rates_from_action(a)))
+    th2, G2 = ao_solution(env, rng, Dh=Dh, model='nominal', sweeps=1, init_theta=th)      # default objective runs
+    assert th2.shape == (env.L,)
+
+
+def test_calibration_error_model():
+    env = make()
+    env.set_hardware(**env.sample_hardware(np.random.default_rng(1), 1.0))
+    t, c0, c1 = _params(env, 'true'), _params(env, 'cal:0'), _params(env, 'cal:0.5')
+    assert all(np.allclose(x, y) for x, y in zip(t, c0))                       # err 0 == true hardware
+    assert any(not np.allclose(x, y) for x, y in zip(t, c1))                   # err > 0 differs
+    assert all(np.allclose(x, y) for x, y in zip(c1, _params(env, 'cal:0.5')))  # fixed per hardware instance

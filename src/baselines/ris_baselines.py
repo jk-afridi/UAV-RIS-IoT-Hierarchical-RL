@@ -76,9 +76,31 @@ def _params(env, model):
         p = env.nominal_pda
     elif model == 'true':
         p = (env.beta_min, env.kappa_bar, env.theta_bar)
+    elif isinstance(model, str) and model.startswith('cal:'):
+        return _calibrated_params(env, float(model.split(':')[1]))
     else:
         raise ValueError(model)
     return tuple(np.broadcast_to(np.asarray(x, float), (env.L,)).copy() for x in p)
+
+
+def _calibrated_params(env, err):
+    """Per-element PDA parameters as a one-off calibration campaign would estimate them: the true
+    values plus a FIXED estimation error (same for every slot of this hardware instance). `err` is
+    in units of the spread-1 hardware deviation (sd: beta_min 0.15, log-kappa 0.3, theta_bar 0.5 rad),
+    so err=0 is the calibrated ideal and err=1 is as wrong as a spread-1 mismatch. This is a
+    sensitivity model ('how accurate must calibration be?'), not a probe-based estimator."""
+    tb, tk, tt = (np.broadcast_to(np.asarray(x, float), (env.L,)).copy()
+                  for x in (env.beta_min, env.kappa_bar, env.theta_bar))
+    key = (round(float(err), 6), tb.tobytes(), tk.tobytes(), tt.tobytes())
+    cache = getattr(env, '_cal_cache', None)
+    if cache is None:
+        cache = env._cal_cache = {}
+    if key not in cache:
+        r = np.random.default_rng(987_654 + env.L)
+        cache[key] = (np.clip(tb + err * 0.15 * r.normal(size=env.L), 0.02, 0.98),
+                      np.clip(tk * np.exp(err * 0.3 * r.normal(size=env.L)), 0.2, None),
+                      tt + err * 0.5 * r.normal(size=env.L))
+    return tuple(x.copy() for x in cache[key])
 
 
 def _amp_theta(params, theta):                    # theta: (L,)
@@ -99,10 +121,14 @@ def zf_beamformer(Dh, v):
 
 
 # --------------------------------------------------------------------------- alternating optimisation
-def ao_solution(env, rng, Dh=None, noisy_csi=True, model='nominal', sweeps=3, init_theta=None):
+def ao_solution(env, rng, Dh=None, noisy_csi=True, model='nominal', sweeps=3, init_theta=None,
+                objective='maxmin', margin=0.1):
     """Alternating optimisation: ZF combiner <-> per-element phase search maximising the minimum
     user rate. The solver ASSUMES the amplitude `model`; evaluation always uses the true hardware.
-    Returns (theta, G)."""
+    objective='maxmin' (default): maximise the minimum rate.
+    objective='decode': maximise 50 * #(rate >= r_min*(1+margin)) + sum_k min(rate_k, 2*r_min), i.e. the
+    same quantity the probing baselines optimise (decoded count, then capped rate) but computed from the
+    CSI estimate and the assumed model, with NO probes. Returns (theta, G)."""
     L = env.L
     if Dh is None:
         Dh = cascaded_csi(env, rng, noisy=noisy_csi)
@@ -121,10 +147,24 @@ def ao_solution(env, rng, Dh=None, noisy_csi=True, model='nominal', sweeps=3, in
             sig = np.abs(np.einsum('kkg->kg', cand)) ** 2
             inter = (np.abs(cand) ** 2).sum(axis=0) - sig
             sinr = sig / (inter + noise_scale * nrm[:, None])
-            j = int(np.argmax(np.log2(1 + sinr).min(axis=0)))
+            rate = np.log2(1 + sinr)
+            if objective == 'decode':
+                score = 50.0 * (rate >= env.r_min * (1 + margin)).sum(axis=0) + np.minimum(rate, 2 * env.r_min).sum(axis=0)
+            else:
+                score = rate.min(axis=0)
+            j = int(np.argmax(score))
             theta[l], v[l] = _GRID[j], vgrid[l, j]
     v = _amp_theta(params, theta) * np.exp(1j * theta)
     return theta, zf_beamformer(Dh, v)
+
+
+def ao_decode(env, rng, Dh=None, noisy_csi=True, model='nominal', sweeps=2, margin=0.1):
+    """Decoding-aware AO: a max-min warm start, then sweeps with the decode objective (no probes)."""
+    if Dh is None:
+        Dh = cascaded_csi(env, rng, noisy=noisy_csi)
+    th0, _ = ao_solution(env, rng, Dh=Dh, model=model, sweeps=sweeps)
+    return ao_solution(env, rng, Dh=Dh, model=model, sweeps=sweeps, init_theta=th0,
+                       objective='decode', margin=margin)
 
 
 def ao_ris(env, rng, noisy_csi=True, model='nominal', sweeps=3, Dh=None):
