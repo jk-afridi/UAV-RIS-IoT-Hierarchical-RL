@@ -1,0 +1,107 @@
+[
+  {
+    "episode": 100,
+    "ppo_eval_aoi": 85.78582500000002,
+    "greedy_eval_aoi": 10.87125,
+    "train_aoi": 25.7375,
+    "time_s": 254.82800722122192
+  },
+  {
+    "episode": 200,
+    "ppo_eval_aoi": 84.702225,
+    "greedy_eval_aoi": 11.1017,
+    "train_aoi": 20.822,
+    "time_s": 498.8701202869415
+  },
+  {
+    "episode": 300,
+    "ppo_eval_aoi": 70.9556,
+    "greedy_eval_aoi": 11.295225,
+    "train_aoi": 20.382625000000004,
+    "time_s": 746.480931520462
+  },
+  {
+    "episode": 400,
+    "ppo_eval_aoi": 41.545550000000006,
+    "greedy_eval_aoi": 10.9765,
+    "train_aoi": 19.845625,
+    "time_s": 995.7884607315063
+  },
+  {
+    "episode": 500,
+    "ppo_eval_aoi": 38.270125,
+    "greedy_eval_aoi": 10.669425,
+    "train_aoi": 19.53075,
+    "time_s": 1250.6292960643768
+  },
+  {
+    "episode": 600,
+    "ppo_eval_aoi": 30.624975,
+    "greedy_eval_aoi": 10.542175,
+    "train_aoi": 22.435125,
+    "time_s": 1503.1343026161194
+  },
+  {
+    "episode": 700,
+    "ppo_eval_aoi": 15.576875000000001,
+    "greedy_eval_aoi": 10.90825,
+    "train_aoi": 25.543625000000002,
+    "time_s": 1753.2859861850739
+  },
+  {
+    "episode": 800,
+    "ppo_eval_aoi": 18.488625000000003,
+    "greedy_eval_aoi": 10.910799999999998,
+    "train_aoi": 19.8755,
+    "time_s": 2004.0857591629028
+  },
+  {
+    "episode": 900,
+    "ppo_eval_aoi": 16.5253,
+    "greedy_eval_aoi": 11.182325000000002,
+    "train_aoi": 18.660625,
+    "time_s": 2253.5094740390778
+  },
+  {
+    "episode": 1000,
+    "ppo_eval_aoi": 21.671325000000003,
+    "greedy_eval_aoi": 11.03895,
+    "train_aoi": 16.318875000000002,
+    "time_s": 2500.287661552429
+  },
+  {
+    "episode": 1100,
+    "ppo_eval_aoi": 23.634200000000003,
+    "greedy_eval_aoi": 11.1833,
+    "train_aoi": 21.707750000000004,
+    "time_s": 2749.144946575165
+  },
+  {
+    "episode": 1200,
+    "ppo_eval_aoi": 23.835375,
+    "greedy_eval_aoi": 10.375499999999999,
+    "train_aoi": 16.70125,
+    "time_s": 2994.4015593528748
+  },
+  {
+    "episode": 1300,
+    "ppo_eval_aoi": 28.448924999999996,
+    "greedy_eval_aoi": 10.99975,
+    "train_aoi": 14.300124999999998,
+    "time_s": 3232.3036947250366
+  },
+  {
+    "episode": 1400,
+    "ppo_eval_aoi": 25.1905,
+    "greedy_eval_aoi": 11.219624999999999,
+    "train_aoi": 17.26425,
+    "time_s": 3471.3509273529053
+  },
+  {
+    "episode": 1500,
+    "ppo_eval_aoi": 30.121975,
+    "greedy_eval_aoi": 10.46045,
+    "train_aoi": 16.077375,
+    "time_s": 3713.3309195041656
+  }
+]

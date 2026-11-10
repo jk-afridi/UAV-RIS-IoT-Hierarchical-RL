@@ -1,0 +1,58 @@
+{
+  "Proposed (PPO+SAC, \u03b2=0.2)": {
+    "total_episodes": 5000,
+    "avg_aoi_mean": 22.817394999999998,
+    "avg_aoi_std": 0.5791105857044921,
+    "avg_aoi_min": 21.2975,
+    "avg_aoi_max": 24.594499999999996,
+    "peak_aoi_mean": 51.0,
+    "peak_aoi_std": 0.0,
+    "decode_rate_mean": 14.988,
+    "decode_rate_std": 1.89125778253521,
+    "decode_rate_max": 21.5,
+    "reward_mean": -1140.86975,
+    "reward_std": 28.955529285224603
+  },
+  "Ideal RIS (PPO+SAC, \u03b2=1.0)": {
+    "total_episodes": 5000,
+    "avg_aoi_mean": 21.894167999999997,
+    "avg_aoi_std": 0.6715258362684192,
+    "avg_aoi_min": 19.7245,
+    "avg_aoi_max": 24.0125,
+    "peak_aoi_mean": 51.0,
+    "peak_aoi_std": 0.0,
+    "decode_rate_mean": 18.816,
+    "decode_rate_std": 2.061830254894908,
+    "decode_rate_max": 25.0,
+    "reward_mean": -1094.7084,
+    "reward_std": 33.57629181342097
+  },
+  "PPO-Only (No RIS Opt)": {
+    "total_episodes": 5000,
+    "avg_aoi_mean": 25.069255000000002,
+    "avg_aoi_std": 0.4411783114286105,
+    "avg_aoi_min": 23.791499999999996,
+    "avg_aoi_max": 26.285999999999998,
+    "peak_aoi_mean": 51.0,
+    "peak_aoi_std": 0.0,
+    "decode_rate_mean": 4.067,
+    "decode_rate_std": 1.3171981627682297,
+    "decode_rate_max": 8.0,
+    "reward_mean": -1253.46275,
+    "reward_std": 22.058915571430518
+  },
+  "Random Baseline": {
+    "total_episodes": 1000,
+    "avg_aoi_mean": 25.343245000000003,
+    "avg_aoi_std": 0.4693481697791097,
+    "avg_aoi_min": 23.7795,
+    "avg_aoi_max": 26.5,
+    "peak_aoi_mean": 51.0,
+    "peak_aoi_std": 0.0,
+    "decode_rate_mean": 0.02756,
+    "decode_rate_std": 0.010814175881684188,
+    "decode_rate_max": 0.065,
+    "reward_mean": -1267.16225,
+    "reward_std": 23.467408488955506
+  }
+}

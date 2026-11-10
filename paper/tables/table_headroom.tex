@@ -1,0 +1,28 @@
+\begin{tabular}{lrrrrrr}
+\toprule
+Method & \multicolumn{2}{c}{spread 0.0} & \multicolumn{2}{c}{spread 1.0} & \multicolumn{2}{c}{spread 2.0} \\
+ & Dec.\,\% & $\Delta$ vs ref. & Dec.\,\% & $\Delta$ vs ref. & Dec.\,\% & $\Delta$ vs ref. \\
+\midrule
+\multicolumn{7}{l}{\emph{Model-based, no probes}} \\
+AO, ideal-RIS assumed & 52.7$\pm$8.0 & -23.7$\pm$0.6 & 53.9$\pm$4.9 & -20.4$\pm$1.4 & 55.2$\pm$4.1 & -14.1$\pm$2.6 \\
+AO, nominal PDA (reference) & 76.5$\pm$7.5 & -- & 74.3$\pm$4.7 & -- & 69.3$\pm$2.7 & -- \\
+AO, calibration error 0.25 & 76.6$\pm$7.2 & 0.1$\pm$1.6 & 75.5$\pm$5.3 & 1.2$\pm$0.7 & 76.0$\pm$5.9 & 6.8$\pm$4.2 \\
+AO, calibration error 0.5 & 74.4$\pm$8.8 & -2.1$\pm$1.5 & 74.3$\pm$6.6 & 0.1$\pm$2.6 & 75.5$\pm$6.6 & 6.2$\pm$4.7 \\
+AO, true PDA & 76.7$\pm$8.8 & 0.2$\pm$1.7 & 77.5$\pm$6.3 & 3.2$\pm$2.1 & 78.0$\pm$4.3 & 8.7$\pm$2.7 \\
+\midrule
+\multicolumn{7}{l}{\emph{Perfect channel estimate (diagnostic)}} \\
+AO, nominal PDA, perfect CSI & 83.0$\pm$9.5 & 6.5$\pm$6.2 & 80.2$\pm$7.8 & 6.0$\pm$7.4 & 77.1$\pm$5.3 & 7.8$\pm$3.3 \\
+AO, true PDA, perfect CSI & 82.2$\pm$8.9 & 5.8$\pm$5.3 & 83.2$\pm$6.3 & 8.9$\pm$5.6 & 84.6$\pm$6.6 & 15.3$\pm$4.2 \\
+\midrule
+\multicolumn{7}{l}{\emph{Decode-aware objective, no probes}} \\
+Decode-aware AO, nominal PDA & 83.6$\pm$6.7 & 7.2$\pm$2.3 & 81.1$\pm$5.0 & 6.8$\pm$1.5 & 77.2$\pm$2.7 & 7.9$\pm$1.3 \\
+Decode-aware AO, calibration error 0.25 & 84.0$\pm$7.3 & 7.5$\pm$1.7 & 82.7$\pm$5.0 & 8.4$\pm$1.5 & 83.0$\pm$5.3 & 13.7$\pm$3.1 \\
+Decode-aware AO, true PDA & 83.9$\pm$6.8 & 7.5$\pm$1.9 & 83.1$\pm$3.8 & 8.8$\pm$2.0 & 84.7$\pm$4.5 & 15.4$\pm$3.2 \\
+\midrule
+\multicolumn{7}{l}{\emph{Probing (true-rate feedback)}} \\
+Random search, 45 probes & 59.9$\pm$5.2 & -16.6$\pm$3.9 & 60.3$\pm$3.0 & -14.0$\pm$1.9 & 61.0$\pm$3.8 & -8.3$\pm$3.1 \\
+AO+CEM, 6 probes & 71.1$\pm$7.5 & -5.3$\pm$1.7 & 68.3$\pm$4.4 & -6.0$\pm$0.7 & 63.9$\pm$3.6 & -5.5$\pm$1.6 \\
+AO+CEM, 15 probes & 83.8$\pm$5.6 & 7.3$\pm$2.3 & 81.8$\pm$4.3 & 7.5$\pm$1.1 & 80.6$\pm$3.3 & 11.3$\pm$2.6 \\
+AO+CEM, 45 probes & 89.5$\pm$4.9 & 13.1$\pm$2.8 & 88.4$\pm$3.2 & 14.1$\pm$2.2 & 88.0$\pm$3.0 & 18.7$\pm$2.2 \\
+\bottomrule
+\end{tabular}
