@@ -80,12 +80,31 @@ def sweeps(path, out):
     Path(out).write_text('\n'.join(rows) + '\n')
 
 
+_T975 = {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365, 8: 2.306, 9: 2.262}
+
+
+def _paired(per_seed, key, ref, metric):
+    seeds = sorted({k.rsplit('|', 1)[1] for k in per_seed if k.startswith(key + '|')})
+    x = [per_seed[f'{key}|{s}'][metric] - per_seed[f'{ref}|{s}'][metric] for s in seeds]
+    n = len(x)
+    m = sum(x) / n
+    sd = (sum((v - m) ** 2 for v in x) / (n - 1)) ** 0.5
+    return m, _T975.get(n - 1, 1.96) * sd / n ** 0.5
+
+
 def aoi(path, out):
-    s = json.loads(Path(path).read_text())['summary']
-    rows = [r'\begin{tabular}{llrrr}', r'\toprule', r'Scheduler & RIS solver & Avg AoI & Peak AoI & Decode \% \\', r'\midrule']
+    d = json.loads(Path(path).read_text())
+    s, ps = d['summary'], d['per_seed']
+    rows = [r'\begin{tabular}{llrrrr}', r'\toprule',
+            r'Scheduler & RIS solver & Avg AoI & $\Delta$ AoI vs AO nominal & Decode \% & $\Delta$ decode (pp) \\', r'\midrule']
     for k, v in s.items():
         sc, ll = k.split('+', 1)
-        rows.append(f"{sc.replace('_', ' ')} & {ll.replace('_', ' ')} & {pm(v['avg_aoi'])} & {pm(v['peak_aoi'], '{:.0f}')} & {pm(v['decode_pct'])} \\\\")
+        if ll == 'ao_nominal':
+            dA = dD = '--'
+        else:
+            dA = '{:+.2f}$\\pm${:.2f}'.format(*_paired(ps, k, sc + '+ao_nominal', 'avg_aoi'))
+            dD = '{:+.1f}$\\pm${:.1f}'.format(*_paired(ps, k, sc + '+ao_nominal', 'decode_pct'))
+        rows.append(f"{sc.replace('_', ' ')} & {NAMES.get(ll, ll.replace('_', ' '))} & {pm(v['avg_aoi'])} & {dA} & {pm(v['decode_pct'])} & {dD} \\\\")
     rows += [r'\bottomrule', r'\end{tabular}']
     Path(out).write_text('\n'.join(rows) + '\n')
 

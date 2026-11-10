@@ -39,8 +39,8 @@ exploration as a contribution (no effect on the rate in this model).
 | IV.C Calibration sensitivity | rows `ao_cal0.25/0.5`, `ao_decode_cal0.25` | same table | **ready** |
 | IV.D Probing vs model-based | `cem6/15/45`, `best_of_45` | same table | **ready** |
 | IV.E Learned residual (negative) | v2 vs v3 | `04_residual_learning/*` -> `tables/table_residual.tex` (+ `fig_residual_learning.pdf` from `make_report.py`) | ready |
-| IV.F Episode-level AoI | schedulers x low levels | `05_macro_and_aoi/aoi_v5.json` (+ `aoi_v5_spread2.json`) -> `tables/table_aoi.tex`, `table_aoi_spread2.tex` | code ready; run stages `aoi_v5`, `aoi_v5_s2` |
-| IV.G Robustness sweeps | R_min, K_bs, power, L, decode margin | `07_sweeps/sweeps.json` -> `tables/table_sweeps.tex` | code ready; run stage `sweeps` (resumable) |
+| IV.F Episode-level AoI | schedulers x low levels | `05_macro_and_aoi/aoi_v5.json` (+ `aoi_v5_spread2.json`) -> `tables/table_aoi.tex`, `table_aoi_spread2.tex` | **ready** (data in paper/data) |
+| IV.G Robustness sweeps | R_min, K_bs, power, L, decode margin | `07_sweeps/sweeps.json` -> `tables/table_sweeps.tex` | **ready** (data in paper/data) |
 | IV.H Limitations | simulation only, single scenario family, synthetic hardware spread, no pilot overhead | text | ready |
 
 ## Why the two pending items exist
