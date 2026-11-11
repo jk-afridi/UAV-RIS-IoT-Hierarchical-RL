@@ -25,6 +25,12 @@ aoi_v5_s2()       { python -m src.eval.aoi_study --seeds 5 --episodes 2 --spread
                       --scheds greedy_aoi_travel greedy_aoi \
                       --lowlevels ao_nominal ao_decode_nominal ao_decode_calibrated ao_calibrated \
                       --out results/aoi_study/aoi_v5_spread2.json; }
+# dose-response curves for the paper figures (CPU only, resumable): calibration error, probe budget, regime map
+curves_cal()      { python -m src.eval.curves calibration --seeds 5 --out results/curves/calibration.json; }
+curves_probes()   { python -m src.eval.curves probes --seeds 5 --out results/curves/probes.json; }
+curves_regime()   { python -m src.eval.curves regime --seeds 5 --out results/curves/regime.json; }
+# every paper figure + CSV of all plotted numbers + figure_verification.json (recomputes each statistic from per-seed data)
+figures()         { python paper/make_figures.py --curves results/curves --out results/paper_figures; }
 residual_try()    { python -m src.train.train_residual --seed 0 --spread 1.0 --train_slots 8000 --eval_every 1000 \
                       --out results/residual_v3/seed0_spread1.0; }          # watch "gain" in the log: must become > 0
 mismatch_full()   { python -m src.eval.mismatch_study --seeds 5 --spreads 0 0.5 1 2 --train_slots 30000 --study_slots 200 \

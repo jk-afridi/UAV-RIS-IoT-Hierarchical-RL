@@ -182,22 +182,34 @@ def _wrap(x):
 
 
 def cem_ris(env, rng, budget, model='nominal', Dh=None, noisy_csi=True, init='ao',
-            n_iter=3, elite_frac=0.25, sigma0=0.6, ao_sweeps=2):
+            n_iter=3, elite_frac=0.25, sigma0=0.6, ao_sweeps=2, init_theta=None, include_init=False):
     """Cross-entropy method over the L phases with `budget` true-rate measurements per slot
     (n_iter * (budget // n_iter) measurements). G is the ZF combiner for the ASSUMED amplitude
     model. `init='ao'` starts from the AO solution under `model` (hybrid model-based + feedback);
-    init='random' is pure model-free search. Returns the best MEASURED action."""
+    init='random' is pure model-free search. `init_theta` overrides the starting point (e.g. the
+    decode-aware solution). With `include_init=True` the starting solution is itself measured first and
+    counts as ONE of the `budget` measurements, so the result is never worse (on the measured score)
+    than the starting solution and budget=1 returns it unchanged. Returns the best MEASURED action."""
     if Dh is None:
         Dh = cascaded_csi(env, rng, noisy=noisy_csi)
     params = _params(env, model)
-    n_iter = max(1, min(n_iter, budget))
-    pop = max(1, budget // n_iter)
-    if init == 'ao':
+    if init_theta is not None:
+        mu = np.array(init_theta, float)
+    elif init == 'ao':
         mu, _ = ao_solution(env, rng, Dh=Dh, model=model, sweeps=ao_sweeps)
     else:
         mu = rng.uniform(-np.pi, np.pi, env.L)
-    sigma = np.full(env.L, sigma0)
     best_a, best_r = None, -np.inf
+    if include_init:
+        G0 = zf_beamformer(Dh, _amp_theta(params, mu) * np.exp(1j * mu))
+        best_a = pack_action(env, G0, mu)
+        best_r = sac_style_reward(env, best_a)
+        budget -= 1
+        if budget < 1:
+            return best_a
+    n_iter = max(1, min(n_iter, budget))
+    pop = max(1, budget // n_iter)
+    sigma = np.full(env.L, sigma0)
     for _ in range(n_iter):
         thetas = _wrap(mu[None, :] + sigma[None, :] * rng.normal(size=(pop, env.L)))
         scores = np.empty(pop)

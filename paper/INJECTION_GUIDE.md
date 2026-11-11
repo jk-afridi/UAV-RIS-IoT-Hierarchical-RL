@@ -66,3 +66,14 @@ exploration as a contribution (no effect on the rate in this model).
 - TODO before submission: verify every entry in `references.bib` (page numbers, venue of the Saglam et al.
   preprint) and add related work on UAV-RIS AoI, PDA models and DRL-for-RIS; fill author/affiliation/funding;
   re-check every number in the text against `paper/data/` and the generated tables.
+
+## Figure pipeline (v3): nothing is drawn by hand
+1. Colab: `curves_cal`, `curves_probes`, `curves_regime` (new dose-response experiments, CPU, resumable) -> `results/curves/*.json`.
+2. Colab: `figures` -> `results/paper_figures/` containing `fig_*.pdf/png`, `csv/*.csv` (every plotted number, per-seed values included)
+   and `figure_verification.json` (each plotted statistic recomputed from per-seed data and compared with the stored summaries;
+   mathematical invariants: PDA curve = Eq.(2) and its analytic extrema, hardware-generator moments, budget-1 CEM = its start,
+   cross-stage consistency). The script exits non-zero if a hard check fails.
+3. `push_results.sh`; the figures and the curve JSONs are then copied to `paper/figures/` and `paper/data/08_curves/` and injected:
+   fig_pda_model -> II.B, fig_headroom -> IV.B, fig_calibration -> IV.B, fig_probes -> IV.C, fig_regime -> IV.C,
+   fig_episode -> IV.D, fig_residual -> IV.E.
+4. `python paper/verify_claims.py` must report all claims verified before any text number is changed or trusted.
