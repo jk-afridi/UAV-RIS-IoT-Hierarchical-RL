@@ -108,9 +108,18 @@ def _amp_theta(params, theta):                    # theta: (L,)
     return (1 - b) * ((np.sin(theta - t) + 1) / 2) ** k + b
 
 
-def _amp_grid(params):                            # -> (L, G)
+def phase_grid(bits=None):
+    """Candidate phase set: the 64-point grid (bits=None or 6: the 'continuous' reference) or a b-bit subset of it."""
+    if bits is None or bits >= 6:
+        return _GRID
+    assert 1 <= bits <= 5, bits
+    return _GRID[::len(_GRID) // 2 ** bits]
+
+
+def _amp_grid(params, grid=None):                 # -> (L, G)
+    grid = _GRID if grid is None else grid
     b, k, t = (x[:, None] for x in params)
-    return (1 - b) * ((np.sin(_GRID[None, :] - t) + 1) / 2) ** k + b
+    return (1 - b) * ((np.sin(grid[None, :] - t) + 1) / 2) ** k + b
 
 
 def zf_beamformer(Dh, v):
@@ -122,20 +131,25 @@ def zf_beamformer(Dh, v):
 
 # --------------------------------------------------------------------------- alternating optimisation
 def ao_solution(env, rng, Dh=None, noisy_csi=True, model='nominal', sweeps=3, init_theta=None,
-                objective='maxmin', margin=0.15):
+                objective='maxmin', margin=0.15, tau_frac=0.2, bits=None):
     """Alternating optimisation: ZF combiner <-> per-element phase search maximising the minimum
     user rate. The solver ASSUMES the amplitude `model`; evaluation always uses the true hardware.
     objective='maxmin' (default): maximise the minimum rate.
     objective='decode': maximise the smooth expected number of decoded users, sum_k sigmoid((rate_k -
     r_min*(1+margin))/(0.2 r_min)), plus a small max-min tie-break (v1 used a hard count with capped rate:
-    its plateaus made the element choice arbitrary and it lost ~20 pp). No probes. Returns (theta, G)."""
+    its plateaus made the element choice arbitrary and it lost ~20 pp). No probes. Returns (theta, G).
+    tau_frac: sigmoid width as a fraction of r_min (default 0.2 = the value used throughout the paper).
+    bits: restrict every phase to a b-bit subset of the grid (None / 6 = unrestricted; the default path is unchanged)."""
     L = env.L
     if Dh is None:
         Dh = cascaded_csi(env, rng, noisy=noisy_csi)
     params = _params(env, model)
-    vgrid = _amp_grid(params) * np.exp(1j * _GRID)[None, :]          # (L, G)
+    grid = phase_grid(bits)
+    vgrid = _amp_grid(params, grid) * np.exp(1j * grid)[None, :]     # (L, G)
     noise_scale = env.awgn_var / env.iot_tx_power
     theta = rng.uniform(-np.pi, np.pi, L) if init_theta is None else np.array(init_theta, float)
+    if grid is not _GRID:                                            # snap the start onto the restricted phase set
+        theta = grid[np.argmin(np.abs(np.angle(np.exp(1j * (theta[:, None] - grid[None, :])))), axis=1)]
     for _ in range(sweeps):
         v = _amp_theta(params, theta) * np.exp(1j * theta)
         G = zf_beamformer(Dh, v)
@@ -151,24 +165,24 @@ def ao_solution(env, rng, Dh=None, noisy_csi=True, model='nominal', sweeps=3, in
             if objective == 'decode':
                 # smooth decode probability under CSI error (sigmoid around a margin above r_min), plus a small
                 # max-min tie-break so saturated users cannot make the element choice arbitrary
-                tau = 0.2 * env.r_min
+                tau = tau_frac * env.r_min
                 z = np.clip((rate - env.r_min * (1 + margin)) / tau, -30, 30)
                 score = (1.0 / (1.0 + np.exp(-z))).sum(axis=0) + 0.01 * rate.min(axis=0) / env.r_min
             else:
                 score = rate.min(axis=0)
             j = int(np.argmax(score))
-            theta[l], v[l] = _GRID[j], vgrid[l, j]
+            theta[l], v[l] = grid[j], vgrid[l, j]
     v = _amp_theta(params, theta) * np.exp(1j * theta)
     return theta, zf_beamformer(Dh, v)
 
 
-def ao_decode(env, rng, Dh=None, noisy_csi=True, model='nominal', sweeps=2, margin=0.15):
+def ao_decode(env, rng, Dh=None, noisy_csi=True, model='nominal', sweeps=2, margin=0.15, tau_frac=0.2, bits=None):
     """Decoding-aware AO: a max-min warm start, then sweeps with the decode objective (no probes)."""
     if Dh is None:
         Dh = cascaded_csi(env, rng, noisy=noisy_csi)
-    th0, _ = ao_solution(env, rng, Dh=Dh, model=model, sweeps=sweeps)
+    th0, _ = ao_solution(env, rng, Dh=Dh, model=model, sweeps=sweeps, bits=bits)
     return ao_solution(env, rng, Dh=Dh, model=model, sweeps=sweeps, init_theta=th0,
-                       objective='decode', margin=margin)
+                       objective='decode', margin=margin, tau_frac=tau_frac, bits=bits)
 
 
 def ao_ris(env, rng, noisy_csi=True, model='nominal', sweeps=3, Dh=None):

@@ -19,6 +19,9 @@ Figures (IEEE column widths: 3.5 in, 7.16 in):
   fig_regime.pdf          decode-aware AO vs AO+CEM(46) over transmit power x R_min              [curves]
   fig_episode.pdf         episode-level paired change in AoI and decode rate, per seed
   fig_residual.pdf        learned-residual SAC gain over its AO prior during training
+  fig_power.pdf           headline gain with 20 seeds: exploratory (0-4) vs confirmatory (5-19), running interval   [curves]
+  fig_robust.pdf          gain vs RIS phase resolution and vs CSI-error power                                  [curves]
+  fig_tau.pdf             decode-aware gain over the (sigmoid width x margin) grid                              [curves]
 """
 import argparse, csv, json, sys
 from pathlib import Path
@@ -93,6 +96,151 @@ def save(fig, out, name):
 
 def load(path):
     return json.loads(Path(path).read_text()) if Path(path).exists() else None
+
+
+# ------------------------------------------------------------------------------------------ Fig: seed power
+N_EXPLORATORY = 5      # seeds 0-4 were used while the method was designed; seeds 5.. were never used for any choice
+
+
+def fig_power(curves, out):
+    """Headline paired gain (decode-aware vs nominal AO) with many seeds: per-seed values, running 95% interval,
+    and the pre-declared confirmatory test on the seeds that played no part in designing the method."""
+    d = load(curves / 'power.json')
+    if d is None:
+        return print('  skip fig_power (power.json missing)')
+    cells = list(d['cells'])
+    fig, axes = plt.subplots(2, len(cells), figsize=(3.5 if len(cells) == 1 else 7.16, 4.0), squeeze=False, constrained_layout=True)
+    rows_csv, summary = [], {}
+    for j, key in enumerate(cells):
+        c = d['cells'][key]; ps = c['per_seed']; n = len(ps); sp = c['spread']
+        for fam, lab, col, mk in (('decode_nominal', 'decode-aware AO, nominal model', AQUA, 's'),):
+            x = paired(ps, fam, 'ao_nominal')
+            conf = x[N_EXPLORATORY:]
+            m_all, h_all = tci(x); m_c, h_c = tci(conf); m_e, h_e = tci(x[:N_EXPLORATORY])
+            st = c['summary'][fam]['paired_decode_pct']
+            check(f'power {key} all-seed mean', m_all, st['mean']); check(f'power {key} all-seed CI', h_all, st['ci95'])
+            k = int((conf > 0).sum())
+            p_sign = float(stats.binomtest(k, len(conf), 0.5, alternative='greater').pvalue)
+            # declared criteria (written before the run): confirmatory interval excludes 0 AND >= 90% of confirmatory seeds improve
+            invariant(f'power {key}: confirmatory 95% interval excludes 0', m_c - h_c > 0, f'{m_c:.2f} +- {h_c:.2f} (n={len(conf)})', hard=False)
+            invariant(f'power {key}: >= 90% of confirmatory seeds improve', k / len(conf) >= 0.9, f'{k}/{len(conf)}', hard=False)
+            summary[key] = dict(n=n, n_conf=len(conf), mean_all=m_all, ci_all=h_all, mean_conf=m_c, ci_conf=h_c,
+                                mean_expl=m_e, ci_expl=h_e, k_pos_conf=k, sign_test_p=p_sign)
+            rows_csv.append([key, 'per_seed'] + list(x))
+            ax = axes[0][j]
+            idx = np.arange(n)
+            ax.axvspan(-0.5, N_EXPLORATORY - 0.5, color=GREY, alpha=0.10, lw=0)
+            ax.plot(idx[:N_EXPLORATORY], x[:N_EXPLORATORY], mk, ms=4.2, mfc='white', mec=col, mew=1.0, ls='', label='exploratory seeds (0-4)')
+            ax.plot(idx[N_EXPLORATORY:], conf, mk, ms=4.2, mfc=col, mec=INK, mew=0.4, ls='', label=f'confirmatory seeds ({N_EXPLORATORY}-{n - 1})')
+            ax.axhspan(m_c - h_c, m_c + h_c, xmin=0.0, xmax=1.0, color=col, alpha=0.14, lw=0)
+            ax.axhline(m_c, color=col, lw=0.9)
+            ax.axhline(0, color=INK, lw=0.7)
+            ax.set_title(f'$s={sp:g}$:  confirmatory mean ${m_c:+.1f}\\pm{h_c:.1f}$ pp, {k}/{len(conf)} seeds improve', fontsize=6.8)
+            ax.set_xlabel('seed'); ax.set_xlim(-0.7, n - 0.3)
+            # running interval as seeds accumulate (analytic t quantile each time)
+            ax2 = axes[1][j]
+            ns = np.arange(2, n + 1)
+            run = np.array([tci(x[:q]) for q in ns])
+            ax2.fill_between(ns, run[:, 0] - run[:, 1], run[:, 0] + run[:, 1], color=col, alpha=0.18, lw=0)
+            ax2.plot(ns, run[:, 0], '-', color=col, lw=1.1)
+            ax2.axhline(0, color=INK, lw=0.7)
+            ax2.axvline(N_EXPLORATORY, color=GREY, lw=0.7, ls=':')
+            ax2.set_xlabel('number of seeds used'); ax2.set_xlim(2, n)
+            invariant(f'power {key}: running interval at n={n} equals the full-sample interval', abs(run[-1, 1] - h_all) < 1e-9)
+            rows_csv.append([key, 'running_mean'] + list(run[:, 0])); rows_csv.append([key, 'running_ci95'] + list(run[:, 1]))
+    axes[0][0].set_ylabel('paired gain vs nominal AO (pp)'); axes[1][0].set_ylabel('mean and 95% $t$-interval (pp)')
+    h_, l_ = axes[0][0].get_legend_handles_labels()
+    fig.legend(h_, l_, loc='outside lower center', ncol=2, frameon=False)
+    save(fig, out, 'fig_power')
+    (out / 'csv').mkdir(parents=True, exist_ok=True)
+    (out / 'csv' / 'fig_power_summary.json').write_text(json.dumps(summary, indent=1))
+    write_csv(out / 'csv' / 'fig_power.csv', ['cell', 'series'] + [f'v{i}' for i in range(max(len(r) for r in rows_csv) - 2)], rows_csv)
+
+
+# ------------------------------------------------------------------------------------------ Fig: hardware realism
+def fig_robust(curves, out):
+    """(a) phase resolution, (b) channel-estimation error. Both reuse the paired protocol."""
+    dq, dc = load(curves / 'quant.json'), load(curves / 'csi.json')
+    if dq is None and dc is None:
+        return print('  skip fig_robust (quant.json and csi.json missing)')
+    fig, axes = plt.subplots(1, 2, figsize=(7.16, 2.5), constrained_layout=True)
+    rows_csv = []
+    if dq is not None:
+        ax = axes[0]; key = list(dq['cells'])[0]; c = dq['cells'][key]; ps = c['per_seed']; bits = dq['config']['bits']
+        for fam, lab, col, mk, ls in (('maxmin', 'max-min AO', BLUE, 'o', '-'), ('decode', 'decode-aware AO', AQUA, 's', '--')):
+            mu, hw = [], []
+            for b in bits:
+                x = paired(ps, f'{fam}_b{b}', 'ao_nominal'); m, h = tci(x)
+                st = c['summary'][f'{fam}_b{b}']['paired_decode_pct']
+                check(f'quant {fam} b={b} mean', m, st['mean']); check(f'quant {fam} b={b} CI', h, st['ci95'])
+                mu.append(m); hw.append(h); rows_csv.append(['quant', fam, b, m, h] + list(x))
+            ax.errorbar(bits, mu, yerr=hw, fmt=mk + ls, ms=3.8, color=col, mec=INK, mew=0.4, elinewidth=0.9, capsize=2, lw=1.1, label=lab)
+        if 6 in bits:      # 6 bits is the unrestricted 64-point grid: it must reproduce the reference solvers EXACTLY
+            dm = max(abs(s['maxmin_b6']['decode_pct'] - s['ao_nominal']['decode_pct']) for s in ps)
+            dd = max(abs(s['decode_b6']['decode_pct'] - s['decode_nominal']['decode_pct']) for s in ps)
+            invariant('quant: 6-bit max-min AO equals the unrestricted nominal AO', dm < 1e-9, f'max |diff|={dm:.3g} pp')
+            invariant('quant: 6-bit decode-aware AO equals the unrestricted decode-aware AO', dd < 1e-9, f'max |diff|={dd:.3g} pp')
+        ax.axhline(0, color=INK, lw=0.7)
+        ax.set_xlabel('RIS phase resolution (bits; 6 = unrestricted grid)'); ax.set_ylabel('decode-rate gain vs 6-bit nominal AO (pp)')
+        ax.set_xticks(bits); ax.set_title('(a) phase quantisation, $s=1$', fontsize=7.2); ax.legend(frameon=False, loc='lower right')
+    if dc is not None:
+        ax = axes[1]; keys = list(dc['cells']); B = dc['config'].get('budgets', [46])
+        x_db = np.array([np.mean([s['_meta']['csi_nmse_db'] for s in dc['cells'][k]['per_seed']]) for k in keys])
+        invariant('csi: error power (dB) increases with the configured variance', bool(np.all(np.diff(x_db) > 0)), str(np.round(x_db, 1).tolist()))
+        for m_, lab, col, mk, ls in (('decode_nominal', 'decode-aware AO', AQUA, 's', '--'), ('perfect_maxmin', 'max-min AO, perfect CSI', VIOLET, '^', ':'),
+                                     ('cem_nominal_B46', 'AO+CEM, 46 probes', ORANGE, 'D', '-')):
+            mu, hw = [], []
+            for k in keys:
+                ps = dc['cells'][k]['per_seed']; x = paired(ps, m_, 'ao_nominal'); m, h = tci(x)
+                st = dc['cells'][k]['summary'][m_]['paired_decode_pct']
+                check(f'csi {m_} {k} mean', m, st['mean']); check(f'csi {m_} {k} CI', h, st['ci95'])
+                mu.append(m); hw.append(h); rows_csv.append(['csi', m_, k, m, h] + list(x))
+            ax.errorbar(x_db, mu, yerr=hw, fmt=mk + ls, ms=3.8, color=col, mec=INK, mew=0.4, elinewidth=0.9, capsize=2, lw=1.1, label=lab)
+        # exact invariant: solvers that see the clean channel cannot depend on the CSI error level
+        pd_ = [[s['perfect_decode']['decode_pct'] for s in dc['cells'][k]['per_seed']] for k in keys]
+        invariant('csi: perfect-CSI decode-aware result is identical across CSI-error levels', all(np.allclose(pd_[0], r, atol=1e-9) for r in pd_))
+        ax.axhline(0, color=INK, lw=0.7)
+        ax.set_xlabel('CSI error power relative to mean cascaded-channel power (dB)'); ax.set_ylabel('decode-rate gain vs nominal AO (pp)')
+        ax.set_title('(b) channel-estimation error, $s=1$', fontsize=7.2); ax.legend(frameon=False, loc='best')
+    save(fig, out, 'fig_robust')
+    write_csv(out / 'csv' / 'fig_robust.csv', ['panel', 'method', 'x', 'mean_pp', 'ci95_pp'] + [f'seed{i}' for i in range(5)], rows_csv)
+
+
+# ------------------------------------------------------------------------------------------ Fig: objective sensitivity
+def fig_tau(curves, out):
+    d = load(curves / 'tau.json')
+    if d is None:
+        return print('  skip fig_tau (tau.json missing)')
+    key = list(d['cells'])[0]; c = d['cells'][key]; ps = c['per_seed']
+    taus, margins = d['config']['taus'], d['config']['margins']
+    G, H = np.full((len(margins), len(taus)), np.nan), np.full((len(margins), len(taus)), np.nan)
+    rows_csv = []
+    for i, mg in enumerate(margins):
+        for j, t in enumerate(taus):
+            x = paired(ps, f'tm_t{t:g}_m{mg:g}', 'ao_nominal'); m, h = tci(x)
+            st = c['summary'][f'tm_t{t:g}_m{mg:g}']['paired_decode_pct']
+            check(f'tau t={t:g} m={mg:g} mean', m, st['mean']); check(f'tau t={t:g} m={mg:g} CI', h, st['ci95'])
+            G[i, j], H[i, j] = m, h; rows_csv.append([t, mg, m, h] + list(x))
+    n_pos = int((G > 0).sum()); n_cert = int((G - H > 0).sum())
+    invariant('tau grid: decode-aware AO improves on max-min AO in every (tau, margin) cell (declared criterion)', n_pos == G.size, f'{n_pos}/{G.size} cells with positive mean', hard=False)
+    CHECKS.append(dict(name='tau grid: cells whose 95% interval excludes 0', value=n_cert, of=int(G.size), ok=True, hard=False))
+    fig, ax = plt.subplots(figsize=(3.5, 2.6), constrained_layout=True)
+    cm = LinearSegmentedColormap.from_list('seq', ['#f3f7fc', BLUE])
+    im = ax.imshow(G, origin='lower', cmap=cm, aspect='auto', vmin=min(0, np.nanmin(G)))
+    ax.set_xticks(range(len(taus))); ax.set_xticklabels([f'{t:g}' for t in taus])
+    ax.set_yticks(range(len(margins))); ax.set_yticklabels([f'{m:g}' for m in margins])
+    for i in range(len(margins)):
+        for j in range(len(taus)):
+            ax.text(j, i, f'{G[i, j]:+.1f}' + ('' if G[i, j] - H[i, j] > 0 else '$^\\dagger$'), ha='center', va='center', fontsize=6.2, color=INK)
+    if 0.2 in taus and 0.15 in margins:
+        jj, ii = taus.index(0.2), margins.index(0.15)
+        ax.add_patch(plt.Rectangle((jj - 0.5, ii - 0.5), 1, 1, fill=False, ec=INK, lw=1.3))
+    ax.grid(False)
+    ax.set_xlabel(r'sigmoid width $\tau / R_{\min}$'); ax.set_ylabel(r'margin $\epsilon$')
+    fig.colorbar(im, ax=ax, fraction=0.05, pad=0.02, label='gain vs nominal AO (pp)')
+    fig.text(0.5, -0.02, r'Box: setting used in the paper.  $\dagger$: 95% interval includes 0 (5 seeds).', ha='center', va='top', fontsize=5.8, color=MUTED)
+    save(fig, out, 'fig_tau')
+    write_csv(out / 'csv' / 'fig_tau.csv', ['tau_frac', 'margin', 'mean_pp', 'ci95_pp'] + [f'seed{s}' for s in range(len(ps))], rows_csv)
 
 
 # ------------------------------------------------------------------------------------------ Fig: PDA model
@@ -423,7 +571,7 @@ def main():
 
     for fn, args in ((fig_pda_model, (out,)), (fig_headroom, (data, out)), (fig_calibration, (curves, data, out)),
                      (fig_probes, (curves, out)), (fig_regime, (curves, out)), (fig_episode, (data, out)),
-                     (fig_residual, (data, out))):
+                     (fig_residual, (data, out)), (fig_power, (curves, out)), (fig_robust, (curves, out)), (fig_tau, (curves, out))):
         try:
             fn(*args)
         except Exception as e:                      # keep going; the failure is recorded and fails the run at the end

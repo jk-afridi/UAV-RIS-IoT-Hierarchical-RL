@@ -29,6 +29,11 @@ aoi_v5_s2()       { python -m src.eval.aoi_study --seeds 5 --episodes 2 --spread
 curves_cal()      { python -m src.eval.curves calibration --seeds 5 --out results/curves/calibration.json; }
 curves_probes()   { python -m src.eval.curves probes --seeds 5 --out results/curves/probes.json; }
 curves_regime()   { python -m src.eval.curves regime --seeds 5 --out results/curves/regime.json; }
+# robustness / statistical-power studies (CPU only, resumable). Hypotheses and pass criteria are declared in paper/PREREGISTRATION.md
+curves_power()    { python -m src.eval.curves power --seeds 20 --out results/curves/power.json; }
+curves_quant()    { python -m src.eval.curves quant --seeds 5 --out results/curves/quant.json; }
+curves_csi()      { python -m src.eval.curves csi --seeds 5 --out results/curves/csi.json; }
+curves_tau()      { python -m src.eval.curves tau --seeds 5 --out results/curves/tau.json; }
 # every paper figure + CSV of all plotted numbers + figure_verification.json (recomputes each statistic from per-seed data)
 figures()         { python paper/make_figures.py --curves results/curves --out results/paper_figures; }
 residual_try()    { python -m src.train.train_residual --seed 0 --spread 1.0 --train_slots 8000 --eval_every 1000 \
