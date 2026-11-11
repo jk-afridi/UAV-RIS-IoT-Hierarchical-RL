@@ -1,0 +1,630 @@
+{
+  "config": {
+    "seed": 0,
+    "spread": 1.0,
+    "train_slots": 30000,
+    "L": 64,
+    "beta_min": 0.2,
+    "r_min": 0.5,
+    "k_rice": 10.0,
+    "k_rice_bs": 1.0,
+    "power_dbm": 10.0,
+    "max_dist": 20.0,
+    "delta_max": 1.0,
+    "ao_sweeps": 2,
+    "lr": 0.0003,
+    "alpha": 0.02,
+    "auto_alpha": false,
+    "l2": 0.5,
+    "anchor_frac": 0.25,
+    "select_best": true,
+    "batch": 256,
+    "buffer": 30000,
+    "warmup": 512,
+    "collect_per_iter": 8,
+    "updates_per_iter": 8,
+    "eval_every": 2000,
+    "eval_slots": 200,
+    "out": "results/curves/probes.json",
+    "task": "probes",
+    "seeds": 5,
+    "spreads": [
+      1.0
+    ],
+    "study_slots": 200,
+    "eval_dists": [
+      0.0,
+      5.0,
+      10.0,
+      15.0
+    ],
+    "margin": 0.15,
+    "errors": [
+      0.0,
+      0.125,
+      0.25,
+      0.5,
+      1.0,
+      2.0
+    ],
+    "budgets": [
+      1,
+      4,
+      7,
+      10,
+      16,
+      31,
+      46,
+      91
+    ],
+    "powers": [
+      0.0,
+      5.0,
+      10.0,
+      15.0,
+      20.0
+    ],
+    "rmins": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ]
+  },
+  "cells": {
+    "spread=1": {
+      "overrides": {},
+      "spread": 1.0,
+      "per_seed": [
+        {
+          "ao_nominal": {
+            "decode_pct": 71.5,
+            "min_rate": 0.6318138341052204
+          },
+          "decode_nominal": {
+            "decode_pct": 78.5,
+            "min_rate": 0.7988767461597744
+          },
+          "cem_nominal_B1": {
+            "decode_pct": 71.5,
+            "min_rate": 0.6318138341052204
+          },
+          "cem_decode_B1": {
+            "decode_pct": 78.5,
+            "min_rate": 0.7988767461597744
+          },
+          "cem_nominal_B4": {
+            "decode_pct": 72.875,
+            "min_rate": 0.6433068219807538
+          },
+          "cem_decode_B4": {
+            "decode_pct": 78.875,
+            "min_rate": 0.8031572592709846
+          },
+          "cem_nominal_B7": {
+            "decode_pct": 74.5,
+            "min_rate": 0.6521248959330578
+          },
+          "cem_decode_B7": {
+            "decode_pct": 80.125,
+            "min_rate": 0.7983143187418775
+          },
+          "cem_nominal_B10": {
+            "decode_pct": 76.25,
+            "min_rate": 0.6660468418577915
+          },
+          "cem_decode_B10": {
+            "decode_pct": 81.0,
+            "min_rate": 0.7769975068901372
+          },
+          "cem_nominal_B16": {
+            "decode_pct": 80.125,
+            "min_rate": 0.7327887882142845
+          },
+          "cem_decode_B16": {
+            "decode_pct": 85.0,
+            "min_rate": 0.8599989779612711
+          },
+          "cem_nominal_B31": {
+            "decode_pct": 83.0,
+            "min_rate": 0.8394745080070612
+          },
+          "cem_decode_B31": {
+            "decode_pct": 87.25,
+            "min_rate": 0.932270239360204
+          },
+          "cem_nominal_B46": {
+            "decode_pct": 86.375,
+            "min_rate": 0.914613019317033
+          },
+          "cem_decode_B46": {
+            "decode_pct": 89.0,
+            "min_rate": 0.9737333431987123
+          },
+          "cem_nominal_B91": {
+            "decode_pct": 87.25,
+            "min_rate": 0.9444456825375258
+          },
+          "cem_decode_B91": {
+            "decode_pct": 91.375,
+            "min_rate": 1.0576754227754157
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 78.625,
+            "min_rate": 0.6516651690771379
+          },
+          "decode_nominal": {
+            "decode_pct": 83.875,
+            "min_rate": 0.7934760600841497
+          },
+          "cem_nominal_B1": {
+            "decode_pct": 78.625,
+            "min_rate": 0.6516651690771379
+          },
+          "cem_decode_B1": {
+            "decode_pct": 83.875,
+            "min_rate": 0.7934760600841497
+          },
+          "cem_nominal_B4": {
+            "decode_pct": 80.375,
+            "min_rate": 0.6743662219439929
+          },
+          "cem_decode_B4": {
+            "decode_pct": 85.125,
+            "min_rate": 0.8101636372347853
+          },
+          "cem_nominal_B7": {
+            "decode_pct": 81.75,
+            "min_rate": 0.6977767659110037
+          },
+          "cem_decode_B7": {
+            "decode_pct": 85.625,
+            "min_rate": 0.8209553785275875
+          },
+          "cem_nominal_B10": {
+            "decode_pct": 83.25,
+            "min_rate": 0.6952066789932516
+          },
+          "cem_decode_B10": {
+            "decode_pct": 87.25,
+            "min_rate": 0.8288348406944251
+          },
+          "cem_nominal_B16": {
+            "decode_pct": 87.0,
+            "min_rate": 0.7883658064542494
+          },
+          "cem_decode_B16": {
+            "decode_pct": 90.125,
+            "min_rate": 0.8930612487309202
+          },
+          "cem_nominal_B31": {
+            "decode_pct": 88.75,
+            "min_rate": 0.8979680055740854
+          },
+          "cem_decode_B31": {
+            "decode_pct": 91.625,
+            "min_rate": 0.979895666507393
+          },
+          "cem_nominal_B46": {
+            "decode_pct": 90.25,
+            "min_rate": 0.9237581732902601
+          },
+          "cem_decode_B46": {
+            "decode_pct": 92.75,
+            "min_rate": 1.0527563002299003
+          },
+          "cem_nominal_B91": {
+            "decode_pct": 92.375,
+            "min_rate": 0.9967082499711992
+          },
+          "cem_decode_B91": {
+            "decode_pct": 94.0,
+            "min_rate": 1.1131027220465486
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 77.75,
+            "min_rate": 0.6043299386974231
+          },
+          "decode_nominal": {
+            "decode_pct": 86.25,
+            "min_rate": 0.8435938971103244
+          },
+          "cem_nominal_B1": {
+            "decode_pct": 77.75,
+            "min_rate": 0.6043299386974231
+          },
+          "cem_decode_B1": {
+            "decode_pct": 86.25,
+            "min_rate": 0.8435938971103244
+          },
+          "cem_nominal_B4": {
+            "decode_pct": 79.625,
+            "min_rate": 0.6343140018246991
+          },
+          "cem_decode_B4": {
+            "decode_pct": 87.125,
+            "min_rate": 0.8644858829755733
+          },
+          "cem_nominal_B7": {
+            "decode_pct": 81.875,
+            "min_rate": 0.6368733820862267
+          },
+          "cem_decode_B7": {
+            "decode_pct": 89.125,
+            "min_rate": 0.8764528586927536
+          },
+          "cem_nominal_B10": {
+            "decode_pct": 83.75,
+            "min_rate": 0.680468463322923
+          },
+          "cem_decode_B10": {
+            "decode_pct": 88.5,
+            "min_rate": 0.8822081224936013
+          },
+          "cem_nominal_B16": {
+            "decode_pct": 87.375,
+            "min_rate": 0.8055895271380096
+          },
+          "cem_decode_B16": {
+            "decode_pct": 91.875,
+            "min_rate": 0.9801988603573814
+          },
+          "cem_nominal_B31": {
+            "decode_pct": 90.875,
+            "min_rate": 0.9560656271444016
+          },
+          "cem_decode_B31": {
+            "decode_pct": 93.625,
+            "min_rate": 1.0979391629345114
+          },
+          "cem_nominal_B46": {
+            "decode_pct": 92.625,
+            "min_rate": 1.0065296002558182
+          },
+          "cem_decode_B46": {
+            "decode_pct": 94.25,
+            "min_rate": 1.1344342122005064
+          },
+          "cem_nominal_B91": {
+            "decode_pct": 93.875,
+            "min_rate": 1.0547169887314023
+          },
+          "cem_decode_B91": {
+            "decode_pct": 95.375,
+            "min_rate": 1.191128121674504
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 70.0,
+            "min_rate": 0.5684591199345099
+          },
+          "decode_nominal": {
+            "decode_pct": 78.0,
+            "min_rate": 0.7215583924648138
+          },
+          "cem_nominal_B1": {
+            "decode_pct": 70.0,
+            "min_rate": 0.5684591199345099
+          },
+          "cem_decode_B1": {
+            "decode_pct": 78.0,
+            "min_rate": 0.7215583924648138
+          },
+          "cem_nominal_B4": {
+            "decode_pct": 71.5,
+            "min_rate": 0.5798388213375248
+          },
+          "cem_decode_B4": {
+            "decode_pct": 79.625,
+            "min_rate": 0.7325377657802917
+          },
+          "cem_nominal_B7": {
+            "decode_pct": 73.625,
+            "min_rate": 0.5861112386440526
+          },
+          "cem_decode_B7": {
+            "decode_pct": 80.125,
+            "min_rate": 0.7352830585129717
+          },
+          "cem_nominal_B10": {
+            "decode_pct": 74.5,
+            "min_rate": 0.5840384184532933
+          },
+          "cem_decode_B10": {
+            "decode_pct": 80.125,
+            "min_rate": 0.7329047395992571
+          },
+          "cem_nominal_B16": {
+            "decode_pct": 81.0,
+            "min_rate": 0.6785053217334979
+          },
+          "cem_decode_B16": {
+            "decode_pct": 86.125,
+            "min_rate": 0.8100243847015693
+          },
+          "cem_nominal_B31": {
+            "decode_pct": 84.375,
+            "min_rate": 0.7342021259777443
+          },
+          "cem_decode_B31": {
+            "decode_pct": 88.75,
+            "min_rate": 0.8269895114154321
+          },
+          "cem_nominal_B46": {
+            "decode_pct": 86.0,
+            "min_rate": 0.7850492911532903
+          },
+          "cem_decode_B46": {
+            "decode_pct": 89.75,
+            "min_rate": 0.911848915181946
+          },
+          "cem_nominal_B91": {
+            "decode_pct": 89.25,
+            "min_rate": 0.8575148407672267
+          },
+          "cem_decode_B91": {
+            "decode_pct": 91.75,
+            "min_rate": 0.964338545174086
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 71.0,
+            "min_rate": 0.482178273855382
+          },
+          "decode_nominal": {
+            "decode_pct": 79.0,
+            "min_rate": 0.6204658092287039
+          },
+          "cem_nominal_B1": {
+            "decode_pct": 71.0,
+            "min_rate": 0.482178273855382
+          },
+          "cem_decode_B1": {
+            "decode_pct": 79.0,
+            "min_rate": 0.6204658092287039
+          },
+          "cem_nominal_B4": {
+            "decode_pct": 72.375,
+            "min_rate": 0.4872416921321935
+          },
+          "cem_decode_B4": {
+            "decode_pct": 79.75,
+            "min_rate": 0.6216736965447361
+          },
+          "cem_nominal_B7": {
+            "decode_pct": 73.75,
+            "min_rate": 0.48794904632157826
+          },
+          "cem_decode_B7": {
+            "decode_pct": 80.875,
+            "min_rate": 0.6178347565427649
+          },
+          "cem_nominal_B10": {
+            "decode_pct": 75.875,
+            "min_rate": 0.49684216924909563
+          },
+          "cem_decode_B10": {
+            "decode_pct": 82.25,
+            "min_rate": 0.6159915657163882
+          },
+          "cem_nominal_B16": {
+            "decode_pct": 81.25,
+            "min_rate": 0.5340516109733437
+          },
+          "cem_decode_B16": {
+            "decode_pct": 86.25,
+            "min_rate": 0.6432144355141509
+          },
+          "cem_nominal_B31": {
+            "decode_pct": 86.25,
+            "min_rate": 0.6018857926968599
+          },
+          "cem_decode_B31": {
+            "decode_pct": 89.375,
+            "min_rate": 0.7045776449142354
+          },
+          "cem_nominal_B46": {
+            "decode_pct": 87.75,
+            "min_rate": 0.6446742300042732
+          },
+          "cem_decode_B46": {
+            "decode_pct": 90.875,
+            "min_rate": 0.7371311506337801
+          },
+          "cem_nominal_B91": {
+            "decode_pct": 89.25,
+            "min_rate": 0.6820741029516267
+          },
+          "cem_decode_B91": {
+            "decode_pct": 92.75,
+            "min_rate": 0.7754978848467213
+          }
+        }
+      ],
+      "summary": {
+        "ao_nominal": {
+          "decode_pct": {
+            "mean": 73.775,
+            "ci95": 5.060016774675751
+          }
+        },
+        "decode_nominal": {
+          "decode_pct": {
+            "mean": 81.125,
+            "ci95": 4.603475209013294
+          },
+          "paired_decode_pct": {
+            "mean": 7.35,
+            "ci95": 1.606726162107283
+          }
+        },
+        "cem_nominal_B1": {
+          "decode_pct": {
+            "mean": 73.775,
+            "ci95": 5.060016774675751
+          },
+          "paired_decode_pct": {
+            "mean": 0.0,
+            "ci95": 0.0
+          }
+        },
+        "cem_decode_B1": {
+          "decode_pct": {
+            "mean": 81.125,
+            "ci95": 4.603475209013294
+          },
+          "paired_decode_pct": {
+            "mean": 7.35,
+            "ci95": 1.606726162107283
+          }
+        },
+        "cem_nominal_B4": {
+          "decode_pct": {
+            "mean": 75.35,
+            "ci95": 5.31533326894937
+          },
+          "paired_decode_pct": {
+            "mean": 1.575,
+            "ci95": 0.2819041326408678
+          }
+        },
+        "cem_decode_B4": {
+          "decode_pct": {
+            "mean": 82.1,
+            "ci95": 4.663762618315816
+          },
+          "paired_decode_pct": {
+            "mean": 8.325,
+            "ci95": 1.666322759851764
+          }
+        },
+        "cem_nominal_B7": {
+          "decode_pct": {
+            "mean": 77.1,
+            "ci95": 5.357077660441371
+          },
+          "paired_decode_pct": {
+            "mean": 3.325,
+            "ci95": 0.681746829842281
+          }
+        },
+        "cem_decode_B7": {
+          "decode_pct": {
+            "mean": 83.175,
+            "ci95": 5.016040733486919
+          },
+          "paired_decode_pct": {
+            "mean": 9.4,
+            "ci95": 2.059906104656229
+          }
+        },
+        "cem_nominal_B10": {
+          "decode_pct": {
+            "mean": 78.725,
+            "ci95": 5.476007428775091
+          },
+          "paired_decode_pct": {
+            "mean": 4.95,
+            "ci95": 0.7490700501288247
+          }
+        },
+        "cem_decode_B10": {
+          "decode_pct": {
+            "mean": 83.825,
+            "ci95": 4.716647839302824
+          },
+          "paired_decode_pct": {
+            "mean": 10.05,
+            "ci95": 1.2824924717127972
+          }
+        },
+        "cem_nominal_B16": {
+          "decode_pct": {
+            "mean": 83.35,
+            "ci95": 4.382927316303568
+          },
+          "paired_decode_pct": {
+            "mean": 9.575,
+            "ci95": 1.3643764656428223
+          }
+        },
+        "cem_decode_B16": {
+          "decode_pct": {
+            "mean": 87.875,
+            "ci95": 3.673941874880439
+          },
+          "paired_decode_pct": {
+            "mean": 14.1,
+            "ci95": 2.1984579277302534
+          }
+        },
+        "cem_nominal_B31": {
+          "decode_pct": {
+            "mean": 86.65,
+            "ci95": 3.9706869002730496
+          },
+          "paired_decode_pct": {
+            "mean": 12.875,
+            "ci95": 2.589745412197886
+          }
+        },
+        "cem_decode_B31": {
+          "decode_pct": {
+            "mean": 90.125,
+            "ci95": 3.1172113017888274
+          },
+          "paired_decode_pct": {
+            "mean": 16.35,
+            "ci95": 2.8894913150933674
+          }
+        },
+        "cem_nominal_B46": {
+          "decode_pct": {
+            "mean": 88.6,
+            "ci95": 3.475893994355984
+          },
+          "paired_decode_pct": {
+            "mean": 14.825,
+            "ci95": 2.4304866878878393
+          }
+        },
+        "cem_decode_B46": {
+          "decode_pct": {
+            "mean": 91.325,
+            "ci95": 2.6824693549041707
+          },
+          "paired_decode_pct": {
+            "mean": 17.55,
+            "ci95": 2.982181875741317
+          }
+        },
+        "cem_nominal_B91": {
+          "decode_pct": {
+            "mean": 90.4,
+            "ci95": 3.316347095826973
+          },
+          "paired_decode_pct": {
+            "mean": 16.625,
+            "ci95": 2.69232646608839
+          }
+        },
+        "cem_decode_B91": {
+          "decode_pct": {
+            "mean": 93.05,
+            "ci95": 2.048769811374621
+          },
+          "paired_decode_pct": {
+            "mean": 19.275,
+            "ci95": 3.4305649184937455
+          }
+        }
+      }
+    }
+  }
+}

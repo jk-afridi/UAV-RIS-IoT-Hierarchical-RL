@@ -1,0 +1,346 @@
+{
+  "config": {
+    "seeds": 5,
+    "episodes": 2,
+    "episode_length": 200,
+    "spread": 2.0,
+    "scheds": [
+      "greedy_aoi_travel",
+      "greedy_aoi"
+    ],
+    "lowlevels": [
+      "ao_nominal",
+      "ao_decode_nominal",
+      "ao_decode_calibrated",
+      "ao_calibrated"
+    ],
+    "residual_root": null,
+    "ppo_ckpt": null,
+    "ao_sweeps": 2,
+    "L": 64,
+    "beta_min": 0.2,
+    "r_min": 0.5,
+    "k_rice": 10.0,
+    "k_rice_bs": 1.0,
+    "power_dbm": 10.0,
+    "energy_budget": 300000.0,
+    "device": "cpu",
+    "out": "results/aoi_study/aoi_v5_spread2.json"
+  },
+  "summary": {
+    "greedy_aoi_travel+ao_nominal": {
+      "avg_aoi": {
+        "mean": 12.5084375,
+        "ci95": 3.273944297081269
+      },
+      "peak_aoi": {
+        "mean": 63.2,
+        "ci95": 16.39133387616761
+      },
+      "decode_pct": {
+        "mean": 60.3875,
+        "ci95": 11.891320920738789
+      }
+    },
+    "greedy_aoi+ao_nominal": {
+      "avg_aoi": {
+        "mean": 13.3601,
+        "ci95": 4.282174759725192
+      },
+      "peak_aoi": {
+        "mean": 73.9,
+        "ci95": 23.6628558749784
+      },
+      "decode_pct": {
+        "mean": 52.4375,
+        "ci95": 12.651945486762104
+      }
+    },
+    "greedy_aoi_travel+ao_decode_nominal": {
+      "avg_aoi": {
+        "mean": 10.639925,
+        "ci95": 2.6891117266835827
+      },
+      "peak_aoi": {
+        "mean": 52.1,
+        "ci95": 14.744192923317303
+      },
+      "decode_pct": {
+        "mean": 67.4,
+        "ci95": 13.509913705682948
+      }
+    },
+    "greedy_aoi+ao_decode_nominal": {
+      "avg_aoi": {
+        "mean": 11.032762499999999,
+        "ci95": 2.814029301781507
+      },
+      "peak_aoi": {
+        "mean": 61.1,
+        "ci95": 14.123539420414417
+      },
+      "decode_pct": {
+        "mean": 60.375,
+        "ci95": 11.422442040780945
+      }
+    },
+    "greedy_aoi_travel+ao_decode_calibrated": {
+      "avg_aoi": {
+        "mean": 9.632475,
+        "ci95": 3.0516068028302774
+      },
+      "peak_aoi": {
+        "mean": 47.0,
+        "ci95": 12.774125285122263
+      },
+      "decode_pct": {
+        "mean": 73.7125,
+        "ci95": 15.772438313716744
+      }
+    },
+    "greedy_aoi+ao_decode_calibrated": {
+      "avg_aoi": {
+        "mean": 8.790925,
+        "ci95": 2.231796177207041
+      },
+      "peak_aoi": {
+        "mean": 50.1,
+        "ci95": 13.665986073459901
+      },
+      "decode_pct": {
+        "mean": 71.6625,
+        "ci95": 14.765410653280183
+      }
+    },
+    "greedy_aoi_travel+ao_calibrated": {
+      "avg_aoi": {
+        "mean": 10.722075,
+        "ci95": 3.6398266633194853
+      },
+      "peak_aoi": {
+        "mean": 52.0,
+        "ci95": 20.36153895951875
+      },
+      "decode_pct": {
+        "mean": 67.75,
+        "ci95": 16.267047637786025
+      }
+    },
+    "greedy_aoi+ao_calibrated": {
+      "avg_aoi": {
+        "mean": 10.599075000000001,
+        "ci95": 2.6678042783045033
+      },
+      "peak_aoi": {
+        "mean": 64.2,
+        "ci95": 16.791931986522574
+      },
+      "decode_pct": {
+        "mean": 62.425,
+        "ci95": 13.309768409517874
+      }
+    }
+  },
+  "per_seed": {
+    "greedy_aoi_travel+ao_nominal|0": {
+      "avg_aoi": 14.364875,
+      "peak_aoi": 72.0,
+      "decode_pct": 53.8125
+    },
+    "greedy_aoi+ao_nominal|0": {
+      "avg_aoi": 13.5945625,
+      "peak_aoi": 72.0,
+      "decode_pct": 49.25
+    },
+    "greedy_aoi_travel+ao_decode_nominal|0": {
+      "avg_aoi": 12.113500000000002,
+      "peak_aoi": 57.0,
+      "decode_pct": 59.625
+    },
+    "greedy_aoi+ao_decode_nominal|0": {
+      "avg_aoi": 11.557749999999999,
+      "peak_aoi": 66.5,
+      "decode_pct": 57.125
+    },
+    "greedy_aoi_travel+ao_decode_calibrated|0": {
+      "avg_aoi": 10.895624999999999,
+      "peak_aoi": 59.5,
+      "decode_pct": 67.5
+    },
+    "greedy_aoi+ao_decode_calibrated|0": {
+      "avg_aoi": 9.35225,
+      "peak_aoi": 55.0,
+      "decode_pct": 66.25
+    },
+    "greedy_aoi_travel+ao_calibrated|0": {
+      "avg_aoi": 13.06825,
+      "peak_aoi": 74.5,
+      "decode_pct": 57.6875
+    },
+    "greedy_aoi+ao_calibrated|0": {
+      "avg_aoi": 11.6025,
+      "peak_aoi": 68.5,
+      "decode_pct": 56.375
+    },
+    "greedy_aoi_travel+ao_nominal|1": {
+      "avg_aoi": 9.3404375,
+      "peak_aoi": 46.0,
+      "decode_pct": 70.5
+    },
+    "greedy_aoi+ao_nominal|1": {
+      "avg_aoi": 10.9019375,
+      "peak_aoi": 62.5,
+      "decode_pct": 59.8125
+    },
+    "greedy_aoi_travel+ao_decode_nominal|1": {
+      "avg_aoi": 8.559750000000001,
+      "peak_aoi": 39.0,
+      "decode_pct": 77.0
+    },
+    "greedy_aoi+ao_decode_nominal|1": {
+      "avg_aoi": 8.92125,
+      "peak_aoi": 50.5,
+      "decode_pct": 68.875
+    },
+    "greedy_aoi_travel+ao_decode_calibrated|1": {
+      "avg_aoi": 7.544499999999999,
+      "peak_aoi": 33.5,
+      "decode_pct": 82.1875
+    },
+    "greedy_aoi+ao_decode_calibrated|1": {
+      "avg_aoi": 7.509875000000001,
+      "peak_aoi": 43.0,
+      "decode_pct": 78.875
+    },
+    "greedy_aoi_travel+ao_calibrated|1": {
+      "avg_aoi": 8.086625,
+      "peak_aoi": 33.0,
+      "decode_pct": 78.25
+    },
+    "greedy_aoi+ao_calibrated|1": {
+      "avg_aoi": 8.91725,
+      "peak_aoi": 55.0,
+      "decode_pct": 69.5
+    },
+    "greedy_aoi_travel+ao_nominal|2": {
+      "avg_aoi": 10.6893125,
+      "peak_aoi": 54.0,
+      "decode_pct": 66.375
+    },
+    "greedy_aoi+ao_nominal|2": {
+      "avg_aoi": 10.04175,
+      "peak_aoi": 52.0,
+      "decode_pct": 63.875
+    },
+    "greedy_aoi_travel+ao_decode_nominal|2": {
+      "avg_aoi": 9.356437500000002,
+      "peak_aoi": 46.5,
+      "decode_pct": 73.9375
+    },
+    "greedy_aoi+ao_decode_nominal|2": {
+      "avg_aoi": 9.0878125,
+      "peak_aoi": 50.0,
+      "decode_pct": 69.4375
+    },
+    "greedy_aoi_travel+ao_decode_calibrated|2": {
+      "avg_aoi": 7.7449375,
+      "peak_aoi": 41.0,
+      "decode_pct": 84.375
+    },
+    "greedy_aoi+ao_decode_calibrated|2": {
+      "avg_aoi": 6.795562499999999,
+      "peak_aoi": 38.5,
+      "decode_pct": 87.0
+    },
+    "greedy_aoi_travel+ao_calibrated|2": {
+      "avg_aoi": 8.39,
+      "peak_aoi": 45.5,
+      "decode_pct": 78.3125
+    },
+    "greedy_aoi+ao_calibrated|2": {
+      "avg_aoi": 7.7225625,
+      "peak_aoi": 45.5,
+      "decode_pct": 77.8125
+    },
+    "greedy_aoi_travel+ao_nominal|3": {
+      "avg_aoi": 12.323625,
+      "peak_aoi": 65.5,
+      "decode_pct": 64.0
+    },
+    "greedy_aoi+ao_nominal|3": {
+      "avg_aoi": 13.381187500000001,
+      "peak_aoi": 81.0,
+      "decode_pct": 51.625
+    },
+    "greedy_aoi_travel+ao_decode_nominal|3": {
+      "avg_aoi": 9.483125,
+      "peak_aoi": 48.0,
+      "decode_pct": 74.25
+    },
+    "greedy_aoi+ao_decode_nominal|3": {
+      "avg_aoi": 11.095687499999999,
+      "peak_aoi": 61.5,
+      "decode_pct": 59.1875
+    },
+    "greedy_aoi_travel+ao_decode_calibrated|3": {
+      "avg_aoi": 8.6464375,
+      "peak_aoi": 47.0,
+      "decode_pct": 80.25
+    },
+    "greedy_aoi+ao_decode_calibrated|3": {
+      "avg_aoi": 8.86325,
+      "peak_aoi": 47.5,
+      "decode_pct": 70.25
+    },
+    "greedy_aoi_travel+ao_calibrated|3": {
+      "avg_aoi": 9.4774375,
+      "peak_aoi": 44.5,
+      "decode_pct": 74.5625
+    },
+    "greedy_aoi+ao_calibrated|3": {
+      "avg_aoi": 12.23,
+      "peak_aoi": 76.5,
+      "decode_pct": 55.125
+    },
+    "greedy_aoi_travel+ao_nominal|4": {
+      "avg_aoi": 15.823937499999998,
+      "peak_aoi": 78.5,
+      "decode_pct": 47.25
+    },
+    "greedy_aoi+ao_nominal|4": {
+      "avg_aoi": 18.8810625,
+      "peak_aoi": 102.0,
+      "decode_pct": 37.625
+    },
+    "greedy_aoi_travel+ao_decode_nominal|4": {
+      "avg_aoi": 13.686812499999998,
+      "peak_aoi": 70.0,
+      "decode_pct": 52.1875
+    },
+    "greedy_aoi+ao_decode_nominal|4": {
+      "avg_aoi": 14.501312500000001,
+      "peak_aoi": 77.0,
+      "decode_pct": 47.25
+    },
+    "greedy_aoi_travel+ao_decode_calibrated|4": {
+      "avg_aoi": 13.330874999999999,
+      "peak_aoi": 54.0,
+      "decode_pct": 54.25
+    },
+    "greedy_aoi+ao_decode_calibrated|4": {
+      "avg_aoi": 11.4336875,
+      "peak_aoi": 66.5,
+      "decode_pct": 55.9375
+    },
+    "greedy_aoi_travel+ao_calibrated|4": {
+      "avg_aoi": 14.5880625,
+      "peak_aoi": 62.5,
+      "decode_pct": 49.9375
+    },
+    "greedy_aoi+ao_calibrated|4": {
+      "avg_aoi": 12.5230625,
+      "peak_aoi": 75.5,
+      "decode_pct": 53.3125
+    }
+  }
+}
