@@ -85,8 +85,8 @@ def write_csv(path, header, rows):
 
 def save(fig, out, name):
     out.mkdir(parents=True, exist_ok=True)
-    fig.savefig(out / f'{name}.pdf')
-    fig.savefig(out / f'{name}.png', dpi=200)
+    fig.savefig(out / f'{name}.pdf', bbox_inches='tight', pad_inches=0.03)
+    fig.savefig(out / f'{name}.png', dpi=200, bbox_inches='tight', pad_inches=0.03)
     plt.close(fig)
     print('  wrote', name)
 
@@ -136,7 +136,9 @@ def fig_pda_model(out):
         ax.set_title(f'$s={s:g}$', fontsize=7.5)
         ax.set_xlabel(r'phase shift $\theta$ (rad)'); ax.set_xlim(-np.pi, np.pi)
         ax.set_xticks([-np.pi, -np.pi / 2, 0, np.pi / 2, np.pi]); ax.set_xticklabels([r'$-\pi$', r'$-\pi/2$', '0', r'$\pi/2$', r'$\pi$'])
-    axes[0].set_ylabel(r'amplitude $\beta(\theta)$'); axes[0].legend(loc='lower left', frameon=False)
+    axes[0].set_ylabel(r'amplitude $\beta(\theta)$')
+    h_, l_ = axes[0].get_legend_handles_labels()          # legend below the panels: it never covers a curve
+    fig.legend(h_, l_, loc='lower center', ncol=2, frameon=False, bbox_to_anchor=(0.5, -0.07))
     # generator moments (pooled over the 5 seeds = 320 elements per level): sample std within +-15% of its target
     for s in spreads:
         th = np.concatenate(pooled[s]['th']); lk = np.concatenate(pooled[s]['lk']); bb = np.concatenate(pooled[s]['b'])
@@ -188,11 +190,13 @@ def fig_headroom(data, out):
             check(f'headroom paired mean, s={sp}, {key}', m, st['mean'])
             check(f'headroom paired CI, s={sp}, {key}', h, st['ci95'])
             rows_csv.append([sp, key, m, h] + list(x))
-        forest(ax, HEAD_ROWS, lambda k, ps=ps: paired(ps, k, 'ao_nominal'), xlabel='decode-rate gain vs nominal AO (pp)')
+        forest(ax, HEAD_ROWS, lambda k, ps=ps: paired(ps, k, 'ao_nominal'), xlabel='')
         ax.set_title(f'$s={float(sp):g}$', fontsize=7.5)
     handles = [plt.Line2D([], [], marker=GROUP[g][1], color=GROUP[g][0], mec=INK, mew=0.4, ls='', ms=4.2, label=GROUP[g][2]) for g in GROUP]
-    fig.legend(handles=handles, loc='lower center', ncol=4, frameon=False, bbox_to_anchor=(0.55, -0.06))
-    fig.tight_layout(rect=(0, 0.02, 1, 1))
+    # one shared x-label (three per-panel labels collided), legend underneath it, all inside reserved margins
+    fig.tight_layout(rect=(0, 0.14, 1, 1))
+    fig.supxlabel('decode-rate gain vs nominal AO (pp)', y=0.085, fontsize=7.5)
+    fig.legend(handles=handles, loc='lower center', ncol=4, frameon=False, bbox_to_anchor=(0.5, 0.0))
     save(fig, out, 'fig_headroom')
     write_csv(out / 'csv' / 'fig_headroom.csv', ['spread', 'method', 'mean_pp', 'ci95_pp'] + [f'seed{s}' for s in range(seeds)], rows_csv)
 
@@ -286,10 +290,10 @@ def fig_probes(curves, out):
     CHECKS.append(dict(name='probes break-even budget (measurements)', value=be, ok=True, hard=False))
     if be is not None:
         ax.axvline(be, color=GREY, lw=0.7, ls=':')
-        ax.text(be, ax.get_ylim()[0], f' $B^\\star\\!\\approx\\!{be:.0f}$', fontsize=6.5, va='bottom', color=MUTED)
+        ax.annotate(f' $B^\\star\\!\\approx\\!{be:.0f}$', xy=(be, 0.12), xycoords=('data', 'axes fraction'), fontsize=6.5, va='bottom', ha='left', color=MUTED)
     ax.set_xscale('log', base=2); ax.set_xticks(budgets); ax.set_xticklabels([str(b) for b in budgets])
     ax.set_xlabel('true-rate measurements per slot $B$'); ax.set_ylabel('decode-rate gain vs nominal AO (pp)')
-    ax.legend(frameon=False, loc='lower right')
+    ax.legend(frameon=False, loc='upper left', fontsize=6.5)
     fig.tight_layout()
     save(fig, out, 'fig_probes')
     write_csv(out / 'csv' / 'fig_probes.csv', ['family', 'B', 'mean_pp', 'ci95_pp'] + [f'seed{s}' for s in range(len(ps))], rows_csv)
@@ -319,10 +323,10 @@ def fig_regime(curves, out):
             rows_csv.append([pw, rm, gm, gh, dm, dh, int(sig[i, j])])
     seqc = LinearSegmentedColormap.from_list('seq', ['#f3f7fc', BLUE])
     divc = LinearSegmentedColormap.from_list('div', [ORANGE, '#ececea', BLUE])
-    fig, axes = plt.subplots(1, 2, figsize=(7.16, 2.5))
+    fig, axes = plt.subplots(1, 2, figsize=(7.16, 2.9), constrained_layout=True)
     for ax, M, cmap, ttl, norm in (
-            (axes[0], gain, seqc, 'Decode-aware AO vs nominal AO (pp)', None),
-            (axes[1], diff, divc, f'Decode-aware AO minus AO+CEM, {B} measurements (pp)',
+            (axes[0], gain, seqc, '(a) decode-aware AO gain over nominal AO (pp)', None),
+            (axes[1], diff, divc, f'(b) decode-aware AO minus AO+CEM, $B={B}$ (pp)',
              TwoSlopeNorm(vcenter=0, vmin=min(np.nanmin(diff), -1), vmax=max(np.nanmax(diff), 1)))):
         im = ax.imshow(M, origin='lower', cmap=cmap, norm=norm, aspect='auto')
         ax.set_xticks(range(len(powers))); ax.set_xticklabels([f'{p:g}' for p in powers])
@@ -336,9 +340,8 @@ def fig_regime(curves, out):
                 mark = '' if M is gain else {1: '*', -1: '*', 0: ''}[sig[i, j]]
                 ax.text(j, i, f'{M[i, j]:+.1f}{mark}', ha='center', va='center', fontsize=6.2, color=INK)
         fig.colorbar(im, ax=ax, fraction=0.046, pad=0.02)
-    axes[1].text(0.0, -0.36, r'* 95% $t$-interval of the paired difference excludes 0 (5 seeds). '
-                 r'Blue: decode-aware AO better; orange: probing better.', transform=axes[1].transAxes, fontsize=5.8, color=MUTED)
-    fig.tight_layout()
+    fig.text(0.5, -0.045, '* 95% $t$-interval of the paired difference excludes 0 (5 seeds).\n'
+             'Blue: decode-aware AO better; orange: probing better.', ha='center', va='top', fontsize=6, color=MUTED)
     save(fig, out, 'fig_regime')
     write_csv(out / 'csv' / 'fig_regime.csv', ['power_dbm', 'r_min', 'gain_pp', 'gain_ci95', 'decode_minus_cem_pp', 'diff_ci95', 'sign_certified'], rows_csv)
 
@@ -396,10 +399,10 @@ def fig_residual(data, out):
         ax.plot(x, g, mk + '-', ms=3.5, lw=1.0, color=col, mec=INK, mew=0.4, label=lab)
         rows_csv += [[lab, a, b] for a, b in zip(x, g)]
     b3 = [e.get('best_gain', 0.0) for e in h3]
-    ax.step([e['slots'] for e in h3], b3, where='post', color=BLUE, lw=0.8, ls=':', label='v3: best validation snapshot')
+    ax.step([e['slots'] for e in h3], b3, where='post', color=BLUE, lw=3.0, alpha=0.35, label='v3: best validation snapshot', zorder=1)
     invariant('v3 best-snapshot gain is never negative (zero-residual fallback)', min(b3) >= 0.0, f'min={min(b3)}')
     ax.axhline(0, color=INK, lw=0.7)
-    ax.set_xlabel('training slots'); ax.set_ylabel('policy reward minus AO-prior reward')
+    ax.set_xlabel('training slots'); ax.set_ylabel('reward gain over AO prior')
     ax.legend(frameon=False, loc='lower left', fontsize=5.8)
     fig.tight_layout()
     save(fig, out, 'fig_residual')

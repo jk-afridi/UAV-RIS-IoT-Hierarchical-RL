@@ -125,6 +125,35 @@ def main():
     claim('v3: no checkpoint beat the prior (8000 slots)', ['8000'], cond=all(e['gain'] <= 0 for e in h3) and h3[-1]['slots'] == 8000 and all(e['best_gain'] == 0 for e in h3),
           detail=f"gains {[round(e['gain'], 3) for e in h3]}, last slots {h3[-1]['slots']}")
 
+    # ----------------------------------------------------------------------------------- curve studies (08_curves)
+    C = J('08_curves/calibration.json')['cells']
+    cal = lambda sp, k: tci(pd_(C[sp]['per_seed'], k))
+    claim('calibration s=1 decode-aware e=0.5, e=1, e=2, e=0',
+          [pm(*cal('spread=1', 'decode_e0.5')), pm(*cal('spread=1', 'decode_e1')), pm(*cal('spread=1', 'decode_e2')), pm(*cal('spread=1', 'decode_e0'))],
+          cond=cal('spread=1', 'decode_e2')[0] < 0 < cal('spread=1', 'decode_e1')[0])
+    claim('calibration s=2 decode-aware e=0.5, 1, 2', [pm(*cal('spread=2', 'decode_e0.5')), pm(*cal('spread=2', 'decode_e1')), pm(*cal('spread=2', 'decode_e2'))],
+          cond=all(cal('spread=2', f'decode_e{e}')[0] - cal('spread=2', f'decode_e{e}')[1] > 0 for e in ('0.5', '1', '2')))
+    claim('calibration s=1 max-min e=0.5 and e=2', [pm(*cal('spread=1', 'maxmin_e0.5')), pm(*cal('spread=1', 'maxmin_e2'))])
+    P = J('08_curves/probes.json')['cells']['spread=1']['per_seed']
+    pr = lambda k: tci(pd_(P, k))
+    claim('probes: CEM from max-min at B=10,16,46', [pm(*pr('cem_nominal_B10')), pm(*pr('cem_nominal_B16')), pm(*pr('cem_nominal_B46'))])
+    claim('probes: CEM from decode-aware at B=10,46; zero-probe decode-aware', [pm(*pr('cem_decode_B10')), pm(*pr('cem_decode_B46')), pm(*pr('decode_nominal'))])
+    bs = [1, 4, 7, 10, 16, 31, 46, 91]
+    y = [pr(f'cem_nominal_B{b}')[0] for b in bs]; md = pr('decode_nominal')[0]
+    be = next(2 ** (np.log2(bs[i - 1]) + (md - y[i - 1]) / (y[i] - y[i - 1]) * (np.log2(bs[i]) - np.log2(bs[i - 1]))) for i in range(1, len(bs)) if y[i - 1] < md <= y[i])
+    claim('break-even budget about 13', ['B^\\star\\approx13'], cond=round(be) == 13, detail=f'{be:.2f}')
+    claim('probes B=1 equals start', [], cond=all(abs(q['cem_nominal_B1']['decode_pct'] - q['ao_nominal']['decode_pct']) < 1e-9 for q in P))
+    Rg = J('08_curves/regime.json')['cells']
+    rg = lambda pw, rm, a, b='ao_nominal': tci(pd_(Rg[f'power={pw}|r_min={rm}']['per_seed'], a, b))
+    lo, hi = min(rg(pw, rm, 'decode_nominal')[0] for pw in (0, 5, 10, 15, 20) for rm in (0.25, 0.5, 0.75, 1) if f'power={pw}|r_min={rm}' in Rg), max(rg(pw, rm, 'decode_nominal')[0] for pw in (0, 5, 10, 15, 20) for rm in (0.25, 0.5, 0.75, 1) if f'power={pw}|r_min={rm}' in Rg)
+    claim('regime: decode-aware gain range +3 to +22', ['$+3$ to $+22$'], cond=round(lo) == 3 and round(hi) == 22, detail=f'{lo:.2f}..{hi:.2f}')
+    d00 = tci(pd_(Rg['power=0|r_min=1']['per_seed'], 'decode_nominal', 'cem_nominal_B46'))
+    d20 = tci(pd_(Rg['power=20|r_min=1']['per_seed'], 'decode_nominal', 'cem_nominal_B46'))
+    claim('regime: +8.2 +- 0.9 at 0 dBm Rmin=1 and -31.2 +- 5.6 at 20 dBm Rmin=1', [pm(*d00), pm(*d20)])
+    sig = lambda pw, rm: (lambda m, h: 0 if abs(m) <= h else int(np.sign(m)))(*tci(pd_(Rg[f'power={pw}|r_min={rm}']['per_seed'], 'decode_nominal', 'cem_nominal_B46')))
+    claim('regime: certified signs as described', [], cond=all(sig(0, r) == 1 for r in (0.5, 0.75, 1)) and all(sig(5, r) == 1 for r in (0.75, 1))
+          and all(sig(pw, r) == -1 for pw in (10, 15, 20) for r in (0.25, 0.5, 0.75, 1)))
+
     # ----------------------------------------------------------------------------------- report
     fails = [r for r in RES if not r[0]]
     for ok, name, missing, detail in RES:

@@ -17,3 +17,6 @@ uses are copied here, so the manuscript can always be rebuilt from this folder:
 
 Provenance: `RUN_INFO_*.txt` give date, git commit and hardware of each run.
 Rule: never edit a number by hand; re-run the stage, copy the JSON here, re-run `make_tables.py`.
+
+## 08_curves (Colab run, code commit ba8df8a)
+`calibration.json`, `probes.json`, `regime.json`: per-seed decode rates for the calibration-error, probing-budget and operating-regime studies (5 seeds, own slot draws). Figures in `paper/figures/` were produced by `paper/make_figures.py` from these files; `paper/figures/figure_verification.json` records 611 recomputation checks (0 failures). Numbers quoted in `main.tex` are checked by `paper/verify_claims.py` (47 claims).
