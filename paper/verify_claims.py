@@ -154,6 +154,43 @@ def main():
     claim('regime: certified signs as described', [], cond=all(sig(0, r) == 1 for r in (0.5, 0.75, 1)) and all(sig(5, r) == 1 for r in (0.75, 1))
           and all(sig(pw, r) == -1 for pw in (10, 15, 20) for r in (0.25, 0.5, 0.75, 1)))
 
+    # ----------------------------------------------------------------------------------- robustness studies
+    from scipy import stats as _st
+    Pw = J('08_curves/power.json')['cells']
+    pw = lambda sp, a, b, sl: tci(pd_(Pw[sp]['per_seed'][sl], a, b))
+    cf, al = slice(5, None), slice(None)
+    claim('power: confirmatory s=1 and s=2', [pm(*pw('spread=1', 'decode_nominal', 'ao_nominal', cf)), pm(*pw('spread=2', 'decode_nominal', 'ao_nominal', cf))])
+    claim('power: all 20 seeds s=1 and s=2', [pm(*pw('spread=1', 'decode_nominal', 'ao_nominal', al)), pm(*pw('spread=2', 'decode_nominal', 'ao_nominal', al))])
+    kpos = [int((np.array([q['decode_nominal']['decode_pct'] - q['ao_nominal']['decode_pct'] for q in Pw[sp]['per_seed'][5:]]) > 0).sum()) for sp in ('spread=1', 'spread=2')]
+    claim('power: 15/15 confirmatory seeds improve; sign-test p = 3.1e-5', ['3.1\\times10^{-5}'], cond=kpos == [15, 15] and abs(_st.binomtest(15, 15, 0.5, alternative='greater').pvalue - 3.05e-5) < 1e-7)
+    Q = J('08_curves/quant.json')['cells']['spread=1']['per_seed']
+    qq = lambda m, ref='ao_nominal': tci(pd_(Q, m, ref))
+    claim('quant decode-aware 3,4,6,2,1 bits', [pm(*qq('decode_b3')), pm(*qq('decode_b4')), pm(*qq('decode_b6')), pm(*qq('decode_b2')), pm(*qq('decode_b1'))],
+          cond=qq('decode_b1')[0] < 0 and abs(qq('decode_b2')[0]) < qq('decode_b2')[1])
+    claim('quant max-min 2 bits and 1 bit', [pm(*qq('maxmin_b2')), pm(*qq('maxmin_b1'))])
+    Cs = J('08_curves/csi.json')['cells']
+    cs = lambda k, m: tci(pd_(Cs[k]['per_seed'], m, 'ao_nominal'))
+    ks = list(Cs)
+    nmse = [np.mean([q['_meta']['csi_nmse_db'] for q in Cs[k]['per_seed']]) for k in ks]
+    claim('csi: error power spans about -25 to +15 dB', ['-25', '+15'], cond=abs(nmse[0] + 25) < 1.5 and abs(nmse[-1] - 15) < 1.5, detail=str(np.round(nmse, 1).tolist()))
+    claim('csi decode-aware at lowest, default (1e-14) and two highest levels', [pm(*cs(ks[0], 'decode_nominal')), pm(*cs(ks[2], 'decode_nominal')), pm(*cs(ks[3], 'decode_nominal')), pm(*cs(ks[4], 'decode_nominal'))])
+    claim('csi 46-probe CEM at two highest levels', [pm(*cs(ks[3], 'cem_nominal_B46')), pm(*cs(ks[4], 'cem_nominal_B46'))])
+    claim('csi perfect-CSI max-min at two highest levels', [pm(*cs(ks[3], 'perfect_maxmin')), pm(*cs(ks[4], 'perfect_maxmin'))])
+    T = J('08_curves/tau.json')['cells']['spread=1']['per_seed']
+    grid = [tci(pd_(T, k)) for k in T[0] if k.startswith('tm_')]
+    claim('tau grid: 20 settings all positive with interval excluding 0, range +7.8..+15.7, default +7.9, tau=0.8 +15.2',
+          ['+7.8', '+15.7', '+7.9', '+15.2'], cond=len(grid) == 20 and all(m - h > 0 for m, h in grid) and round(min(m for m, h in grid), 1) == 7.8 and round(max(m for m, h in grid), 1) == 15.7
+          and round(tci(pd_(T, 'tm_t0.2_m0.15'))[0], 1) == 7.9 and round(tci(pd_(T, 'tm_t0.8_m0.15'))[0], 1) == 15.2)
+    TC = J('08_curves/tau_confirm.json')['cells']
+    nm = lambda t: f'tm_t{t:g}_m0.15'
+    star = max([0.2, 0.4, 0.8, 1.6, 3.2, 6.4], key=lambda t: tci(pd_(TC['spread=1']['per_seed'][:5], nm(t), 'ao_nominal'))[0])
+    claim('tau*: chosen on seeds 0-4 at s=1 only', ['1.6'], cond=star == 1.6)
+    tcc = lambda sp, a, b='ao_nominal': tci(pd_(TC[sp]['per_seed'][5:], a, b))
+    claim('tau* confirmatory gains s=1, s=2', [pm(*tcc('spread=1', nm(1.6))), pm(*tcc('spread=2', nm(1.6)))],
+          cond=all(int((np.array([q[nm(1.6)]['decode_pct'] - q['ao_nominal']['decode_pct'] for q in TC[sp]['per_seed'][5:]]) > 0).sum()) == 15 for sp in TC))
+    claim('tau* vs default width, paired', [pm(*tcc('spread=1', nm(1.6), nm(0.2))), pm(*tcc('spread=2', nm(1.6), nm(0.2)))])
+    claim('tau plateau: 3.2 and 6.4 at s=1', [pm(*tcc('spread=1', nm(3.2))), pm(*tcc('spread=1', nm(6.4)))])
+
     # ----------------------------------------------------------------------------------- report
     fails = [r for r in RES if not r[0]]
     for ok, name, missing, detail in RES:

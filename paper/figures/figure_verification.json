@@ -1,5 +1,5 @@
 {
- "n_checks": 611,
+ "n_checks": 727,
  "n_hard_failures": 0,
  "n_soft_failures": 0,
  "hard_failures": [],
@@ -4058,6 +4058,899 @@
    "ok": true,
    "detail": "min=0.0",
    "hard": true
+  },
+  {
+   "name": "power spread=1 all-seed mean",
+   "recomputed": 7.2125,
+   "stored": 7.2125,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "power spread=1 all-seed CI: stored interval is exact or conservative (never narrower)",
+   "ok": true,
+   "detail": "exact 0.9566, stored 0.9740",
+   "hard": true
+  },
+  {
+   "name": "power spread=1: confirmatory 95% interval excludes 0",
+   "ok": true,
+   "detail": "7.17 +- 1.26 (n=15)",
+   "hard": false
+  },
+  {
+   "name": "power spread=1: >= 90% of confirmatory seeds improve",
+   "ok": true,
+   "detail": "15/15",
+   "hard": false
+  },
+  {
+   "name": "power spread=1: running interval at n=20 equals the full-sample interval",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "power spread=2 all-seed mean",
+   "recomputed": 8.75625,
+   "stored": 8.75625,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "power spread=2 all-seed CI: stored interval is exact or conservative (never narrower)",
+   "ok": true,
+   "detail": "exact 0.6685, stored 0.6806",
+   "hard": true
+  },
+  {
+   "name": "power spread=2: confirmatory 95% interval excludes 0",
+   "ok": true,
+   "detail": "8.38 +- 0.71 (n=15)",
+   "hard": false
+  },
+  {
+   "name": "power spread=2: >= 90% of confirmatory seeds improve",
+   "ok": true,
+   "detail": "15/15",
+   "hard": false
+  },
+  {
+   "name": "power spread=2: running interval at n=20 equals the full-sample interval",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=1 mean",
+   "recomputed": -21.525,
+   "stored": -21.525,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=1 CI",
+   "recomputed": 5.170313712795147,
+   "stored": 5.1694848350681895,
+   "abs_err": 0.0008288777269571668,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=2 mean",
+   "recomputed": -5.225,
+   "stored": -5.225,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=2 CI",
+   "recomputed": 1.0941888789221157,
+   "stored": 1.0940134642681505,
+   "abs_err": 0.00017541465396520017,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=3 mean",
+   "recomputed": -3.0,
+   "stored": -3.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=3 CI",
+   "recomputed": 1.8945550812660683,
+   "stored": 1.8942513560771173,
+   "abs_err": 0.00030372518895105394,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=4 mean",
+   "recomputed": -1.325,
+   "stored": -1.325,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=4 CI",
+   "recomputed": 1.1850819390353726,
+   "stored": 1.1848919528800925,
+   "abs_err": 0.00018998615528009744,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=5 mean",
+   "recomputed": -1.275,
+   "stored": -1.275,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=5 CI",
+   "recomputed": 2.390404756874568,
+   "stored": 2.3900215396518916,
+   "abs_err": 0.00038321722267653513,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=6 mean",
+   "recomputed": 0.0,
+   "stored": 0.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=6 CI",
+   "recomputed": 0.0,
+   "stored": 0.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=1 mean",
+   "recomputed": -12.45,
+   "stored": -12.45,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=1 CI",
+   "recomputed": 2.906992386739486,
+   "stored": 2.906526352882423,
+   "abs_err": 0.00046603385706323053,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=2 mean",
+   "recomputed": 0.725,
+   "stored": 0.725,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=2 CI",
+   "recomputed": 2.405473648010194,
+   "stored": 2.4050880150214873,
+   "abs_err": 0.00038563298870686324,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=3 mean",
+   "recomputed": 5.675,
+   "stored": 5.675,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=3 CI",
+   "recomputed": 2.11276800617206,
+   "stored": 2.1124292982251496,
+   "abs_err": 0.00033870794691059913,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=4 mean",
+   "recomputed": 6.625,
+   "stored": 6.625,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=4 CI",
+   "recomputed": 1.3351496981156787,
+   "stored": 1.3349356538799912,
+   "abs_err": 0.00021404423568749387,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=5 mean",
+   "recomputed": 6.5,
+   "stored": 6.5,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=5 CI",
+   "recomputed": 1.4393397773666992,
+   "stored": 1.4391090299209437,
+   "abs_err": 0.0002307474457554637,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=6 mean",
+   "recomputed": 7.35,
+   "stored": 7.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=6 CI",
+   "recomputed": 1.6069837853659983,
+   "stored": 1.606726162107283,
+   "abs_err": 0.00025762325871525604,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant: 6-bit max-min AO equals the unrestricted nominal AO",
+   "ok": true,
+   "detail": "max |diff|=0 pp",
+   "hard": true
+  },
+  {
+   "name": "quant: 6-bit decode-aware AO equals the unrestricted decode-aware AO",
+   "ok": true,
+   "detail": "max |diff|=0 pp",
+   "hard": true
+  },
+  {
+   "name": "csi: error power (dB) increases with the configured variance",
+   "ok": true,
+   "detail": "[-24.8, -14.8, -4.8, 5.2, 15.2]",
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-16 mean",
+   "recomputed": 10.1,
+   "stored": 10.1,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-16 CI",
+   "recomputed": 2.883696136328035,
+   "stored": 2.8832338372043287,
+   "abs_err": 0.00046229912370643333,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-15 mean",
+   "recomputed": 10.1,
+   "stored": 10.1,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-15 CI",
+   "recomputed": 4.690261461905624,
+   "stored": 4.689509543651659,
+   "abs_err": 0.0007519182539654778,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-14 mean",
+   "recomputed": 8.35,
+   "stored": 8.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-14 CI",
+   "recomputed": 2.666688442049073,
+   "stored": 2.6662609324670377,
+   "abs_err": 0.00042750958203541245,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-13 mean",
+   "recomputed": 4.8,
+   "stored": 4.8,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-13 CI",
+   "recomputed": 4.3701457628371,
+   "stored": 4.36944516386234,
+   "abs_err": 0.0007005989747597141,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-12 mean",
+   "recomputed": 0.25,
+   "stored": 0.25,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-12 CI",
+   "recomputed": 2.578508949301418,
+   "stored": 2.578095576195731,
+   "abs_err": 0.0004133731056872314,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-16 mean",
+   "recomputed": 1.05,
+   "stored": 1.05,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-16 CI",
+   "recomputed": 1.324279913215188,
+   "stored": 1.3240676115667205,
+   "abs_err": 0.00021230164846741673,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-15 mean",
+   "recomputed": -3.5,
+   "stored": -3.5,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-15 CI",
+   "recomputed": 2.597126584208924,
+   "stored": 2.596710226421115,
+   "abs_err": 0.0004163577878091296,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-14 mean",
+   "recomputed": 7.65,
+   "stored": 7.65,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-14 CI",
+   "recomputed": 6.333551454212132,
+   "stored": 6.332536092277722,
+   "abs_err": 0.0010153619344102083,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-13 mean",
+   "recomputed": 44.15,
+   "stored": 44.15,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-13 CI",
+   "recomputed": 13.684030170017623,
+   "stored": 13.681836417674345,
+   "abs_err": 0.0021937523432775663,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-12 mean",
+   "recomputed": 59.4,
+   "stored": 59.4,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-12 CI",
+   "recomputed": 9.541442556338543,
+   "stored": 9.539912922034455,
+   "abs_err": 0.0015296343040880345,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-16 mean",
+   "recomputed": 11.95,
+   "stored": 11.95,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-16 CI",
+   "recomputed": 5.144858412619305,
+   "stored": 5.144033615753302,
+   "abs_err": 0.0008247968660031191,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-15 mean",
+   "recomputed": 8.95,
+   "stored": 8.95,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-15 CI",
+   "recomputed": 4.241468604328593,
+   "stored": 4.240788634204727,
+   "abs_err": 0.0006799701238655587,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-14 mean",
+   "recomputed": 16.3,
+   "stored": 16.3,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-14 CI",
+   "recomputed": 2.0753811088909178,
+   "stored": 2.075048394616376,
+   "abs_err": 0.00033271427454195646,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-13 mean",
+   "recomputed": 35.25,
+   "stored": 35.25,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-13 CI",
+   "recomputed": 2.643096995259111,
+   "stored": 2.6426732677347764,
+   "abs_err": 0.00042372752433461613,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-12 mean",
+   "recomputed": 40.7,
+   "stored": 40.7,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-12 CI",
+   "recomputed": 2.610079914360623,
+   "stored": 2.6096614799624867,
+   "abs_err": 0.0004184343981363803,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi: perfect-CSI decode-aware result is identical across CSI-error levels",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0 mean",
+   "recomputed": 7.8,
+   "stored": 7.8,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0 CI",
+   "recomputed": 1.1277973331495221,
+   "stored": 1.127616530563471,
+   "abs_err": 0.00018080258605102095,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0 mean",
+   "recomputed": 7.9,
+   "stored": 7.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0 CI",
+   "recomputed": 1.2532505385071757,
+   "stored": 1.2530496239175843,
+   "abs_err": 0.0002009145895913722,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0 mean",
+   "recomputed": 7.95,
+   "stored": 7.95,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0 CI",
+   "recomputed": 1.061786082736706,
+   "stored": 1.0616158627300176,
+   "abs_err": 0.0001702200066884263,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0 mean",
+   "recomputed": 9.75,
+   "stored": 9.75,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0 CI",
+   "recomputed": 1.552079997754708,
+   "stored": 1.5518311763848538,
+   "abs_err": 0.0002488213698541575,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0 mean",
+   "recomputed": 15.2,
+   "stored": 15.2,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0 CI",
+   "recomputed": 2.4382974232758947,
+   "stored": 2.437906528150741,
+   "abs_err": 0.00039089512515388947,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0.15 mean",
+   "recomputed": 7.95,
+   "stored": 7.95,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0.15 CI",
+   "recomputed": 1.2299683152838532,
+   "stored": 1.2297711331788528,
+   "abs_err": 0.00019718210500041522,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0.15 mean",
+   "recomputed": 7.9,
+   "stored": 7.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0.15 CI",
+   "recomputed": 1.1941941940499923,
+   "stored": 1.1940027470655166,
+   "abs_err": 0.00019144698447570718,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0.15 mean",
+   "recomputed": 7.9,
+   "stored": 7.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0.15 CI",
+   "recomputed": 1.6069837853659983,
+   "stored": 1.606726162107283,
+   "abs_err": 0.00025762325871525604,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0.15 mean",
+   "recomputed": 10.15,
+   "stored": 10.15,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0.15 CI",
+   "recomputed": 1.636690251454576,
+   "stored": 1.6364278658101614,
+   "abs_err": 0.0002623856444146089,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0.15 mean",
+   "recomputed": 15.2,
+   "stored": 15.2,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0.15 CI",
+   "recomputed": 2.143893893240271,
+   "stored": 2.1435501953534932,
+   "abs_err": 0.000343697886777683,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0.3 mean",
+   "recomputed": 7.8,
+   "stored": 7.8,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0.3 CI",
+   "recomputed": 0.9667851363870561,
+   "stored": 0.9666301464365777,
+   "abs_err": 0.00015498995047835695,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0.3 mean",
+   "recomputed": 7.9,
+   "stored": 7.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0.3 CI",
+   "recomputed": 1.0886709976662763,
+   "stored": 1.0884964676102538,
+   "abs_err": 0.00017453005602252603,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0.3 mean",
+   "recomputed": 8.15,
+   "stored": 8.15,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0.3 CI",
+   "recomputed": 1.3985954680955341,
+   "stored": 1.3983712525649257,
+   "abs_err": 0.00022421553060847366,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0.3 mean",
+   "recomputed": 10.5,
+   "stored": 10.5,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0.3 CI",
+   "recomputed": 1.552079997754708,
+   "stored": 1.5518311763848538,
+   "abs_err": 0.0002488213698541575,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0.3 mean",
+   "recomputed": 15.7,
+   "stored": 15.7,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0.3 CI",
+   "recomputed": 2.378280901412244,
+   "stored": 2.3778996278228397,
+   "abs_err": 0.00038127358940442946,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0.5 mean",
+   "recomputed": 7.9,
+   "stored": 7.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0.5 CI",
+   "recomputed": 1.1320612324149677,
+   "stored": 1.131879746262826,
+   "abs_err": 0.0001814861521416411,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0.5 mean",
+   "recomputed": 7.9,
+   "stored": 7.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0.5 CI",
+   "recomputed": 1.432629532068419,
+   "stored": 1.43239986037419,
+   "abs_err": 0.00022967169422893896,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0.5 mean",
+   "recomputed": 8.3,
+   "stored": 8.3,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0.5 CI",
+   "recomputed": 1.446018884131691,
+   "stored": 1.445787065926376,
+   "abs_err": 0.00023181820531492647,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0.5 mean",
+   "recomputed": 11.55,
+   "stored": 11.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0.5 CI",
+   "recomputed": 1.446018884131691,
+   "stored": 1.445787065926376,
+   "abs_err": 0.00023181820531492647,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0.5 mean",
+   "recomputed": 15.65,
+   "stored": 15.65,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0.5 CI",
+   "recomputed": 1.5919226865776577,
+   "stored": 1.5916674778357442,
+   "abs_err": 0.00025520874191342635,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau grid: decode-aware AO improves on max-min AO in every (tau, margin) cell (declared criterion)",
+   "ok": true,
+   "detail": "20/20 cells with positive mean",
+   "hard": false
+  },
+  {
+   "name": "tau grid: cells whose 95% interval excludes 0",
+   "value": 20,
+   "of": 20,
+   "ok": true,
+   "hard": false
+  },
+  {
+   "name": "tau_confirm spread=1 tau*=1.6 all-seed mean",
+   "recomputed": 15.2875,
+   "stored": 15.2875,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau_confirm spread=1: confirmatory interval of tau*=1.6 excludes 0",
+   "ok": true,
+   "detail": "15.24 +- 1.50",
+   "hard": false
+  },
+  {
+   "name": "tau_confirm spread=1: tau* beats the default tau=0.2 on the confirmatory seeds (paired interval excludes 0)",
+   "ok": true,
+   "detail": "7.55 +- 0.78",
+   "hard": false
+  },
+  {
+   "name": "tau_confirm spread=2 tau*=1.6 all-seed mean",
+   "recomputed": 17.83125,
+   "stored": 17.83125,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau_confirm spread=2: confirmatory interval of tau*=1.6 excludes 0",
+   "ok": true,
+   "detail": "17.64 +- 1.19",
+   "hard": false
+  },
+  {
+   "name": "tau_confirm spread=2: tau* beats the default tau=0.2 on the confirmatory seeds (paired interval excludes 0)",
+   "ok": true,
+   "detail": "9.46 +- 1.03",
+   "hard": false
   }
  ]
 }

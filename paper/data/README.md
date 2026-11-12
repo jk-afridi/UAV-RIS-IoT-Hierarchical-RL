@@ -20,3 +20,5 @@ Rule: never edit a number by hand; re-run the stage, copy the JSON here, re-run 
 
 ## 08_curves (Colab run, code commit ba8df8a)
 `calibration.json`, `probes.json`, `regime.json`: per-seed decode rates for the calibration-error, probing-budget and operating-regime studies (5 seeds, own slot draws). Figures in `paper/figures/` were produced by `paper/make_figures.py` from these files; `paper/figures/figure_verification.json` records 611 recomputation checks (0 failures). Numbers quoted in `main.tex` are checked by `paper/verify_claims.py` (47 claims).
+
+`power.json` (20 seeds, exploratory 0-4 / confirmatory 5-19), `quant.json`, `csi.json`, `tau.json`, `tau_confirm.json` (Colab run results-colab-20261112-0843, code 38c6529). Declared criteria: `paper/PREREGISTRATION.md`. Figure checks: 727, 0 failures; claim checker: 61/61.
