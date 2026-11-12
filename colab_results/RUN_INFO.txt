@@ -1,0 +1,4 @@
+date: 2026-11-12T09:59:27Z
+code_commit: 7b4325d3d41c16ac1c497cb5994258858e686478
+python: Python 3.13.18
+torch: 2.14.1+cpu cuda: False
