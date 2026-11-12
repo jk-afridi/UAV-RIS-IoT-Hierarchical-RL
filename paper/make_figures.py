@@ -22,6 +22,7 @@ Figures (IEEE column widths: 3.5 in, 7.16 in):
   fig_power.pdf           headline gain with 20 seeds: exploratory (0-4) vs confirmatory (5-19), running interval   [curves]
   fig_robust.pdf          gain vs RIS phase resolution and vs CSI-error power                                  [curves]
   fig_tau.pdf             decode-aware gain over the (sigmoid width x margin) grid                              [curves]
+  fig_tau_confirm.pdf     sigmoid width chosen on seeds 0-4 only, reported on seeds 5-19                       [curves]
 """
 import argparse, csv, json, sys
 from pathlib import Path
@@ -205,7 +206,7 @@ def fig_robust(curves, out):
         pd_ = [[s['perfect_decode']['decode_pct'] for s in dc['cells'][k]['per_seed']] for k in keys]
         invariant('csi: perfect-CSI decode-aware result is identical across CSI-error levels', all(np.allclose(pd_[0], r, atol=1e-9) for r in pd_))
         ax.axhline(0, color=INK, lw=0.7)
-        ax.set_xlabel('CSI error power relative to mean cascaded-channel power (dB)'); ax.set_ylabel('decode-rate gain vs nominal AO (pp)')
+        ax.set_xlabel('CSI error power relative to channel power (dB)'); ax.set_ylabel('decode-rate gain vs nominal AO (pp)')
         ax.set_title('(b) channel-estimation error, $s=1$', fontsize=7.2); ax.legend(frameon=False, loc='best')
     save(fig, out, 'fig_robust')
     write_csv(out / 'csv' / 'fig_robust.csv', ['panel', 'method', 'x', 'mean_pp', 'ci95_pp'] + [f'seed{i}' for i in range(5)], rows_csv)
@@ -243,9 +244,49 @@ def fig_tau(curves, out):
     ax.grid(False)
     ax.set_xlabel(r'sigmoid width $\tau / R_{\min}$'); ax.set_ylabel(r'margin $\epsilon$')
     fig.colorbar(im, ax=ax, fraction=0.05, pad=0.02, label='gain vs nominal AO (pp)')
-    fig.text(0.5, -0.02, r'Box: setting used in the paper.  $\dagger$: 95% interval includes 0 (5 seeds).', ha='center', va='top', fontsize=5.8, color=MUTED)
+    fig.text(0.5, -0.02, 'Box: setting used in the paper (5 seeds).' + (r'  $\dagger$: 95% interval includes 0.' if n_cert < G.size else '  All intervals exclude 0.'),
+             ha='center', va='top', fontsize=5.8, color=MUTED)
     save(fig, out, 'fig_tau')
     write_csv(out / 'csv' / 'fig_tau.csv', ['tau_frac', 'margin', 'mean_pp', 'ci95_pp'] + [f'seed{s}' for s in range(len(ps))], rows_csv)
+
+
+def fig_tau_confirm(curves, out):
+    """Sigmoid width chosen on the exploratory seeds (0-4, s=1) only, then reported on the 15 confirmatory seeds."""
+    d = load(curves / 'tau_confirm.json')
+    if d is None:
+        return print('  skip fig_tau_confirm (tau_confirm.json missing)')
+    taus, mg = d['config']['taus'], d['config']['margin']
+    cells = list(d['cells']); ref_tau = 0.2
+    nm = lambda t: f'tm_t{t:g}_m{mg:g}'
+    c1 = d['cells'][cells[0]]
+    sel = [tci(paired(c1['per_seed'][:N_EXPLORATORY], nm(t), 'ao_nominal'))[0] for t in taus]
+    t_star = taus[int(np.argmax(sel))]                      # selection uses ONLY seeds 0-4 of the first cell (s=1)
+    fig, axes = plt.subplots(1, len(cells), figsize=(7.16, 2.5), sharey=True, constrained_layout=True, squeeze=False)
+    rows_csv, summary = [], dict(tau_star=t_star, selected_on='seeds 0-4, s=1')
+    for ax, key in zip(axes[0], cells):
+        c = d['cells'][key]; ps = c['per_seed']; sp = c['spread']
+        for lab, sl, filled in (('exploratory seeds (0-4)', slice(0, N_EXPLORATORY), False), ('confirmatory seeds (5-19)', slice(N_EXPLORATORY, None), True)):
+            mu, hw = [], []
+            for t in taus:
+                x = paired(ps[sl], nm(t), 'ao_nominal'); m, h = tci(x); mu.append(m); hw.append(h)
+                rows_csv.append([key, lab, t, m, h])
+            ax.errorbar(np.array(taus) * (0.97 if not filled else 1.03), mu, yerr=hw, fmt='s' + ('-' if filled else '--'), ms=3.8, color=AQUA,
+                        mfc=AQUA if filled else 'white', mec=INK if filled else AQUA, mew=0.6, elinewidth=0.9, capsize=2, lw=1.0 if filled else 0.8, label=lab)
+        full = tci(paired(ps, nm(t_star), 'ao_nominal')); st = c['summary'][nm(t_star)]['paired_decode_pct']
+        check(f'tau_confirm {key} tau*={t_star:g} all-seed mean', full[0], st['mean'])
+        conf = paired(ps[N_EXPLORATORY:], nm(t_star), 'ao_nominal'); m_c, h_c = tci(conf)
+        gain_over_default = paired(ps[N_EXPLORATORY:], nm(t_star), nm(ref_tau)); m_d, h_d = tci(gain_over_default)
+        k = int((conf > 0).sum())
+        invariant(f'tau_confirm {key}: confirmatory interval of tau*={t_star:g} excludes 0', m_c - h_c > 0, f'{m_c:.2f} +- {h_c:.2f}', hard=False)
+        invariant(f'tau_confirm {key}: tau* beats the default tau=0.2 on the confirmatory seeds (paired interval excludes 0)', m_d - h_d > 0, f'{m_d:.2f} +- {h_d:.2f}', hard=False)
+        summary[key] = dict(mean_conf=m_c, ci_conf=h_c, k_pos=k, n_conf=len(conf), vs_default_mean=m_d, vs_default_ci=h_d)
+        ax.axvline(t_star, color=GREY, lw=0.7, ls=':'); ax.axhline(0, color=INK, lw=0.7)
+        ax.set_xscale('log'); ax.set_xticks(taus); ax.set_xticklabels([f'{t:g}' for t in taus]); ax.minorticks_off()
+        ax.set_xlabel(r'sigmoid width $\tau / R_{\min}$'); ax.set_title(f'$s={sp:g}$:  $\\tau^\\star={t_star:g}$ gives ${m_c:+.1f}\\pm{h_c:.1f}$ pp ({k}/{len(conf)} seeds)', fontsize=6.8)
+    axes[0][0].set_ylabel('gain vs nominal max-min AO (pp)'); axes[0][0].legend(frameon=False, loc='lower right')
+    save(fig, out, 'fig_tau_confirm')
+    write_csv(out / 'csv' / 'fig_tau_confirm.csv', ['cell', 'seeds', 'tau_frac', 'mean_pp', 'ci95_pp'], rows_csv)
+    (out / 'csv' / 'fig_tau_confirm_summary.json').write_text(json.dumps(summary, indent=1))
 
 
 # ------------------------------------------------------------------------------------------ Fig: PDA model
@@ -576,7 +617,7 @@ def main():
 
     for fn, args in ((fig_pda_model, (out,)), (fig_headroom, (data, out)), (fig_calibration, (curves, data, out)),
                      (fig_probes, (curves, out)), (fig_regime, (curves, out)), (fig_episode, (data, out)),
-                     (fig_residual, (data, out)), (fig_power, (curves, out)), (fig_robust, (curves, out)), (fig_tau, (curves, out))):
+                     (fig_residual, (data, out)), (fig_power, (curves, out)), (fig_robust, (curves, out)), (fig_tau, (curves, out)), (fig_tau_confirm, (curves, out))):
         try:
             fn(*args)
         except Exception as e:                      # keep going; the failure is recorded and fails the run at the end

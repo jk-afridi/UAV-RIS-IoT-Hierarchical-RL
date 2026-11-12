@@ -12,3 +12,9 @@ methods, paired difference to nominal-PDA max-min AO, exact 95% t-interval over 
 
 Exact invariants asserted by `make_figures.py` (hard failures): 6-bit solvers equal the unrestricted solvers; perfect-CSI solvers do not
 depend on the CSI error level; CSI error power increases with the configured variance; running t-interval at n seeds equals the full-sample interval.
+
+## Added after the first results (declared before running `curves_tau_confirm`)
+The 5-seed grid showed the gain rising with the sigmoid width (tau/R_min = 0.2 -> +7.9, 0.8 -> +15.2 points), so the paper's default is not optimal.
+To avoid tuning on the evaluation seeds: tau* = argmax over tau in {0.2, 0.4, 0.8, 1.6, 3.2, 6.4} (margin 0.15) of the mean paired gain on seeds 0-4 at s=1 ONLY.
+Criteria on the 15 confirmatory seeds 5-19 (s=1 and s=2): (i) the 95% interval of the gain at tau* excludes 0; (ii) tau* beats tau=0.2 in a paired comparison
+whose 95% interval excludes 0. If (ii) fails, the paper keeps tau=0.2 and states that the optimum is not confirmed.

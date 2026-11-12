@@ -12,6 +12,7 @@ Curve experiments that turn single operating points into dose-response relations
     quant       : gain vs RIS phase resolution (1-5 bit subsets of the 64-point grid; 6 bits = the unrestricted reference)
     csi         : gain vs channel-estimation error (variance of the CSI error), incl. perfect-CSI solvers and 46-probe CEM
     tau         : decode-aware gain over a (sigmoid width tau/r_min) x (margin) grid
+    tau_confirm : extended tau list with 20 seeds. tau* is chosen on seeds 0-4 ONLY and reported on seeds 5-19 (never used for the choice)
 
 Protocol (identical to mismatch_study / sweeps): per seed its own layout AND hardware instance, slots at
 fixed UAV-to-cluster distances, ONE CSI estimate per slot shared by all methods, paired differences to
@@ -233,10 +234,17 @@ def task_tau(a):
     return methods
 
 
+def task_tau_confirm(a):
+    methods = {'ao_nominal': lambda S: act_maxmin(S, 'nominal'), 'decode_nominal': lambda S: act_decode(S, 'nominal')}
+    for t in a.taus:
+        methods[f'tm_t{t:g}_m{a.margin:g}'] = (lambda t: lambda S: act_decode_tm(S, t, a.margin))(t)
+    return methods
+
+
 def main():
     import argparse
     p = build_parser()
-    p.add_argument('task', choices=['calibration', 'probes', 'regime', 'power', 'quant', 'csi', 'tau'])
+    p.add_argument('task', choices=['calibration', 'probes', 'regime', 'power', 'quant', 'csi', 'tau', 'tau_confirm'])
     p.add_argument('--seeds', type=int, default=5)
     p.add_argument('--spreads', type=float, nargs='+', default=None)
     p.add_argument('--study_slots', type=int, default=None)
@@ -253,7 +261,7 @@ def main():
     a = p.parse_args()
     if not a.out:
         p.error('--out is required')
-    a.spreads = a.spreads or ([1.0, 2.0] if a.task in ('calibration', 'power') else [1.0])
+    a.spreads = a.spreads or ([1.0, 2.0] if a.task in ('calibration', 'power', 'tau_confirm') else [1.0])
     a.study_slots = a.study_slots or (100 if a.task in ('regime', 'csi', 'tau') else 200)
     out = Path(a.out); out.parent.mkdir(parents=True, exist_ok=True)
     res = json.loads(out.read_text()) if out.exists() else {}
@@ -261,8 +269,9 @@ def main():
     res.setdefault('cells', {})
     t0 = time.time()
 
-    if a.task in ('calibration', 'probes', 'power', 'quant', 'tau'):
-        methods = dict(calibration=task_calibration, probes=task_probes, power=task_power, quant=task_quant, tau=task_tau)[a.task](a)
+    if a.task in ('calibration', 'probes', 'power', 'quant', 'tau', 'tau_confirm'):
+        methods = dict(calibration=task_calibration, probes=task_probes, power=task_power, quant=task_quant, tau=task_tau,
+                       tau_confirm=task_tau_confirm)[a.task](a)
         cells = [(f'spread={sp:g}', {}, sp) for sp in a.spreads]
     elif a.task == 'csi':
         methods = task_csi(a)
