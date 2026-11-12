@@ -18,3 +18,9 @@ The 5-seed grid showed the gain rising with the sigmoid width (tau/R_min = 0.2 -
 To avoid tuning on the evaluation seeds: tau* = argmax over tau in {0.2, 0.4, 0.8, 1.6, 3.2, 6.4} (margin 0.15) of the mean paired gain on seeds 0-4 at s=1 ONLY.
 Criteria on the 15 confirmatory seeds 5-19 (s=1 and s=2): (i) the 95% interval of the gain at tau* excludes 0; (ii) tau* beats tau=0.2 in a paired comparison
 whose 95% interval excludes 0. If (ii) fails, the paper keeps tau=0.2 and states that the optimum is not confirmed.
+
+## Added before running `curves_probes_tuned` / `curves_regime_tuned`
+Repeat the probing-budget and regime studies with decode-aware AO at the tuned width tau* = 1.6 R_min (margin 0.15), chosen on seeds 0-4 only.
+Same seeds, slots and per-method generators as the original studies, so ao_nominal, decode_nominal and AO+CEM(nominal) must reproduce the earlier files exactly
+(hard invariant in `make_figures.py`). No success criterion is declared: this is a re-evaluation of two comparisons that used the conservative width.
+Reported quantities: break-even budget of AO+CEM against tuned zero-probe decode-aware AO (or "not reached within B <= 91"), and the regime map.

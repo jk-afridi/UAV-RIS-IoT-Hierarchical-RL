@@ -34,6 +34,8 @@ curves_power()    { python -m src.eval.curves power --seeds 20 --out results/cur
 curves_quant()    { python -m src.eval.curves quant --seeds 5 --out results/curves/quant.json; }
 curves_csi()      { python -m src.eval.curves csi --seeds 5 --out results/curves/csi.json; }
 curves_tau_confirm() { python -m src.eval.curves tau_confirm --seeds 20 --taus 0.2 0.4 0.8 1.6 3.2 6.4 --out results/curves/tau_confirm.json; }
+curves_probes_tuned() { python -m src.eval.curves probes_tuned --seeds 5 --out results/curves/probes_tuned.json; }
+curves_regime_tuned() { python -m src.eval.curves regime_tuned --seeds 5 --out results/curves/regime_tuned.json; }
 curves_tau()      { python -m src.eval.curves tau --seeds 5 --out results/curves/tau.json; }
 # every paper figure + CSV of all plotted numbers + figure_verification.json (recomputes each statistic from per-seed data)
 figures()         { python paper/make_figures.py --curves results/curves --out results/paper_figures; }

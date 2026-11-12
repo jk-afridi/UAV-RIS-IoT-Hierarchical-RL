@@ -540,6 +540,88 @@ def fig_regime(curves, out):
     write_csv(out / 'csv' / 'fig_regime.csv', ['power_dbm', 'r_min', 'gain_pp', 'gain_ci95', 'decode_minus_cem_pp', 'diff_ci95', 'sign_certified'], rows_csv)
 
 
+def _same_as_stored(new_ps, old_ps, methods, name):
+    """The shared methods use identical generators, so they must reproduce the earlier study to the last bit."""
+    dmax = max(abs(a[m]['decode_pct'] - b[m]['decode_pct']) for a, b in zip(new_ps, old_ps) for m in methods)
+    invariant(f'{name}: shared methods reproduce the earlier study exactly', dmax < 1e-9, f'max |diff| = {dmax:.3g} pp')
+
+
+def fig_probes_tuned(curves, out):
+    d, d0 = load(curves / 'probes_tuned.json'), load(curves / 'probes.json')
+    if d is None or d0 is None:
+        return print('  skip fig_probes_tuned (probes_tuned.json missing)')
+    budgets = d['config']['budgets']; key = list(d['cells'])[0]; c = d['cells'][key]; ps = c['per_seed']
+    _same_as_stored(ps, d0['cells'][key]['per_seed'], ['ao_nominal', 'decode_nominal'] + [f'cem_nominal_B{B}' for B in budgets], 'probes_tuned')
+    fig, ax = plt.subplots(figsize=(3.5, 2.6), constrained_layout=True)
+    rows_csv, curve = [], {}
+    for fam, lab, col, mk, ls in (('cem_nominal', 'AO+CEM from max-min AO', ORANGE, 'D', '-'), ('cem_tuned', 'AO+CEM from decode-aware AO', BLUE, 'o', '--')):
+        mu, hw = [], []
+        for B in budgets:
+            x = paired(ps, f'{fam}_B{B}', 'ao_nominal'); m, h = tci(x); st = c['summary'][f'{fam}_B{B}']['paired_decode_pct']
+            check(f'probes_tuned {fam} B={B} mean', m, st['mean']); check(f'probes_tuned {fam} B={B} CI', h, st['ci95'])
+            mu.append(m); hw.append(h); rows_csv.append([fam, B, m, h] + list(x))
+        curve[fam] = np.array(mu)
+        ax.errorbar(budgets, mu, yerr=hw, fmt=mk + ls, ms=3.8, color=col, mec=INK, mew=0.4, elinewidth=0.9, capsize=2, lw=1.1, label=lab)
+    for name, lab, col, ls in (('decode_tuned', 'decode-aware AO, tuned width (no probes)', AQUA, '-'), ('decode_nominal', 'decode-aware AO, width 0.2 (no probes)', AQUA, ':')):
+        x = paired(ps, name, 'ao_nominal'); m, h = tci(x); st = c['summary'][name]['paired_decode_pct']
+        check(f'probes_tuned {name} mean', m, st['mean']); check(f'probes_tuned {name} CI', h, st['ci95'])
+        if name == 'decode_tuned':
+            ax.axhspan(m - h, m + h, color=AQUA, alpha=0.16, lw=0); md = m
+        ax.axhline(m, color=col, lw=1.1, ls=ls, label=lab); rows_csv.append([name, 0, m, h] + list(x))
+    for fam, start in (('cem_nominal', 'ao_nominal'), ('cem_tuned', 'decode_tuned')):
+        if 1 in budgets:
+            diff = max(abs(s[f'{fam}_B1']['decode_pct'] - s[start]['decode_pct']) for s in ps)
+            invariant(f'{fam} with B=1 equals its starting solution (tuned study)', diff < 1e-9, f'max |diff| = {diff:.3g} pp')
+    y, be = curve['cem_nominal'], None
+    for i in range(1, len(budgets)):
+        if y[i - 1] < md <= y[i]:
+            f = (md - y[i - 1]) / (y[i] - y[i - 1]); be = float(2 ** (np.log2(budgets[i - 1]) + f * (np.log2(budgets[i]) - np.log2(budgets[i - 1])))); break
+    CHECKS.append(dict(name='probes_tuned break-even budget vs tuned decode-aware AO (None = not reached within the grid)', value=be, ok=True, hard=False))
+    if be is not None:
+        ax.axvline(be, color=GREY, lw=0.7, ls=':'); ax.annotate(f' $B^\\star\\!\\approx\\!{be:.0f}$', xy=(be, 0.12), xycoords=('data', 'axes fraction'), fontsize=6.5, va='bottom', ha='left', color=MUTED)
+    ax.set_xscale('log', base=2); ax.set_xticks(budgets); ax.set_xticklabels([str(b) for b in budgets])
+    ax.set_xlabel('true-rate measurements per slot $B$'); ax.set_ylabel('decode-rate gain vs nominal AO (pp)')
+    h_, l_ = ax.get_legend_handles_labels(); ax.legend(h_, l_, frameon=False, loc='lower right', fontsize=5.8)
+    save(fig, out, 'fig_probes_tuned')
+    write_csv(out / 'csv' / 'fig_probes_tuned.csv', ['series', 'B', 'mean_pp', 'ci95_pp'] + [f'seed{s}' for s in range(len(ps))], rows_csv)
+
+
+def fig_regime_tuned(curves, out):
+    d, d0 = load(curves / 'regime_tuned.json'), load(curves / 'regime.json')
+    if d is None or d0 is None:
+        return print('  skip fig_regime_tuned (regime_tuned.json missing)')
+    powers, rmins, B = d['config']['powers'], d['config']['rmins'], 46
+    gain = np.full((len(rmins), len(powers)), np.nan); diff = gain.copy(); sig = np.zeros(gain.shape, int); rows_csv = []
+    for i, rm in enumerate(rmins):
+        for j, pw in enumerate(powers):
+            key = f'power={pw:g}|r_min={rm:g}'
+            if key not in d['cells']:
+                continue
+            c = d['cells'][key]; ps = c['per_seed']
+            _same_as_stored(ps, d0['cells'][key]['per_seed'], ['ao_nominal', 'decode_nominal', f'cem_nominal_B{B}'], f'regime_tuned {key}')
+            g = paired(ps, 'decode_tuned', 'ao_nominal'); gm, gh = tci(g)
+            check(f'regime_tuned gain mean {key}', gm, c['summary']['decode_tuned']['paired_decode_pct']['mean'])
+            df = paired(ps, 'decode_tuned', f'cem_nominal_B{B}'); dm, dh = tci(df)
+            gain[i, j], diff[i, j] = gm, dm; sig[i, j] = 0 if abs(dm) <= dh else (1 if dm > 0 else -1)
+            rows_csv.append([pw, rm, gm, gh, dm, dh, int(sig[i, j])])
+    seqc = LinearSegmentedColormap.from_list('seq', ['#f3f7fc', BLUE]); divc = LinearSegmentedColormap.from_list('div', [ORANGE, '#ececea', BLUE])
+    fig, axes = plt.subplots(1, 2, figsize=(7.16, 2.9), constrained_layout=True)
+    for ax, M, cmap, ttl, norm in ((axes[0], gain, seqc, '(a) tuned decode-aware AO gain over nominal AO (pp)', None),
+                                   (axes[1], diff, divc, f'(b) tuned decode-aware AO minus AO+CEM, $B={B}$ (pp)',
+                                    TwoSlopeNorm(vcenter=0, vmin=min(np.nanmin(diff), -1), vmax=max(np.nanmax(diff), 1)))):
+        im = ax.imshow(M, origin='lower', cmap=cmap, norm=norm, aspect='auto')
+        ax.set_xticks(range(len(powers))); ax.set_xticklabels([f'{p:g}' for p in powers]); ax.set_yticks(range(len(rmins))); ax.set_yticklabels([f'{r:g}' for r in rmins])
+        ax.set_xlabel('device transmit power (dBm)'); ax.set_ylabel(r'$R_{\min}$ (bit/s/Hz)'); ax.set_title(ttl, fontsize=7.2); ax.grid(False)
+        for i in range(len(rmins)):
+            for j in range(len(powers)):
+                if not np.isnan(M[i, j]):
+                    ax.text(j, i, f'{M[i, j]:+.1f}' + ('' if M is gain else {1: '*', -1: '*', 0: ''}[sig[i, j]]), ha='center', va='center', fontsize=6.2, color=INK)
+        fig.colorbar(im, ax=ax, fraction=0.046, pad=0.02)
+    fig.text(0.5, -0.045, '* 95% $t$-interval of the paired difference excludes 0 (5 seeds).\nBlue: decode-aware AO better; orange: probing better.', ha='center', va='top', fontsize=6, color=MUTED)
+    save(fig, out, 'fig_regime_tuned')
+    write_csv(out / 'csv' / 'fig_regime_tuned.csv', ['power_dbm', 'r_min', 'gain_pp', 'gain_ci95', 'decode_minus_cem_pp', 'diff_ci95', 'sign_certified'], rows_csv)
+
+
 # ------------------------------------------------------------------------------------------ Fig: episode level
 def fig_episode(data, out):
     files = [('aoi_v5.json', '$s=1$'), ('aoi_v5_spread2.json', '$s=2$')]
@@ -617,7 +699,8 @@ def main():
 
     for fn, args in ((fig_pda_model, (out,)), (fig_headroom, (data, out)), (fig_calibration, (curves, data, out)),
                      (fig_probes, (curves, out)), (fig_regime, (curves, out)), (fig_episode, (data, out)),
-                     (fig_residual, (data, out)), (fig_power, (curves, out)), (fig_robust, (curves, out)), (fig_tau, (curves, out)), (fig_tau_confirm, (curves, out))):
+                     (fig_residual, (data, out)), (fig_power, (curves, out)), (fig_robust, (curves, out)), (fig_tau, (curves, out)), (fig_tau_confirm, (curves, out)),
+                     (fig_probes_tuned, (curves, out)), (fig_regime_tuned, (curves, out))):
         try:
             fn(*args)
         except Exception as e:                      # keep going; the failure is recorded and fails the run at the end

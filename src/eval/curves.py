@@ -12,6 +12,7 @@ Curve experiments that turn single operating points into dose-response relations
     quant       : gain vs RIS phase resolution (1-5 bit subsets of the 64-point grid; 6 bits = the unrestricted reference)
     csi         : gain vs channel-estimation error (variance of the CSI error), incl. perfect-CSI solvers and 46-probe CEM
     tau         : decode-aware gain over a (sigmoid width tau/r_min) x (margin) grid
+    probes_tuned / regime_tuned : the probing-budget and regime studies repeated with decode-aware AO at the tuned width (same seeds, slots, generators)
     tau_confirm : extended tau list with 20 seeds. tau* is chosen on seeds 0-4 ONLY and reported on seeds 5-19 (never used for the choice)
 
 Protocol (identical to mismatch_study / sweeps): per seed its own layout AND hardware instance, slots at
@@ -103,13 +104,24 @@ def act_decode_q(S, bits):
     return pack_action(S.env, G, th)
 
 
-def act_decode_tm(S, tau_frac, margin):
-    """Decode-aware AO with sigmoid width tau_frac*r_min and margin; the max-min warm start is shared (memoised)."""
+def tm_solution(S, tau_frac, margin):
     th0, _ = S.maxmin('nominal')
-    th, G = S.memo(('tm', tau_frac, margin), lambda: ao_solution(
+    return S.memo(('tm', tau_frac, margin), lambda: ao_solution(
         S.env, S.rng(f'tm|{tau_frac:g}|{margin:g}'), Dh=S.Dh, model='nominal', sweeps=S.a.ao_sweeps, init_theta=th0,
         objective='decode', margin=margin, tau_frac=tau_frac))
+
+
+def act_decode_tm(S, tau_frac, margin):
+    """Decode-aware AO with sigmoid width tau_frac*r_min and margin; the max-min warm start is shared (memoised)."""
+    th, G = tm_solution(S, tau_frac, margin)
     return pack_action(S.env, G, th)
+
+
+def act_cem_tuned(S, budget):
+    """AO+CEM started from the decode-aware solution with the tuned width (a.tune_tau); all measurements counted."""
+    th0, _ = tm_solution(S, S.a.tune_tau, S.a.margin)
+    return cem_ris(S.env, S.rng(f'cem|tuned|{budget}'), budget, model='nominal', Dh=S.Dh,
+                   ao_sweeps=S.a.ao_sweeps, init_theta=th0, include_init=True)
 
 
 def act_perfect(S, objective):
@@ -206,6 +218,24 @@ def task_regime(a):
             f'cem_nominal_B{REGIME_B}': lambda S: act_cem(S, REGIME_B, 'nominal')}
 
 
+def task_probes_tuned(a):
+    """Probing budget with the decode-aware solver at the tuned sigmoid width (selected on seeds 0-4, see tau_confirm).
+    ao_nominal / decode_nominal / cem_nominal_B* use the SAME generators as task_probes and must reproduce probes.json exactly."""
+    methods = {'ao_nominal': lambda S: act_maxmin(S, 'nominal'), 'decode_nominal': lambda S: act_decode(S, 'nominal'),
+               'decode_tuned': lambda S: act_decode_tm(S, a.tune_tau, a.margin)}
+    for B in a.budgets:
+        assert n_measurements(B) == B, f'budget {B} is not exactly spendable (use B-1 divisible by 3)'
+        methods[f'cem_nominal_B{B}'] = (lambda B: lambda S: act_cem(S, B, 'nominal'))(B)
+        methods[f'cem_tuned_B{B}'] = (lambda B: lambda S: act_cem_tuned(S, B))(B)
+    return methods
+
+
+def task_regime_tuned(a):
+    return {'ao_nominal': lambda S: act_maxmin(S, 'nominal'), 'decode_nominal': lambda S: act_decode(S, 'nominal'),
+            'decode_tuned': lambda S: act_decode_tm(S, a.tune_tau, a.margin),
+            f'cem_nominal_B{REGIME_B}': lambda S: act_cem(S, REGIME_B, 'nominal')}
+
+
 def task_power(a):
     return {'ao_nominal': lambda S: act_maxmin(S, 'nominal'), 'decode_nominal': lambda S: act_decode(S, 'nominal'),
             'maxmin_true': lambda S: act_maxmin(S, 'cal:0'), 'decode_true': lambda S: act_decode(S, 'cal:0')}
@@ -244,12 +274,13 @@ def task_tau_confirm(a):
 def main():
     import argparse
     p = build_parser()
-    p.add_argument('task', choices=['calibration', 'probes', 'regime', 'power', 'quant', 'csi', 'tau', 'tau_confirm'])
+    p.add_argument('task', choices=['calibration', 'probes', 'regime', 'power', 'quant', 'csi', 'tau', 'tau_confirm', 'probes_tuned', 'regime_tuned'])
     p.add_argument('--seeds', type=int, default=5)
     p.add_argument('--spreads', type=float, nargs='+', default=None)
     p.add_argument('--study_slots', type=int, default=None)
     p.add_argument('--eval_dists', type=float, nargs='+', default=[0.0, 5.0, 10.0, 15.0])
     p.add_argument('--margin', type=float, default=0.15)
+    p.add_argument('--tune_tau', type=float, default=1.6, help='tuned sigmoid width / r_min (chosen on seeds 0-4 only, see tau_confirm)')
     p.add_argument('--errors', type=float, nargs='+', default=CAL_ERRORS)
     p.add_argument('--budgets', type=int, nargs='+', default=PROBE_BUDGETS)
     p.add_argument('--powers', type=float, nargs='+', default=REGIME_POWERS)
@@ -262,22 +293,22 @@ def main():
     if not a.out:
         p.error('--out is required')
     a.spreads = a.spreads or ([1.0, 2.0] if a.task in ('calibration', 'power', 'tau_confirm') else [1.0])
-    a.study_slots = a.study_slots or (100 if a.task in ('regime', 'csi', 'tau') else 200)
+    a.study_slots = a.study_slots or (100 if a.task in ('regime', 'regime_tuned', 'csi', 'tau') else 200)
     out = Path(a.out); out.parent.mkdir(parents=True, exist_ok=True)
     res = json.loads(out.read_text()) if out.exists() else {}
     res['config'] = {k: v for k, v in vars(a).items() if k != 'device'}
     res.setdefault('cells', {})
     t0 = time.time()
 
-    if a.task in ('calibration', 'probes', 'power', 'quant', 'tau', 'tau_confirm'):
+    if a.task in ('calibration', 'probes', 'power', 'quant', 'tau', 'tau_confirm', 'probes_tuned'):
         methods = dict(calibration=task_calibration, probes=task_probes, power=task_power, quant=task_quant, tau=task_tau,
-                       tau_confirm=task_tau_confirm)[a.task](a)
+                       tau_confirm=task_tau_confirm, probes_tuned=task_probes_tuned)[a.task](a)
         cells = [(f'spread={sp:g}', {}, sp) for sp in a.spreads]
     elif a.task == 'csi':
         methods = task_csi(a)
         cells = [(f'csi_var={v:g}', dict(csi_var=v), a.spreads[0]) for v in a.csi_vars]
     else:
-        methods = task_regime(a)
+        methods = (task_regime_tuned if a.task == 'regime_tuned' else task_regime)(a)
         cells = [(f'power={pw:g}|r_min={rm:g}', dict(power_dbm=pw, r_min=rm), a.spreads[0])
                  for pw in a.powers for rm in a.rmins]
 
