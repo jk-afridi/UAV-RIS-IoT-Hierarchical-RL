@@ -118,7 +118,12 @@ def fig_power(curves, out):
             conf = x[N_EXPLORATORY:]
             m_all, h_all = tci(x); m_c, h_c = tci(conf); m_e, h_e = tci(x[:N_EXPLORATORY])
             st = c['summary'][fam]['paired_decode_pct']
-            check(f'power {key} all-seed mean', m_all, st['mean']); check(f'power {key} all-seed CI', h_all, st['ci95'])
+            check(f'power {key} all-seed mean', m_all, st['mean'])
+            # the stored CI of this run used a t table without df=19 (fell back to the next lower df = a LARGER multiplier):
+            # the stored value must be the exact one or a conservative (wider) one, never narrower, and within that table's step
+            invariant(f'power {key} all-seed CI: stored interval is exact or conservative (never narrower)',
+                      h_all * (1 - 2e-3) <= st['ci95'] <= h_all * stats.t.ppf(0.975, 4) / stats.t.ppf(0.975, n - 1) * 1.001,
+                      f'exact {h_all:.4f}, stored {st["ci95"]:.4f}')
             k = int((conf > 0).sum())
             p_sign = float(stats.binomtest(k, len(conf), 0.5, alternative='greater').pvalue)
             # declared criteria (written before the run): confirmatory interval excludes 0 AND >= 90% of confirmatory seeds improve

@@ -76,6 +76,11 @@ def ci(x):
     if n < 2:
         return float(x.mean()), float('nan')
     df = n - 1
+    try:                                              # exact t quantile when scipy is available (the table below lacks e.g. df=19)
+        from scipy import stats as _st
+        return float(x.mean()), float(_st.t.ppf(0.975, df) * x.std(ddof=1) / np.sqrt(n))
+    except ImportError:
+        pass
     t = T975.get(df) or T975[max(k for k in T975 if k <= df)] if df < 30 else 1.96
     return float(x.mean()), float(t * x.std(ddof=1) / np.sqrt(n))
 
