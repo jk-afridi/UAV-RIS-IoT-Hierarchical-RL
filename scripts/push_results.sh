@@ -27,7 +27,7 @@ cd "$ORIG/$RESULTS_DIR"                       # works if results/ is a symlink t
 while IFS= read -r -d '' f; do
   sz=$(stat -c %s "$f")
   if [ "$sz" -gt $((MAX_FILE_MB * 1024 * 1024)) ]; then echo "skip (> ${MAX_FILE_MB} MB): $f"; continue; fi
-  mkdir -p "$DEST/$(dirname "$f")"; cp "$f" "$DEST/$f"; total=$((total + sz)); n=$((n + 1))
+  mkdir -p "$DEST/$(dirname "$f")"; cp "$f" "$DEST/$f" || { echo "WARNING: unreadable (Drive I/O error), skipped: $f"; rm -f "$DEST/$f"; continue; }; total=$((total + sz)); n=$((n + 1))
 done < <(find -L . -type f \( -name '*.json' -o -name '*.pdf' -o -name '*.tex' -o -name '*.log' \
                               -o -name '*.csv' -o -name '*.png' -o -name '*.txt' \) -print0)
 cd "$WORK/repo"
