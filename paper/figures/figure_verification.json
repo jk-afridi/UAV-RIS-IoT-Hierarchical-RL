@@ -1,5 +1,5 @@
 {
- "n_checks": 727,
+ "n_checks": 807,
  "n_hard_failures": 0,
  "n_soft_failures": 0,
  "hard_failures": [],
@@ -4951,6 +4951,598 @@
    "ok": true,
    "detail": "9.46 +- 1.03",
    "hard": false
+  },
+  {
+   "name": "probes_tuned: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=1 mean",
+   "recomputed": 0.0,
+   "stored": 0.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=1 CI",
+   "recomputed": 0.0,
+   "stored": 0.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=4 mean",
+   "recomputed": 1.575,
+   "stored": 1.575,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=4 CI",
+   "recomputed": 0.28194933328738053,
+   "stored": 0.28194933328738053,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=7 mean",
+   "recomputed": 3.325,
+   "stored": 3.325,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=7 CI",
+   "recomputed": 0.6818561414624343,
+   "stored": 0.6818561414624343,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=10 mean",
+   "recomputed": 4.95,
+   "stored": 4.95,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=10 CI",
+   "recomputed": 0.7491901563870479,
+   "stored": 0.7491901563870479,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=16 mean",
+   "recomputed": 9.575,
+   "stored": 9.575,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=16 CI",
+   "recomputed": 1.3645952304326685,
+   "stored": 1.3645952304326685,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=31 mean",
+   "recomputed": 12.875,
+   "stored": 12.875,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=31 CI",
+   "recomputed": 2.590160653243976,
+   "stored": 2.590160653243976,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=46 mean",
+   "recomputed": 14.825,
+   "stored": 14.825,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=46 CI",
+   "recomputed": 2.430876393312176,
+   "stored": 2.430876393312176,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=91 mean",
+   "recomputed": 16.625,
+   "stored": 16.625,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=91 CI",
+   "recomputed": 2.692758155030835,
+   "stored": 2.692758155030835,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=1 mean",
+   "recomputed": 15.425,
+   "stored": 15.425,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=1 CI",
+   "recomputed": 3.0107951737067817,
+   "stored": 3.0107951737067817,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=4 mean",
+   "recomputed": 15.9,
+   "stored": 15.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=4 CI",
+   "recomputed": 2.753356669457666,
+   "stored": 2.753356669457666,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=7 mean",
+   "recomputed": 16.65,
+   "stored": 16.65,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=7 CI",
+   "recomputed": 3.153053475963999,
+   "stored": 3.153053475963999,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=10 mean",
+   "recomputed": 16.7,
+   "stored": 16.7,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=10 CI",
+   "recomputed": 3.1686768953910875,
+   "stored": 3.1686768953910875,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=16 mean",
+   "recomputed": 18.55,
+   "stored": 18.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=16 CI",
+   "recomputed": 3.3944099551814464,
+   "stored": 3.3944099551814464,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=31 mean",
+   "recomputed": 20.1,
+   "stored": 20.1,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=31 CI",
+   "recomputed": 3.9132735522345135,
+   "stored": 3.9132735522345135,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=46 mean",
+   "recomputed": 20.975,
+   "stored": 20.975,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=46 CI",
+   "recomputed": 4.1883159849862235,
+   "stored": 4.1883159849862235,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=91 mean",
+   "recomputed": 21.825,
+   "stored": 21.825,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=91 CI",
+   "recomputed": 4.420840436787745,
+   "stored": 4.420840436787745,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned decode_tuned mean",
+   "recomputed": 15.425,
+   "stored": 15.425,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned decode_tuned CI",
+   "recomputed": 3.0107951737067817,
+   "stored": 3.0107951737067817,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned decode_nominal mean",
+   "recomputed": 7.35,
+   "stored": 7.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned decode_nominal CI",
+   "recomputed": 1.6069837853659983,
+   "stored": 1.6069837853659983,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "cem_nominal with B=1 equals its starting solution (tuned study)",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "cem_tuned with B=1 equals its starting solution (tuned study)",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "probes_tuned break-even budget vs tuned decode-aware AO (None = not reached within the grid)",
+   "value": 57.74561600373002,
+   "ok": true,
+   "hard": false
+  },
+  {
+   "name": "regime_tuned power=0|r_min=0.25: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=0|r_min=0.25",
+   "recomputed": 25.1,
+   "stored": 25.1,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=5|r_min=0.25: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=5|r_min=0.25",
+   "recomputed": 13.55,
+   "stored": 13.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=10|r_min=0.25: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=10|r_min=0.25",
+   "recomputed": 6.75,
+   "stored": 6.75,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=15|r_min=0.25: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=15|r_min=0.25",
+   "recomputed": 4.75,
+   "stored": 4.75,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=20|r_min=0.25: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=20|r_min=0.25",
+   "recomputed": 3.75,
+   "stored": 3.75,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=0|r_min=0.5: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=0|r_min=0.5",
+   "recomputed": 25.7,
+   "stored": 25.7,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=5|r_min=0.5: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=5|r_min=0.5",
+   "recomputed": 21.85,
+   "stored": 21.85,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=10|r_min=0.5: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=10|r_min=0.5",
+   "recomputed": 16.9,
+   "stored": 16.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=15|r_min=0.5: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=15|r_min=0.5",
+   "recomputed": 12.65,
+   "stored": 12.65,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=20|r_min=0.5: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=20|r_min=0.5",
+   "recomputed": 10.35,
+   "stored": 10.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=0|r_min=0.75: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=0|r_min=0.75",
+   "recomputed": 22.2,
+   "stored": 22.2,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=5|r_min=0.75: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=5|r_min=0.75",
+   "recomputed": 25.45,
+   "stored": 25.45,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=10|r_min=0.75: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=10|r_min=0.75",
+   "recomputed": 20.45,
+   "stored": 20.45,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=15|r_min=0.75: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=15|r_min=0.75",
+   "recomputed": 18.0,
+   "stored": 18.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=20|r_min=0.75: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=20|r_min=0.75",
+   "recomputed": 11.15,
+   "stored": 11.15,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=0|r_min=1: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=0|r_min=1",
+   "recomputed": 17.6,
+   "stored": 17.6,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=5|r_min=1: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=5|r_min=1",
+   "recomputed": 25.55,
+   "stored": 25.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=10|r_min=1: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=10|r_min=1",
+   "recomputed": 23.3,
+   "stored": 23.3,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=15|r_min=1: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=15|r_min=1",
+   "recomputed": 18.7,
+   "stored": 18.7,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=20|r_min=1: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=20|r_min=1",
+   "recomputed": 10.55,
+   "stored": 10.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
   }
  ]
 }

@@ -552,7 +552,7 @@ def fig_probes_tuned(curves, out):
         return print('  skip fig_probes_tuned (probes_tuned.json missing)')
     budgets = d['config']['budgets']; key = list(d['cells'])[0]; c = d['cells'][key]; ps = c['per_seed']
     _same_as_stored(ps, d0['cells'][key]['per_seed'], ['ao_nominal', 'decode_nominal'] + [f'cem_nominal_B{B}' for B in budgets], 'probes_tuned')
-    fig, ax = plt.subplots(figsize=(3.5, 2.6), constrained_layout=True)
+    fig, ax = plt.subplots(figsize=(3.5, 3.3), constrained_layout=True)
     rows_csv, curve = [], {}
     for fam, lab, col, mk, ls in (('cem_nominal', 'AO+CEM from max-min AO', ORANGE, 'D', '-'), ('cem_tuned', 'AO+CEM from decode-aware AO', BLUE, 'o', '--')):
         mu, hw = [], []
@@ -581,7 +581,7 @@ def fig_probes_tuned(curves, out):
         ax.axvline(be, color=GREY, lw=0.7, ls=':'); ax.annotate(f' $B^\\star\\!\\approx\\!{be:.0f}$', xy=(be, 0.12), xycoords=('data', 'axes fraction'), fontsize=6.5, va='bottom', ha='left', color=MUTED)
     ax.set_xscale('log', base=2); ax.set_xticks(budgets); ax.set_xticklabels([str(b) for b in budgets])
     ax.set_xlabel('true-rate measurements per slot $B$'); ax.set_ylabel('decode-rate gain vs nominal AO (pp)')
-    h_, l_ = ax.get_legend_handles_labels(); ax.legend(h_, l_, frameon=False, loc='lower right', fontsize=5.8)
+    h_, l_ = ax.get_legend_handles_labels(); fig.legend(h_, l_, loc='outside lower center', ncol=1, frameon=False, fontsize=6)
     save(fig, out, 'fig_probes_tuned')
     write_csv(out / 'csv' / 'fig_probes_tuned.csv', ['series', 'B', 'mean_pp', 'ci95_pp'] + [f'seed{s}' for s in range(len(ps))], rows_csv)
 

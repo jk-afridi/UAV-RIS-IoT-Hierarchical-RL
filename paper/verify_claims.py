@@ -137,7 +137,6 @@ def main():
     P = J('08_curves/probes.json')['cells']['spread=1']['per_seed']
     pr = lambda k: tci(pd_(P, k))
     claim('probes: CEM from max-min at B=10,16,46', [pm(*pr('cem_nominal_B10')), pm(*pr('cem_nominal_B16')), pm(*pr('cem_nominal_B46'))])
-    claim('probes: CEM from decode-aware at B=10,46; zero-probe decode-aware', [pm(*pr('cem_decode_B10')), pm(*pr('cem_decode_B46')), pm(*pr('decode_nominal'))])
     bs = [1, 4, 7, 10, 16, 31, 46, 91]
     y = [pr(f'cem_nominal_B{b}')[0] for b in bs]; md = pr('decode_nominal')[0]
     be = next(2 ** (np.log2(bs[i - 1]) + (md - y[i - 1]) / (y[i] - y[i - 1]) * (np.log2(bs[i]) - np.log2(bs[i - 1]))) for i in range(1, len(bs)) if y[i - 1] < md <= y[i])
@@ -146,10 +145,8 @@ def main():
     Rg = J('08_curves/regime.json')['cells']
     rg = lambda pw, rm, a, b='ao_nominal': tci(pd_(Rg[f'power={pw}|r_min={rm}']['per_seed'], a, b))
     lo, hi = min(rg(pw, rm, 'decode_nominal')[0] for pw in (0, 5, 10, 15, 20) for rm in (0.25, 0.5, 0.75, 1) if f'power={pw}|r_min={rm}' in Rg), max(rg(pw, rm, 'decode_nominal')[0] for pw in (0, 5, 10, 15, 20) for rm in (0.25, 0.5, 0.75, 1) if f'power={pw}|r_min={rm}' in Rg)
-    claim('regime: decode-aware gain range +3 to +22', ['$+3$ to $+22$'], cond=round(lo) == 3 and round(hi) == 22, detail=f'{lo:.2f}..{hi:.2f}')
     d00 = tci(pd_(Rg['power=0|r_min=1']['per_seed'], 'decode_nominal', 'cem_nominal_B46'))
     d20 = tci(pd_(Rg['power=20|r_min=1']['per_seed'], 'decode_nominal', 'cem_nominal_B46'))
-    claim('regime: +8.2 +- 0.9 at 0 dBm Rmin=1 and -31.2 +- 5.6 at 20 dBm Rmin=1', [pm(*d00), pm(*d20)])
     sig = lambda pw, rm: (lambda m, h: 0 if abs(m) <= h else int(np.sign(m)))(*tci(pd_(Rg[f'power={pw}|r_min={rm}']['per_seed'], 'decode_nominal', 'cem_nominal_B46')))
     claim('regime: certified signs as described', [], cond=all(sig(0, r) == 1 for r in (0.5, 0.75, 1)) and all(sig(5, r) == 1 for r in (0.75, 1))
           and all(sig(pw, r) == -1 for pw in (10, 15, 20) for r in (0.25, 0.5, 0.75, 1)))
@@ -190,6 +187,29 @@ def main():
           cond=all(int((np.array([q[nm(1.6)]['decode_pct'] - q['ao_nominal']['decode_pct'] for q in TC[sp]['per_seed'][5:]]) > 0).sum()) == 15 for sp in TC))
     claim('tau* vs default width, paired', [pm(*tcc('spread=1', nm(1.6), nm(0.2))), pm(*tcc('spread=2', nm(1.6), nm(0.2)))])
     claim('tau plateau: 3.2 and 6.4 at s=1', [pm(*tcc('spread=1', nm(3.2))), pm(*tcc('spread=1', nm(6.4)))])
+
+    # ----------------------------------------------------------------------------------- tuned-width probing and regime
+    PT = J('08_curves/probes_tuned.json')['cells']['spread=1']['per_seed']
+    pt = lambda m: tci(pd_(PT, m, 'ao_nominal'))
+    claim('probes (tuned): zero-probe tuned decode-aware; CEM from max-min at B=10,16,46,91',
+          [pm(*pt('decode_tuned')), pm(*pt('cem_nominal_B10')), pm(*pt('cem_nominal_B16')), pm(*pt('cem_nominal_B46')), pm(*pt('cem_nominal_B91'))])
+    claim('probes (tuned): CEM from tuned decode-aware at B=10 and 46', [pm(*pt('cem_tuned_B10')), pm(*pt('cem_tuned_B46'))])
+    bs2 = [1, 4, 7, 10, 16, 31, 46, 91]
+    y2 = [pt(f'cem_nominal_B{b}')[0] for b in bs2]; mt = pt('decode_tuned')[0]
+    be2 = next(2 ** (np.log2(bs2[i - 1]) + (mt - y2[i - 1]) / (y2[i] - y2[i - 1]) * (np.log2(bs2[i]) - np.log2(bs2[i - 1]))) for i in range(1, len(bs2)) if y2[i - 1] < mt <= y2[i])
+    claim('probes (tuned): break-even about 58, between B=46 and B=91', ['B^\\star\\approx58'], cond=round(be2) == 58 and 46 < be2 < 91, detail=f'{be2:.2f}')
+    RT = J('08_curves/regime_tuned.json')['cells']
+    rt = lambda pw, rm, a, b='ao_nominal': tci(pd_(RT[f'power={pw}|r_min={rm}']['per_seed'], a, b))
+    gs = [rt(pw, rm, 'decode_tuned')[0] for pw in (0, 5, 10, 15, 20) for rm in (0.25, 0.5, 0.75, 1)]
+    claim('regime (tuned): gain range +3.8 to +25.7', ['$+3.8$ to $+25.7$'], cond=round(min(gs), 1) == 3.8 and round(max(gs), 1) == 25.7, detail=f'{min(gs):.2f}..{max(gs):.2f}')
+    d0 = [rt(0, rm, 'decode_tuned', 'cem_nominal_B46') for rm in (0.25, 0.5, 0.75, 1)]
+    d5 = [rt(5, rm, 'decode_tuned', 'cem_nominal_B46') for rm in (0.25, 0.5, 0.75, 1)]
+    claim('regime (tuned): 0 dBm +10.6+-2.5 .. +13.7+-2.8; 5 dBm +2.9+-1.3 .. +10.9+-3.2', [pm(*d0[0]), pm(*d0[1]), pm(*d5[0]), pm(*d5[3])],
+          cond=all(m - h > 0 for m, h in d0 + d5))
+    sg = lambda pw, rm: (lambda m, h: 0 if abs(m) <= h else int(np.sign(m)))(*rt(pw, rm, 'decode_tuned', 'cem_nominal_B46'))
+    claim('regime (tuned): 10 dBm tie for R>=0.5, probing better at R=0.25 (-2.1+-0.9) and at all thresholds from 15 dBm; -28.3+-2.5 at 20 dBm, Rmin=1',
+          [pm(*rt(10, 0.25, 'decode_tuned', 'cem_nominal_B46')), pm(*rt(20, 1, 'decode_tuned', 'cem_nominal_B46'))],
+          cond=all(sg(10, r) == 0 for r in (0.5, 0.75, 1)) and sg(10, 0.25) == -1 and all(sg(pw, r) == -1 for pw in (15, 20) for r in (0.25, 0.5, 0.75, 1)))
 
     # ----------------------------------------------------------------------------------- report
     fails = [r for r in RES if not r[0]]
