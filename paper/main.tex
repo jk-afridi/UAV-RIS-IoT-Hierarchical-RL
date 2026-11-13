@@ -289,22 +289,20 @@ For channel-estimation error we vary the variance of the CSI estimation noise by
 \label{fig:robust}
 \end{figure*}
 
-\paragraph*{Sensitivity to the sigmoid width and margin.} Fig.~\ref{fig:tau} varies the width $\tau/R_{\min}$ and the margin $\epsilon$ of the decode-aware objective on the five design seeds. The gain over nominal AO is positive, with an interval excluding zero, in all 20 settings (from $+7.8$ to $+15.7$ points), so the benefit is not an artefact of a hand-set value. It is also not flat: the width $0.2R_{\min}$ that we used for all other experiments is close to the worst of the grid ($+7.9$ at margin 0.15), and wider sigmoids are better ($+15.2$ at $0.8R_{\min}$); the margin has little effect.
+\paragraph*{Sensitivity to the sigmoid width and margin.} Fig.~\ref{fig:tau}(a) varies the width $\tau/R_{\min}$ and the margin $\epsilon$ of the decode-aware objective on the five design seeds. The gain over nominal AO is positive, with an interval excluding zero, in all 20 settings (from $+7.8$ to $+15.7$ points), so the benefit is not an artefact of a hand-set value. It is also not flat: the width $0.2R_{\min}$ that we used for all other experiments is close to the worst of the grid ($+7.9$ at margin 0.15), and wider sigmoids are better ($+15.2$ at $0.8R_{\min}$); the margin has little effect.
 
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\columnwidth]{figures/fig_tau.pdf}
-\caption{Gain of decode-aware AO over nominal max-min AO over the grid of sigmoid width and margin (5 design seeds, $s=1$). Every interval excludes zero.}
-\label{fig:tau}
-\end{figure}
-
-A grid optimum found on the same seeds that produced it is not evidence, so we repeated the choice honestly. We extended the widths to $\{0.2,0.4,0.8,1.6,3.2,6.4\}R_{\min}$, chose $\tau^\star$ on the exploratory seeds at $s=1$ only ($\tau^\star=1.6R_{\min}$), and evaluated it on the 15 confirmatory seeds (Fig.~\ref{fig:tauconfirm}). It gains $+15.2\pm1.5$ points at $s=1$ and $+17.6\pm1.2$ at $s=2$, which was not used for the choice, with all 15 seeds improving in both cases, and it beats the width $0.2R_{\min}$ by $+7.5\pm0.8$ and $+9.5\pm1.0$ points in a paired comparison. The gain is flat for widths above $1.6R_{\min}$ ($+15.2\pm1.6$ at 3.2 and $+14.9\pm1.5$ at 6.4), so the result does not rest on a finely tuned value. All other experiments in this paper use the original width $0.2R_{\min}$; their decode-aware numbers are therefore conservative (see Section~\ref{sec:limits}).
+A grid optimum found on the same seeds that produced it is not evidence, so we repeated the choice honestly. We extended the widths to $\{0.2,0.4,0.8,1.6,3.2,6.4\}R_{\min}$, chose $\tau^\star$ on the exploratory seeds at $s=1$ only ($\tau^\star=1.6R_{\min}$), and evaluated it on the 15 confirmatory seeds (Fig.~\ref{fig:tau}(b), (c)). It gains $+15.2\pm1.5$ points at $s=1$ and $+17.6\pm1.2$ at $s=2$, which was not used for the choice, with all 15 seeds improving in both cases, and it beats the width $0.2R_{\min}$ by $+7.5\pm0.8$ and $+9.5\pm1.0$ points in a paired comparison. The gain is flat for widths above $1.6R_{\min}$ ($+15.2\pm1.6$ at 3.2 and $+14.9\pm1.5$ at 6.4), so the result does not rest on a finely tuned value. All other experiments in this paper use the original width $0.2R_{\min}$; their decode-aware numbers are therefore conservative (see Section~\ref{sec:limits}).
 
 \begin{figure*}[!t]
 \centering
-\includegraphics[width=\textwidth]{figures/fig_tau_confirm.pdf}
-\caption{Sigmoid width chosen on the exploratory seeds (hollow, 0--4) and evaluated on the confirmatory seeds (filled, 5--19). Dotted line: the selected width $\tau^\star=1.6R_{\min}$. Mean and 95\% interval of the paired gain over nominal max-min AO.}
-\label{fig:tauconfirm}
+\begin{minipage}[b]{0.335\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/fig_tau.pdf}\\[-1pt]{\small (a) design seeds 0--4, $s=1$}
+\end{minipage}\hfill
+\begin{minipage}[b]{0.655\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/fig_tau_confirm.pdf}\\[-1pt]{\small (b), (c) design seeds (hollow) and held-out seeds 5--19 (filled)}
+\end{minipage}
+\caption{Is the decode-aware gain an artefact of the sigmoid width? (a) Gain over nominal max-min AO on the grid of width $\tau/R_{\min}$ and margin $\epsilon$ (box: the setting used elsewhere in the paper); every interval excludes zero, but the gain rises with the width. (b), (c) The width $\tau^\star=1.6R_{\min}$ (dotted line) was chosen on the design seeds at $s=1$ only and is evaluated on the 15 held-out seeds at $s=1$ and $s=2$; the gain is confirmed and flat for wider sigmoids. Means and 95\% intervals of paired differences.}
+\label{fig:tau}
 \end{figure*}
 
 \subsection{Limitations and threats to validity}
