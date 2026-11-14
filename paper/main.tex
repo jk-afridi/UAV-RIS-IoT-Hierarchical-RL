@@ -4,15 +4,18 @@
 \usepackage{algorithm}
 \usepackage{array}
 \usepackage{booktabs}
-\usepackage[section]{placeins}
+\usepackage{placeins}
 \usepackage{textcomp}
 \usepackage{url}
 \usepackage{verbatim}
 \usepackage{graphicx}
 \usepackage{cite}
 \usepackage{color}
+\usepackage{stfloats}
 \renewcommand{\topfraction}{0.9}\renewcommand{\dbltopfraction}{0.9}\renewcommand{\textfraction}{0.07}\renewcommand{\floatpagefraction}{0.8}\renewcommand{\dblfloatpagefraction}{0.8}
-\setcounter{topnumber}{3}\setcounter{dbltopnumber}{3}
+\setcounter{topnumber}{3}\setcounter{dbltopnumber}{3}\setcounter{bottomnumber}{2}\setcounter{totalnumber}{5}
+\setlength{\textfloatsep}{9pt plus 2pt minus 3pt}\setlength{\dbltextfloatsep}{9pt plus 2pt minus 3pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}\setlength{\dblfloatsep}{8pt plus 2pt minus 2pt}\setlength{\intextsep}{8pt plus 2pt minus 2pt}
 \hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
 
 \begin{document}
@@ -57,7 +60,7 @@ Our simulator and the SAC low-level wrapper descend from the public code accompa
 \subsection{Network Architecture}
 Fig.~\ref{fig:system_model}(a) shows the network and Fig.~\ref{fig:system_model}(b) the amplitude model introduced below.
 
-\begin{figure*}[!tp]
+\begin{figure*}[!tb]
 \centering
 \includegraphics[width=0.74\textwidth]{figures/system_model.jpeg}\\[3pt]
 \includegraphics[width=0.74\textwidth]{figures/fig_pda_model.pdf}
@@ -151,7 +154,7 @@ Each of the 5 seeds has its own city layout and its own hardware instance. The c
 \label{sec:headroom}
 Table~\ref{tab:headroom} reports decode rate at mismatch levels $s\in\{0,1,2\}$, and Fig.~\ref{fig:headroom} shows the same paired gains over nominal-PDA AO as intervals, grouped by the information each method uses (Section~\ref{sec:methods}).
 
-\begin{table*}[t]
+\begin{table*}[!tb]
 \centering
 \caption{Decode rate (\%) and paired difference to nominal-PDA AO (percentage points), mean $\pm$ 95\% CI over 5 seeds. Mismatch level $s$ scales the per-element deviation of the true hardware from the nominal curve.}
 \label{tab:headroom}
@@ -161,7 +164,7 @@ Table~\ref{tab:headroom} reports decode rate at mismatch levels $s\in\{0,1,2\}$,
 \emph{Assuming an ideal RIS is costly:} AO that ignores the PDA loses 14--24 points to nominal-PDA AO at every mismatch level, so modelling the hardware, even nominally, is the first-order effect. \emph{Hardware mismatch is second order at realistic spread:} knowing the true curve gains $0.2\pm1.7$ points at $s=0$, $3.2\pm2.1$ at $s=1$ and $8.7\pm2.7$ at $s=2$. \emph{A rough calibration suffices:} with a calibration error of 0.25 the decode-aware solver recovers $13.7\pm3.1$ of the $15.4\pm3.2$ points of the true-curve decode-aware solver at $s=2$. \emph{Channel-estimation error costs about 6 points:} perfect CSI gains $6.5\pm6.2$ ($s=0$) and $6.0\pm7.4$ ($s=1$) with nominal max-min AO. \emph{The objective matters as much:} decode-aware AO with the nominal model gains $7.2\pm2.3$, $6.8\pm1.5$ and $7.9\pm1.3$ points at $s=0,1,2$ with no extra measurements, i.e.\ as much as removing the estimation error. \emph{Probing gains more but costs measurements:} CEM with 15 probes gains $7.3\pm2.3$ to $11.3\pm2.6$ points and with 45 probes $13.1\pm2.8$ to $18.7\pm2.2$; with only 6 probes it is worse than AO, because a few noisy samples replace a good solution. Random search with 45 probes is 8--17 points worse than AO.
 
 
-\begin{figure*}[!tp]
+\begin{figure*}[!tb]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_headroom.pdf}
 \caption{Paired decode-rate gain over nominal-PDA max-min AO at mismatch levels $s=0,1,2$ (mean and 95\% $t$-interval over 5 seeds). Marker colour groups methods by the information they use.}
@@ -170,7 +173,7 @@ Table~\ref{tab:headroom} reports decode rate at mismatch levels $s\in\{0,1,2\}$,
 
 \paragraph*{How accurate must the calibration be?} Fig.~\ref{fig:calibration} replaces the true curve by one with calibration error $e$ (in units of the $s=1$ spread) and reports the gain over nominal max-min AO. At $s=1$ the decode-aware solver keeps its gain up to $e=0.5$ ($+8.0\pm2.1$ points, against $+8.7\pm1.5$ with perfect knowledge), falls to $+4.6\pm2.1$ at $e=1$ and becomes harmful at $e=2$ ($-4.8\pm3.1$). At $s=2$ it stays positive over the whole range ($+15.3\pm2.9$ at $e=0.5$, $+12.3\pm1.5$ at $e=1$, $+5.6\pm2.2$ at $e=2$). Max-min AO is more fragile: at $s=1$ it is no better than nominal AO at $e=0.5$ ($-0.3\pm3.0$) and loses $12.2\pm1.9$ points at $e=2$. A calibration that is accurate to about half the mismatch spread therefore suffices for the decode-aware solver.
 
-\begin{figure*}[!tp]
+\begin{figure*}[!tb]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_calibration.pdf}
 \caption{Decode-rate gain over nominal max-min AO as a function of the calibration error of the amplitude model used by the solver, for max-min and decode-aware AO at $s=1$ and $s=2$ (mean and 95\% interval, 5 seeds).}
@@ -182,7 +185,7 @@ Table~\ref{tab:headroom} reports decode rate at mismatch levels $s\in\{0,1,2\}$,
 \label{sec:sweeps}
 Table~\ref{tab:sweeps} varies one parameter at a time around the default scenario at $s=1$ (100 slots per seed, 5 seeds).
 
-\begin{table*}[t]
+\begin{table*}[!tb]
 \centering
 \caption{One-at-a-time sweeps at $s=1$: decode rate of nominal-PDA AO and paired differences to it (percentage points, mean $\pm$ 95\% CI over 5 seeds). \texttt{margin} is the decode-aware margin $\epsilon$; ``default'' is $R_{\text{min}}=0.5$, $K_{\text{rice,BS}}=1$, 10\,dBm, $L=64$, $\epsilon=0.15$.}
 \label{tab:sweeps}
@@ -198,7 +201,7 @@ The decode-aware solver improves on max-min AO in all 12 settings (the default a
 
 \paragraph*{Where does each approach win?} Fig.~\ref{fig:probing}(b), (c) maps transmit power and rate threshold at $s=1$ with $B=46$ probes (100 slots per seed). The tuned decode-aware solver gains $+3.8$ to $+25.7$ points over nominal AO throughout the grid. Against 46-probe CEM from the max-min solution, zero-probe decode-aware AO is significantly better at 0\,dBm at every threshold ($+10.6\pm2.5$ to $+13.7\pm2.8$ points) and at 5\,dBm at every threshold ($+2.9\pm1.3$ to $+10.9\pm3.2$); at 10\,dBm the two are not distinguishable for $R_{\min}\ge0.5$, and probing is significantly better at $R_{\min}=0.25$ ($-2.0\pm0.9$) and at every threshold from 15\,dBm up, by as much as $28.3\pm2.5$ points at 20\,dBm and $R_{\min}=1$. Cells marked with an asterisk have a 95\% interval of the paired difference that excludes zero; unmarked cells are inconclusive with five seeds.
 
-\begin{figure*}[!tp]
+\begin{figure*}[!tb]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_probing.pdf}
 \caption{When does probing pay off? (a) Decode-rate gain over nominal max-min AO versus probing budget $B$ at $s=1$ (mean and 95\% interval, 5 seeds): the band is zero-probe decode-aware AO at the tuned width, the dotted line the same solver at the initial width $0.2R_{\min}$, and the vertical line the break-even budget of CEM started from the max-min solution. (b) Gain of tuned decode-aware AO over nominal AO over transmit power and rate threshold. (c) Tuned decode-aware AO minus 46-probe AO+CEM; blue means the zero-probe solver is better, and an asterisk marks a 95\% interval of the paired difference that excludes zero.}
@@ -211,7 +214,7 @@ The decode-aware solver improves on max-min AO in all 12 settings (the default a
 \label{sec:episode}
 Table~\ref{tab:aoi} runs the decode-aware solver inside 200-step episodes (2 episodes per seed, 5 seeds) under two heuristic schedulers, at $s=1$ (upper block) and $s=2$ (lower block).
 
-\begin{table*}[!tp]
+\begin{table*}[!tb]
 \centering
 \caption{Episode-level results (200-step episodes, 2 per seed, 5 seeds). $\Delta$ columns are paired per-seed differences to nominal-PDA AO under the same scheduler (95\% CI); the two blocks are the two hardware-mismatch levels.}
 \label{tab:aoi}
@@ -221,7 +224,7 @@ Table~\ref{tab:aoi} runs the decode-aware solver inside 200-step episodes (2 epi
 Under greedy AoI with travel, the nominal decode-aware solver lowers average AoI by $1.65\pm0.58$ slots at $s=1$ ($11.8\to10.1$, about 14\%) and $1.87\pm1.01$ at $s=2$, and raises decode rate by $6.8\pm3.1$ and $7.0\pm2.5$ points; every seed improves. With the true curve the reductions are $2.19\pm0.64$ and $2.88\pm0.94$ slots. Under greedy AoI without travel the effects are similar ($-2.11\pm1.57$ and $-2.33\pm1.56$ slots for the nominal decode-aware solver). Most raw intervals overlap because layouts differ across seeds; the paired differences do not (Fig.~\ref{fig:episode}: every interval of the AoI change lies below zero for the decode-aware solvers).
 
 
-\begin{figure*}[!tp]
+\begin{figure*}[!tb]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_episode.pdf}
 \caption{Paired per-seed change in average AoI (top) and decode rate (bottom) relative to nominal-PDA AO under the same scheduler, at $s=1$ and $s=2$ (mean and 95\% interval, 5 seeds). Negative AoI change is an improvement.}
@@ -241,14 +244,13 @@ Under greedy AoI with travel, the nominal decode-aware solver lowers average AoI
 
 \paragraph*{PPO scheduler.} The hybrid-action PPO scheduler trained on a pool of layouts reached an average AoI of $27.6\pm25.1$ on held-out layouts against $11.6\pm3.4$ for greedy AoI with travel (same low level, 5 seeds), so we make no claim for learned scheduling in this environment. We did not tune it exhaustively, and the result applies to this heuristic-friendly setting, in which a one-cluster-per-step AoI problem is close to solved by greedy rules.
 
-\FloatBarrier
 \subsection{Statistical power, hardware realism and objective sensitivity}
 \label{sec:robust}
 The preceding studies use five seeds, and the decode-aware objective was designed on the same seeds. The studies below address both points. Each was specified, with its pass criterion, before it was run (\texttt{paper/PREREGISTRATION.md}); where a criterion failed we say so.
 
 \paragraph*{Twenty seeds, with a confirmatory split.} Seeds 0--4 were used while the method was designed and are labelled exploratory; seeds 5--19 were never used for any choice and are confirmatory. On the 15 confirmatory seeds the decode-aware solver (nominal model, width $0.2R_{\min}$) gains $+7.2\pm1.3$ points over nominal max-min AO at $s=1$ and $+8.4\pm0.7$ at $s=2$; every one of the 15 seeds improves in both cases (exact one-sided sign test $p=3.1\times10^{-5}$). Over all 20 seeds the gains are $+7.2\pm1.0$ and $+8.8\pm0.7$ (Fig.~\ref{fig:power}). The five-seed estimate was therefore not inflated by the design seeds. In Fig.~\ref{fig:power}, each marker is one seed (hollow: design seeds, filled: held-out seeds); the upper panels show that the held-out markers scatter around the same level as the design markers, and the lower panels show the 95\% interval narrowing as seeds are added without drifting.
 
-\begin{figure*}[!tp]
+\begin{figure*}[!tb]
 \centering
 \includegraphics[width=0.85\textwidth]{figures/fig_power.pdf}
 \caption{Headline paired gain of decode-aware AO over nominal max-min AO with 20 seeds. Top: per-seed gains; hollow markers are the exploratory seeds used during design, filled markers the 15 confirmatory seeds; the band is the 95\% interval over the confirmatory seeds. Bottom: running mean and 95\% $t$-interval as seeds accumulate.}
@@ -259,7 +261,7 @@ The preceding studies use five seeds, and the decode-aware objective was designe
 
 For channel-estimation error we vary the variance of the CSI estimation noise by four orders of magnitude, which covers an error power from about $-25$ to $+15$\,dB relative to the mean cascaded-channel power. Decode-aware AO gains $+10.1\pm2.9$ points at the lowest error level and $+8.3\pm2.7$ at the level used elsewhere in this paper, but only $+4.8\pm4.4$ and $+0.2\pm2.6$ at the two highest levels, where the estimate is nearly uninformative. In that regime probing is far better ($+35.2\pm2.6$ and $+40.7\pm2.6$ points for 46 measurements), and so is a max-min solver with perfect CSI ($+44.1\pm13.7$ and $+59.4\pm9.5$). Decode-aware AO is a good-CSI method: it should not be used when the estimate is worse than the channel itself. In Fig.~\ref{fig:robust}, panel (a) reads left to right from coarse to fine phase control and panel (b) from accurate to useless CSI; the decode-aware curve (green) stays above max-min AO in (a) from 2 bits, and in (b) it is overtaken by probing and by perfect-CSI max-min AO as the error grows.
 
-\begin{figure*}[!tp]
+\begin{figure*}[!tb]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_robust.pdf}
 \caption{Hardware realism at $s=1$ (mean and 95\% interval, 5 seeds). (a) Decode-rate gain versus RIS phase resolution; 6 bits is the unrestricted 64-point grid and reproduces the reference solvers exactly. (b) Gain versus channel-estimation error power for decode-aware AO, perfect-CSI max-min AO and 46-probe AO+CEM.}
@@ -270,7 +272,7 @@ For channel-estimation error we vary the variance of the CSI estimation noise by
 
 A grid optimum found on the same seeds that produced it is not evidence, so we repeated the choice honestly. We extended the widths to $\{0.2,0.4,0.8,1.6,3.2,6.4\}R_{\min}$, chose $\tau^\star$ on the exploratory seeds at $s=1$ only ($\tau^\star=1.6R_{\min}$), and evaluated it on the 15 confirmatory seeds (Fig.~\ref{fig:tau}(b), (c)). It gains $+15.2\pm1.5$ points at $s=1$ and $+17.6\pm1.2$ at $s=2$, which was not used for the choice, with all 15 seeds improving in both cases, and it beats the width $0.2R_{\min}$ by $+7.5\pm0.8$ and $+9.5\pm1.0$ points in a paired comparison. The gain is flat for widths above $1.6R_{\min}$ ($+15.2\pm1.6$ at 3.2 and $+14.9\pm1.5$ at 6.4), so the result does not rest on a finely tuned value. All other experiments in this paper use the original width $0.2R_{\min}$; their decode-aware numbers are therefore conservative (see Section~\ref{sec:limits}).
 
-\begin{figure*}[!tp]
+\begin{figure*}[!tb]
 \centering
 \begin{minipage}[b]{0.335\textwidth}\centering
 \includegraphics[width=\linewidth]{figures/fig_tau.pdf}\\[-1pt]{\small (a) design seeds 0--4, $s=1$}
@@ -295,7 +297,7 @@ On an audited UAV-RIS data-collection benchmark, the largest controllable losses
 \label{app:residual}
 Fig.~\ref{fig:residual} shows the reward of the learned residual policy minus that of its own AO prior on fresh slots during training, for the two recipes described in Section~\ref{sec:negative}.
 
-\begin{figure}[!tbp]
+\begin{figure}[!tb]
 \centering
 \includegraphics[width=\columnwidth]{figures/fig_residual.pdf}
 \caption{Training curves of the learned residual SAC policy relative to its AO prior: the first recipe falls below the prior; the final recipe with the best-validation fallback never exceeds it.}
