@@ -274,13 +274,8 @@ A grid optimum found on the same seeds that produced it is not evidence, so we r
 
 \begin{figure*}[!tb]
 \centering
-\begin{minipage}[b]{0.335\textwidth}\centering
-\includegraphics[width=\linewidth]{figures/fig_tau.pdf}\\[-1pt]{\small (a) design seeds 0--4, $s=1$}
-\end{minipage}\hfill
-\begin{minipage}[b]{0.655\textwidth}\centering
-\includegraphics[width=\linewidth]{figures/fig_tau_confirm.pdf}\\[-1pt]{\small (b), (c) design seeds (hollow) and held-out seeds 5--19 (filled)}
-\end{minipage}
-\caption{Is the decode-aware gain an artefact of the sigmoid width? (a) Gain over nominal max-min AO on the grid of width $\tau/R_{\min}$ and margin $\epsilon$ (box: the setting used elsewhere in the paper); every interval excludes zero, but the gain rises with the width. (b), (c) The width $\tau^\star=1.6R_{\min}$ (dotted line) was chosen on the design seeds at $s=1$ only and is evaluated on the 15 held-out seeds at $s=1$ and $s=2$; the gain is confirmed and flat for wider sigmoids. Means and 95\% intervals of paired differences.}
+\includegraphics[width=\textwidth]{figures/fig_width.pdf}
+\caption{Is the decode-aware gain an artefact of the sigmoid width? (a) Gain over nominal max-min AO on the grid of width $\tau/R_{\min}$ and margin $\epsilon$ on the design seeds ($s=1$; box: the setting used elsewhere in the paper); every interval excludes zero, but the gain rises with the width. (b), (c) The width $\tau^\star=1.6R_{\min}$ (dotted line) was chosen on the design seeds at $s=1$ only and is evaluated on the 15 held-out seeds at $s=1$ and $s=2$; the gain is confirmed and flat for wider sigmoids. Means and 95\% intervals of paired differences.}
 \label{fig:tau}
 \end{figure*}
 

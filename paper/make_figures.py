@@ -291,8 +291,8 @@ def fig_tau_confirm(curves, out, axs=None):
         summary[key] = dict(mean_conf=m_c, ci_conf=h_c, k_pos=k, n_conf=len(conf), vs_default_mean=m_d, vs_default_ci=h_d)
         ax.axvline(t_star, color=GREY, lw=0.7, ls=':'); ax.axhline(0, color=INK, lw=0.7)
         ax.set_xscale('log'); ax.set_xticks(taus); ax.set_xticklabels([f'{t:g}' for t in taus]); ax.minorticks_off()
-        ax.set_xlabel(r'sigmoid width $\tau / R_{\min}$'); ax.set_title(f'$s={sp:g}$:  $\\tau^\\star={t_star:g}$ gives ${m_c:+.1f}\\pm{h_c:.1f}$ pp ({k}/{len(conf)} seeds)', fontsize=6.8)
-    axs[0].set_ylabel('gain vs nominal max-min AO (pp)'); axs[0].legend(frameon=False, loc='lower right', fontsize=6)
+        ax.set_xlabel(r'sigmoid width $\tau / R_{\min}$'); ax.set_title(f'$s={sp:g}$: ${m_c:+.1f}\\pm{h_c:.1f}$ pp at $\\tau^\\star$ ({k}/{len(conf)} seeds)', fontsize=6.6)
+    axs[0].set_ylabel('gain vs nominal max-min AO (pp)'); axs[0].legend(frameon=False, loc='upper left', fontsize=6)
     if standalone:
         save(fig, out, 'fig_tau_confirm')
     write_csv(out / 'csv' / 'fig_tau_confirm.csv', ['cell', 'seeds', 'tau_frac', 'mean_pp', 'ci95_pp'], rows_csv)
