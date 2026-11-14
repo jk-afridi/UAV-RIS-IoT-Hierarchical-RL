@@ -1,0 +1,1754 @@
+{
+  "config": {
+    "seed": 0,
+    "spread": 1.0,
+    "train_slots": 30000,
+    "L": 64,
+    "beta_min": 0.2,
+    "r_min": 0.5,
+    "k_rice": 10.0,
+    "k_rice_bs": 1.0,
+    "power_dbm": 10.0,
+    "max_dist": 20.0,
+    "delta_max": 1.0,
+    "ao_sweeps": 2,
+    "lr": 0.0003,
+    "alpha": 0.02,
+    "auto_alpha": false,
+    "l2": 0.5,
+    "anchor_frac": 0.25,
+    "select_best": true,
+    "batch": 256,
+    "buffer": 30000,
+    "warmup": 512,
+    "collect_per_iter": 8,
+    "updates_per_iter": 8,
+    "eval_every": 2000,
+    "eval_slots": 200,
+    "out": "results/curves/tau_confirm.json",
+    "task": "tau_confirm",
+    "seeds": 20,
+    "spreads": [
+      1.0,
+      2.0
+    ],
+    "study_slots": 200,
+    "eval_dists": [
+      0.0,
+      5.0,
+      10.0,
+      15.0
+    ],
+    "margin": 0.15,
+    "errors": [
+      0.0,
+      0.125,
+      0.25,
+      0.5,
+      1.0,
+      2.0
+    ],
+    "budgets": [
+      1,
+      4,
+      7,
+      10,
+      16,
+      31,
+      46,
+      91
+    ],
+    "powers": [
+      0.0,
+      5.0,
+      10.0,
+      15.0,
+      20.0
+    ],
+    "bits": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "csi_vars": [
+      1e-16,
+      1e-15,
+      1e-14,
+      1e-13,
+      1e-12
+    ],
+    "taus": [
+      0.2,
+      0.4,
+      0.8,
+      1.6,
+      3.2,
+      6.4
+    ],
+    "margins": [
+      0.0,
+      0.15,
+      0.3,
+      0.5
+    ],
+    "rmins": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ]
+  },
+  "cells": {
+    "spread=1": {
+      "overrides": {},
+      "spread": 1.0,
+      "per_seed": [
+        {
+          "ao_nominal": {
+            "decode_pct": 71.5,
+            "min_rate": 0.6318138341052206
+          },
+          "decode_nominal": {
+            "decode_pct": 78.5,
+            "min_rate": 0.7988767461597743
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 77.0,
+            "min_rate": 0.8042642967751754
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 79.5,
+            "min_rate": 0.8304905179026667
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 84.25,
+            "min_rate": 0.9387069105489089
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 86.375,
+            "min_rate": 1.0028099270217856
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 86.0,
+            "min_rate": 0.9996813141885578
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 85.75,
+            "min_rate": 0.9964547172910503
+          },
+          "_meta": {
+            "csi_nmse_db": -4.334064939836689
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 78.625,
+            "min_rate": 0.6516651690771379
+          },
+          "decode_nominal": {
+            "decode_pct": 83.875,
+            "min_rate": 0.7934760600841498
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 84.75,
+            "min_rate": 0.8426755992480426
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 87.0,
+            "min_rate": 0.8738325707298696
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 89.75,
+            "min_rate": 0.9905662435925611
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 90.875,
+            "min_rate": 1.0481974866582535
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 90.875,
+            "min_rate": 1.0324070706932684
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 90.625,
+            "min_rate": 1.0269698585124742
+          },
+          "_meta": {
+            "csi_nmse_db": -4.797493898015267
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 77.75,
+            "min_rate": 0.604329938697423
+          },
+          "decode_nominal": {
+            "decode_pct": 86.25,
+            "min_rate": 0.8435938971103242
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 84.625,
+            "min_rate": 0.826760255995584
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 87.625,
+            "min_rate": 0.8475133288037874
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 92.125,
+            "min_rate": 0.9541035794746691
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 92.125,
+            "min_rate": 1.0117228689782887
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 91.875,
+            "min_rate": 1.0007207771296427
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 91.75,
+            "min_rate": 0.9890017501488003
+          },
+          "_meta": {
+            "csi_nmse_db": -6.273941510387355
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 70.0,
+            "min_rate": 0.5684591199345099
+          },
+          "decode_nominal": {
+            "decode_pct": 78.0,
+            "min_rate": 0.7215583924648139
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 77.375,
+            "min_rate": 0.7369947004065445
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 80.5,
+            "min_rate": 0.7657550796796049
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 87.25,
+            "min_rate": 0.8666463696620632
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 88.375,
+            "min_rate": 0.9315861473363107
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 88.25,
+            "min_rate": 0.9240909620557014
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 88.25,
+            "min_rate": 0.9190543267598873
+          },
+          "_meta": {
+            "csi_nmse_db": -4.8207686112884796
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 71.0,
+            "min_rate": 0.482178273855382
+          },
+          "decode_nominal": {
+            "decode_pct": 79.0,
+            "min_rate": 0.6204658092287039
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 77.125,
+            "min_rate": 0.6454816731087973
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 80.875,
+            "min_rate": 0.6676821503370857
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 87.25,
+            "min_rate": 0.7872648667389902
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 88.25,
+            "min_rate": 0.8289346340079546
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 88.25,
+            "min_rate": 0.8221007442658547
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 87.75,
+            "min_rate": 0.811084451765797
+          },
+          "_meta": {
+            "csi_nmse_db": -3.253110420253465
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 77.25,
+            "min_rate": 0.6197199533481512
+          },
+          "decode_nominal": {
+            "decode_pct": 83.375,
+            "min_rate": 0.8166658719426484
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 85.0,
+            "min_rate": 0.8285789180839924
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 87.125,
+            "min_rate": 0.8550592025829888
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 90.875,
+            "min_rate": 0.9689603926900735
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 92.125,
+            "min_rate": 1.0224178042141303
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 92.25,
+            "min_rate": 1.0200983719224928
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 91.75,
+            "min_rate": 1.0081158595113053
+          },
+          "_meta": {
+            "csi_nmse_db": -5.590530219905796
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 80.625,
+            "min_rate": 0.7131403031060108
+          },
+          "decode_nominal": {
+            "decode_pct": 87.875,
+            "min_rate": 0.9176640828089172
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 88.0,
+            "min_rate": 0.9258088170451784
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 89.5,
+            "min_rate": 0.9415340282240371
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 93.125,
+            "min_rate": 1.0531311257753146
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 93.5,
+            "min_rate": 1.112240165799115
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 93.125,
+            "min_rate": 1.1027027047904807
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 92.875,
+            "min_rate": 1.0989447123107867
+          },
+          "_meta": {
+            "csi_nmse_db": -5.566726316654128
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 74.625,
+            "min_rate": 0.569672997565665
+          },
+          "decode_nominal": {
+            "decode_pct": 81.25,
+            "min_rate": 0.8135355873575084
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 82.875,
+            "min_rate": 0.782459941478478
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 84.5,
+            "min_rate": 0.8004920475708688
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 88.25,
+            "min_rate": 0.9274637663533217
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 90.0,
+            "min_rate": 0.998034360432941
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 89.875,
+            "min_rate": 0.984716820449529
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 89.625,
+            "min_rate": 0.9771246348017254
+          },
+          "_meta": {
+            "csi_nmse_db": -4.309313377954104
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 85.25,
+            "min_rate": 0.8661824523757056
+          },
+          "decode_nominal": {
+            "decode_pct": 87.5,
+            "min_rate": 1.027174600096694
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 90.125,
+            "min_rate": 1.0925370673655301
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 91.875,
+            "min_rate": 1.1127466295316608
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 95.0,
+            "min_rate": 1.2252375898350922
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 94.625,
+            "min_rate": 1.2745273603701455
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 94.625,
+            "min_rate": 1.2518189582849601
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 94.375,
+            "min_rate": 1.2379794458771924
+          },
+          "_meta": {
+            "csi_nmse_db": -5.473471918997666
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 74.25,
+            "min_rate": 0.5627996661833864
+          },
+          "decode_nominal": {
+            "decode_pct": 80.25,
+            "min_rate": 0.7434109993389293
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 81.0,
+            "min_rate": 0.7349354203132851
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 85.125,
+            "min_rate": 0.7633153902571499
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 89.125,
+            "min_rate": 0.8927813917502669
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 89.75,
+            "min_rate": 0.9549169384306282
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 89.625,
+            "min_rate": 0.9484208942327621
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 89.625,
+            "min_rate": 0.9349618255899337
+          },
+          "_meta": {
+            "csi_nmse_db": -4.421731539454611
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 65.375,
+            "min_rate": 0.43887785512747896
+          },
+          "decode_nominal": {
+            "decode_pct": 76.125,
+            "min_rate": 0.6020823581881919
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 76.625,
+            "min_rate": 0.5693103045187567
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 79.25,
+            "min_rate": 0.607608637651348
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 85.25,
+            "min_rate": 0.7178354957699332
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 86.25,
+            "min_rate": 0.7623655587644907
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 86.5,
+            "min_rate": 0.7619216456419937
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 85.875,
+            "min_rate": 0.754235771225365
+          },
+          "_meta": {
+            "csi_nmse_db": -4.211016459086045
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 75.0,
+            "min_rate": 0.527781987966704
+          },
+          "decode_nominal": {
+            "decode_pct": 79.625,
+            "min_rate": 0.6898307726848464
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 82.875,
+            "min_rate": 0.6805405092409299
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 84.75,
+            "min_rate": 0.7039180830497762
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 89.25,
+            "min_rate": 0.8314172320785722
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 89.875,
+            "min_rate": 0.8677077407843767
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 89.625,
+            "min_rate": 0.8594485063513776
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 90.0,
+            "min_rate": 0.8509484595737417
+          },
+          "_meta": {
+            "csi_nmse_db": -4.208194615648488
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 66.5,
+            "min_rate": 0.5651077235273891
+          },
+          "decode_nominal": {
+            "decode_pct": 76.5,
+            "min_rate": 0.7238876221530123
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 75.875,
+            "min_rate": 0.7433240509520754
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 78.75,
+            "min_rate": 0.7713850747893233
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 84.5,
+            "min_rate": 0.858158862779208
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 85.625,
+            "min_rate": 0.9225075957981076
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 85.75,
+            "min_rate": 0.9140678778579067
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 85.5,
+            "min_rate": 0.905724994574694
+          },
+          "_meta": {
+            "csi_nmse_db": -3.456661592376433
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 75.625,
+            "min_rate": 0.6174745191944252
+          },
+          "decode_nominal": {
+            "decode_pct": 85.625,
+            "min_rate": 0.7820307771780474
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 83.625,
+            "min_rate": 0.8083162706697895
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 86.125,
+            "min_rate": 0.8340631504083085
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 90.75,
+            "min_rate": 0.9751571304084174
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 91.875,
+            "min_rate": 1.0314486408301267
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 92.0,
+            "min_rate": 1.0245911474434484
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 91.875,
+            "min_rate": 1.0178483653108592
+          },
+          "_meta": {
+            "csi_nmse_db": -4.458528451368224
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 73.25,
+            "min_rate": 0.5722533813060313
+          },
+          "decode_nominal": {
+            "decode_pct": 81.25,
+            "min_rate": 0.7814289269087868
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 82.375,
+            "min_rate": 0.7626840221276447
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 84.5,
+            "min_rate": 0.7921360382571484
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 89.75,
+            "min_rate": 0.9279302981909333
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 91.0,
+            "min_rate": 0.9828212675789526
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 90.875,
+            "min_rate": 0.9778179235288817
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 91.125,
+            "min_rate": 0.9690424517508737
+          },
+          "_meta": {
+            "csi_nmse_db": -4.500405191133191
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 73.875,
+            "min_rate": 0.5204505616059516
+          },
+          "decode_nominal": {
+            "decode_pct": 81.25,
+            "min_rate": 0.6257598760726423
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 81.375,
+            "min_rate": 0.6642734878531491
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 83.875,
+            "min_rate": 0.6867653655454892
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 89.375,
+            "min_rate": 0.8095902563929991
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 89.375,
+            "min_rate": 0.867325679771329
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 89.125,
+            "min_rate": 0.8589561163036395
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 88.25,
+            "min_rate": 0.8566040215743618
+          },
+          "_meta": {
+            "csi_nmse_db": -4.031987931113205
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 78.25,
+            "min_rate": 0.7305910979074076
+          },
+          "decode_nominal": {
+            "decode_pct": 87.375,
+            "min_rate": 0.8749379261938638
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 85.875,
+            "min_rate": 0.9377179176133231
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 87.125,
+            "min_rate": 0.9568244598605582
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 92.5,
+            "min_rate": 1.096492290443844
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 92.375,
+            "min_rate": 1.1757368244101989
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 92.625,
+            "min_rate": 1.166671723720529
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 92.625,
+            "min_rate": 1.1548977177998478
+          },
+          "_meta": {
+            "csi_nmse_db": -4.872839873032396
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 76.625,
+            "min_rate": 0.6268926218641547
+          },
+          "decode_nominal": {
+            "decode_pct": 82.125,
+            "min_rate": 0.8464782081604113
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 82.5,
+            "min_rate": 0.7969059633412945
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 84.25,
+            "min_rate": 0.8241105184683051
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 89.125,
+            "min_rate": 0.9469481701631872
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 89.875,
+            "min_rate": 1.0264588336543634
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 90.25,
+            "min_rate": 1.0313405669588898
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 89.75,
+            "min_rate": 1.0227334150215648
+          },
+          "_meta": {
+            "csi_nmse_db": -4.576348649950345
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 76.5,
+            "min_rate": 0.5691735700448036
+          },
+          "decode_nominal": {
+            "decode_pct": 82.25,
+            "min_rate": 0.7165047706974506
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 82.5,
+            "min_rate": 0.7484723622387611
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 86.0,
+            "min_rate": 0.7705981265744183
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 89.25,
+            "min_rate": 0.8766738782180928
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 89.875,
+            "min_rate": 0.9344576003761899
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 89.125,
+            "min_rate": 0.9280002349697933
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 89.125,
+            "min_rate": 0.9200029703809325
+          },
+          "_meta": {
+            "csi_nmse_db": -4.243438689244167
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 78.375,
+            "min_rate": 0.6450162870202518
+          },
+          "decode_nominal": {
+            "decode_pct": 86.5,
+            "min_rate": 0.7921239550857199
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 86.125,
+            "min_rate": 0.8382949620152772
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 88.625,
+            "min_rate": 0.860494435725239
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 93.125,
+            "min_rate": 0.9925856270978788
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 93.875,
+            "min_rate": 1.0768870296798765
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 93.375,
+            "min_rate": 1.065595367434166
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 93.25,
+            "min_rate": 1.0589012754768847
+          },
+          "_meta": {
+            "csi_nmse_db": -5.243402961424902
+          }
+        }
+      ],
+      "summary": {
+        "ao_nominal": {
+          "decode_pct": {
+            "mean": 75.0125,
+            "ci95": 2.1816750803590192
+          }
+        },
+        "decode_nominal": {
+          "decode_pct": {
+            "mean": 82.225,
+            "ci95": 1.7378916900565753
+          },
+          "paired_decode_pct": {
+            "mean": 7.2125,
+            "ci95": 0.9566054247230146
+          }
+        },
+        "tm_t0.2_m0.15": {
+          "decode_pct": {
+            "mean": 82.38125,
+            "ci95": 1.8514955321253643
+          },
+          "paired_decode_pct": {
+            "mean": 7.36875,
+            "ci95": 0.6918056826827342
+          }
+        },
+        "tm_t0.4_m0.15": {
+          "decode_pct": {
+            "mean": 84.84375,
+            "ci95": 1.6785531772677382
+          },
+          "paired_decode_pct": {
+            "mean": 9.83125,
+            "ci95": 0.7514153024442952
+          }
+        },
+        "tm_t0.8_m0.15": {
+          "decode_pct": {
+            "mean": 89.49375,
+            "ci95": 1.3527478292087378
+          },
+          "paired_decode_pct": {
+            "mean": 14.48125,
+            "ci95": 1.11117358470413
+          }
+        },
+        "tm_t1.6_m0.15": {
+          "decode_pct": {
+            "mean": 90.3,
+            "ci95": 1.1730188846971705
+          },
+          "paired_decode_pct": {
+            "mean": 15.2875,
+            "ci95": 1.2098629786935386
+          }
+        },
+        "tm_t3.2_m0.15": {
+          "decode_pct": {
+            "mean": 90.2,
+            "ci95": 1.1617548774769035
+          },
+          "paired_decode_pct": {
+            "mean": 15.1875,
+            "ci95": 1.2432583514828963
+          }
+        },
+        "tm_t6.4_m0.15": {
+          "decode_pct": {
+            "mean": 89.9875,
+            "ci95": 1.1945501058107417
+          },
+          "paired_decode_pct": {
+            "mean": 14.975,
+            "ci95": 1.2367359049127065
+          }
+        }
+      }
+    },
+    "spread=2": {
+      "overrides": {},
+      "spread": 2.0,
+      "per_seed": [
+        {
+          "ao_nominal": {
+            "decode_pct": 65.75,
+            "min_rate": 0.4488082041192364
+          },
+          "decode_nominal": {
+            "decode_pct": 73.875,
+            "min_rate": 0.6271694798891164
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 73.75,
+            "min_rate": 0.5933005529568856
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 77.0,
+            "min_rate": 0.6071753312485414
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 82.625,
+            "min_rate": 0.7206445841117574
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 83.25,
+            "min_rate": 0.7696527904755248
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 83.625,
+            "min_rate": 0.7590099330145754
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 83.375,
+            "min_rate": 0.754036862899855
+          },
+          "_meta": {
+            "csi_nmse_db": -4.689209261064112
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 67.5,
+            "min_rate": 0.4521235587132941
+          },
+          "decode_nominal": {
+            "decode_pct": 78.125,
+            "min_rate": 0.6098941711273556
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 78.625,
+            "min_rate": 0.6188900996601739
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 79.875,
+            "min_rate": 0.6361166913468413
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 85.125,
+            "min_rate": 0.7296946339810512
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 87.375,
+            "min_rate": 0.7945111009959155
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 86.875,
+            "min_rate": 0.7831222662652764
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 87.125,
+            "min_rate": 0.7804821052946358
+          },
+          "_meta": {
+            "csi_nmse_db": -4.806339934489814
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 73.125,
+            "min_rate": 0.4650082573578152
+          },
+          "decode_nominal": {
+            "decode_pct": 82.875,
+            "min_rate": 0.6646356551073461
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 81.75,
+            "min_rate": 0.625362100695857
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 83.75,
+            "min_rate": 0.6398551106572552
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 88.375,
+            "min_rate": 0.7352045244823348
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 89.0,
+            "min_rate": 0.7976765323583266
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 90.125,
+            "min_rate": 0.7963985673523952
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 89.375,
+            "min_rate": 0.7924979999120731
+          },
+          "_meta": {
+            "csi_nmse_db": -6.322409054257037
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 66.875,
+            "min_rate": 0.43343806745893104
+          },
+          "decode_nominal": {
+            "decode_pct": 78.5,
+            "min_rate": 0.5895508914914773
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 75.25,
+            "min_rate": 0.5880772454035927
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 78.125,
+            "min_rate": 0.6115285591169056
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 84.125,
+            "min_rate": 0.7204678648683226
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 85.375,
+            "min_rate": 0.7770084200797105
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 85.625,
+            "min_rate": 0.7756753682824816
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 85.625,
+            "min_rate": 0.7693738556233933
+          },
+          "_meta": {
+            "csi_nmse_db": -5.061923619073221
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 65.625,
+            "min_rate": 0.4106095250526399
+          },
+          "decode_nominal": {
+            "decode_pct": 74.875,
+            "min_rate": 0.5579402338359826
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 76.625,
+            "min_rate": 0.5461408476612611
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 79.25,
+            "min_rate": 0.5715852308941727
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 85.0,
+            "min_rate": 0.693001665438781
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 85.875,
+            "min_rate": 0.7384157485418844
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 86.5,
+            "min_rate": 0.7467074388075089
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 86.5,
+            "min_rate": 0.7444904729521832
+          },
+          "_meta": {
+            "csi_nmse_db": -3.1824435917179503
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 70.625,
+            "min_rate": 0.4551362829004563
+          },
+          "decode_nominal": {
+            "decode_pct": 80.375,
+            "min_rate": 0.6815921075061392
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 78.125,
+            "min_rate": 0.615818338959943
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 81.0,
+            "min_rate": 0.6372543871444925
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 86.625,
+            "min_rate": 0.7412232768138773
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 87.625,
+            "min_rate": 0.8182096179863462
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 88.0,
+            "min_rate": 0.8111850999836452
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 87.625,
+            "min_rate": 0.8059409773175693
+          },
+          "_meta": {
+            "csi_nmse_db": -5.500514404698226
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 76.0,
+            "min_rate": 0.528479658605434
+          },
+          "decode_nominal": {
+            "decode_pct": 85.5,
+            "min_rate": 0.6697096490743387
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 84.5,
+            "min_rate": 0.6845411161857353
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 86.125,
+            "min_rate": 0.7000111406602305
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 90.125,
+            "min_rate": 0.8133536663813024
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 92.0,
+            "min_rate": 0.8916042499840495
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 91.625,
+            "min_rate": 0.8809599866109437
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 91.625,
+            "min_rate": 0.8694627717405098
+          },
+          "_meta": {
+            "csi_nmse_db": -5.280190498866254
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 66.5,
+            "min_rate": 0.4241256828613206
+          },
+          "decode_nominal": {
+            "decode_pct": 76.25,
+            "min_rate": 0.574713283569343
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 74.125,
+            "min_rate": 0.5621907280363554
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 78.0,
+            "min_rate": 0.5920715974714252
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 84.75,
+            "min_rate": 0.7155529139523316
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 87.25,
+            "min_rate": 0.7780394534886748
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 87.25,
+            "min_rate": 0.7742083543652223
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 86.625,
+            "min_rate": 0.7630551468708685
+          },
+          "_meta": {
+            "csi_nmse_db": -4.131148486687039
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 77.5,
+            "min_rate": 0.5584988372603048
+          },
+          "decode_nominal": {
+            "decode_pct": 87.0,
+            "min_rate": 0.777144934478257
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 85.0,
+            "min_rate": 0.7458035952936956
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 87.125,
+            "min_rate": 0.776750613218472
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 91.5,
+            "min_rate": 0.8876319782560387
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 92.75,
+            "min_rate": 0.9664788633588569
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 93.0,
+            "min_rate": 0.9400127657770302
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 92.875,
+            "min_rate": 0.9270809201489811
+          },
+          "_meta": {
+            "csi_nmse_db": -5.8768841891626415
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 70.375,
+            "min_rate": 0.4552654571300769
+          },
+          "decode_nominal": {
+            "decode_pct": 77.375,
+            "min_rate": 0.6106940078282024
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 80.125,
+            "min_rate": 0.6099870439311832
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 82.875,
+            "min_rate": 0.6422610792477056
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 87.375,
+            "min_rate": 0.7453390335390487
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 88.25,
+            "min_rate": 0.8041415757952781
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 89.0,
+            "min_rate": 0.8061773426122122
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 88.75,
+            "min_rate": 0.798172389134553
+          },
+          "_meta": {
+            "csi_nmse_db": -4.163445890672161
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 64.875,
+            "min_rate": 0.38238464975630504
+          },
+          "decode_nominal": {
+            "decode_pct": 74.125,
+            "min_rate": 0.5406324458891856
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 72.875,
+            "min_rate": 0.519815818846434
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 77.0,
+            "min_rate": 0.5491266662887685
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 83.0,
+            "min_rate": 0.6711688711675114
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 85.5,
+            "min_rate": 0.7224243195784805
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 85.375,
+            "min_rate": 0.7192460719048513
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 85.125,
+            "min_rate": 0.7156396007874807
+          },
+          "_meta": {
+            "csi_nmse_db": -4.577136508933065
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 63.375,
+            "min_rate": 0.38504153123666457
+          },
+          "decode_nominal": {
+            "decode_pct": 71.5,
+            "min_rate": 0.4706816663837206
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 73.75,
+            "min_rate": 0.49820305258214936
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 75.75,
+            "min_rate": 0.5171956247530385
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 82.0,
+            "min_rate": 0.6172524108781287
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 84.25,
+            "min_rate": 0.657683652235965
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 83.375,
+            "min_rate": 0.653938532581395
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 83.625,
+            "min_rate": 0.650026185351132
+          },
+          "_meta": {
+            "csi_nmse_db": -3.759006071717683
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 65.375,
+            "min_rate": 0.4242825270261694
+          },
+          "decode_nominal": {
+            "decode_pct": 74.75,
+            "min_rate": 0.5896690348889431
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 73.375,
+            "min_rate": 0.5572759997660127
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 77.125,
+            "min_rate": 0.5738906872979186
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 82.625,
+            "min_rate": 0.6894085250524918
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 84.0,
+            "min_rate": 0.7357796646595367
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 83.625,
+            "min_rate": 0.7351394991163838
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 83.125,
+            "min_rate": 0.7229182770332127
+          },
+          "_meta": {
+            "csi_nmse_db": -3.171672546729956
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 73.5,
+            "min_rate": 0.511122020629666
+          },
+          "decode_nominal": {
+            "decode_pct": 82.625,
+            "min_rate": 0.6861606834434122
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 81.375,
+            "min_rate": 0.6755251599927674
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 83.625,
+            "min_rate": 0.7004158563996471
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 89.5,
+            "min_rate": 0.815898320555033
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 89.875,
+            "min_rate": 0.8798125545089596
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 90.375,
+            "min_rate": 0.8746226094585839
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 89.875,
+            "min_rate": 0.8707827046477412
+          },
+          "_meta": {
+            "csi_nmse_db": -4.854102146071789
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 71.125,
+            "min_rate": 0.47115484621116144
+          },
+          "decode_nominal": {
+            "decode_pct": 78.0,
+            "min_rate": 0.6094969608919638
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 79.0,
+            "min_rate": 0.6246071706241964
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 82.375,
+            "min_rate": 0.6426336518902014
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 87.25,
+            "min_rate": 0.7658388051033294
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 88.625,
+            "min_rate": 0.8465417724904651
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 88.25,
+            "min_rate": 0.8427735382364727
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 88.75,
+            "min_rate": 0.8337645618013826
+          },
+          "_meta": {
+            "csi_nmse_db": -5.073650252301794
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 71.875,
+            "min_rate": 0.44444904406799496
+          },
+          "decode_nominal": {
+            "decode_pct": 80.0,
+            "min_rate": 0.5500542745983279
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 80.0,
+            "min_rate": 0.5813718760841331
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 83.125,
+            "min_rate": 0.6198231931654011
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 89.0,
+            "min_rate": 0.7431668096440057
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 90.125,
+            "min_rate": 0.8034090264047049
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 89.625,
+            "min_rate": 0.7966861810501998
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 89.5,
+            "min_rate": 0.787099261668566
+          },
+          "_meta": {
+            "csi_nmse_db": -3.924190374644402
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 77.375,
+            "min_rate": 0.5749579413020334
+          },
+          "decode_nominal": {
+            "decode_pct": 83.25,
+            "min_rate": 0.7213976432528071
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 84.5,
+            "min_rate": 0.7394911332683806
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 86.125,
+            "min_rate": 0.7482930820468968
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 89.875,
+            "min_rate": 0.8777112182910506
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 90.75,
+            "min_rate": 0.958175000206696
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 90.25,
+            "min_rate": 0.9497849715326105
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 90.625,
+            "min_rate": 0.9445999346938785
+          },
+          "_meta": {
+            "csi_nmse_db": -5.181322334353533
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 70.375,
+            "min_rate": 0.49988480789105
+          },
+          "decode_nominal": {
+            "decode_pct": 79.625,
+            "min_rate": 0.6914194786952922
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 79.375,
+            "min_rate": 0.6563090208174052
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 81.625,
+            "min_rate": 0.6690103999763706
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 86.875,
+            "min_rate": 0.786227761951279
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 89.125,
+            "min_rate": 0.8565266201448465
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 88.75,
+            "min_rate": 0.8611564828051043
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 88.375,
+            "min_rate": 0.8621919881372709
+          },
+          "_meta": {
+            "csi_nmse_db": -4.979113874396129
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 69.25,
+            "min_rate": 0.4295496782505363
+          },
+          "decode_nominal": {
+            "decode_pct": 76.0,
+            "min_rate": 0.5621356067196775
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 77.25,
+            "min_rate": 0.569669419088231
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 80.25,
+            "min_rate": 0.5939067307401581
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 86.125,
+            "min_rate": 0.7239948133618563
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 87.125,
+            "min_rate": 0.7688329455221621
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 86.875,
+            "min_rate": 0.767952265534986
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 86.5,
+            "min_rate": 0.7605878966481094
+          },
+          "_meta": {
+            "csi_nmse_db": -4.0108990550651304
+          }
+        },
+        {
+          "ao_nominal": {
+            "decode_pct": 73.25,
+            "min_rate": 0.44102985236497233
+          },
+          "decode_nominal": {
+            "decode_pct": 80.75,
+            "min_rate": 0.6221019765582154
+          },
+          "tm_t0.2_m0.15": {
+            "decode_pct": 80.75,
+            "min_rate": 0.5996090089818344
+          },
+          "tm_t0.4_m0.15": {
+            "decode_pct": 83.125,
+            "min_rate": 0.6267589394725241
+          },
+          "tm_t0.8_m0.15": {
+            "decode_pct": 87.25,
+            "min_rate": 0.7319000082003966
+          },
+          "tm_t1.6_m0.15": {
+            "decode_pct": 88.75,
+            "min_rate": 0.8046570018591442
+          },
+          "tm_t3.2_m0.15": {
+            "decode_pct": 89.25,
+            "min_rate": 0.8096812589107814
+          },
+          "tm_t6.4_m0.15": {
+            "decode_pct": 88.875,
+            "min_rate": 0.8029909184834162
+          },
+          "_meta": {
+            "csi_nmse_db": -5.145041196535316
+          }
+        }
+      ],
+      "summary": {
+        "ao_nominal": {
+          "decode_pct": {
+            "mean": 70.0125,
+            "ci95": 1.9863334990283918
+          }
+        },
+        "decode_nominal": {
+          "decode_pct": {
+            "mean": 78.76875,
+            "ci95": 1.921653983923221
+          },
+          "paired_decode_pct": {
+            "mean": 8.75625,
+            "ci95": 0.668500043953656
+          }
+        },
+        "tm_t0.2_m0.15": {
+          "decode_pct": {
+            "mean": 78.50625,
+            "ci95": 1.803094153473819
+          },
+          "paired_decode_pct": {
+            "mean": 8.49375,
+            "ci95": 0.5482947622776936
+          }
+        },
+        "tm_t0.4_m0.15": {
+          "decode_pct": {
+            "mean": 81.1625,
+            "ci95": 1.5763065983562354
+          },
+          "paired_decode_pct": {
+            "mean": 11.15,
+            "ci95": 0.5383905720721879
+          }
+        },
+        "tm_t0.8_m0.15": {
+          "decode_pct": {
+            "mean": 86.45625,
+            "ci95": 1.296559933845967
+          },
+          "paired_decode_pct": {
+            "mean": 16.44375,
+            "ci95": 0.8182495851451008
+          }
+        },
+        "tm_t1.6_m0.15": {
+          "decode_pct": {
+            "mean": 87.84375,
+            "ci95": 1.2199118748272753
+          },
+          "paired_decode_pct": {
+            "mean": 17.83125,
+            "ci95": 0.9596463558364328
+          }
+        },
+        "tm_t3.2_m0.15": {
+          "decode_pct": {
+            "mean": 87.86875,
+            "ci95": 1.2539304165670522
+          },
+          "paired_decode_pct": {
+            "mean": 17.85625,
+            "ci95": 0.9267991026651792
+          }
+        },
+        "tm_t6.4_m0.15": {
+          "decode_pct": {
+            "mean": 87.69375,
+            "ci95": 1.2572300692670748
+          },
+          "paired_decode_pct": {
+            "mean": 17.68125,
+            "ci95": 0.9154963709931222
+          }
+        }
+      }
+    }
+  }
+}

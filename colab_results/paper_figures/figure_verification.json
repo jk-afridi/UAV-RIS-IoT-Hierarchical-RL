@@ -1,0 +1,5548 @@
+{
+ "n_checks": 807,
+ "n_hard_failures": 0,
+ "n_soft_failures": 0,
+ "hard_failures": [],
+ "soft_failures": [],
+ "checks": [
+  {
+   "name": "scipy t(0.975, df=4) == 2.776 (table used by evaluate.ci) to 3 digits",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 0",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 0",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 1",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 1",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 2",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 2",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 3",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 3",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 4",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 4",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 5",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 5",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 6",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 6",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 7",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 7",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 8",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 8",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 9",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 9",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 10",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 10",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 11",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 11",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 12",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 12",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 13",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 13",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 14",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 14",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 15",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 15",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 16",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 16",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 17",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 17",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 18",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 18",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 19",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 19",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 20",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 20",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 21",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 21",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 22",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 22",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 23",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 23",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 24",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 24",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 25",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 25",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 26",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 26",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 27",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 27",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 28",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 28",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 29",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 29",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 30",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 30",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 31",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 31",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 32",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 32",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 33",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 33",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 34",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 34",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 35",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 35",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 36",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 36",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 37",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 37",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 38",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 38",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 39",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 39",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 40",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 40",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 41",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 41",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 42",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 42",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 43",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 43",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 44",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 44",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 45",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 45",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 46",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 46",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 47",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 47",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 48",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 48",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 49",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 49",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 50",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 50",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 51",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 51",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 52",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 52",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 53",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 53",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 54",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 54",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 55",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 55",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 56",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 56",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 57",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 57",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 58",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 58",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 59",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 59",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 60",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 60",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 61",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 61",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 62",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 62",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=0.5, element 63",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=0.5, element 63",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 0",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 0",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 1",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 1",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 2",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 2",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 3",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 3",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 4",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 4",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 5",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 5",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 6",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 6",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 7",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 7",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 8",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 8",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 9",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 9",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 10",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 10",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 11",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 11",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 12",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 12",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 13",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 13",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 14",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 14",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 15",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 15",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 16",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 16",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 17",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 17",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 18",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 18",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 19",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 19",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 20",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 20",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 21",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 21",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 22",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 22",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 23",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 23",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 24",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 24",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 25",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 25",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 26",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 26",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 27",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 27",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 28",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 28",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 29",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 29",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 30",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 30",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 31",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 31",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 32",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 32",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 33",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 33",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 34",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 34",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 35",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 35",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 36",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 36",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 37",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 37",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 38",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 38",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 39",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 39",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 40",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 40",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 41",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 41",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 42",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 42",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 43",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 43",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 44",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 44",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 45",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 45",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 46",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 46",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 47",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 47",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 48",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 48",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 49",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 49",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 50",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 50",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 51",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 51",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 52",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 52",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 53",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 53",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 54",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 54",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 55",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 55",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 56",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 56",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 57",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 57",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 58",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 58",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 59",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 59",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 60",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 60",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 61",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 61",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 62",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 62",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=1.0, element 63",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=1.0, element 63",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 0",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 0",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 1",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 1",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 2",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 2",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 3",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 3",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 4",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 4",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 5",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 5",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 6",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 6",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 7",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 7",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 8",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 8",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 9",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 9",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 10",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 10",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 11",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 11",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 12",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 12",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 13",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 13",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 14",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 14",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 15",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 15",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 16",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 16",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 17",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 17",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 18",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 18",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 19",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 19",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 20",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 20",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 21",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 21",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 22",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 22",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 23",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 23",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 24",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 24",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 25",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 25",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 26",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 26",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 27",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 27",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 28",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 28",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 29",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 29",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 30",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 30",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 31",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 31",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 32",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 32",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 33",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 33",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 34",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 34",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 35",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 35",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 36",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 36",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 37",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 37",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 38",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 38",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 39",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 39",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 40",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 40",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 41",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 41",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 42",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 42",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 43",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 43",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 44",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 44",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 45",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 45",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 46",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 46",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 47",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 47",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 48",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 48",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 49",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 49",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 50",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 50",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 51",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 51",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 52",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 52",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 53",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 53",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 54",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 54",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 55",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 55",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 56",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 56",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 57",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 57",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 58",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 58",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 59",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 59",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 60",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 60",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 61",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 61",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 62",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 62",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA curve == Eq.(2), s=2.0, element 63",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "PDA extrema, s=2.0, element 63",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "nominal PDA of the environment == (0.2, 1.5, 0)",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "hardware generator: sd(theta_bar) ~ 0.5 s, s=0.5",
+   "ok": true,
+   "detail": "ratio=1.015",
+   "hard": true
+  },
+  {
+   "name": "hardware generator: sd(log kappa) ~ 0.3 s, s=0.5",
+   "ok": true,
+   "detail": "ratio=0.930",
+   "hard": true
+  },
+  {
+   "name": "hardware generator: beta_min in [0.05,0.95], s=0.5",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "hardware generator: sd(theta_bar) ~ 0.5 s, s=1.0",
+   "ok": true,
+   "detail": "ratio=1.015",
+   "hard": true
+  },
+  {
+   "name": "hardware generator: sd(log kappa) ~ 0.3 s, s=1.0",
+   "ok": true,
+   "detail": "ratio=0.930",
+   "hard": true
+  },
+  {
+   "name": "hardware generator: beta_min in [0.05,0.95], s=1.0",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "hardware generator: sd(theta_bar) ~ 0.5 s, s=2.0",
+   "ok": true,
+   "detail": "ratio=1.015",
+   "hard": true
+  },
+  {
+   "name": "hardware generator: sd(log kappa) ~ 0.3 s, s=2.0",
+   "ok": true,
+   "detail": "ratio=0.930",
+   "hard": true
+  },
+  {
+   "name": "hardware generator: beta_min in [0.05,0.95], s=2.0",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=0.0, ao_ideal",
+   "recomputed": -23.725,
+   "stored": -23.725,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=0.0, ao_ideal",
+   "recomputed": 0.6149841576419265,
+   "stored": 0.6148855665894263,
+   "abs_err": 9.859105250020761e-05,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=0.0, ao_calibrated",
+   "recomputed": 0.25,
+   "stored": 0.25,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=0.0, ao_calibrated",
+   "recomputed": 1.7387452834975483,
+   "stored": 1.7384665369226981,
+   "abs_err": 0.00027874657485016385,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=0.0, ao_nominal_perfcsi",
+   "recomputed": 6.55,
+   "stored": 6.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=0.0, ao_nominal_perfcsi",
+   "recomputed": 6.2495074969890805,
+   "stored": 6.248505608543533,
+   "abs_err": 0.0010018884455478272,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=0.0, ao_calibrated_perfcsi",
+   "recomputed": 5.75,
+   "stored": 5.75,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=0.0, ao_calibrated_perfcsi",
+   "recomputed": 5.3417263336538845,
+   "stored": 5.3408699759496105,
+   "abs_err": 0.0008563577042739468,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=0.0, ao_decode_nominal",
+   "recomputed": 7.175,
+   "stored": 7.175,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=0.0, ao_decode_nominal",
+   "recomputed": 2.287936491715175,
+   "stored": 2.287569701670312,
+   "abs_err": 0.0003667900448629524,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=0.0, ao_decode_calibrated",
+   "recomputed": 7.475,
+   "stored": 7.475,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=0.0, ao_decode_calibrated",
+   "recomputed": 1.9021688631097506,
+   "stored": 1.9018639173190068,
+   "abs_err": 0.0003049457907438047,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=0.0, cem6",
+   "recomputed": -5.35,
+   "stored": -5.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=0.0, cem6",
+   "recomputed": 1.7192395109294465,
+   "stored": 1.7189638914183156,
+   "abs_err": 0.0002756195111308646,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=0.0, cem15",
+   "recomputed": 7.325,
+   "stored": 7.325,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=0.0, cem15",
+   "recomputed": 2.256128598053783,
+   "stored": 2.255766907284527,
+   "abs_err": 0.0003616907692558513,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=0.0, cem45",
+   "recomputed": 13.05,
+   "stored": 13.05,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=0.0, cem45",
+   "recomputed": 2.7603471133822812,
+   "stored": 2.759904588930566,
+   "abs_err": 0.0004425244517154425,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=0.0, best_of_45",
+   "recomputed": -16.6,
+   "stored": -16.6,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=0.0, best_of_45",
+   "recomputed": 3.9009424248303026,
+   "stored": 3.900317046087407,
+   "abs_err": 0.0006253787428955881,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=1.0, ao_ideal",
+   "recomputed": -20.35,
+   "stored": -20.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=1.0, ao_ideal",
+   "recomputed": 1.4199623556147971,
+   "stored": 1.4197347146562274,
+   "abs_err": 0.00022764095856975253,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=1.0, ao_calibrated",
+   "recomputed": 3.2,
+   "stored": 3.2,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=1.0, ao_calibrated",
+   "recomputed": 2.132627951398068,
+   "stored": 2.132286059608325,
+   "abs_err": 0.0003418917897430873,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=1.0, ao_nominal_perfcsi",
+   "recomputed": 5.95,
+   "stored": 5.95,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=1.0, ao_nominal_perfcsi",
+   "recomputed": 7.424557624904162,
+   "stored": 7.42336735855097,
+   "abs_err": 0.001190266353192193,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=1.0, ao_calibrated_perfcsi",
+   "recomputed": 8.9,
+   "stored": 8.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=1.0, ao_calibrated_perfcsi",
+   "recomputed": 5.584684922147669,
+   "stored": 5.583789614589718,
+   "abs_err": 0.000895307557950531,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=1.0, ao_decode_nominal",
+   "recomputed": 6.85,
+   "stored": 6.85,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=1.0, ao_decode_nominal",
+   "recomputed": 1.4740674991756957,
+   "stored": 1.4738311843627137,
+   "abs_err": 0.00023631481298203028,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=1.0, ao_decode_calibrated",
+   "recomputed": 8.85,
+   "stored": 8.85,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=1.0, ao_decode_calibrated",
+   "recomputed": 1.9797387261234811,
+   "stored": 1.97942134473689,
+   "abs_err": 0.00031738138659109794,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=1.0, cem6",
+   "recomputed": -6.0,
+   "stored": -6.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=1.0, cem6",
+   "recomputed": 0.7279900481975397,
+   "stored": 0.7278733406300851,
+   "abs_err": 0.00011670756745452149,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=1.0, cem15",
+   "recomputed": 7.525,
+   "stored": 7.525,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=1.0, cem15",
+   "recomputed": 1.060651089272023,
+   "stored": 1.060481051221567,
+   "abs_err": 0.0001700380504559007,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=1.0, cem45",
+   "recomputed": 14.125,
+   "stored": 14.125,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=1.0, cem45",
+   "recomputed": 2.1645813131623965,
+   "stored": 2.164234298776359,
+   "abs_err": 0.0003470143860373476,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=1.0, best_of_45",
+   "recomputed": -14.0,
+   "stored": -14.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=1.0, best_of_45",
+   "recomputed": 1.922951328121812,
+   "stored": 1.9226430505946752,
+   "abs_err": 0.0003082775271368021,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=2.0, ao_ideal",
+   "recomputed": -14.075,
+   "stored": -14.075,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=2.0, ao_ideal",
+   "recomputed": 2.6192930736626945,
+   "stored": 2.6188731622589128,
+   "abs_err": 0.0004199114037817253,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=2.0, ao_calibrated",
+   "recomputed": 8.725,
+   "stored": 8.725,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=2.0, ao_calibrated",
+   "recomputed": 2.673454980310977,
+   "stored": 2.673026385952821,
+   "abs_err": 0.0004285943581558982,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=2.0, ao_nominal_perfcsi",
+   "recomputed": 7.8,
+   "stored": 7.8,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=2.0, ao_nominal_perfcsi",
+   "recomputed": 3.2972112182249926,
+   "stored": 3.2966826265201807,
+   "abs_err": 0.0005285917048118982,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=2.0, ao_calibrated_perfcsi",
+   "recomputed": 15.275,
+   "stored": 15.275,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=2.0, ao_calibrated_perfcsi",
+   "recomputed": 4.166691657194451,
+   "stored": 4.1660236749207264,
+   "abs_err": 0.0006679822737245544,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=2.0, ao_decode_nominal",
+   "recomputed": 7.875,
+   "stored": 7.875,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=2.0, ao_decode_nominal",
+   "recomputed": 1.293917254697543,
+   "stored": 1.293709820632123,
+   "abs_err": 0.0002074340654201201,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=2.0, ao_decode_calibrated",
+   "recomputed": 15.4,
+   "stored": 15.4,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=2.0, ao_decode_calibrated",
+   "recomputed": 3.172096126894671,
+   "stored": 3.1715875929887223,
+   "abs_err": 0.0005085339059487382,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=2.0, cem6",
+   "recomputed": -5.45,
+   "stored": -5.45,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=2.0, cem6",
+   "recomputed": 1.5850985045623367,
+   "stored": 1.5848443898376898,
+   "abs_err": 0.00025411472464687,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=2.0, cem15",
+   "recomputed": 11.325,
+   "stored": 11.325,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=2.0, cem15",
+   "recomputed": 2.55645998259591,
+   "stored": 2.556050144265561,
+   "abs_err": 0.00040983833034857753,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=2.0, cem45",
+   "recomputed": 18.725,
+   "stored": 18.725,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=2.0, cem45",
+   "recomputed": 2.209738978134098,
+   "stored": 2.2093847243067466,
+   "abs_err": 0.00035425382735132516,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired mean, s=2.0, best_of_45",
+   "recomputed": -8.275,
+   "stored": -8.275,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "headroom paired CI, s=2.0, best_of_45",
+   "recomputed": 3.131972835884755,
+   "stored": 3.131470734335545,
+   "abs_err": 0.0005021015492099323,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0 mean, spread=1",
+   "recomputed": 1.6,
+   "stored": 1.6,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0 CI, spread=1",
+   "recomputed": 2.56539621436601,
+   "stored": 2.5649849434255945,
+   "abs_err": 0.00041127094041559786,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0.125 mean, spread=1",
+   "recomputed": 1.725,
+   "stored": 1.725,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0.125 CI, spread=1",
+   "recomputed": 3.0263570044649106,
+   "stored": 3.0258718346949194,
+   "abs_err": 0.00048516976999124495,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0.25 mean, spread=1",
+   "recomputed": 1.25,
+   "stored": 1.25,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0.25 CI, spread=1",
+   "recomputed": 3.231533429307231,
+   "stored": 3.2310153667229744,
+   "abs_err": 0.0005180625842564623,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0.5 mean, spread=1",
+   "recomputed": -0.35,
+   "stored": -0.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0.5 CI, spread=1",
+   "recomputed": 2.9883082585516427,
+   "stored": 2.9878291885581407,
+   "abs_err": 0.0004790699935020015,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=1 mean, spread=1",
+   "recomputed": -3.225,
+   "stored": -3.225,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=1 CI, spread=1",
+   "recomputed": 2.7136999171791807,
+   "stored": 2.7132648709626563,
+   "abs_err": 0.0004350462165243485,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=2 mean, spread=1",
+   "recomputed": -12.25,
+   "stored": -12.25,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=2 CI, spread=1",
+   "recomputed": 1.8785939284383208,
+   "stored": 1.8782927620581409,
+   "abs_err": 0.00030116638017996245,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0 mean, spread=1",
+   "recomputed": 8.7,
+   "stored": 8.7,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0 CI, spread=1",
+   "recomputed": 1.4543246324186923,
+   "stored": 1.4540914826791331,
+   "abs_err": 0.00023314973955912421,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0.125 mean, spread=1",
+   "recomputed": 8.375,
+   "stored": 8.375,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0.125 CI, spread=1",
+   "recomputed": 1.5481949353466775,
+   "stored": 1.5479467368097648,
+   "abs_err": 0.00024819853691271376,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0.25 mean, spread=1",
+   "recomputed": 9.075,
+   "stored": 9.075,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0.25 CI, spread=1",
+   "recomputed": 1.828558399223058,
+   "stored": 1.828265254277945,
+   "abs_err": 0.00029314494511312184,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0.5 mean, spread=1",
+   "recomputed": 7.95,
+   "stored": 7.95,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0.5 CI, spread=1",
+   "recomputed": 2.132627951398068,
+   "stored": 2.132286059608325,
+   "abs_err": 0.0003418917897430873,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=1 mean, spread=1",
+   "recomputed": 4.625,
+   "stored": 4.625,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=1 CI, spread=1",
+   "recomputed": 2.0619895353261133,
+   "stored": 2.061658967918797,
+   "abs_err": 0.0003305674073161846,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=2 mean, spread=1",
+   "recomputed": -4.85,
+   "stored": -4.85,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=2 CI, spread=1",
+   "recomputed": 3.0893800493922194,
+   "stored": 3.0888847760963825,
+   "abs_err": 0.0004952732958369843,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "cross-stage consistency e=0 vs headroom_v5 ao_calibrated, s=1",
+   "ok": true,
+   "detail": "1.60 vs 3.20",
+   "hard": false
+  },
+  {
+   "name": "cross-stage consistency e=0 vs headroom_v5 ao_decode_calibrated, s=1",
+   "ok": true,
+   "detail": "8.70 vs 8.85",
+   "hard": false
+  },
+  {
+   "name": "calibration maxmin e=0 mean, spread=2",
+   "recomputed": 8.55,
+   "stored": 8.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0 CI, spread=2",
+   "recomputed": 3.0584247344585216,
+   "stored": 3.057934423757317,
+   "abs_err": 0.0004903107012044217,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0.125 mean, spread=2",
+   "recomputed": 10.05,
+   "stored": 10.05,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0.125 CI, spread=2",
+   "recomputed": 2.9745725523623263,
+   "stored": 2.9740956844055972,
+   "abs_err": 0.0004768679567290768,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0.25 mean, spread=2",
+   "recomputed": 8.55,
+   "stored": 8.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0.25 CI, spread=2",
+   "recomputed": 3.0917184224148304,
+   "stored": 3.0912227742432274,
+   "abs_err": 0.0004956481716029693,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0.5 mean, spread=2",
+   "recomputed": 7.3,
+   "stored": 7.3,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=0.5 CI, spread=2",
+   "recomputed": 1.9435115736384592,
+   "stored": 1.9431999999999998,
+   "abs_err": 0.0003115736384593504,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=1 mean, spread=2",
+   "recomputed": 6.125,
+   "stored": 6.125,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=1 CI, spread=2",
+   "recomputed": 1.476516796072561,
+   "stored": 1.4762800886010754,
+   "abs_err": 0.00023670747148551996,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=2 mean, spread=2",
+   "recomputed": -2.875,
+   "stored": -2.875,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration maxmin e=2 CI, spread=2",
+   "recomputed": 2.6702993962313575,
+   "stored": 2.6698713077599825,
+   "abs_err": 0.00042808847137498773,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0 mean, spread=2",
+   "recomputed": 16.325,
+   "stored": 16.325,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0 CI, spread=2",
+   "recomputed": 2.215726704040654,
+   "stored": 2.2153714902923167,
+   "abs_err": 0.00035521374833713537,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0.125 mean, spread=2",
+   "recomputed": 15.15,
+   "stored": 15.15,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0.125 CI, spread=2",
+   "recomputed": 2.5299380057080816,
+   "stored": 2.529532419242734,
+   "abs_err": 0.0004055864653476071,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0.25 mean, spread=2",
+   "recomputed": 16.6,
+   "stored": 16.6,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0.25 CI, spread=2",
+   "recomputed": 1.9242036573513472,
+   "stored": 1.9238951790573204,
+   "abs_err": 0.0003084782940268038,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0.5 mean, spread=2",
+   "recomputed": 15.275,
+   "stored": 15.275,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=0.5 CI, spread=2",
+   "recomputed": 2.883696136328035,
+   "stored": 2.8832338372043287,
+   "abs_err": 0.00046229912370643333,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=1 mean, spread=2",
+   "recomputed": 12.325,
+   "stored": 12.325,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=1 CI, spread=2",
+   "recomputed": 1.4501777045805844,
+   "stored": 1.4499452196548668,
+   "abs_err": 0.00023248492571759094,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=2 mean, spread=2",
+   "recomputed": 5.575,
+   "stored": 5.575,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "calibration decode e=2 CI, spread=2",
+   "recomputed": 2.1634681316471904,
+   "stored": 2.163121295720607,
+   "abs_err": 0.0003468359265834664,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "cross-stage consistency e=0 vs headroom_v5 ao_calibrated, s=2",
+   "ok": true,
+   "detail": "8.55 vs 8.72",
+   "hard": false
+  },
+  {
+   "name": "cross-stage consistency e=0 vs headroom_v5 ao_decode_calibrated, s=2",
+   "ok": true,
+   "detail": "16.32 vs 15.40",
+   "hard": false
+  },
+  {
+   "name": "probes cem_nominal B=1 mean",
+   "recomputed": 0.0,
+   "stored": 0.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=1 CI",
+   "recomputed": 0.0,
+   "stored": 0.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=4 mean",
+   "recomputed": 1.575,
+   "stored": 1.575,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=4 CI",
+   "recomputed": 0.28194933328738053,
+   "stored": 0.2819041326408678,
+   "abs_err": 4.520064651275524e-05,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=7 mean",
+   "recomputed": 3.325,
+   "stored": 3.325,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=7 CI",
+   "recomputed": 0.6818561414624343,
+   "stored": 0.681746829842281,
+   "abs_err": 0.00010931162015337392,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=10 mean",
+   "recomputed": 4.95,
+   "stored": 4.95,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=10 CI",
+   "recomputed": 0.7491901563870479,
+   "stored": 0.7490700501288247,
+   "abs_err": 0.00012010625822322929,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=16 mean",
+   "recomputed": 9.575,
+   "stored": 9.575,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=16 CI",
+   "recomputed": 1.3645952304326685,
+   "stored": 1.3643764656428223,
+   "abs_err": 0.00021876478984617087,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=31 mean",
+   "recomputed": 12.875,
+   "stored": 12.875,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=31 CI",
+   "recomputed": 2.590160653243976,
+   "stored": 2.589745412197886,
+   "abs_err": 0.0004152410460900313,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=46 mean",
+   "recomputed": 14.825,
+   "stored": 14.825,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=46 CI",
+   "recomputed": 2.430876393312176,
+   "stored": 2.4304866878878393,
+   "abs_err": 0.0003897054243369169,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=91 mean",
+   "recomputed": 16.625,
+   "stored": 16.625,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_nominal B=91 CI",
+   "recomputed": 2.692758155030835,
+   "stored": 2.69232646608839,
+   "abs_err": 0.000431688942444719,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=1 mean",
+   "recomputed": 7.35,
+   "stored": 7.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=1 CI",
+   "recomputed": 1.6069837853659983,
+   "stored": 1.606726162107283,
+   "abs_err": 0.00025762325871525604,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=4 mean",
+   "recomputed": 8.325,
+   "stored": 8.325,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=4 CI",
+   "recomputed": 1.6665899388581116,
+   "stored": 1.666322759851764,
+   "abs_err": 0.0002671790063475399,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=7 mean",
+   "recomputed": 9.4,
+   "stored": 9.4,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=7 CI",
+   "recomputed": 2.060236391008592,
+   "stored": 2.059906104656229,
+   "abs_err": 0.0003302863523630961,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=10 mean",
+   "recomputed": 10.05,
+   "stored": 10.05,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=10 CI",
+   "recomputed": 1.282698107183005,
+   "stored": 1.2824924717127972,
+   "abs_err": 0.00020563547020779893,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=16 mean",
+   "recomputed": 14.1,
+   "stored": 14.1,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=16 CI",
+   "recomputed": 2.198810429549697,
+   "stored": 2.1984579277302534,
+   "abs_err": 0.00035250181944368464,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=31 mean",
+   "recomputed": 16.35,
+   "stored": 16.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=31 CI",
+   "recomputed": 2.8899546175441393,
+   "stored": 2.8894913150933674,
+   "abs_err": 0.00046330245077186305,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=46 mean",
+   "recomputed": 17.55,
+   "stored": 17.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=46 CI",
+   "recomputed": 2.98266004024192,
+   "stored": 2.982181875741317,
+   "abs_err": 0.00047816450060311766,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=91 mean",
+   "recomputed": 19.275,
+   "stored": 19.275,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes cem_decode B=91 CI",
+   "recomputed": 3.4311149769507368,
+   "stored": 3.4305649184937455,
+   "abs_err": 0.0005500584569912981,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes decode_nominal mean",
+   "recomputed": 7.35,
+   "stored": 7.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes decode_nominal CI",
+   "recomputed": 1.6069837853659983,
+   "stored": 1.606726162107283,
+   "abs_err": 0.00025762325871525604,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "cem_nominal with B=1 equals its starting solution",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "cem_decode with B=1 equals its starting solution",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "probes break-even budget (measurements)",
+   "value": 12.76208758238493,
+   "ok": true,
+   "hard": false
+  },
+  {
+   "name": "regime gain mean power=0|r_min=0.25",
+   "recomputed": 13.8,
+   "stored": 13.8,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=5|r_min=0.25",
+   "recomputed": 6.45,
+   "stored": 6.45,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=10|r_min=0.25",
+   "recomputed": 4.35,
+   "stored": 4.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=15|r_min=0.25",
+   "recomputed": 3.3,
+   "stored": 3.3,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=20|r_min=0.25",
+   "recomputed": 3.15,
+   "stored": 3.15,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=0|r_min=0.5",
+   "recomputed": 18.5,
+   "stored": 18.5,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=5|r_min=0.5",
+   "recomputed": 11.65,
+   "stored": 11.65,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=10|r_min=0.5",
+   "recomputed": 8.35,
+   "stored": 8.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=15|r_min=0.5",
+   "recomputed": 6.6,
+   "stored": 6.6,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=20|r_min=0.5",
+   "recomputed": 7.65,
+   "stored": 7.65,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=0|r_min=0.75",
+   "recomputed": 16.75,
+   "stored": 16.75,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=5|r_min=0.75",
+   "recomputed": 20.4,
+   "stored": 20.4,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=10|r_min=0.75",
+   "recomputed": 12.15,
+   "stored": 12.15,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=15|r_min=0.75",
+   "recomputed": 9.65,
+   "stored": 9.65,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=20|r_min=0.75",
+   "recomputed": 7.15,
+   "stored": 7.15,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=0|r_min=1",
+   "recomputed": 15.05,
+   "stored": 15.05,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=5|r_min=1",
+   "recomputed": 21.7,
+   "stored": 21.7,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=10|r_min=1",
+   "recomputed": 17.9,
+   "stored": 17.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=15|r_min=1",
+   "recomputed": 11.0,
+   "stored": 11.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime gain mean power=20|r_min=1",
+   "recomputed": 7.7,
+   "stored": 7.7,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean avg_aoi, $s=1$, greedy_aoi_travel+ao_decode_nominal",
+   "recomputed": 10.1046,
+   "stored": 10.1046,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean avg_aoi, $s=1$, greedy_aoi_travel+ao_decode_calibrated",
+   "recomputed": 9.558987499999999,
+   "stored": 9.558987499999999,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean avg_aoi, $s=1$, greedy_aoi_travel+ao_calibrated",
+   "recomputed": 10.772850000000002,
+   "stored": 10.772850000000002,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean avg_aoi, $s=1$, greedy_aoi+ao_decode_nominal",
+   "recomputed": 9.947875,
+   "stored": 9.947875,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean avg_aoi, $s=1$, greedy_aoi+ao_decode_calibrated",
+   "recomputed": 8.7866625,
+   "stored": 8.7866625,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean avg_aoi, $s=1$, greedy_aoi+ao_calibrated",
+   "recomputed": 10.836850000000002,
+   "stored": 10.836850000000002,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean decode_pct, $s=1$, greedy_aoi_travel+ao_decode_nominal",
+   "recomputed": 71.05,
+   "stored": 71.05,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean decode_pct, $s=1$, greedy_aoi_travel+ao_decode_calibrated",
+   "recomputed": 74.15,
+   "stored": 74.15,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean decode_pct, $s=1$, greedy_aoi_travel+ao_calibrated",
+   "recomputed": 67.9125,
+   "stored": 67.9125,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean decode_pct, $s=1$, greedy_aoi+ao_decode_nominal",
+   "recomputed": 66.2875,
+   "stored": 66.2875,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean decode_pct, $s=1$, greedy_aoi+ao_decode_calibrated",
+   "recomputed": 71.35,
+   "stored": 71.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean decode_pct, $s=1$, greedy_aoi+ao_calibrated",
+   "recomputed": 60.8125,
+   "stored": 60.8125,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean avg_aoi, $s=2$, greedy_aoi_travel+ao_decode_nominal",
+   "recomputed": 10.639925,
+   "stored": 10.639925,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean avg_aoi, $s=2$, greedy_aoi_travel+ao_decode_calibrated",
+   "recomputed": 9.632475,
+   "stored": 9.632475,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean avg_aoi, $s=2$, greedy_aoi_travel+ao_calibrated",
+   "recomputed": 10.722075,
+   "stored": 10.722075,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean avg_aoi, $s=2$, greedy_aoi+ao_decode_nominal",
+   "recomputed": 11.032762499999999,
+   "stored": 11.032762499999999,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean avg_aoi, $s=2$, greedy_aoi+ao_decode_calibrated",
+   "recomputed": 8.790925,
+   "stored": 8.790925,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean avg_aoi, $s=2$, greedy_aoi+ao_calibrated",
+   "recomputed": 10.599075000000001,
+   "stored": 10.599075000000001,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean decode_pct, $s=2$, greedy_aoi_travel+ao_decode_nominal",
+   "recomputed": 67.4,
+   "stored": 67.4,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean decode_pct, $s=2$, greedy_aoi_travel+ao_decode_calibrated",
+   "recomputed": 73.7125,
+   "stored": 73.7125,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean decode_pct, $s=2$, greedy_aoi_travel+ao_calibrated",
+   "recomputed": 67.75,
+   "stored": 67.75,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean decode_pct, $s=2$, greedy_aoi+ao_decode_nominal",
+   "recomputed": 60.375,
+   "stored": 60.375,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean decode_pct, $s=2$, greedy_aoi+ao_decode_calibrated",
+   "recomputed": 71.6625,
+   "stored": 71.6625,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "episode raw mean decode_pct, $s=2$, greedy_aoi+ao_calibrated",
+   "recomputed": 62.425,
+   "stored": 62.425,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=1000)",
+   "recomputed": -0.009996931947551246,
+   "stored": -0.009996931947551246,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=2000)",
+   "recomputed": -0.020836338607226113,
+   "stored": -0.020836338607226113,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=3000)",
+   "recomputed": -0.018558746561880612,
+   "stored": -0.018558746561880612,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=4000)",
+   "recomputed": -0.02754921897093565,
+   "stored": -0.02754921897093565,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=5000)",
+   "recomputed": -0.013873575185058273,
+   "stored": -0.013873575185058273,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=6000)",
+   "recomputed": -0.01634930774587362,
+   "stored": -0.01634930774587362,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=7000)",
+   "recomputed": -0.022149792141545,
+   "stored": -0.022149792141545,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=8000)",
+   "recomputed": -0.018426241382374586,
+   "stored": -0.018426241382374586,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "v3 best-snapshot gain is never negative (zero-residual fallback)",
+   "ok": true,
+   "detail": "min=0.0",
+   "hard": true
+  },
+  {
+   "name": "power spread=1 all-seed mean",
+   "recomputed": 7.2125,
+   "stored": 7.2125,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "power spread=1 all-seed CI: stored interval is exact or conservative (never narrower)",
+   "ok": true,
+   "detail": "exact 0.9566, stored 0.9740",
+   "hard": true
+  },
+  {
+   "name": "power spread=1: confirmatory 95% interval excludes 0",
+   "ok": true,
+   "detail": "7.17 +- 1.26 (n=15)",
+   "hard": false
+  },
+  {
+   "name": "power spread=1: >= 90% of confirmatory seeds improve",
+   "ok": true,
+   "detail": "15/15",
+   "hard": false
+  },
+  {
+   "name": "power spread=1: running interval at n=20 equals the full-sample interval",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "power spread=2 all-seed mean",
+   "recomputed": 8.75625,
+   "stored": 8.75625,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "power spread=2 all-seed CI: stored interval is exact or conservative (never narrower)",
+   "ok": true,
+   "detail": "exact 0.6685, stored 0.6806",
+   "hard": true
+  },
+  {
+   "name": "power spread=2: confirmatory 95% interval excludes 0",
+   "ok": true,
+   "detail": "8.38 +- 0.71 (n=15)",
+   "hard": false
+  },
+  {
+   "name": "power spread=2: >= 90% of confirmatory seeds improve",
+   "ok": true,
+   "detail": "15/15",
+   "hard": false
+  },
+  {
+   "name": "power spread=2: running interval at n=20 equals the full-sample interval",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=1 mean",
+   "recomputed": -21.525,
+   "stored": -21.525,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=1 CI",
+   "recomputed": 5.170313712795147,
+   "stored": 5.1694848350681895,
+   "abs_err": 0.0008288777269571668,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=2 mean",
+   "recomputed": -5.225,
+   "stored": -5.225,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=2 CI",
+   "recomputed": 1.0941888789221157,
+   "stored": 1.0940134642681505,
+   "abs_err": 0.00017541465396520017,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=3 mean",
+   "recomputed": -3.0,
+   "stored": -3.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=3 CI",
+   "recomputed": 1.8945550812660683,
+   "stored": 1.8942513560771173,
+   "abs_err": 0.00030372518895105394,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=4 mean",
+   "recomputed": -1.325,
+   "stored": -1.325,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=4 CI",
+   "recomputed": 1.1850819390353726,
+   "stored": 1.1848919528800925,
+   "abs_err": 0.00018998615528009744,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=5 mean",
+   "recomputed": -1.275,
+   "stored": -1.275,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=5 CI",
+   "recomputed": 2.390404756874568,
+   "stored": 2.3900215396518916,
+   "abs_err": 0.00038321722267653513,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=6 mean",
+   "recomputed": 0.0,
+   "stored": 0.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant maxmin b=6 CI",
+   "recomputed": 0.0,
+   "stored": 0.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=1 mean",
+   "recomputed": -12.45,
+   "stored": -12.45,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=1 CI",
+   "recomputed": 2.906992386739486,
+   "stored": 2.906526352882423,
+   "abs_err": 0.00046603385706323053,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=2 mean",
+   "recomputed": 0.725,
+   "stored": 0.725,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=2 CI",
+   "recomputed": 2.405473648010194,
+   "stored": 2.4050880150214873,
+   "abs_err": 0.00038563298870686324,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=3 mean",
+   "recomputed": 5.675,
+   "stored": 5.675,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=3 CI",
+   "recomputed": 2.11276800617206,
+   "stored": 2.1124292982251496,
+   "abs_err": 0.00033870794691059913,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=4 mean",
+   "recomputed": 6.625,
+   "stored": 6.625,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=4 CI",
+   "recomputed": 1.3351496981156787,
+   "stored": 1.3349356538799912,
+   "abs_err": 0.00021404423568749387,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=5 mean",
+   "recomputed": 6.5,
+   "stored": 6.5,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=5 CI",
+   "recomputed": 1.4393397773666992,
+   "stored": 1.4391090299209437,
+   "abs_err": 0.0002307474457554637,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=6 mean",
+   "recomputed": 7.35,
+   "stored": 7.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant decode b=6 CI",
+   "recomputed": 1.6069837853659983,
+   "stored": 1.606726162107283,
+   "abs_err": 0.00025762325871525604,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "quant: 6-bit max-min AO equals the unrestricted nominal AO",
+   "ok": true,
+   "detail": "max |diff|=0 pp",
+   "hard": true
+  },
+  {
+   "name": "quant: 6-bit decode-aware AO equals the unrestricted decode-aware AO",
+   "ok": true,
+   "detail": "max |diff|=0 pp",
+   "hard": true
+  },
+  {
+   "name": "csi: error power (dB) increases with the configured variance",
+   "ok": true,
+   "detail": "[-24.8, -14.8, -4.8, 5.2, 15.2]",
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-16 mean",
+   "recomputed": 10.1,
+   "stored": 10.1,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-16 CI",
+   "recomputed": 2.883696136328035,
+   "stored": 2.8832338372043287,
+   "abs_err": 0.00046229912370643333,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-15 mean",
+   "recomputed": 10.1,
+   "stored": 10.1,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-15 CI",
+   "recomputed": 4.690261461905624,
+   "stored": 4.689509543651659,
+   "abs_err": 0.0007519182539654778,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-14 mean",
+   "recomputed": 8.35,
+   "stored": 8.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-14 CI",
+   "recomputed": 2.666688442049073,
+   "stored": 2.6662609324670377,
+   "abs_err": 0.00042750958203541245,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-13 mean",
+   "recomputed": 4.8,
+   "stored": 4.8,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-13 CI",
+   "recomputed": 4.3701457628371,
+   "stored": 4.36944516386234,
+   "abs_err": 0.0007005989747597141,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-12 mean",
+   "recomputed": 0.25,
+   "stored": 0.25,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi decode_nominal csi_var=1e-12 CI",
+   "recomputed": 2.578508949301418,
+   "stored": 2.578095576195731,
+   "abs_err": 0.0004133731056872314,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-16 mean",
+   "recomputed": 1.05,
+   "stored": 1.05,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-16 CI",
+   "recomputed": 1.324279913215188,
+   "stored": 1.3240676115667205,
+   "abs_err": 0.00021230164846741673,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-15 mean",
+   "recomputed": -3.5,
+   "stored": -3.5,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-15 CI",
+   "recomputed": 2.597126584208924,
+   "stored": 2.596710226421115,
+   "abs_err": 0.0004163577878091296,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-14 mean",
+   "recomputed": 7.65,
+   "stored": 7.65,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-14 CI",
+   "recomputed": 6.333551454212132,
+   "stored": 6.332536092277722,
+   "abs_err": 0.0010153619344102083,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-13 mean",
+   "recomputed": 44.15,
+   "stored": 44.15,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-13 CI",
+   "recomputed": 13.684030170017623,
+   "stored": 13.681836417674345,
+   "abs_err": 0.0021937523432775663,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-12 mean",
+   "recomputed": 59.4,
+   "stored": 59.4,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi perfect_maxmin csi_var=1e-12 CI",
+   "recomputed": 9.541442556338543,
+   "stored": 9.539912922034455,
+   "abs_err": 0.0015296343040880345,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-16 mean",
+   "recomputed": 11.95,
+   "stored": 11.95,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-16 CI",
+   "recomputed": 5.144858412619305,
+   "stored": 5.144033615753302,
+   "abs_err": 0.0008247968660031191,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-15 mean",
+   "recomputed": 8.95,
+   "stored": 8.95,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-15 CI",
+   "recomputed": 4.241468604328593,
+   "stored": 4.240788634204727,
+   "abs_err": 0.0006799701238655587,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-14 mean",
+   "recomputed": 16.3,
+   "stored": 16.3,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-14 CI",
+   "recomputed": 2.0753811088909178,
+   "stored": 2.075048394616376,
+   "abs_err": 0.00033271427454195646,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-13 mean",
+   "recomputed": 35.25,
+   "stored": 35.25,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-13 CI",
+   "recomputed": 2.643096995259111,
+   "stored": 2.6426732677347764,
+   "abs_err": 0.00042372752433461613,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-12 mean",
+   "recomputed": 40.7,
+   "stored": 40.7,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi cem_nominal_B46 csi_var=1e-12 CI",
+   "recomputed": 2.610079914360623,
+   "stored": 2.6096614799624867,
+   "abs_err": 0.0004184343981363803,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "csi: perfect-CSI decode-aware result is identical across CSI-error levels",
+   "ok": true,
+   "detail": "",
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0 mean",
+   "recomputed": 7.8,
+   "stored": 7.8,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0 CI",
+   "recomputed": 1.1277973331495221,
+   "stored": 1.127616530563471,
+   "abs_err": 0.00018080258605102095,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0 mean",
+   "recomputed": 7.9,
+   "stored": 7.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0 CI",
+   "recomputed": 1.2532505385071757,
+   "stored": 1.2530496239175843,
+   "abs_err": 0.0002009145895913722,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0 mean",
+   "recomputed": 7.95,
+   "stored": 7.95,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0 CI",
+   "recomputed": 1.061786082736706,
+   "stored": 1.0616158627300176,
+   "abs_err": 0.0001702200066884263,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0 mean",
+   "recomputed": 9.75,
+   "stored": 9.75,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0 CI",
+   "recomputed": 1.552079997754708,
+   "stored": 1.5518311763848538,
+   "abs_err": 0.0002488213698541575,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0 mean",
+   "recomputed": 15.2,
+   "stored": 15.2,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0 CI",
+   "recomputed": 2.4382974232758947,
+   "stored": 2.437906528150741,
+   "abs_err": 0.00039089512515388947,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0.15 mean",
+   "recomputed": 7.95,
+   "stored": 7.95,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0.15 CI",
+   "recomputed": 1.2299683152838532,
+   "stored": 1.2297711331788528,
+   "abs_err": 0.00019718210500041522,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0.15 mean",
+   "recomputed": 7.9,
+   "stored": 7.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0.15 CI",
+   "recomputed": 1.1941941940499923,
+   "stored": 1.1940027470655166,
+   "abs_err": 0.00019144698447570718,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0.15 mean",
+   "recomputed": 7.9,
+   "stored": 7.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0.15 CI",
+   "recomputed": 1.6069837853659983,
+   "stored": 1.606726162107283,
+   "abs_err": 0.00025762325871525604,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0.15 mean",
+   "recomputed": 10.15,
+   "stored": 10.15,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0.15 CI",
+   "recomputed": 1.636690251454576,
+   "stored": 1.6364278658101614,
+   "abs_err": 0.0002623856444146089,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0.15 mean",
+   "recomputed": 15.2,
+   "stored": 15.2,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0.15 CI",
+   "recomputed": 2.143893893240271,
+   "stored": 2.1435501953534932,
+   "abs_err": 0.000343697886777683,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0.3 mean",
+   "recomputed": 7.8,
+   "stored": 7.8,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0.3 CI",
+   "recomputed": 0.9667851363870561,
+   "stored": 0.9666301464365777,
+   "abs_err": 0.00015498995047835695,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0.3 mean",
+   "recomputed": 7.9,
+   "stored": 7.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0.3 CI",
+   "recomputed": 1.0886709976662763,
+   "stored": 1.0884964676102538,
+   "abs_err": 0.00017453005602252603,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0.3 mean",
+   "recomputed": 8.15,
+   "stored": 8.15,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0.3 CI",
+   "recomputed": 1.3985954680955341,
+   "stored": 1.3983712525649257,
+   "abs_err": 0.00022421553060847366,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0.3 mean",
+   "recomputed": 10.5,
+   "stored": 10.5,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0.3 CI",
+   "recomputed": 1.552079997754708,
+   "stored": 1.5518311763848538,
+   "abs_err": 0.0002488213698541575,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0.3 mean",
+   "recomputed": 15.7,
+   "stored": 15.7,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0.3 CI",
+   "recomputed": 2.378280901412244,
+   "stored": 2.3778996278228397,
+   "abs_err": 0.00038127358940442946,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0.5 mean",
+   "recomputed": 7.9,
+   "stored": 7.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.05 m=0.5 CI",
+   "recomputed": 1.1320612324149677,
+   "stored": 1.131879746262826,
+   "abs_err": 0.0001814861521416411,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0.5 mean",
+   "recomputed": 7.9,
+   "stored": 7.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.1 m=0.5 CI",
+   "recomputed": 1.432629532068419,
+   "stored": 1.43239986037419,
+   "abs_err": 0.00022967169422893896,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0.5 mean",
+   "recomputed": 8.3,
+   "stored": 8.3,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.2 m=0.5 CI",
+   "recomputed": 1.446018884131691,
+   "stored": 1.445787065926376,
+   "abs_err": 0.00023181820531492647,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0.5 mean",
+   "recomputed": 11.55,
+   "stored": 11.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.4 m=0.5 CI",
+   "recomputed": 1.446018884131691,
+   "stored": 1.445787065926376,
+   "abs_err": 0.00023181820531492647,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0.5 mean",
+   "recomputed": 15.65,
+   "stored": 15.65,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau t=0.8 m=0.5 CI",
+   "recomputed": 1.5919226865776577,
+   "stored": 1.5916674778357442,
+   "abs_err": 0.00025520874191342635,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau grid: decode-aware AO improves on max-min AO in every (tau, margin) cell (declared criterion)",
+   "ok": true,
+   "detail": "20/20 cells with positive mean",
+   "hard": false
+  },
+  {
+   "name": "tau grid: cells whose 95% interval excludes 0",
+   "value": 20,
+   "of": 20,
+   "ok": true,
+   "hard": false
+  },
+  {
+   "name": "tau_confirm spread=1 tau*=1.6 all-seed mean",
+   "recomputed": 15.2875,
+   "stored": 15.2875,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau_confirm spread=1: confirmatory interval of tau*=1.6 excludes 0",
+   "ok": true,
+   "detail": "15.24 +- 1.50",
+   "hard": false
+  },
+  {
+   "name": "tau_confirm spread=1: tau* beats the default tau=0.2 on the confirmatory seeds (paired interval excludes 0)",
+   "ok": true,
+   "detail": "7.55 +- 0.78",
+   "hard": false
+  },
+  {
+   "name": "tau_confirm spread=2 tau*=1.6 all-seed mean",
+   "recomputed": 17.83125,
+   "stored": 17.83125,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "tau_confirm spread=2: confirmatory interval of tau*=1.6 excludes 0",
+   "ok": true,
+   "detail": "17.64 +- 1.19",
+   "hard": false
+  },
+  {
+   "name": "tau_confirm spread=2: tau* beats the default tau=0.2 on the confirmatory seeds (paired interval excludes 0)",
+   "ok": true,
+   "detail": "9.46 +- 1.03",
+   "hard": false
+  },
+  {
+   "name": "probes_tuned: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=1 mean",
+   "recomputed": 0.0,
+   "stored": 0.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=1 CI",
+   "recomputed": 0.0,
+   "stored": 0.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=4 mean",
+   "recomputed": 1.575,
+   "stored": 1.575,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=4 CI",
+   "recomputed": 0.28194933328738053,
+   "stored": 0.28194933328738053,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=7 mean",
+   "recomputed": 3.325,
+   "stored": 3.325,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=7 CI",
+   "recomputed": 0.6818561414624343,
+   "stored": 0.6818561414624343,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=10 mean",
+   "recomputed": 4.95,
+   "stored": 4.95,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=10 CI",
+   "recomputed": 0.7491901563870479,
+   "stored": 0.7491901563870479,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=16 mean",
+   "recomputed": 9.575,
+   "stored": 9.575,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=16 CI",
+   "recomputed": 1.3645952304326685,
+   "stored": 1.3645952304326685,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=31 mean",
+   "recomputed": 12.875,
+   "stored": 12.875,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=31 CI",
+   "recomputed": 2.590160653243976,
+   "stored": 2.590160653243976,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=46 mean",
+   "recomputed": 14.825,
+   "stored": 14.825,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=46 CI",
+   "recomputed": 2.430876393312176,
+   "stored": 2.430876393312176,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=91 mean",
+   "recomputed": 16.625,
+   "stored": 16.625,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_nominal B=91 CI",
+   "recomputed": 2.692758155030835,
+   "stored": 2.692758155030835,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=1 mean",
+   "recomputed": 15.425,
+   "stored": 15.425,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=1 CI",
+   "recomputed": 3.0107951737067817,
+   "stored": 3.0107951737067817,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=4 mean",
+   "recomputed": 15.9,
+   "stored": 15.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=4 CI",
+   "recomputed": 2.753356669457666,
+   "stored": 2.753356669457666,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=7 mean",
+   "recomputed": 16.65,
+   "stored": 16.65,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=7 CI",
+   "recomputed": 3.153053475963999,
+   "stored": 3.153053475963999,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=10 mean",
+   "recomputed": 16.7,
+   "stored": 16.7,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=10 CI",
+   "recomputed": 3.1686768953910875,
+   "stored": 3.1686768953910875,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=16 mean",
+   "recomputed": 18.55,
+   "stored": 18.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=16 CI",
+   "recomputed": 3.3944099551814464,
+   "stored": 3.3944099551814464,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=31 mean",
+   "recomputed": 20.1,
+   "stored": 20.1,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=31 CI",
+   "recomputed": 3.9132735522345135,
+   "stored": 3.9132735522345135,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=46 mean",
+   "recomputed": 20.975,
+   "stored": 20.975,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=46 CI",
+   "recomputed": 4.1883159849862235,
+   "stored": 4.1883159849862235,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=91 mean",
+   "recomputed": 21.825,
+   "stored": 21.825,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned cem_tuned B=91 CI",
+   "recomputed": 4.420840436787745,
+   "stored": 4.420840436787745,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned decode_tuned mean",
+   "recomputed": 15.425,
+   "stored": 15.425,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned decode_tuned CI",
+   "recomputed": 3.0107951737067817,
+   "stored": 3.0107951737067817,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned decode_nominal mean",
+   "recomputed": 7.35,
+   "stored": 7.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "probes_tuned decode_nominal CI",
+   "recomputed": 1.6069837853659983,
+   "stored": 1.6069837853659983,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "cem_nominal with B=1 equals its starting solution (tuned study)",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "cem_tuned with B=1 equals its starting solution (tuned study)",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "probes_tuned break-even budget vs tuned decode-aware AO (None = not reached within the grid)",
+   "value": 57.74561600373002,
+   "ok": true,
+   "hard": false
+  },
+  {
+   "name": "regime_tuned power=0|r_min=0.25: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=0|r_min=0.25",
+   "recomputed": 25.1,
+   "stored": 25.1,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=5|r_min=0.25: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=5|r_min=0.25",
+   "recomputed": 13.55,
+   "stored": 13.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=10|r_min=0.25: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=10|r_min=0.25",
+   "recomputed": 6.75,
+   "stored": 6.75,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=15|r_min=0.25: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=15|r_min=0.25",
+   "recomputed": 4.75,
+   "stored": 4.75,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=20|r_min=0.25: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=20|r_min=0.25",
+   "recomputed": 3.75,
+   "stored": 3.75,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=0|r_min=0.5: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=0|r_min=0.5",
+   "recomputed": 25.7,
+   "stored": 25.7,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=5|r_min=0.5: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=5|r_min=0.5",
+   "recomputed": 21.85,
+   "stored": 21.85,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=10|r_min=0.5: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=10|r_min=0.5",
+   "recomputed": 16.9,
+   "stored": 16.9,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=15|r_min=0.5: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=15|r_min=0.5",
+   "recomputed": 12.65,
+   "stored": 12.65,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=20|r_min=0.5: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=20|r_min=0.5",
+   "recomputed": 10.35,
+   "stored": 10.35,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=0|r_min=0.75: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=0|r_min=0.75",
+   "recomputed": 22.2,
+   "stored": 22.2,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=5|r_min=0.75: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=5|r_min=0.75",
+   "recomputed": 25.45,
+   "stored": 25.45,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=10|r_min=0.75: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=10|r_min=0.75",
+   "recomputed": 20.45,
+   "stored": 20.45,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=15|r_min=0.75: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=15|r_min=0.75",
+   "recomputed": 18.0,
+   "stored": 18.0,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=20|r_min=0.75: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=20|r_min=0.75",
+   "recomputed": 11.15,
+   "stored": 11.15,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=0|r_min=1: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=0|r_min=1",
+   "recomputed": 17.6,
+   "stored": 17.6,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=5|r_min=1: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=5|r_min=1",
+   "recomputed": 25.55,
+   "stored": 25.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=10|r_min=1: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=10|r_min=1",
+   "recomputed": 23.3,
+   "stored": 23.3,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=15|r_min=1: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=15|r_min=1",
+   "recomputed": 18.7,
+   "stored": 18.7,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  },
+  {
+   "name": "regime_tuned power=20|r_min=1: shared methods reproduce the earlier study exactly",
+   "ok": true,
+   "detail": "max |diff| = 0 pp",
+   "hard": true
+  },
+  {
+   "name": "regime_tuned gain mean power=20|r_min=1",
+   "recomputed": 10.55,
+   "stored": 10.55,
+   "abs_err": 0.0,
+   "ok": true,
+   "hard": true
+  }
+ ]
+}
