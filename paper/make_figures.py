@@ -22,7 +22,7 @@ Figures (IEEE column widths: 3.5 in, 7.16 in):
   fig_power.pdf           headline gain with 20 seeds: exploratory (0-4) vs confirmatory (5-19), running interval   [curves]
   fig_robust.pdf          gain vs RIS phase resolution and vs CSI-error power                                  [curves]
   fig_tau.pdf             decode-aware gain over the (sigmoid width x margin) grid                              [curves]
-  fig_tau_confirm.pdf     sigmoid width chosen on seeds 0-4 only, reported on seeds 5-19                       [curves]
+  fig_width.pdf           sigmoid width: (a) grid on design seeds, (b,c) width chosen on seeds 0-4, reported on seeds 5-19 [curves]
   fig_probing.pdf         probing budget + regime maps in one wide figure (replaces fig_probes_tuned / fig_regime_tuned in the paper) [curves]
 """
 import argparse, csv, json, sys
@@ -214,7 +214,7 @@ def fig_robust(curves, out):
 
 
 # ------------------------------------------------------------------------------------------ Fig: objective sensitivity
-def fig_tau(curves, out):
+def fig_tau(curves, out, ax=None, fig=None, title=None):
     d = load(curves / 'tau.json')
     if d is None:
         return print('  skip fig_tau (tau.json missing)')
@@ -231,7 +231,9 @@ def fig_tau(curves, out):
     n_pos = int((G > 0).sum()); n_cert = int((G - H > 0).sum())
     invariant('tau grid: decode-aware AO improves on max-min AO in every (tau, margin) cell (declared criterion)', n_pos == G.size, f'{n_pos}/{G.size} cells with positive mean', hard=False)
     CHECKS.append(dict(name='tau grid: cells whose 95% interval excludes 0', value=n_cert, of=int(G.size), ok=True, hard=False))
-    fig, ax = plt.subplots(figsize=(3.5, 2.6), constrained_layout=True)
+    standalone = ax is None
+    if standalone:
+        fig, ax = plt.subplots(figsize=(3.5, 2.6), constrained_layout=True)
     cm = LinearSegmentedColormap.from_list('seq', ['#f3f7fc', BLUE])
     im = ax.imshow(G, origin='lower', cmap=cm, aspect='auto', vmin=min(0, np.nanmin(G)))
     ax.set_xticks(range(len(taus))); ax.set_xticklabels([f'{t:g}' for t in taus])
@@ -245,13 +247,16 @@ def fig_tau(curves, out):
     ax.grid(False)
     ax.set_xlabel(r'sigmoid width $\tau / R_{\min}$'); ax.set_ylabel(r'margin $\epsilon$')
     fig.colorbar(im, ax=ax, fraction=0.05, pad=0.02, label='gain vs nominal AO (pp)')
-    fig.text(0.5, -0.02, 'Box: setting used in the paper (5 seeds).' + (r'  $\dagger$: 95% interval includes 0.' if n_cert < G.size else '  All intervals exclude 0.'),
-             ha='center', va='top', fontsize=5.8, color=MUTED)
-    save(fig, out, 'fig_tau')
+    if title:
+        ax.set_title(title, fontsize=7.2)
+    if standalone:
+        fig.text(0.5, -0.02, 'Box: setting used in the paper (5 seeds).' + (r'  $\dagger$: 95% interval includes 0.' if n_cert < G.size else '  All intervals exclude 0.'),
+                 ha='center', va='top', fontsize=5.8, color=MUTED)
+        save(fig, out, 'fig_tau')
     write_csv(out / 'csv' / 'fig_tau.csv', ['tau_frac', 'margin', 'mean_pp', 'ci95_pp'] + [f'seed{s}' for s in range(len(ps))], rows_csv)
 
 
-def fig_tau_confirm(curves, out):
+def fig_tau_confirm(curves, out, axs=None):
     """Sigmoid width chosen on the exploratory seeds (0-4, s=1) only, then reported on the 15 confirmatory seeds."""
     d = load(curves / 'tau_confirm.json')
     if d is None:
@@ -262,9 +267,12 @@ def fig_tau_confirm(curves, out):
     c1 = d['cells'][cells[0]]
     sel = [tci(paired(c1['per_seed'][:N_EXPLORATORY], nm(t), 'ao_nominal'))[0] for t in taus]
     t_star = taus[int(np.argmax(sel))]                      # selection uses ONLY seeds 0-4 of the first cell (s=1)
-    fig, axes = plt.subplots(1, len(cells), figsize=(7.16, 2.5), sharey=True, constrained_layout=True, squeeze=False)
+    standalone = axs is None
+    if standalone:
+        fig, axes = plt.subplots(1, len(cells), figsize=(7.16, 2.5), sharey=True, constrained_layout=True, squeeze=False)
+        axs = list(axes[0])
     rows_csv, summary = [], dict(tau_star=t_star, selected_on='seeds 0-4, s=1')
-    for ax, key in zip(axes[0], cells):
+    for ax, key in zip(axs, cells):
         c = d['cells'][key]; ps = c['per_seed']; sp = c['spread']
         for lab, sl, filled in (('exploratory seeds (0-4)', slice(0, N_EXPLORATORY), False), ('confirmatory seeds (5-19)', slice(N_EXPLORATORY, None), True)):
             mu, hw = [], []
@@ -284,10 +292,25 @@ def fig_tau_confirm(curves, out):
         ax.axvline(t_star, color=GREY, lw=0.7, ls=':'); ax.axhline(0, color=INK, lw=0.7)
         ax.set_xscale('log'); ax.set_xticks(taus); ax.set_xticklabels([f'{t:g}' for t in taus]); ax.minorticks_off()
         ax.set_xlabel(r'sigmoid width $\tau / R_{\min}$'); ax.set_title(f'$s={sp:g}$:  $\\tau^\\star={t_star:g}$ gives ${m_c:+.1f}\\pm{h_c:.1f}$ pp ({k}/{len(conf)} seeds)', fontsize=6.8)
-    axes[0][0].set_ylabel('gain vs nominal max-min AO (pp)'); axes[0][0].legend(frameon=False, loc='lower right')
-    save(fig, out, 'fig_tau_confirm')
+    axs[0].set_ylabel('gain vs nominal max-min AO (pp)'); axs[0].legend(frameon=False, loc='lower right', fontsize=6)
+    if standalone:
+        save(fig, out, 'fig_tau_confirm')
     write_csv(out / 'csv' / 'fig_tau_confirm.csv', ['cell', 'seeds', 'tau_frac', 'mean_pp', 'ci95_pp'], rows_csv)
     (out / 'csv' / 'fig_tau_confirm_summary.json').write_text(json.dumps(summary, indent=1))
+
+
+def fig_width(curves, out):
+    """One wide figure for the sigmoid-width question: (a) grid on the design seeds, (b),(c) held-out confirmation."""
+    if load(curves / 'tau.json') is None or load(curves / 'tau_confirm.json') is None:
+        return print('  skip fig_width (tau.json / tau_confirm.json missing)')
+    fig = plt.figure(figsize=(7.16, 2.75), constrained_layout=True)
+    gs = fig.add_gridspec(1, 3, width_ratios=[1.0, 1.05, 1.05])
+    ax0 = fig.add_subplot(gs[0]); ax1 = fig.add_subplot(gs[1]); ax2 = fig.add_subplot(gs[2], sharey=ax1)
+    fig_tau(curves, out, ax=ax0, fig=fig, title='(a) width x margin, design seeds')
+    fig_tau_confirm(curves, out, axs=[ax1, ax2])
+    ax1.set_title('(b) ' + ax1.get_title(), fontsize=6.8); ax2.set_title('(c) ' + ax2.get_title(), fontsize=6.8)
+    ax2.tick_params(labelleft=False)
+    save(fig, out, 'fig_width')
 
 
 # ------------------------------------------------------------------------------------------ Fig: PDA model
@@ -724,7 +747,7 @@ def main():
 
     for fn, args in ((fig_pda_model, (out,)), (fig_headroom, (data, out)), (fig_calibration, (curves, data, out)),
                      (fig_probes, (curves, out)), (fig_regime, (curves, out)), (fig_episode, (data, out)),
-                     (fig_residual, (data, out)), (fig_power, (curves, out)), (fig_robust, (curves, out)), (fig_tau, (curves, out)), (fig_tau_confirm, (curves, out)),
+                     (fig_residual, (data, out)), (fig_power, (curves, out)), (fig_robust, (curves, out)), (fig_width, (curves, out)),
                      (fig_probing, (curves, out))):
         try:
             fn(*args)
