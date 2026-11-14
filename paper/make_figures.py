@@ -23,6 +23,7 @@ Figures (IEEE column widths: 3.5 in, 7.16 in):
   fig_robust.pdf          gain vs RIS phase resolution and vs CSI-error power                                  [curves]
   fig_tau.pdf             decode-aware gain over the (sigmoid width x margin) grid                              [curves]
   fig_tau_confirm.pdf     sigmoid width chosen on seeds 0-4 only, reported on seeds 5-19                       [curves]
+  fig_probing.pdf         probing budget + regime maps in one wide figure (replaces fig_probes_tuned / fig_regime_tuned in the paper) [curves]
 """
 import argparse, csv, json, sys
 from pathlib import Path
@@ -546,13 +547,15 @@ def _same_as_stored(new_ps, old_ps, methods, name):
     invariant(f'{name}: shared methods reproduce the earlier study exactly', dmax < 1e-9, f'max |diff| = {dmax:.3g} pp')
 
 
-def fig_probes_tuned(curves, out):
+def fig_probes_tuned(curves, out, ax=None, title=None):
     d, d0 = load(curves / 'probes_tuned.json'), load(curves / 'probes.json')
     if d is None or d0 is None:
         return print('  skip fig_probes_tuned (probes_tuned.json missing)')
     budgets = d['config']['budgets']; key = list(d['cells'])[0]; c = d['cells'][key]; ps = c['per_seed']
     _same_as_stored(ps, d0['cells'][key]['per_seed'], ['ao_nominal', 'decode_nominal'] + [f'cem_nominal_B{B}' for B in budgets], 'probes_tuned')
-    fig, ax = plt.subplots(figsize=(3.5, 3.3), constrained_layout=True)
+    standalone = ax is None
+    if standalone:
+        fig, ax = plt.subplots(figsize=(3.5, 3.3), constrained_layout=True)
     rows_csv, curve = [], {}
     for fam, lab, col, mk, ls in (('cem_nominal', 'AO+CEM from max-min AO', ORANGE, 'D', '-'), ('cem_tuned', 'AO+CEM from decode-aware AO', BLUE, 'o', '--')):
         mu, hw = [], []
@@ -581,12 +584,17 @@ def fig_probes_tuned(curves, out):
         ax.axvline(be, color=GREY, lw=0.7, ls=':'); ax.annotate(f' $B^\\star\\!\\approx\\!{be:.0f}$', xy=(be, 0.12), xycoords=('data', 'axes fraction'), fontsize=6.5, va='bottom', ha='left', color=MUTED)
     ax.set_xscale('log', base=2); ax.set_xticks(budgets); ax.set_xticklabels([str(b) for b in budgets])
     ax.set_xlabel('true-rate measurements per slot $B$'); ax.set_ylabel('decode-rate gain vs nominal AO (pp)')
-    h_, l_ = ax.get_legend_handles_labels(); fig.legend(h_, l_, loc='outside lower center', ncol=1, frameon=False, fontsize=6)
-    save(fig, out, 'fig_probes_tuned')
+    h_, l_ = ax.get_legend_handles_labels()
+    if title:
+        ax.set_title(title, fontsize=7.2)
+    if standalone:
+        fig.legend(h_, l_, loc='outside lower center', ncol=1, frameon=False, fontsize=6)
+        save(fig, out, 'fig_probes_tuned')
     write_csv(out / 'csv' / 'fig_probes_tuned.csv', ['series', 'B', 'mean_pp', 'ci95_pp'] + [f'seed{s}' for s in range(len(ps))], rows_csv)
+    return h_, l_
 
 
-def fig_regime_tuned(curves, out):
+def fig_regime_tuned(curves, out, fig=None, axes=None, titles=None):
     d, d0 = load(curves / 'regime_tuned.json'), load(curves / 'regime.json')
     if d is None or d0 is None:
         return print('  skip fig_regime_tuned (regime_tuned.json missing)')
@@ -605,9 +613,12 @@ def fig_regime_tuned(curves, out):
             gain[i, j], diff[i, j] = gm, dm; sig[i, j] = 0 if abs(dm) <= dh else (1 if dm > 0 else -1)
             rows_csv.append([pw, rm, gm, gh, dm, dh, int(sig[i, j])])
     seqc = LinearSegmentedColormap.from_list('seq', ['#f3f7fc', BLUE]); divc = LinearSegmentedColormap.from_list('div', [ORANGE, '#ececea', BLUE])
-    fig, axes = plt.subplots(1, 2, figsize=(7.16, 2.9), constrained_layout=True)
-    for ax, M, cmap, ttl, norm in ((axes[0], gain, seqc, '(a) tuned decode-aware AO gain over nominal AO (pp)', None),
-                                   (axes[1], diff, divc, f'(b) tuned decode-aware AO minus AO+CEM, $B={B}$ (pp)',
+    standalone = axes is None
+    if standalone:
+        fig, axes = plt.subplots(1, 2, figsize=(7.16, 2.9), constrained_layout=True)
+    t1, t2 = titles or ('(a) tuned decode-aware AO gain over nominal AO (pp)', f'(b) tuned decode-aware AO minus AO+CEM, $B={B}$ (pp)')
+    for ax, M, cmap, ttl, norm in ((axes[0], gain, seqc, t1, None),
+                                   (axes[1], diff, divc, t2,
                                     TwoSlopeNorm(vcenter=0, vmin=min(np.nanmin(diff), -1), vmax=max(np.nanmax(diff), 1)))):
         im = ax.imshow(M, origin='lower', cmap=cmap, norm=norm, aspect='auto')
         ax.set_xticks(range(len(powers))); ax.set_xticklabels([f'{p:g}' for p in powers]); ax.set_yticks(range(len(rmins))); ax.set_yticklabels([f'{r:g}' for r in rmins])
@@ -617,9 +628,23 @@ def fig_regime_tuned(curves, out):
                 if not np.isnan(M[i, j]):
                     ax.text(j, i, f'{M[i, j]:+.1f}' + ('' if M is gain else {1: '*', -1: '*', 0: ''}[sig[i, j]]), ha='center', va='center', fontsize=6.2, color=INK)
         fig.colorbar(im, ax=ax, fraction=0.046, pad=0.02)
-    fig.text(0.5, -0.045, '* 95% $t$-interval of the paired difference excludes 0 (5 seeds).\nBlue: decode-aware AO better; orange: probing better.', ha='center', va='top', fontsize=6, color=MUTED)
-    save(fig, out, 'fig_regime_tuned')
+    if standalone:
+        fig.text(0.5, -0.045, '* 95% $t$-interval of the paired difference excludes 0 (5 seeds).\nBlue: decode-aware AO better; orange: probing better.', ha='center', va='top', fontsize=6, color=MUTED)
+        save(fig, out, 'fig_regime_tuned')
     write_csv(out / 'csv' / 'fig_regime_tuned.csv', ['power_dbm', 'r_min', 'gain_pp', 'gain_ci95', 'decode_minus_cem_pp', 'diff_ci95', 'sign_certified'], rows_csv)
+
+
+def fig_probing(curves, out):
+    """One wide figure for the probing question: (a) budget curve, (b) gain map, (c) zero-probe minus 46-probe CEM map."""
+    if load(curves / 'probes_tuned.json') is None or load(curves / 'regime_tuned.json') is None:
+        return print('  skip fig_probing (probes_tuned.json / regime_tuned.json missing)')
+    fig = plt.figure(figsize=(7.16, 3.05), constrained_layout=True)
+    gs = fig.add_gridspec(1, 3, width_ratios=[1.0, 1.12, 1.12])
+    ax0, ax1, ax2 = (fig.add_subplot(gs[i]) for i in range(3))
+    h_, l_ = fig_probes_tuned(curves, out, ax=ax0, title='(a) probing budget, $s=1$')
+    fig_regime_tuned(curves, out, fig=fig, axes=(ax1, ax2), titles=('(b) gain over nominal AO (pp)', '(c) zero-probe minus 46-probe CEM (pp)'))
+    fig.legend(h_, l_, loc='outside lower center', ncol=2, frameon=False, fontsize=6.2)
+    save(fig, out, 'fig_probing')
 
 
 # ------------------------------------------------------------------------------------------ Fig: episode level
@@ -700,7 +725,7 @@ def main():
     for fn, args in ((fig_pda_model, (out,)), (fig_headroom, (data, out)), (fig_calibration, (curves, data, out)),
                      (fig_probes, (curves, out)), (fig_regime, (curves, out)), (fig_episode, (data, out)),
                      (fig_residual, (data, out)), (fig_power, (curves, out)), (fig_robust, (curves, out)), (fig_tau, (curves, out)), (fig_tau_confirm, (curves, out)),
-                     (fig_probes_tuned, (curves, out)), (fig_regime_tuned, (curves, out))):
+                     (fig_probing, (curves, out))):
         try:
             fn(*args)
         except Exception as e:                      # keep going; the failure is recorded and fails the run at the end

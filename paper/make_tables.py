@@ -109,6 +109,25 @@ def aoi(path, out):
     Path(out).write_text('\n'.join(rows) + '\n')
 
 
+def aoi_both(path1, path2, out):
+    """Both hardware-spread levels in one table: header once, one block per spread level."""
+    rows = [r'\begin{tabular}{llrrrr}', r'\toprule',
+            r'Scheduler & RIS solver & Avg AoI & $\Delta$ AoI vs AO nominal & Decode \% & $\Delta$ decode (pp) \\']
+    for label, path in (('$s=1$', path1), ('$s=2$', path2)):
+        d = json.loads(Path(path).read_text()); sm, ps = d['summary'], d['per_seed']
+        rows += [r'\midrule', r'\multicolumn{6}{l}{\textit{Hardware mismatch level ' + label + r'}} \\']
+        for k, v in sm.items():
+            sc, ll = k.split('+', 1)
+            if ll == 'ao_nominal':
+                dA = dD = '--'
+            else:
+                dA = '{:+.2f}$\\pm${:.2f}'.format(*_paired(ps, k, sc + '+ao_nominal', 'avg_aoi'))
+                dD = '{:+.1f}$\\pm${:.1f}'.format(*_paired(ps, k, sc + '+ao_nominal', 'decode_pct'))
+            rows.append(f"{sc.replace('_', ' ')} & {NAMES.get(ll, ll.replace('_', ' '))} & {pm(v['avg_aoi'])} & {dA} & {pm(v['decode_pct'])} & {dD} \\\\")
+    rows += [r'\bottomrule', r'\end{tabular}']
+    Path(out).write_text('\n'.join(rows) + '\n')
+
+
 if __name__ == '__main__':
     headroom(DATA / '03_headroom' / 'headroom_v5_FINAL_code_d66def0.json', OUT / 'table_headroom.tex')
     residual(DATA / '04_residual_learning' / 'residual_v2_history.json',
@@ -120,4 +139,6 @@ if __name__ == '__main__':
             fn(DATA / rel, OUT / dst)
         else:
             print(f'skip {name}: {rel} not in paper/data yet')
+    if (DATA / '05_macro_and_aoi/aoi_v5.json').exists() and (DATA / '05_macro_and_aoi/aoi_v5_spread2.json').exists():
+        aoi_both(DATA / '05_macro_and_aoi/aoi_v5.json', DATA / '05_macro_and_aoi/aoi_v5_spread2.json', OUT / 'table_aoi_both.tex')
     print('wrote', *sorted(p.name for p in OUT.glob('*.tex')))

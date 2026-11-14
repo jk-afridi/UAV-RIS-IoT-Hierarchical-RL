@@ -1,0 +1,25 @@
+\begin{tabular}{llrrrr}
+\toprule
+Scheduler & RIS solver & Avg AoI & $\Delta$ AoI vs AO nominal & Decode \% & $\Delta$ decode (pp) \\
+\midrule
+\multicolumn{6}{l}{\textit{Hardware mismatch level $s=1$}} \\
+greedy aoi travel & AO, nominal PDA (reference) & 11.8$\pm$3.4 & -- & 64.2$\pm$13.8 & -- \\
+greedy aoi & AO, nominal PDA (reference) & 12.1$\pm$3.6 & -- & 57.0$\pm$13.0 & -- \\
+greedy aoi travel & Decode-aware AO, nominal PDA & 10.1$\pm$2.9 & -1.65$\pm$0.58 & 71.0$\pm$14.6 & +6.8$\pm$3.1 \\
+greedy aoi & Decode-aware AO, nominal PDA & 9.9$\pm$3.3 & -2.11$\pm$1.57 & 66.3$\pm$14.7 & +9.3$\pm$3.7 \\
+greedy aoi travel & Decode-aware AO, true PDA & 9.6$\pm$2.9 & -2.19$\pm$0.64 & 74.2$\pm$15.1 & +9.9$\pm$3.5 \\
+greedy aoi & Decode-aware AO, true PDA & 8.8$\pm$2.0 & -3.27$\pm$1.89 & 71.3$\pm$12.7 & +14.4$\pm$3.4 \\
+greedy aoi travel & AO, true PDA & 10.8$\pm$3.4 & -0.98$\pm$0.17 & 67.9$\pm$15.0 & +3.7$\pm$2.4 \\
+greedy aoi & AO, true PDA & 10.8$\pm$2.8 & -1.22$\pm$1.60 & 60.8$\pm$13.5 & +3.9$\pm$4.5 \\
+\midrule
+\multicolumn{6}{l}{\textit{Hardware mismatch level $s=2$}} \\
+greedy aoi travel & AO, nominal PDA (reference) & 12.5$\pm$3.3 & -- & 60.4$\pm$11.9 & -- \\
+greedy aoi & AO, nominal PDA (reference) & 13.4$\pm$4.3 & -- & 52.4$\pm$12.7 & -- \\
+greedy aoi travel & Decode-aware AO, nominal PDA & 10.6$\pm$2.7 & -1.87$\pm$1.01 & 67.4$\pm$13.5 & +7.0$\pm$2.5 \\
+greedy aoi & Decode-aware AO, nominal PDA & 11.0$\pm$2.8 & -2.33$\pm$1.56 & 60.4$\pm$11.4 & +7.9$\pm$2.0 \\
+greedy aoi travel & Decode-aware AO, true PDA & 9.6$\pm$3.1 & -2.88$\pm$0.94 & 73.7$\pm$15.8 & +13.3$\pm$5.3 \\
+greedy aoi & Decode-aware AO, true PDA & 8.8$\pm$2.2 & -4.57$\pm$2.11 & 71.7$\pm$14.8 & +19.2$\pm$2.9 \\
+greedy aoi travel & AO, true PDA & 10.7$\pm$3.6 & -1.79$\pm$0.92 & 67.8$\pm$16.3 & +7.4$\pm$5.0 \\
+greedy aoi & AO, true PDA & 10.6$\pm$2.7 & -2.76$\pm$2.55 & 62.4$\pm$13.3 & +10.0$\pm$6.2 \\
+\bottomrule
+\end{tabular}
