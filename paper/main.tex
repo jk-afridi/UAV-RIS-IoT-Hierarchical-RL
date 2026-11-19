@@ -111,7 +111,7 @@ and the achievable data rate is $R_k = \log_2(1 + \text{SINR}_k)$.
 \subsection{Age of Information (AoI) Model}
 We utilize Age of Information (AoI) to quantify the freshness of data collected from the IoT devices. Let $A_k(t)$ denote the AoI of device $k$ at time slot $t$. If device $k$ is scheduled and successfully transmits its data (i.e., $R_k \geq R_{\text{min}}$), its AoI is reset to 1. Otherwise, the AoI increases linearly:
 \begin{equation}
-    A_k(t+1) = \begin{cases} 1, & \text{if } k \in \mathcal{C}_{\text{served}}(t) \text{ and } R_k(t) \geq R_{\text{min}} \\ A_k(t) + 1, & \text{otherwise} \end{cases}
+    A_k(t+1) = \begin{cases} 1, & k \in \mathcal{C}_{\text{served}}(t),\; R_k(t) \geq R_{\text{min}} \\ A_k(t) + 1, & \text{otherwise} \end{cases}
 \end{equation}
 
 \subsection{Problem Formulation}
@@ -119,7 +119,10 @@ We utilize Age of Information (AoI) to quantify the freshness of data collected 
 
 \paragraph*{Episode level (P2).} Jointly choose the UAV velocity and the cluster to serve at each step to minimise the network-average AoI,
 \begin{equation}
-    \min \; \frac{1}{T K_{\text{total}}} \sum_{t=1}^{T} \sum_{k=1}^{K_{\text{total}}} A_k(t) \quad \text{s.t.}\; \|\mathbf{v}(t)\|\le V_{\text{max}},\; \sum_t P(\|\mathbf{v}(t)\|)\Delta t \le E_{\text{budget}},
+    \begin{split}
+    \min \; & \frac{1}{T K_{\text{total}}} \sum_{t=1}^{T} \sum_{k=1}^{K_{\text{total}}} A_k(t) \\
+    \text{s.t.}\; & \|\mathbf{v}(t)\|\le V_{\text{max}}, \quad \sum_t P(\|\mathbf{v}(t)\|)\Delta t \le E_{\text{budget}},
+    \end{split}
 \end{equation}
 where each slot's decoding outcome comes from the P1 solver. Problem P1 is the part that depends on hardware and CSI; P2 adds scheduling and travel.
 
