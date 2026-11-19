@@ -325,7 +325,8 @@ def fig_pda_model(out):
     spreads = [0.5, 1.0, 2.0]
     pooled = {s: dict(th=[], lk=[], b=[]) for s in spreads}
     envs = {}
-    fig, axes = plt.subplots(1, 3, figsize=(7.16, 2.2), sharey=True)
+    fig, axes = plt.subplots(1, 3, figsize=(7.16, 2.45), sharey=True)
+    fig.subplots_adjust(bottom=0.29, top=0.90, left=0.075, right=0.995, wspace=0.08)   # strip below the x-labels is reserved for the legend
     rows = []
     for ax, s in zip(axes, spreads):
         for seed in range(5):
@@ -356,7 +357,7 @@ def fig_pda_model(out):
         ax.set_xticks([-np.pi, -np.pi / 2, 0, np.pi / 2, np.pi]); ax.set_xticklabels([r'$-\pi$', r'$-\pi/2$', '0', r'$\pi/2$', r'$\pi$'])
     axes[0].set_ylabel(r'amplitude $\beta(\theta)$')
     h_, l_ = axes[0].get_legend_handles_labels()          # legend below the panels: it never covers a curve
-    fig.legend(h_, l_, loc='lower center', ncol=2, frameon=False, bbox_to_anchor=(0.5, -0.07))
+    fig.legend(h_, l_, loc='lower center', ncol=2, frameon=False, bbox_to_anchor=(0.5, 0.0), fontsize=7)
     # generator moments (pooled over the 5 seeds = 320 elements per level): sample std within +-15% of its target
     for s in spreads:
         th = np.concatenate(pooled[s]['th']); lk = np.concatenate(pooled[s]['lk']); bb = np.concatenate(pooled[s]['b'])
