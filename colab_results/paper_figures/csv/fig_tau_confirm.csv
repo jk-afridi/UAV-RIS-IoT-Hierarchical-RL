@@ -1,0 +1,25 @@
+cell,seeds,tau_frac,mean_pp,ci95_pp
+spread=1,exploratory seeds (0-4),0.2,6.4,0.9076682726884019
+spread=1,exploratory seeds (0-4),0.4,9.325,1.3378533452275998
+spread=1,exploratory seeds (0-4),0.8,14.35,3.102995717167964
+spread=1,exploratory seeds (0-4),1.6,15.425,3.0107951737067817
+spread=1,exploratory seeds (0-4),3.2,15.275,3.0303343448649573
+spread=1,exploratory seeds (0-4),6.4,15.05,3.0525116824602363
+spread=1,confirmatory seeds (5-19),0.2,7.691666666666666,0.851775385458469
+spread=1,confirmatory seeds (5-19),0.4,10.0,0.966288150975715
+spread=1,confirmatory seeds (5-19),0.8,14.525,1.3402873989837802
+spread=1,confirmatory seeds (5-19),1.6,15.241666666666667,1.5044631106404192
+spread=1,confirmatory seeds (5-19),3.2,15.158333333333333,1.5537078517179843
+spread=1,confirmatory seeds (5-19),6.4,14.95,1.5413961265924743
+spread=2,exploratory seeds (0-4),0.2,9.425,1.8773111738138841
+spread=2,exploratory seeds (0-4),0.4,11.825,1.4748843834163816
+spread=2,exploratory seeds (0-4),0.8,17.275,1.841031209251589
+spread=2,exploratory seeds (0-4),1.6,18.4,2.220613743511854
+spread=2,exploratory seeds (0-4),3.2,18.775,1.8344771435600027
+spread=2,exploratory seeds (0-4),6.4,18.625,2.2140952938029943
+spread=2,confirmatory seeds (5-19),0.2,8.183333333333334,0.49425658150682267
+spread=2,confirmatory seeds (5-19),0.4,10.925,0.6005129150205423
+spread=2,confirmatory seeds (5-19),0.8,16.166666666666668,0.989274613958816
+spread=2,confirmatory seeds (5-19),1.6,17.641666666666666,1.192637077850693
+spread=2,confirmatory seeds (5-19),3.2,17.55,1.1478688590485941
+spread=2,confirmatory seeds (5-19),6.4,17.366666666666667,1.0880668198844856
