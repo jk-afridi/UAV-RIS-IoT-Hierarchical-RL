@@ -37,7 +37,7 @@ Unmanned aerial vehicle (UAV)-mounted reconfigurable intelligent surfaces (RISs)
 \end{abstract}
 
 \begin{IEEEkeywords}
-Age of Information (AoI), Reconfigurable Intelligent Surface (RIS), UAV, phase-dependent amplitude, hardware impairment, benchmark, deep reinforcement learning.
+Age of Information (AoI), Reconfigurable Intelligent Surface (RIS), Phase-Dependent Amplitude, Hardware Impairment, Deep Reinforcement Learning.
 \end{IEEEkeywords}
 
 \section{Introduction}
@@ -67,11 +67,9 @@ The investigation is organized around three principal research questions. First,
 
 The main contributions of this paper are summarized as follows:
 \begin{itemize}
-    \item \textbf{An audited UAV-RIS data collection benchmark:}\ A simulation benchmark is established to evaluate information freshness and decoding performance under practical PDA characteristics, element-wise hardware mismatch, and imperfect cascaded CSI. It ensures consistent evaluation through seed-dependent network and hardware configurations, paired comparisons, and 95\% confidence intervals.
-    \item \textbf{A systematic decomposition of decoding-rate degradation:} The effects of hardware mismatch, channel-estimation errors, and optimization objectives are examined separately. Results show that selecting a decoding-aware objective can yield greater performance gains than improving hardware-model accuracy alone.
-    \item \textbf{A decode-aware alternating optimization approach:} The decode-aware AO method is evaluated against conventional max-min AO, calibration-assisted optimization, perfect-CSI diagnostics, and measurement-based probing.
-    \item \textbf{Calibration sensitivity and probing analysis:} The sensitivity of optimization performance to calibration accuracy, RIS phase resolution, channel-estimation errors, and operating conditions is assessed. The measurement requirements of probing-based methods are also examined to identify when additional measurements yield meaningful performance gains.
-    \item \textbf{Episode-level AoI evaluation and learning-based comparisons:} The impact of improved decoding performance on network-level AoI is evaluated through complete data collection episodes using heuristic scheduling strategies. Furthermore, a SAC-based residual controller and a hybrid-action PPO scheduler are implemented and evaluated against their corresponding model-based and heuristic baselines.
+    \item A simulation benchmark evaluates decoding performance and AoI under PDA characteristics, element-wise hardware mismatch, and imperfect cascaded CSI, using seed-dependent layouts and hardware instances, paired comparisons, and 95\% confidence intervals.
+    \item The effects of hardware mismatch, channel-estimation errors, and the optimization objective are examined separately. A decode-aware AO that needs no extra measurements is compared with max-min AO, calibration-assisted optimization, perfect-CSI diagnostics, and probing, and it yields larger gains than improving hardware-model accuracy alone. Its sensitivity to calibration accuracy, phase resolution, and channel-estimation error, and the probing budget needed to match it, are quantified.
+    \item Complete data collection episodes with heuristic schedulers quantify the network-level AoI effect, and a SAC residual controller and a hybrid-action PPO scheduler are tested against model-based and heuristic baselines.
 \end{itemize}
 The remainder of this paper is organized as follows. Section~\ref{sec:model} presents the UAV-RIS-assisted IoT network architecture, channel and PDA hardware models, AoI formulation, and associated optimization problems. Section~\ref{sec:model}I describes the model-based optimization methods, probing strategies, scheduling approaches, and learning-based components considered in the evaluation. Section~\ref{sec:eval} presents the simulation configuration and experimental results, including the decomposition of decoding-rate losses, calibration sensitivity, robustness analysis, probing performance, episode-level AoI evaluation, and learning-based results. Finally, Section~\ref{sec:conclusion} concludes the paper and discusses the principal findings and limitations of the study.
 
@@ -124,9 +122,6 @@ The effective channel from the $k$-th device to the BS is given by $\mathbf{h}_{
 and the achievable data rate is $R_k = \log_2(1 + \text{SINR}_k)$.
 
 \paragraph*{Hardware mismatch.} Element $l$ has its own true PDA parameters $(\beta_{\text{min},l}, \bar{\kappa}_l, \bar{\theta}_l)$, while the designer knows only the nominal $(\beta_{\text{min}}, \bar{\kappa}, \bar{\theta})$. We generate a hardware instance of mismatch level $s$ as $\beta_{\text{min},l}\sim\mathcal{N}(\beta_{\text{min}},(0.15s)^2)$ clipped to $[0.05,0.95]$, $\bar{\kappa}_l=\bar{\kappa}\exp(\mathcal{N}(0,(0.3s)^2))$, and $\bar{\theta}_l\sim\mathcal{N}(\bar{\theta},(0.5s)^2)$; $s=0$ means no mismatch. This is a plausible synthetic model, not a measured one (see Section~\ref{sec:limits}).
-
-
-
 
 
 \paragraph*{CSI.} Solvers see the cascaded channels $\mathbf{D}_k=\text{diag}(\mathbf{h}_{2,k})\mathbf{H}_1$ plus complex Gaussian estimation error of variance $10^{-14}$ per entry; rates are always computed from the true channels and true hardware. The device--RIS link is Rician with factor $K_{\text{rice}}$ and uses geometric LoS steering; the RIS--BS link uses a separate factor $K_{\text{rice,BS}}$.
@@ -225,7 +220,6 @@ The decode-aware solver improves on max-min AO in all 12 settings (the default a
 \paragraph*{Probing budget.} Fig.~\ref{fig:probing}(a) varies the number $B$ of true-rate measurements per slot at $s=1$ (the starting solution counts as one measurement, so $B=1$ returns the start exactly). Decode-aware AO is shown at the tuned sigmoid width $\tau^\star=1.6R_{\min}$ of Section~\ref{sec:robust}; the studies that use the initial width $0.2R_{\min}$ are in the repository. CEM started from the max-min solution gains $+5.0\pm0.7$ points at $B=10$, $+9.6\pm1.4$ at $B=16$, $+14.8\pm2.4$ at $B=46$ and $+16.6\pm2.7$ at $B=91$, whereas the zero-probe tuned decode-aware solver gains $+15.4\pm3.0$. CEM overtakes it at $B^\star\approx58$ measurements per slot (log$_2$ interpolation between $B=46$ and $B=91$); with the initial width the break-even was $B^\star\approx13$, so the break-even depends strongly on the objective, which is why it must not be quoted without it. The two ingredients are complementary: started from the tuned decode-aware solution, CEM gains $+16.7\pm3.2$ at $B=10$ and $+21.0\pm4.2$ at $B=46$.
 
 
-
 \paragraph*{Where does each approach win?} Fig.~\ref{fig:probing}(b), (c) maps transmit power and rate threshold at $s=1$ with $B=46$ probes (100 slots per seed). The tuned decode-aware solver gains $+3.8$ to $+25.7$ points over nominal AO throughout the grid. Against 46-probe CEM from the max-min solution, zero-probe decode-aware AO is significantly better at 0\,dBm at every threshold ($+10.6\pm2.5$ to $+13.7\pm2.8$ points) and at 5\,dBm at every threshold ($+2.9\pm1.3$ to $+10.9\pm3.2$); at 10\,dBm the two are not distinguishable for $R_{\min}\ge0.5$, and probing is significantly better at $R_{\min}=0.25$ ($-2.0\pm0.9$) and at every threshold from 15\,dBm up, by as much as $28.3\pm2.5$ points at 20\,dBm and $R_{\min}=1$. Cells marked with an asterisk have a 95\% interval of the paired difference that excludes zero; unmarked cells are inconclusive with five seeds.
 
 \begin{figure*}[!tb]
@@ -234,7 +228,6 @@ The decode-aware solver improves on max-min AO in all 12 settings (the default a
 \caption{When does probing pay off? (a) Decode-rate gain over nominal max-min AO versus probing budget $B$ at $s=1$ (mean and 95\% interval, 5 seeds): the band is zero-probe decode-aware AO at the tuned width, the dotted line the same solver at the initial width $0.2R_{\min}$, and the vertical line the break-even budget of CEM started from the max-min solution. (b) Gain of tuned decode-aware AO over nominal AO over transmit power and rate threshold. (c) Tuned decode-aware AO minus 46-probe AO+CEM; blue means the zero-probe solver is better, and an asterisk marks a 95\% interval of the paired difference that excludes zero.}
 \label{fig:probing}
 \end{figure*}
-
 
 
 \subsection{Episode-level effect}
@@ -262,11 +255,6 @@ Under greedy AoI with travel, the nominal decode-aware solver lowers average AoI
 \subsection{Learned components: negative results}
 \label{sec:negative}
 \paragraph*{Residual SAC.} A first recipe with an unpaired reward made the policy worse than its own physics prior (47\% against 75\% decode in the mismatch study, including at $s=0$). A second recipe uses a paired reward (reward of the residual action minus that of the prior on the same channel and CSI), zero-residual anchor samples, an $\ell_2$ penalty and a fixed entropy weight, and keeps the snapshot with the best validation gain, with the zero-residual policy as fallback. After 8000 training slots at $s=1$ no checkpoint beat the prior: the final policy is $0.044$ (first recipe) and $0.018$ (second recipe) reward units below it, and the best validation snapshot has gain $0.000$, so the learned policy reduces to the AO solution (training curves in Appendix~\ref{app:residual}, Fig.~\ref{fig:residual}). Given the headroom analysis, the room left for a policy that sees only the CSI estimate is small: the remaining gap to 45-probe search is mostly noise in the individual slot's estimate.
-
-
-
-
-
 
 
 \paragraph*{PPO scheduler.} The hybrid-action PPO scheduler trained on a pool of layouts reached an average AoI of $27.6\pm25.1$ on held-out layouts against $11.6\pm3.4$ for greedy AoI with travel (same low level, 5 seeds), so we make no claim for learned scheduling in this environment. We did not tune it exhaustively, and the result applies to this heuristic-friendly setting, in which a one-cluster-per-step AoI problem is close to solved by greedy rules.
