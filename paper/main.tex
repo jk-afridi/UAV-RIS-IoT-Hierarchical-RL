@@ -177,7 +177,7 @@ Each of the 5 seeds has its own city layout and its own hardware instance. The c
 
 \subsection{Headroom decomposition}
 \label{sec:headroom}
-Table~\ref{tab:headroom} reports decode rate at mismatch levels $s\in\{0,1,2\}$, and Fig.~\ref{fig:headroom} shows the same paired gains over nominal-PDA AO as intervals, grouped by the information each method uses (Section~\ref{sec:methods}).
+Table~\ref{tab:headroom} reports decode rate at mismatch levels $s\in\{0,1,2\}$, and Fig.~\ref{fig:headroom} plots the same paired gains over nominal-PDA max-min AO. Each row of the figure is a method and each panel a mismatch level; the vertical line at zero is nominal AO, the large marker is the mean over five seeds with its 95\% interval, and the faint dots are the individual seeds, so a marker to the right of zero is an improvement. Marker color and shape group the methods by the information they use (Section~\ref{sec:methods}): model-based AO without probes (blue circles), decode-aware AO without probes (green squares), probing with true-rate feedback (orange diamonds) and perfect-CSI diagnostics (purple triangles).
 
 \begin{table*}[!tb]
 \centering
@@ -186,13 +186,13 @@ Table~\ref{tab:headroom} reports decode rate at mismatch levels $s\in\{0,1,2\}$,
 \resizebox{\textwidth}{!}{\input{tables/table_headroom.tex}}
 \end{table*}
 
-\emph{Assuming an ideal RIS is costly:} AO that ignores the PDA loses 14--24 points to nominal-PDA AO at every mismatch level, so modeling the hardware, even nominally, is the first-order effect. \emph{Hardware mismatch is second order at realistic spread:} knowing the true curve gains $0.2\pm1.7$ points at $s=0$, $3.2\pm2.1$ at $s=1$ and $8.7\pm2.7$ at $s=2$. \emph{A rough calibration suffices:} with a calibration error of 0.25 the decode-aware solver recovers $13.7\pm3.1$ of the $15.4\pm3.2$ points of the true-curve decode-aware solver at $s=2$. \emph{Channel-estimation error costs about 6 points:} perfect CSI gains $6.5\pm6.2$ ($s=0$) and $6.0\pm7.4$ ($s=1$) with nominal max-min AO. \emph{The objective matters as much:} decode-aware AO with the nominal model gains $7.2\pm2.3$, $6.8\pm1.5$ and $7.9\pm1.3$ points at $s=0,1,2$ with no extra measurements, i.e.\ as much as removing the estimation error. \emph{Probing gains more but costs measurements:} CEM with 15 probes gains $7.3\pm2.3$ to $11.3\pm2.6$ points and with 45 probes $13.1\pm2.8$ to $18.7\pm2.2$; with only 6 probes it is worse than AO, because a few noisy samples replace a good solution. Random search with 45 probes is 8--17 points worse than AO.
+Read from top to bottom, Fig.~\ref{fig:headroom} gives the following picture. \emph{Assuming an ideal RIS is costly:} AO that ignores the PDA (top row, far left of zero) loses 14--24 points to nominal-PDA AO at every mismatch level, so modeling the hardware, even nominally, is the first-order effect. \emph{Hardware mismatch is second order at realistic spread:} knowing the true curve gains $0.2\pm1.7$ points at $s=0$, $3.2\pm2.1$ at $s=1$ and $8.7\pm2.7$ at $s=2$. \emph{A rough calibration suffices:} with a calibration error of 0.25 the decode-aware solver recovers $13.7\pm3.1$ of the $15.4\pm3.2$ points of the true-curve decode-aware solver at $s=2$. \emph{Channel-estimation error costs about 6 points:} perfect CSI gains $6.5\pm6.2$ ($s=0$) and $6.0\pm7.4$ ($s=1$) with nominal max-min AO. \emph{The objective matters as much:} decode-aware AO with the nominal model gains $7.2\pm2.3$, $6.8\pm1.5$ and $7.9\pm1.3$ points at $s=0,1,2$ with no extra measurements, i.e.\ as much as removing the estimation error. \emph{Probing gains more but costs measurements:} CEM with 15 probes gains $7.3\pm2.3$ to $11.3\pm2.6$ points and with 45 probes $13.1\pm2.8$ to $18.7\pm2.2$; with only 6 probes it is worse than AO, because a few noisy samples replace a good solution. Random search with 45 probes is 8--17 points worse than AO. Taken together, the figure separates three effects: ignoring the PDA (top row), what better hardware or CSI knowledge adds (blue and purple rows), and what a better objective or extra measurements add (green and orange rows). The green markers lie to the right of zero in every panel without any probe.
 
 
 \begin{figure*}[!tb]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_headroom.pdf}
-\caption{Paired decode-rate gain over nominal-PDA max-min AO at mismatch levels $s=0,1,2$ (mean and 95\% $t$-interval over 5 seeds). Marker color groups methods by the information they use.}
+\caption{Paired decode-rate gain over nominal-PDA max-min AO at mismatch levels $s=0,1,2$. Each row is a method; the large marker is the mean and the bar the 95\% $t$-interval over 5 seeds, the faint dots are single seeds, and zero is nominal AO. Marker color and shape group methods by the information they use.}
 \label{fig:headroom}
 \end{figure*}
 
