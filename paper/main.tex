@@ -272,7 +272,7 @@ Fig.~\ref{fig:residual} plots the reward gain of the learned policy over its own
 
 \subsection{Statistical power, hardware realism and objective sensitivity}
 \label{sec:robust}
-The preceding studies use five seeds, and the decode-aware objective was designed on the same seeds. The studies below address both points. Each was specified, with its pass criterion, before it was run (\texttt{paper/PREREGISTRATION.md}); where a criterion failed we say so.
+The preceding studies use five seeds, and the decode-aware objective was designed on the same seeds. The studies below address both points. Each was specified, with its pass criterion, in a hypotheses file committed to the project repository before the study was run (see the code release); where a criterion failed we say so.
 
 \paragraph*{Twenty seeds, with a confirmatory split.} Seeds 0--4 were used while the method was designed and are labeled exploratory; seeds 5--19 were never used for any choice and are confirmatory. On the 15 confirmatory seeds the decode-aware solver (nominal model, width $0.2R_{\min}$) gains $+7.2\pm1.3$ points over nominal max-min AO at $s=1$ and $+8.4\pm0.7$ at $s=2$; every one of the 15 seeds improves in both cases (exact one-sided sign test $p=3.1\times10^{-5}$). Over all 20 seeds the gains are $+7.2\pm1.0$ and $+8.8\pm0.7$ (Fig.~\ref{fig:power}). The five-seed estimate was therefore not inflated by the design seeds. In Fig.~\ref{fig:power}, each marker is one seed (hollow: design seeds, filled: held-out seeds); the upper panels show that the held-out markers scatter around the same level as the design markers, and the lower panels show the 95\% interval narrowing as seeds are added without drifting.
 
