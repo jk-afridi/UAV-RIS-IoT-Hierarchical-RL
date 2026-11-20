@@ -189,7 +189,7 @@ def fig_robust(curves, out):
             invariant('quant: 6-bit decode-aware AO equals the unrestricted decode-aware AO', dd < 1e-9, f'max |diff|={dd:.3g} pp')
         ax.axhline(0, color=INK, lw=0.7)
         ax.set_xlabel('RIS phase resolution (bits; 6 = unrestricted grid)'); ax.set_ylabel('decode-rate gain vs 6-bit nominal AO (pp)')
-        ax.set_xticks(bits); ax.set_title('(a) phase quantisation, $s=1$', fontsize=7.2); ax.legend(frameon=False, loc='lower right')
+        ax.set_xticks(bits); ax.set_title('(a) phase quantization, $s=1$', fontsize=7.2); ax.legend(frameon=False, loc='lower right')
     if dc is not None:
         ax = axes[1]; keys = list(dc['cells']); B = dc['config'].get('budgets', [46])
         x_db = np.array([np.mean([s['_meta']['csi_nmse_db'] for s in dc['cells'][k]['per_seed']]) for k in keys])
