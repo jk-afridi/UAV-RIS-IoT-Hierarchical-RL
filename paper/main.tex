@@ -196,12 +196,12 @@ Read from top to bottom, Fig.~\ref{fig:headroom} gives the following picture. \e
 \label{fig:headroom}
 \end{figure*}
 
-\paragraph*{How accurate must the calibration be?} Fig.~\ref{fig:calibration} replaces the true curve by one with calibration error $e$ (in units of the $s=1$ spread) and reports the gain over nominal max-min AO. At $s=1$ the decode-aware solver keeps its gain up to $e=0.5$ ($+8.0\pm2.1$ points, against $+8.7\pm1.5$ with perfect knowledge), falls to $+4.6\pm2.1$ at $e=1$ and becomes harmful at $e=2$ ($-4.8\pm3.1$). At $s=2$ it stays positive over the whole range ($+15.3\pm2.9$ at $e=0.5$, $+12.3\pm1.5$ at $e=1$, $+5.6\pm2.2$ at $e=2$). Max-min AO is more fragile: at $s=1$ it is no better than nominal AO at $e=0.5$ ($-0.3\pm3.0$) and loses $12.2\pm1.9$ points at $e=2$. A calibration that is accurate to about half the mismatch spread therefore suffices for the decode-aware solver.
+\paragraph*{How accurate must the calibration be?} Fig.~\ref{fig:calibration} replaces the true curve by one with calibration error $e$ (in units of the $s=1$ spread) and reports the gain over nominal max-min AO. Each panel is a mismatch level; the horizontal axis is $e$, in the same $s=1$ units in both panels, so $e=0$ is the true curve and $e=2$ is an error twice the $s=1$ spread. Markers are 5-seed means with 95\% intervals, the black line at zero is nominal max-min AO, and the shaded band is decode-aware AO that uses the nominal curve with no calibration at all, so calibration pays off only where the green curve lies at or above the band. At $s=1$ the decode-aware solver keeps its gain up to $e=0.5$ ($+8.0\pm2.1$ points, against $+8.7\pm1.5$ with perfect knowledge), falls to $+4.6\pm2.1$ at $e=1$ and becomes harmful at $e=2$ ($-4.8\pm3.1$). At $s=2$ it stays positive over the whole range ($+15.3\pm2.9$ at $e=0.5$, $+12.3\pm1.5$ at $e=1$, $+5.6\pm2.2$ at $e=2$). Max-min AO is more fragile: at $s=1$ it is no better than nominal AO at $e=0.5$ ($-0.3\pm3.0$) and loses $12.2\pm1.9$ points at $e=2$. In the figure, the green curve stays at or above the band up to about $e=0.5$ at $s=1$ and $e=1$ at $s=2$, and drops below it beyond; a calibration that is accurate to about half the mismatch spread therefore suffices for the decode-aware solver.
 
 \begin{figure*}[!tb]
 \centering
 \includegraphics[width=\textwidth]{figures/fig_calibration.pdf}
-\caption{Decode-rate gain over nominal max-min AO as a function of the calibration error of the amplitude model used by the solver, for max-min and decode-aware AO at $s=1$ and $s=2$ (mean and 95\% interval, 5 seeds).}
+\caption{Decode-rate gain over nominal max-min AO as a function of the calibration error $e$ of the amplitude model used by the solver (in units of the $s=1$ spread), for max-min and decode-aware AO at $s=1$ and $s=2$ (mean and 95\% interval, 5 seeds). The shaded band is decode-aware AO with the uncalibrated nominal curve.}
 \label{fig:calibration}
 \end{figure*}
 
