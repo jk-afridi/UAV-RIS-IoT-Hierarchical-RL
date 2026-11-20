@@ -79,7 +79,7 @@ def main():
     S = J('07_sweeps/sweeps.json')
     sw = {k: {m: tci(pd_(c['per_seed'], m)) for m in c['per_seed'][0] if m != 'ao_nominal'} for k, c in S.items()}
     dec = {k: v['ao_decode_nominal'] for k, v in sw.items()}
-    claim('decode-aware improves in all 12 settings (default + 11) with CI excluding 0', ['all 12 parameter settings', 'all 12 settings'],
+    claim('decode-aware improves in all 12 settings (default + 11) with CI excluding 0', ['all 12 settings'],
           cond=len(S) == 12 and all(m - h > 0 for m, h in dec.values()), detail=f'{len(S)} settings; min lower bound {min(m - h for m, h in dec.values()):.2f}')
     claim('abstract: default decode-aware gain', [pm(*dec['default'])])
     lo = min(dec, key=lambda k: dec[k][0]); hi = max(dec, key=lambda k: dec[k][0])
