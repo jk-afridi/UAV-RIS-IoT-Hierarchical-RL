@@ -716,7 +716,7 @@ def fig_residual(data, out):
         return print('  skip fig_residual (history missing)')
     fig, ax = plt.subplots(figsize=(3.5, 2.3))
     rows_csv = []
-    for h, lab, col, mk in ((h2, 'v2: unpaired reward', ORANGE, 'D'), (h3, 'v3: paired reward, anchors, fallback', BLUE, 'o')):
+    for h, lab, col, mk in ((h2, 'first recipe (unpaired reward)', ORANGE, 'D'), (h3, 'second recipe (paired reward, anchors, fallback)', BLUE, 'o')):
         x = [e['slots'] for e in h]; g = [e['policy_reward'] - e['prior_reward'] for e in h]
         for e in h:
             if 'gain' in e:
@@ -724,7 +724,7 @@ def fig_residual(data, out):
         ax.plot(x, g, mk + '-', ms=3.5, lw=1.0, color=col, mec=INK, mew=0.4, label=lab)
         rows_csv += [[lab, a, b] for a, b in zip(x, g)]
     b3 = [e.get('best_gain', 0.0) for e in h3]
-    ax.step([e['slots'] for e in h3], b3, where='post', color=BLUE, lw=3.0, alpha=0.35, label='v3: best validation snapshot', zorder=1)
+    ax.step([e['slots'] for e in h3], b3, where='post', color=BLUE, lw=3.0, alpha=0.35, label='second recipe: best validation snapshot', zorder=1)
     invariant('v3 best-snapshot gain is never negative (zero-residual fallback)', min(b3) >= 0.0, f'min={min(b3)}')
     ax.axhline(0, color=INK, lw=0.7)
     ax.set_xlabel('training slots'); ax.set_ylabel('reward gain over AO prior')

@@ -257,8 +257,16 @@ Under greedy AoI with travel, the nominal decode-aware solver lowers average AoI
 
 \subsection{Learned components: negative results}
 \label{sec:negative}
-\paragraph*{Residual SAC.} A first recipe with an unpaired reward made the policy worse than its own physics prior (47\% against 75\% decode in the mismatch study, including at $s=0$). A second recipe uses a paired reward (reward of the residual action minus that of the prior on the same channel and CSI), zero-residual anchor samples, an $\ell_2$ penalty and a fixed entropy weight, and keeps the snapshot with the best validation gain, with the zero-residual policy as fallback. After 8000 training slots at $s=1$ no checkpoint beat the prior: the final policy is $0.044$ (first recipe) and $0.018$ (second recipe) reward units below it, and the best validation snapshot has gain $0.000$, so the learned policy reduces to the AO solution (training curves in Appendix~\ref{app:residual}, Fig.~\ref{fig:residual}). Given the headroom analysis, the room left for a policy that sees only the CSI estimate is small: the remaining gap to 45-probe search is mostly noise in the individual slot's estimate.
+\paragraph*{Residual SAC.} A first recipe with an unpaired reward made the policy worse than its own physics prior (47\% against 75\% decode in the mismatch study, including at $s=0$). A second recipe uses a paired reward (reward of the residual action minus that of the prior on the same channel and CSI), zero-residual anchor samples, an $\ell_2$ penalty and a fixed entropy weight, and keeps the snapshot with the best validation gain, with the zero-residual policy as fallback. After 8000 training slots at $s=1$ the second recipe never beat the prior on validation: the final policies are $0.044$ (first recipe) and $0.018$ (second recipe) reward units below it, and the best validation snapshot has gain $0.000$, so the learned policy reduces to the AO solution (training curves in Fig.~\ref{fig:residual}). Given the headroom analysis, the room left for a policy that sees only the CSI estimate is small: the remaining gap to 45-probe search is mostly noise in the individual slot's estimate.
 
+Fig.~\ref{fig:residual} plots the reward gain of the learned policy over its own AO prior on fresh slots during training. The first recipe rises above the prior briefly, at 2000 and 4000 slots, and then degrades; the second recipe stays below the prior throughout, and its best-validation fallback never moves from zero. Each curve is a single training run, so the figure supports the claim that these recipes did not help in this environment, not that no learned residual could.
+
+\begin{figure}[!tb]
+\centering
+\includegraphics[width=\columnwidth]{figures/fig_residual.pdf}
+\caption{Training curves of the learned residual SAC policy relative to its AO prior (one training run per recipe). The first recipe (unpaired reward) rises briefly above the prior, then falls below it; the second recipe (paired reward, anchors, fallback) stays below it, and its best-validation snapshot never exceeds it.}
+\label{fig:residual}
+\end{figure}
 
 \paragraph*{PPO scheduler.} The hybrid-action PPO scheduler trained on a pool of layouts reached an average AoI of $27.6\pm25.1$ on held-out layouts against $11.6\pm3.4$ for greedy AoI with travel (same low level, 5 seeds), so we make no claim for learned scheduling in this environment. We did not tune it exhaustively, and the result applies to this heuristic-friendly setting, in which a one-cluster-per-step AoI problem is close to solved by greedy rules.
 
@@ -297,26 +305,19 @@ A grid optimum found on the same seeds that produced it is not evidence, so we r
 \label{fig:tau}
 \end{figure*}
 
-\FloatBarrier
 \subsection{Limitations and threats to validity}
 \label{sec:limits}
 Results come from simulation with a synthetic hardware-mismatch model and a Rician/LoS channel; no ray-traced or measured channels are used. All parameter sweeps are one-at-a-time, and the number of seeds is five in most studies (20 in the headline and width studies), so intervals there are wide. The headline decode-aware numbers in the headroom, calibration, sweep and episode studies use the initial sigmoid width $0.2R_{\min}$, which Section~\ref{sec:robust} shows is far from the best choice, so those gains are conservative; only the probing-budget and regime comparisons were repeated with the tuned width. Decode-aware AO fails with very coarse (1-bit) phase control and when the CSI error power approaches the channel power. Pilot overhead and RIS switching time are not modeled. The episode study uses two heuristic schedulers and no learned scheduler. The residual policy was trained for one hardware instance per seed and on one seed in the final recipe; a stronger or differently structured learner could behave differently.
 
+\FloatBarrier
 \section{Conclusion}
 \label{sec:conclusion}
-On an audited UAV-RIS data-collection benchmark, the largest controllable losses in decode rate came from the optimization objective and from ignoring the PDA hardware, not from a lack of learning. A decode-aware alternating optimization with no extra measurements improves decode rate in every setting we tried, is confirmed on held-out seeds (and roughly doubles with a wider sigmoid chosen on the design seeds), and lowers AoI by about 14\% under a good scheduler; it needs at least 3-bit phase control and a CSI estimate better than the channel itself. Hardware mismatch is a second-order effect that a rough calibration removes, and per-slot probing adds the most at high power. A learned residual policy and a PPO scheduler did not beat these baselines. We recommend that future RIS-DRL claims be reported against such baselines, with paired statistics over seeds and held-out layouts. Code, configurations and the curated result files are released with the repository.
 
-\appendices
-\section{Residual SAC training curves}
-\label{app:residual}
-Fig.~\ref{fig:residual} shows the reward of the learned residual policy minus that of its own AO prior on fresh slots during training, for the two recipes described in Section~\ref{sec:negative}.
+This paper presented an audited simulation benchmark for UAV-mounted RIS-assisted IoT data collection under practical PDA characteristics, hardware mismatch, and imperfect cascaded CSI. The results demonstrate that the optimization objective is a major determinant of decoding performance. The proposed decode-aware AO method consistently outperformed conventional max-min AO without requiring additional measurements, achieving a decoding-rate improvement of $7.2\pm1.3$ percentage points on held-out seeds at the default mismatch level. With a wider sigmoid selected using exploratory seeds, the improvement increased to $15.2\pm1.5$ percentage points. At the network level, decode-aware AO also reduced average AoI by approximately 14\% under the greedy scheduler with travel.
 
-\begin{figure}[!tb]
-\centering
-\includegraphics[width=\columnwidth]{figures/fig_residual.pdf}
-\caption{Training curves of the learned residual SAC policy relative to its AO prior: the first recipe falls below the prior; the final recipe with the best-validation fallback never exceeds it.}
-\label{fig:residual}
-\end{figure}
+The findings further indicate that realistic hardware mismatch has a comparatively modest impact, whereas inaccurate CSI and coarse RIS phase resolution can substantially limit optimization performance. Measurement-based probing provides additional gains under suitable operating conditions, while the evaluated SAC and PPO methods did not outperform their model-based and heuristic baselines. These results highlight the importance of decoding-oriented objectives and rigorous baseline comparisons when evaluating learning-based UAV-RIS optimization.
+
+Future work will investigate measured hardware and channel models, pilot and RIS switching overhead, and more comprehensive joint optimization of RIS configuration and UAV scheduling to assess practical performance under realistic deployment conditions.
 
 \bibliographystyle{IEEEtran}
 \bibliography{references}
