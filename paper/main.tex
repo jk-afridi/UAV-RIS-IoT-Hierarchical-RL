@@ -305,7 +305,7 @@ A grid optimum found on the same seeds that produced it is not evidence, so we r
 \label{fig:tau}
 \end{figure*}
 
-\subsection{Limitations and threats to validity}
+\subsection{Limitations}
 \label{sec:limits}
 Results come from simulation with a synthetic hardware-mismatch model and a Rician/LoS channel; no ray-traced or measured channels are used. All parameter sweeps are one-at-a-time, and the number of seeds is five in most studies (20 in the headline and width studies), so intervals there are wide. The headline decode-aware numbers in the headroom, calibration, sweep and episode studies use the initial sigmoid width $0.2R_{\min}$, which Section~\ref{sec:robust} shows is far from the best choice, so those gains are conservative; only the probing-budget and regime comparisons were repeated with the tuned width. Decode-aware AO fails with very coarse (1-bit) phase control and when the CSI error power approaches the channel power. Pilot overhead and RIS switching time are not modeled. The episode study uses two heuristic schedulers and no learned scheduler. The residual policy was trained for one hardware instance per seed and on one seed in the final recipe; a stronger or differently structured learner could behave differently.
 
