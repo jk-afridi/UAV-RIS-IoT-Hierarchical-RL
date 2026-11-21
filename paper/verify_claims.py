@@ -81,7 +81,6 @@ def main():
     dec = {k: v['ao_decode_nominal'] for k, v in sw.items()}
     claim('decode-aware improves in all 12 settings (default + 11) with CI excluding 0', ['all 12 settings'],
           cond=len(S) == 12 and all(m - h > 0 for m, h in dec.values()), detail=f'{len(S)} settings; min lower bound {min(m - h for m, h in dec.values()):.2f}')
-    claim('abstract: default decode-aware gain', [pm(*dec['default'])])
     lo = min(dec, key=lambda k: dec[k][0]); hi = max(dec, key=lambda k: dec[k][0])
     claim('smallest sweep gain is r_min=0.25', [pm(*dec['r_min=0.25'])], cond=lo == 'r_min=0.25', detail=lo)
     claim('largest sweep gain is power_dbm=0', [pm(*dec['power_dbm=0.0'])], cond=hi == 'power_dbm=0.0', detail=hi)

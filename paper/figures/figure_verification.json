@@ -2469,9 +2469,9 @@
   },
   {
    "name": "headroom paired CI, s=0.0, ao_ideal",
-   "recomputed": 0.6149841576419265,
+   "recomputed": 0.6149841576419253,
    "stored": 0.6148855665894263,
-   "abs_err": 9.859105250020761e-05,
+   "abs_err": 9.859105249898636e-05,
    "ok": true,
    "hard": true
   },
@@ -2485,9 +2485,9 @@
   },
   {
    "name": "headroom paired CI, s=0.0, ao_calibrated",
-   "recomputed": 1.7387452834975483,
+   "recomputed": 1.738745283497545,
    "stored": 1.7384665369226981,
-   "abs_err": 0.00027874657485016385,
+   "abs_err": 0.0002787465748468332,
    "ok": true,
    "hard": true
   },
@@ -2501,9 +2501,9 @@
   },
   {
    "name": "headroom paired CI, s=0.0, ao_nominal_perfcsi",
-   "recomputed": 6.2495074969890805,
+   "recomputed": 6.249507496989068,
    "stored": 6.248505608543533,
-   "abs_err": 0.0010018884455478272,
+   "abs_err": 0.0010018884455353927,
    "ok": true,
    "hard": true
   },
@@ -2517,9 +2517,9 @@
   },
   {
    "name": "headroom paired CI, s=0.0, ao_calibrated_perfcsi",
-   "recomputed": 5.3417263336538845,
+   "recomputed": 5.341726333653874,
    "stored": 5.3408699759496105,
-   "abs_err": 0.0008563577042739468,
+   "abs_err": 0.0008563577042632886,
    "ok": true,
    "hard": true
   },
@@ -2533,9 +2533,9 @@
   },
   {
    "name": "headroom paired CI, s=0.0, ao_decode_nominal",
-   "recomputed": 2.287936491715175,
+   "recomputed": 2.2879364917151706,
    "stored": 2.287569701670312,
-   "abs_err": 0.0003667900448629524,
+   "abs_err": 0.0003667900448585115,
    "ok": true,
    "hard": true
   },
@@ -2549,9 +2549,9 @@
   },
   {
    "name": "headroom paired CI, s=0.0, ao_decode_calibrated",
-   "recomputed": 1.9021688631097506,
+   "recomputed": 1.902168863109747,
    "stored": 1.9018639173190068,
-   "abs_err": 0.0003049457907438047,
+   "abs_err": 0.00030494579074025197,
    "ok": true,
    "hard": true
   },
@@ -2565,9 +2565,9 @@
   },
   {
    "name": "headroom paired CI, s=0.0, cem6",
-   "recomputed": 1.7192395109294465,
+   "recomputed": 1.7192395109294432,
    "stored": 1.7189638914183156,
-   "abs_err": 0.0002756195111308646,
+   "abs_err": 0.0002756195111275339,
    "ok": true,
    "hard": true
   },
@@ -2581,9 +2581,9 @@
   },
   {
    "name": "headroom paired CI, s=0.0, cem15",
-   "recomputed": 2.256128598053783,
+   "recomputed": 2.2561285980537784,
    "stored": 2.255766907284527,
-   "abs_err": 0.0003616907692558513,
+   "abs_err": 0.0003616907692514104,
    "ok": true,
    "hard": true
   },
@@ -2597,9 +2597,9 @@
   },
   {
    "name": "headroom paired CI, s=0.0, cem45",
-   "recomputed": 2.7603471133822812,
+   "recomputed": 2.7603471133822763,
    "stored": 2.759904588930566,
-   "abs_err": 0.0004425244517154425,
+   "abs_err": 0.00044252445171055754,
    "ok": true,
    "hard": true
   },
@@ -2613,9 +2613,9 @@
   },
   {
    "name": "headroom paired CI, s=0.0, best_of_45",
-   "recomputed": 3.9009424248303026,
+   "recomputed": 3.9009424248302946,
    "stored": 3.900317046087407,
-   "abs_err": 0.0006253787428955881,
+   "abs_err": 0.0006253787428875945,
    "ok": true,
    "hard": true
   },
@@ -2629,9 +2629,9 @@
   },
   {
    "name": "headroom paired CI, s=1.0, ao_ideal",
-   "recomputed": 1.4199623556147971,
+   "recomputed": 1.4199623556147942,
    "stored": 1.4197347146562274,
-   "abs_err": 0.00022764095856975253,
+   "abs_err": 0.00022764095856686595,
    "ok": true,
    "hard": true
   },
@@ -2645,9 +2645,9 @@
   },
   {
    "name": "headroom paired CI, s=1.0, ao_calibrated",
-   "recomputed": 2.132627951398068,
+   "recomputed": 2.132627951398064,
    "stored": 2.132286059608325,
-   "abs_err": 0.0003418917897430873,
+   "abs_err": 0.0003418917897390905,
    "ok": true,
    "hard": true
   },
@@ -2661,9 +2661,9 @@
   },
   {
    "name": "headroom paired CI, s=1.0, ao_nominal_perfcsi",
-   "recomputed": 7.424557624904162,
+   "recomputed": 7.424557624904148,
    "stored": 7.42336735855097,
-   "abs_err": 0.001190266353192193,
+   "abs_err": 0.0011902663531779822,
    "ok": true,
    "hard": true
   },
@@ -2677,9 +2677,9 @@
   },
   {
    "name": "headroom paired CI, s=1.0, ao_calibrated_perfcsi",
-   "recomputed": 5.584684922147669,
+   "recomputed": 5.584684922147658,
    "stored": 5.583789614589718,
-   "abs_err": 0.000895307557950531,
+   "abs_err": 0.0008953075579398728,
    "ok": true,
    "hard": true
   },
@@ -2693,9 +2693,9 @@
   },
   {
    "name": "headroom paired CI, s=1.0, ao_decode_nominal",
-   "recomputed": 1.4740674991756957,
+   "recomputed": 1.4740674991756928,
    "stored": 1.4738311843627137,
-   "abs_err": 0.00023631481298203028,
+   "abs_err": 0.0002363148129791437,
    "ok": true,
    "hard": true
   },
@@ -2709,9 +2709,9 @@
   },
   {
    "name": "headroom paired CI, s=1.0, ao_decode_calibrated",
-   "recomputed": 1.9797387261234811,
+   "recomputed": 1.9797387261234776,
    "stored": 1.97942134473689,
-   "abs_err": 0.00031738138659109794,
+   "abs_err": 0.0003173813865875452,
    "ok": true,
    "hard": true
   },
@@ -2725,9 +2725,9 @@
   },
   {
    "name": "headroom paired CI, s=1.0, cem6",
-   "recomputed": 0.7279900481975397,
+   "recomputed": 0.7279900481975382,
    "stored": 0.7278733406300851,
-   "abs_err": 0.00011670756745452149,
+   "abs_err": 0.0001167075674530782,
    "ok": true,
    "hard": true
   },
@@ -2741,9 +2741,9 @@
   },
   {
    "name": "headroom paired CI, s=1.0, cem15",
-   "recomputed": 1.060651089272023,
+   "recomputed": 1.060651089272021,
    "stored": 1.060481051221567,
-   "abs_err": 0.0001700380504559007,
+   "abs_err": 0.0001700380504539023,
    "ok": true,
    "hard": true
   },
@@ -2757,9 +2757,9 @@
   },
   {
    "name": "headroom paired CI, s=1.0, cem45",
-   "recomputed": 2.1645813131623965,
+   "recomputed": 2.1645813131623926,
    "stored": 2.164234298776359,
-   "abs_err": 0.0003470143860373476,
+   "abs_err": 0.0003470143860333508,
    "ok": true,
    "hard": true
   },
@@ -2773,9 +2773,9 @@
   },
   {
    "name": "headroom paired CI, s=1.0, best_of_45",
-   "recomputed": 1.922951328121812,
+   "recomputed": 1.9229513281218085,
    "stored": 1.9226430505946752,
-   "abs_err": 0.0003082775271368021,
+   "abs_err": 0.0003082775271332494,
    "ok": true,
    "hard": true
   },
@@ -2789,9 +2789,9 @@
   },
   {
    "name": "headroom paired CI, s=2.0, ao_ideal",
-   "recomputed": 2.6192930736626945,
+   "recomputed": 2.619293073662689,
    "stored": 2.6188731622589128,
-   "abs_err": 0.0004199114037817253,
+   "abs_err": 0.00041991140377639624,
    "ok": true,
    "hard": true
   },
@@ -2805,9 +2805,9 @@
   },
   {
    "name": "headroom paired CI, s=2.0, ao_calibrated",
-   "recomputed": 2.673454980310977,
+   "recomputed": 2.6734549803109724,
    "stored": 2.673026385952821,
-   "abs_err": 0.0004285943581558982,
+   "abs_err": 0.0004285943581514573,
    "ok": true,
    "hard": true
   },
@@ -2821,9 +2821,9 @@
   },
   {
    "name": "headroom paired CI, s=2.0, ao_nominal_perfcsi",
-   "recomputed": 3.2972112182249926,
+   "recomputed": 3.2972112182249864,
    "stored": 3.2966826265201807,
-   "abs_err": 0.0005285917048118982,
+   "abs_err": 0.000528591704805681,
    "ok": true,
    "hard": true
   },
@@ -2837,9 +2837,9 @@
   },
   {
    "name": "headroom paired CI, s=2.0, ao_calibrated_perfcsi",
-   "recomputed": 4.166691657194451,
+   "recomputed": 4.166691657194444,
    "stored": 4.1660236749207264,
-   "abs_err": 0.0006679822737245544,
+   "abs_err": 0.000667982273717449,
    "ok": true,
    "hard": true
   },
@@ -2853,9 +2853,9 @@
   },
   {
    "name": "headroom paired CI, s=2.0, ao_decode_nominal",
-   "recomputed": 1.293917254697543,
+   "recomputed": 1.2939172546975406,
    "stored": 1.293709820632123,
-   "abs_err": 0.0002074340654201201,
+   "abs_err": 0.00020743406541767762,
    "ok": true,
    "hard": true
   },
@@ -2869,9 +2869,9 @@
   },
   {
    "name": "headroom paired CI, s=2.0, ao_decode_calibrated",
-   "recomputed": 3.172096126894671,
+   "recomputed": 3.1720961268946652,
    "stored": 3.1715875929887223,
-   "abs_err": 0.0005085339059487382,
+   "abs_err": 0.000508533905942965,
    "ok": true,
    "hard": true
   },
@@ -2885,9 +2885,9 @@
   },
   {
    "name": "headroom paired CI, s=2.0, cem6",
-   "recomputed": 1.5850985045623367,
+   "recomputed": 1.5850985045623334,
    "stored": 1.5848443898376898,
-   "abs_err": 0.00025411472464687,
+   "abs_err": 0.00025411472464353935,
    "ok": true,
    "hard": true
   },
@@ -2901,9 +2901,9 @@
   },
   {
    "name": "headroom paired CI, s=2.0, cem15",
-   "recomputed": 2.55645998259591,
+   "recomputed": 2.556459982595905,
    "stored": 2.556050144265561,
-   "abs_err": 0.00040983833034857753,
+   "abs_err": 0.00040983833034369255,
    "ok": true,
    "hard": true
   },
@@ -2917,9 +2917,9 @@
   },
   {
    "name": "headroom paired CI, s=2.0, cem45",
-   "recomputed": 2.209738978134098,
+   "recomputed": 2.2097389781340935,
    "stored": 2.2093847243067466,
-   "abs_err": 0.00035425382735132516,
+   "abs_err": 0.00035425382734688426,
    "ok": true,
    "hard": true
   },
@@ -2933,9 +2933,9 @@
   },
   {
    "name": "headroom paired CI, s=2.0, best_of_45",
-   "recomputed": 3.131972835884755,
+   "recomputed": 3.131972835884749,
    "stored": 3.131470734335545,
-   "abs_err": 0.0005021015492099323,
+   "abs_err": 0.0005021015492041592,
    "ok": true,
    "hard": true
   },
@@ -2949,9 +2949,9 @@
   },
   {
    "name": "calibration maxmin e=0 CI, spread=1",
-   "recomputed": 2.56539621436601,
+   "recomputed": 2.565396214366005,
    "stored": 2.5649849434255945,
-   "abs_err": 0.00041127094041559786,
+   "abs_err": 0.0004112709404107129,
    "ok": true,
    "hard": true
   },
@@ -2965,9 +2965,9 @@
   },
   {
    "name": "calibration maxmin e=0.125 CI, spread=1",
-   "recomputed": 3.0263570044649106,
+   "recomputed": 3.026357004464905,
    "stored": 3.0258718346949194,
-   "abs_err": 0.00048516976999124495,
+   "abs_err": 0.0004851697699854718,
    "ok": true,
    "hard": true
   },
@@ -2981,9 +2981,9 @@
   },
   {
    "name": "calibration maxmin e=0.25 CI, spread=1",
-   "recomputed": 3.231533429307231,
+   "recomputed": 3.231533429307225,
    "stored": 3.2310153667229744,
-   "abs_err": 0.0005180625842564623,
+   "abs_err": 0.0005180625842506892,
    "ok": true,
    "hard": true
   },
@@ -2997,9 +2997,9 @@
   },
   {
    "name": "calibration maxmin e=0.5 CI, spread=1",
-   "recomputed": 2.9883082585516427,
+   "recomputed": 2.988308258551637,
    "stored": 2.9878291885581407,
-   "abs_err": 0.0004790699935020015,
+   "abs_err": 0.00047906999349622836,
    "ok": true,
    "hard": true
   },
@@ -3013,9 +3013,9 @@
   },
   {
    "name": "calibration maxmin e=1 CI, spread=1",
-   "recomputed": 2.7136999171791807,
+   "recomputed": 2.7136999171791754,
    "stored": 2.7132648709626563,
-   "abs_err": 0.0004350462165243485,
+   "abs_err": 0.0004350462165190194,
    "ok": true,
    "hard": true
   },
@@ -3029,9 +3029,9 @@
   },
   {
    "name": "calibration maxmin e=2 CI, spread=1",
-   "recomputed": 1.8785939284383208,
+   "recomputed": 1.8785939284383173,
    "stored": 1.8782927620581409,
-   "abs_err": 0.00030116638017996245,
+   "abs_err": 0.00030116638017640973,
    "ok": true,
    "hard": true
   },
@@ -3045,9 +3045,9 @@
   },
   {
    "name": "calibration decode e=0 CI, spread=1",
-   "recomputed": 1.4543246324186923,
+   "recomputed": 1.4543246324186894,
    "stored": 1.4540914826791331,
-   "abs_err": 0.00023314973955912421,
+   "abs_err": 0.00023314973955623763,
    "ok": true,
    "hard": true
   },
@@ -3061,9 +3061,9 @@
   },
   {
    "name": "calibration decode e=0.125 CI, spread=1",
-   "recomputed": 1.5481949353466775,
+   "recomputed": 1.5481949353466748,
    "stored": 1.5479467368097648,
-   "abs_err": 0.00024819853691271376,
+   "abs_err": 0.00024819853691004923,
    "ok": true,
    "hard": true
   },
@@ -3077,9 +3077,9 @@
   },
   {
    "name": "calibration decode e=0.25 CI, spread=1",
-   "recomputed": 1.828558399223058,
+   "recomputed": 1.8285583992230545,
    "stored": 1.828265254277945,
-   "abs_err": 0.00029314494511312184,
+   "abs_err": 0.0002931449451095691,
    "ok": true,
    "hard": true
   },
@@ -3093,9 +3093,9 @@
   },
   {
    "name": "calibration decode e=0.5 CI, spread=1",
-   "recomputed": 2.132627951398068,
+   "recomputed": 2.132627951398064,
    "stored": 2.132286059608325,
-   "abs_err": 0.0003418917897430873,
+   "abs_err": 0.0003418917897390905,
    "ok": true,
    "hard": true
   },
@@ -3109,9 +3109,9 @@
   },
   {
    "name": "calibration decode e=1 CI, spread=1",
-   "recomputed": 2.0619895353261133,
+   "recomputed": 2.0619895353261093,
    "stored": 2.061658967918797,
-   "abs_err": 0.0003305674073161846,
+   "abs_err": 0.0003305674073121878,
    "ok": true,
    "hard": true
   },
@@ -3125,9 +3125,9 @@
   },
   {
    "name": "calibration decode e=2 CI, spread=1",
-   "recomputed": 3.0893800493922194,
+   "recomputed": 3.0893800493922132,
    "stored": 3.0888847760963825,
-   "abs_err": 0.0004952732958369843,
+   "abs_err": 0.0004952732958307671,
    "ok": true,
    "hard": true
   },
@@ -3153,9 +3153,9 @@
   },
   {
    "name": "calibration maxmin e=0 CI, spread=2",
-   "recomputed": 3.0584247344585216,
+   "recomputed": 3.0584247344585154,
    "stored": 3.057934423757317,
-   "abs_err": 0.0004903107012044217,
+   "abs_err": 0.0004903107011982044,
    "ok": true,
    "hard": true
   },
@@ -3169,9 +3169,9 @@
   },
   {
    "name": "calibration maxmin e=0.125 CI, spread=2",
-   "recomputed": 2.9745725523623263,
+   "recomputed": 2.9745725523623205,
    "stored": 2.9740956844055972,
-   "abs_err": 0.0004768679567290768,
+   "abs_err": 0.0004768679567233036,
    "ok": true,
    "hard": true
   },
@@ -3185,9 +3185,9 @@
   },
   {
    "name": "calibration maxmin e=0.25 CI, spread=2",
-   "recomputed": 3.0917184224148304,
+   "recomputed": 3.091718422414825,
    "stored": 3.0912227742432274,
-   "abs_err": 0.0004956481716029693,
+   "abs_err": 0.0004956481715976402,
    "ok": true,
    "hard": true
   },
@@ -3201,9 +3201,9 @@
   },
   {
    "name": "calibration maxmin e=0.5 CI, spread=2",
-   "recomputed": 1.9435115736384592,
+   "recomputed": 1.9435115736384552,
    "stored": 1.9431999999999998,
-   "abs_err": 0.0003115736384593504,
+   "abs_err": 0.0003115736384553536,
    "ok": true,
    "hard": true
   },
@@ -3217,9 +3217,9 @@
   },
   {
    "name": "calibration maxmin e=1 CI, spread=2",
-   "recomputed": 1.476516796072561,
+   "recomputed": 1.4765167960725578,
    "stored": 1.4762800886010754,
-   "abs_err": 0.00023670747148551996,
+   "abs_err": 0.00023670747148241134,
    "ok": true,
    "hard": true
   },
@@ -3233,9 +3233,9 @@
   },
   {
    "name": "calibration maxmin e=2 CI, spread=2",
-   "recomputed": 2.6702993962313575,
+   "recomputed": 2.670299396231353,
    "stored": 2.6698713077599825,
-   "abs_err": 0.00042808847137498773,
+   "abs_err": 0.00042808847137054684,
    "ok": true,
    "hard": true
   },
@@ -3249,9 +3249,9 @@
   },
   {
    "name": "calibration decode e=0 CI, spread=2",
-   "recomputed": 2.215726704040654,
+   "recomputed": 2.21572670404065,
    "stored": 2.2153714902923167,
-   "abs_err": 0.00035521374833713537,
+   "abs_err": 0.00035521374833313857,
    "ok": true,
    "hard": true
   },
@@ -3265,9 +3265,9 @@
   },
   {
    "name": "calibration decode e=0.125 CI, spread=2",
-   "recomputed": 2.5299380057080816,
+   "recomputed": 2.529938005708077,
    "stored": 2.529532419242734,
-   "abs_err": 0.0004055864653476071,
+   "abs_err": 0.0004055864653431662,
    "ok": true,
    "hard": true
   },
@@ -3281,9 +3281,9 @@
   },
   {
    "name": "calibration decode e=0.25 CI, spread=2",
-   "recomputed": 1.9242036573513472,
+   "recomputed": 1.9242036573513437,
    "stored": 1.9238951790573204,
-   "abs_err": 0.0003084782940268038,
+   "abs_err": 0.0003084782940232511,
    "ok": true,
    "hard": true
   },
@@ -3297,9 +3297,9 @@
   },
   {
    "name": "calibration decode e=0.5 CI, spread=2",
-   "recomputed": 2.883696136328035,
+   "recomputed": 2.88369613632803,
    "stored": 2.8832338372043287,
-   "abs_err": 0.00046229912370643333,
+   "abs_err": 0.00046229912370110426,
    "ok": true,
    "hard": true
   },
@@ -3313,9 +3313,9 @@
   },
   {
    "name": "calibration decode e=1 CI, spread=2",
-   "recomputed": 1.4501777045805844,
+   "recomputed": 1.4501777045805817,
    "stored": 1.4499452196548668,
-   "abs_err": 0.00023248492571759094,
+   "abs_err": 0.0002324849257149264,
    "ok": true,
    "hard": true
   },
@@ -3329,9 +3329,9 @@
   },
   {
    "name": "calibration decode e=2 CI, spread=2",
-   "recomputed": 2.1634681316471904,
+   "recomputed": 2.1634681316471864,
    "stored": 2.163121295720607,
-   "abs_err": 0.0003468359265834664,
+   "abs_err": 0.0003468359265794696,
    "ok": true,
    "hard": true
   },
@@ -3373,9 +3373,9 @@
   },
   {
    "name": "probes cem_nominal B=4 CI",
-   "recomputed": 0.28194933328738053,
+   "recomputed": 0.28194933328738003,
    "stored": 0.2819041326408678,
-   "abs_err": 4.520064651275524e-05,
+   "abs_err": 4.520064651225564e-05,
    "ok": true,
    "hard": true
   },
@@ -3389,9 +3389,9 @@
   },
   {
    "name": "probes cem_nominal B=7 CI",
-   "recomputed": 0.6818561414624343,
+   "recomputed": 0.681856141462433,
    "stored": 0.681746829842281,
-   "abs_err": 0.00010931162015337392,
+   "abs_err": 0.00010931162015204166,
    "ok": true,
    "hard": true
   },
@@ -3405,9 +3405,9 @@
   },
   {
    "name": "probes cem_nominal B=10 CI",
-   "recomputed": 0.7491901563870479,
+   "recomputed": 0.7491901563870464,
    "stored": 0.7490700501288247,
-   "abs_err": 0.00012010625822322929,
+   "abs_err": 0.000120106258221786,
    "ok": true,
    "hard": true
   },
@@ -3421,9 +3421,9 @@
   },
   {
    "name": "probes cem_nominal B=16 CI",
-   "recomputed": 1.3645952304326685,
+   "recomputed": 1.3645952304326656,
    "stored": 1.3643764656428223,
-   "abs_err": 0.00021876478984617087,
+   "abs_err": 0.0002187647898432843,
    "ok": true,
    "hard": true
   },
@@ -3437,9 +3437,9 @@
   },
   {
    "name": "probes cem_nominal B=31 CI",
-   "recomputed": 2.590160653243976,
+   "recomputed": 2.590160653243971,
    "stored": 2.589745412197886,
-   "abs_err": 0.0004152410460900313,
+   "abs_err": 0.00041524104608514634,
    "ok": true,
    "hard": true
   },
@@ -3453,9 +3453,9 @@
   },
   {
    "name": "probes cem_nominal B=46 CI",
-   "recomputed": 2.430876393312176,
+   "recomputed": 2.4308763933121718,
    "stored": 2.4304866878878393,
-   "abs_err": 0.0003897054243369169,
+   "abs_err": 0.000389705424332476,
    "ok": true,
    "hard": true
   },
@@ -3469,9 +3469,9 @@
   },
   {
    "name": "probes cem_nominal B=91 CI",
-   "recomputed": 2.692758155030835,
+   "recomputed": 2.69275815503083,
    "stored": 2.69232646608839,
-   "abs_err": 0.000431688942444719,
+   "abs_err": 0.000431688942439834,
    "ok": true,
    "hard": true
   },
@@ -3485,9 +3485,9 @@
   },
   {
    "name": "probes cem_decode B=1 CI",
-   "recomputed": 1.6069837853659983,
+   "recomputed": 1.6069837853659952,
    "stored": 1.606726162107283,
-   "abs_err": 0.00025762325871525604,
+   "abs_err": 0.0002576232587121474,
    "ok": true,
    "hard": true
   },
@@ -3501,9 +3501,9 @@
   },
   {
    "name": "probes cem_decode B=4 CI",
-   "recomputed": 1.6665899388581116,
+   "recomputed": 1.6665899388581085,
    "stored": 1.666322759851764,
-   "abs_err": 0.0002671790063475399,
+   "abs_err": 0.00026717900634443126,
    "ok": true,
    "hard": true
   },
@@ -3517,9 +3517,9 @@
   },
   {
    "name": "probes cem_decode B=7 CI",
-   "recomputed": 2.060236391008592,
+   "recomputed": 2.060236391008588,
    "stored": 2.059906104656229,
-   "abs_err": 0.0003302863523630961,
+   "abs_err": 0.0003302863523590993,
    "ok": true,
    "hard": true
   },
@@ -3533,9 +3533,9 @@
   },
   {
    "name": "probes cem_decode B=10 CI",
-   "recomputed": 1.282698107183005,
+   "recomputed": 1.2826981071830026,
    "stored": 1.2824924717127972,
-   "abs_err": 0.00020563547020779893,
+   "abs_err": 0.00020563547020535644,
    "ok": true,
    "hard": true
   },
@@ -3549,9 +3549,9 @@
   },
   {
    "name": "probes cem_decode B=16 CI",
-   "recomputed": 2.198810429549697,
+   "recomputed": 2.1988104295496926,
    "stored": 2.1984579277302534,
-   "abs_err": 0.00035250181944368464,
+   "abs_err": 0.00035250181943924375,
    "ok": true,
    "hard": true
   },
@@ -3565,9 +3565,9 @@
   },
   {
    "name": "probes cem_decode B=31 CI",
-   "recomputed": 2.8899546175441393,
+   "recomputed": 2.8899546175441335,
    "stored": 2.8894913150933674,
-   "abs_err": 0.00046330245077186305,
+   "abs_err": 0.0004633024507660899,
    "ok": true,
    "hard": true
   },
@@ -3581,9 +3581,9 @@
   },
   {
    "name": "probes cem_decode B=46 CI",
-   "recomputed": 2.98266004024192,
+   "recomputed": 2.9826600402419143,
    "stored": 2.982181875741317,
-   "abs_err": 0.00047816450060311766,
+   "abs_err": 0.0004781645005973445,
    "ok": true,
    "hard": true
   },
@@ -3597,9 +3597,9 @@
   },
   {
    "name": "probes cem_decode B=91 CI",
-   "recomputed": 3.4311149769507368,
+   "recomputed": 3.43111497695073,
    "stored": 3.4305649184937455,
-   "abs_err": 0.0005500584569912981,
+   "abs_err": 0.0005500584569846367,
    "ok": true,
    "hard": true
   },
@@ -3613,9 +3613,9 @@
   },
   {
    "name": "probes decode_nominal CI",
-   "recomputed": 1.6069837853659983,
+   "recomputed": 1.6069837853659952,
    "stored": 1.606726162107283,
-   "abs_err": 0.00025762325871525604,
+   "abs_err": 0.0002576232587121474,
    "ok": true,
    "hard": true
   },
@@ -3990,7 +3990,7 @@
    "hard": true
   },
   {
-   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=1000)",
+   "name": "residual stored gain == policy - prior (second recipe (paired reward, anchors, fallback), slots=1000)",
    "recomputed": -0.009996931947551246,
    "stored": -0.009996931947551246,
    "abs_err": 0.0,
@@ -3998,7 +3998,7 @@
    "hard": true
   },
   {
-   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=2000)",
+   "name": "residual stored gain == policy - prior (second recipe (paired reward, anchors, fallback), slots=2000)",
    "recomputed": -0.020836338607226113,
    "stored": -0.020836338607226113,
    "abs_err": 0.0,
@@ -4006,7 +4006,7 @@
    "hard": true
   },
   {
-   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=3000)",
+   "name": "residual stored gain == policy - prior (second recipe (paired reward, anchors, fallback), slots=3000)",
    "recomputed": -0.018558746561880612,
    "stored": -0.018558746561880612,
    "abs_err": 0.0,
@@ -4014,7 +4014,7 @@
    "hard": true
   },
   {
-   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=4000)",
+   "name": "residual stored gain == policy - prior (second recipe (paired reward, anchors, fallback), slots=4000)",
    "recomputed": -0.02754921897093565,
    "stored": -0.02754921897093565,
    "abs_err": 0.0,
@@ -4022,7 +4022,7 @@
    "hard": true
   },
   {
-   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=5000)",
+   "name": "residual stored gain == policy - prior (second recipe (paired reward, anchors, fallback), slots=5000)",
    "recomputed": -0.013873575185058273,
    "stored": -0.013873575185058273,
    "abs_err": 0.0,
@@ -4030,7 +4030,7 @@
    "hard": true
   },
   {
-   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=6000)",
+   "name": "residual stored gain == policy - prior (second recipe (paired reward, anchors, fallback), slots=6000)",
    "recomputed": -0.01634930774587362,
    "stored": -0.01634930774587362,
    "abs_err": 0.0,
@@ -4038,7 +4038,7 @@
    "hard": true
   },
   {
-   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=7000)",
+   "name": "residual stored gain == policy - prior (second recipe (paired reward, anchors, fallback), slots=7000)",
    "recomputed": -0.022149792141545,
    "stored": -0.022149792141545,
    "abs_err": 0.0,
@@ -4046,7 +4046,7 @@
    "hard": true
   },
   {
-   "name": "residual stored gain == policy - prior (v3: paired reward, anchors, fallback, slots=8000)",
+   "name": "residual stored gain == policy - prior (second recipe (paired reward, anchors, fallback), slots=8000)",
    "recomputed": -0.018426241382374586,
    "stored": -0.018426241382374586,
    "abs_err": 0.0,
@@ -4133,9 +4133,9 @@
   },
   {
    "name": "quant maxmin b=1 CI",
-   "recomputed": 5.170313712795147,
+   "recomputed": 5.170313712795136,
    "stored": 5.1694848350681895,
-   "abs_err": 0.0008288777269571668,
+   "abs_err": 0.0008288777269465086,
    "ok": true,
    "hard": true
   },
@@ -4149,9 +4149,9 @@
   },
   {
    "name": "quant maxmin b=2 CI",
-   "recomputed": 1.0941888789221157,
+   "recomputed": 1.0941888789221137,
    "stored": 1.0940134642681505,
-   "abs_err": 0.00017541465396520017,
+   "abs_err": 0.00017541465396320177,
    "ok": true,
    "hard": true
   },
@@ -4165,9 +4165,9 @@
   },
   {
    "name": "quant maxmin b=3 CI",
-   "recomputed": 1.8945550812660683,
+   "recomputed": 1.8945550812660648,
    "stored": 1.8942513560771173,
-   "abs_err": 0.00030372518895105394,
+   "abs_err": 0.0003037251889475012,
    "ok": true,
    "hard": true
   },
@@ -4181,9 +4181,9 @@
   },
   {
    "name": "quant maxmin b=4 CI",
-   "recomputed": 1.1850819390353726,
+   "recomputed": 1.1850819390353704,
    "stored": 1.1848919528800925,
-   "abs_err": 0.00018998615528009744,
+   "abs_err": 0.000189986155277877,
    "ok": true,
    "hard": true
   },
@@ -4197,9 +4197,9 @@
   },
   {
    "name": "quant maxmin b=5 CI",
-   "recomputed": 2.390404756874568,
+   "recomputed": 2.3904047568745637,
    "stored": 2.3900215396518916,
-   "abs_err": 0.00038321722267653513,
+   "abs_err": 0.00038321722267209424,
    "ok": true,
    "hard": true
   },
@@ -4229,9 +4229,9 @@
   },
   {
    "name": "quant decode b=1 CI",
-   "recomputed": 2.906992386739486,
+   "recomputed": 2.9069923867394807,
    "stored": 2.906526352882423,
-   "abs_err": 0.00046603385706323053,
+   "abs_err": 0.00046603385705790146,
    "ok": true,
    "hard": true
   },
@@ -4245,9 +4245,9 @@
   },
   {
    "name": "quant decode b=2 CI",
-   "recomputed": 2.405473648010194,
+   "recomputed": 2.4054736480101897,
    "stored": 2.4050880150214873,
-   "abs_err": 0.00038563298870686324,
+   "abs_err": 0.00038563298870242235,
    "ok": true,
    "hard": true
   },
@@ -4261,9 +4261,9 @@
   },
   {
    "name": "quant decode b=3 CI",
-   "recomputed": 2.11276800617206,
+   "recomputed": 2.1127680061720557,
    "stored": 2.1124292982251496,
-   "abs_err": 0.00033870794691059913,
+   "abs_err": 0.00033870794690615824,
    "ok": true,
    "hard": true
   },
@@ -4277,9 +4277,9 @@
   },
   {
    "name": "quant decode b=4 CI",
-   "recomputed": 1.3351496981156787,
+   "recomputed": 1.3351496981156765,
    "stored": 1.3349356538799912,
-   "abs_err": 0.00021404423568749387,
+   "abs_err": 0.00021404423568527342,
    "ok": true,
    "hard": true
   },
@@ -4293,9 +4293,9 @@
   },
   {
    "name": "quant decode b=5 CI",
-   "recomputed": 1.4393397773666992,
+   "recomputed": 1.4393397773666963,
    "stored": 1.4391090299209437,
-   "abs_err": 0.0002307474457554637,
+   "abs_err": 0.0002307474457525771,
    "ok": true,
    "hard": true
   },
@@ -4309,9 +4309,9 @@
   },
   {
    "name": "quant decode b=6 CI",
-   "recomputed": 1.6069837853659983,
+   "recomputed": 1.6069837853659952,
    "stored": 1.606726162107283,
-   "abs_err": 0.00025762325871525604,
+   "abs_err": 0.0002576232587121474,
    "ok": true,
    "hard": true
   },
@@ -4343,9 +4343,9 @@
   },
   {
    "name": "csi decode_nominal csi_var=1e-16 CI",
-   "recomputed": 2.883696136328035,
+   "recomputed": 2.88369613632803,
    "stored": 2.8832338372043287,
-   "abs_err": 0.00046229912370643333,
+   "abs_err": 0.00046229912370110426,
    "ok": true,
    "hard": true
   },
@@ -4359,9 +4359,9 @@
   },
   {
    "name": "csi decode_nominal csi_var=1e-15 CI",
-   "recomputed": 4.690261461905624,
+   "recomputed": 4.6902614619056155,
    "stored": 4.689509543651659,
-   "abs_err": 0.0007519182539654778,
+   "abs_err": 0.0007519182539565961,
    "ok": true,
    "hard": true
   },
@@ -4375,9 +4375,9 @@
   },
   {
    "name": "csi decode_nominal csi_var=1e-14 CI",
-   "recomputed": 2.666688442049073,
+   "recomputed": 2.6666884420490677,
    "stored": 2.6662609324670377,
-   "abs_err": 0.00042750958203541245,
+   "abs_err": 0.0004275095820300834,
    "ok": true,
    "hard": true
   },
@@ -4391,9 +4391,9 @@
   },
   {
    "name": "csi decode_nominal csi_var=1e-13 CI",
-   "recomputed": 4.3701457628371,
+   "recomputed": 4.370145762837091,
    "stored": 4.36944516386234,
-   "abs_err": 0.0007005989747597141,
+   "abs_err": 0.0007005989747508323,
    "ok": true,
    "hard": true
   },
@@ -4407,9 +4407,9 @@
   },
   {
    "name": "csi decode_nominal csi_var=1e-12 CI",
-   "recomputed": 2.578508949301418,
+   "recomputed": 2.5785089493014133,
    "stored": 2.578095576195731,
-   "abs_err": 0.0004133731056872314,
+   "abs_err": 0.0004133731056823464,
    "ok": true,
    "hard": true
   },
@@ -4423,9 +4423,9 @@
   },
   {
    "name": "csi perfect_maxmin csi_var=1e-16 CI",
-   "recomputed": 1.324279913215188,
+   "recomputed": 1.3242799132151855,
    "stored": 1.3240676115667205,
-   "abs_err": 0.00021230164846741673,
+   "abs_err": 0.00021230164846497424,
    "ok": true,
    "hard": true
   },
@@ -4439,9 +4439,9 @@
   },
   {
    "name": "csi perfect_maxmin csi_var=1e-15 CI",
-   "recomputed": 2.597126584208924,
+   "recomputed": 2.597126584208919,
    "stored": 2.596710226421115,
-   "abs_err": 0.0004163577878091296,
+   "abs_err": 0.0004163577878038005,
    "ok": true,
    "hard": true
   },
@@ -4455,9 +4455,9 @@
   },
   {
    "name": "csi perfect_maxmin csi_var=1e-14 CI",
-   "recomputed": 6.333551454212132,
+   "recomputed": 6.333551454212119,
    "stored": 6.332536092277722,
-   "abs_err": 0.0010153619344102083,
+   "abs_err": 0.0010153619343977738,
    "ok": true,
    "hard": true
   },
@@ -4471,9 +4471,9 @@
   },
   {
    "name": "csi perfect_maxmin csi_var=1e-13 CI",
-   "recomputed": 13.684030170017623,
+   "recomputed": 13.684030170017596,
    "stored": 13.681836417674345,
-   "abs_err": 0.0021937523432775663,
+   "abs_err": 0.002193752343250921,
    "ok": true,
    "hard": true
   },
@@ -4487,9 +4487,9 @@
   },
   {
    "name": "csi perfect_maxmin csi_var=1e-12 CI",
-   "recomputed": 9.541442556338543,
+   "recomputed": 9.541442556338525,
    "stored": 9.539912922034455,
-   "abs_err": 0.0015296343040880345,
+   "abs_err": 0.001529634304070271,
    "ok": true,
    "hard": true
   },
@@ -4503,9 +4503,9 @@
   },
   {
    "name": "csi cem_nominal_B46 csi_var=1e-16 CI",
-   "recomputed": 5.144858412619305,
+   "recomputed": 5.144858412619294,
    "stored": 5.144033615753302,
-   "abs_err": 0.0008247968660031191,
+   "abs_err": 0.0008247968659924609,
    "ok": true,
    "hard": true
   },
@@ -4519,9 +4519,9 @@
   },
   {
    "name": "csi cem_nominal_B46 csi_var=1e-15 CI",
-   "recomputed": 4.241468604328593,
+   "recomputed": 4.241468604328585,
    "stored": 4.240788634204727,
-   "abs_err": 0.0006799701238655587,
+   "abs_err": 0.0006799701238575651,
    "ok": true,
    "hard": true
   },
@@ -4535,9 +4535,9 @@
   },
   {
    "name": "csi cem_nominal_B46 csi_var=1e-14 CI",
-   "recomputed": 2.0753811088909178,
+   "recomputed": 2.0753811088909138,
    "stored": 2.075048394616376,
-   "abs_err": 0.00033271427454195646,
+   "abs_err": 0.00033271427453795965,
    "ok": true,
    "hard": true
   },
@@ -4551,9 +4551,9 @@
   },
   {
    "name": "csi cem_nominal_B46 csi_var=1e-13 CI",
-   "recomputed": 2.643096995259111,
+   "recomputed": 2.6430969952591057,
    "stored": 2.6426732677347764,
-   "abs_err": 0.00042372752433461613,
+   "abs_err": 0.00042372752432928706,
    "ok": true,
    "hard": true
   },
@@ -4567,9 +4567,9 @@
   },
   {
    "name": "csi cem_nominal_B46 csi_var=1e-12 CI",
-   "recomputed": 2.610079914360623,
+   "recomputed": 2.610079914360618,
    "stored": 2.6096614799624867,
-   "abs_err": 0.0004184343981363803,
+   "abs_err": 0.0004184343981314953,
    "ok": true,
    "hard": true
   },
@@ -4589,9 +4589,9 @@
   },
   {
    "name": "tau t=0.05 m=0 CI",
-   "recomputed": 1.1277973331495221,
+   "recomputed": 1.1277973331495201,
    "stored": 1.127616530563471,
-   "abs_err": 0.00018080258605102095,
+   "abs_err": 0.00018080258604902255,
    "ok": true,
    "hard": true
   },
@@ -4605,9 +4605,9 @@
   },
   {
    "name": "tau t=0.1 m=0 CI",
-   "recomputed": 1.2532505385071757,
+   "recomputed": 1.2532505385071735,
    "stored": 1.2530496239175843,
-   "abs_err": 0.0002009145895913722,
+   "abs_err": 0.00020091458958915176,
    "ok": true,
    "hard": true
   },
@@ -4621,9 +4621,9 @@
   },
   {
    "name": "tau t=0.2 m=0 CI",
-   "recomputed": 1.061786082736706,
+   "recomputed": 1.0617860827367038,
    "stored": 1.0616158627300176,
-   "abs_err": 0.0001702200066884263,
+   "abs_err": 0.00017022000668620585,
    "ok": true,
    "hard": true
   },
@@ -4637,9 +4637,9 @@
   },
   {
    "name": "tau t=0.4 m=0 CI",
-   "recomputed": 1.552079997754708,
+   "recomputed": 1.5520799977547053,
    "stored": 1.5518311763848538,
-   "abs_err": 0.0002488213698541575,
+   "abs_err": 0.00024882136985149295,
    "ok": true,
    "hard": true
   },
@@ -4653,9 +4653,9 @@
   },
   {
    "name": "tau t=0.8 m=0 CI",
-   "recomputed": 2.4382974232758947,
+   "recomputed": 2.43829742327589,
    "stored": 2.437906528150741,
-   "abs_err": 0.00039089512515388947,
+   "abs_err": 0.0003908951251490045,
    "ok": true,
    "hard": true
   },
@@ -4669,9 +4669,9 @@
   },
   {
    "name": "tau t=0.05 m=0.15 CI",
-   "recomputed": 1.2299683152838532,
+   "recomputed": 1.2299683152838508,
    "stored": 1.2297711331788528,
-   "abs_err": 0.00019718210500041522,
+   "abs_err": 0.00019718210499797273,
    "ok": true,
    "hard": true
   },
@@ -4685,9 +4685,9 @@
   },
   {
    "name": "tau t=0.1 m=0.15 CI",
-   "recomputed": 1.1941941940499923,
+   "recomputed": 1.1941941940499903,
    "stored": 1.1940027470655166,
-   "abs_err": 0.00019144698447570718,
+   "abs_err": 0.00019144698447370878,
    "ok": true,
    "hard": true
   },
@@ -4701,9 +4701,9 @@
   },
   {
    "name": "tau t=0.2 m=0.15 CI",
-   "recomputed": 1.6069837853659983,
+   "recomputed": 1.6069837853659952,
    "stored": 1.606726162107283,
-   "abs_err": 0.00025762325871525604,
+   "abs_err": 0.0002576232587121474,
    "ok": true,
    "hard": true
   },
@@ -4717,9 +4717,9 @@
   },
   {
    "name": "tau t=0.4 m=0.15 CI",
-   "recomputed": 1.636690251454576,
+   "recomputed": 1.6366902514545727,
    "stored": 1.6364278658101614,
-   "abs_err": 0.0002623856444146089,
+   "abs_err": 0.0002623856444112782,
    "ok": true,
    "hard": true
   },
@@ -4733,9 +4733,9 @@
   },
   {
    "name": "tau t=0.8 m=0.15 CI",
-   "recomputed": 2.143893893240271,
+   "recomputed": 2.143893893240267,
    "stored": 2.1435501953534932,
-   "abs_err": 0.000343697886777683,
+   "abs_err": 0.0003436978867736862,
    "ok": true,
    "hard": true
   },
@@ -4749,9 +4749,9 @@
   },
   {
    "name": "tau t=0.05 m=0.3 CI",
-   "recomputed": 0.9667851363870561,
+   "recomputed": 0.9667851363870543,
    "stored": 0.9666301464365777,
-   "abs_err": 0.00015498995047835695,
+   "abs_err": 0.0001549899504765806,
    "ok": true,
    "hard": true
   },
@@ -4765,9 +4765,9 @@
   },
   {
    "name": "tau t=0.1 m=0.3 CI",
-   "recomputed": 1.0886709976662763,
+   "recomputed": 1.0886709976662743,
    "stored": 1.0884964676102538,
-   "abs_err": 0.00017453005602252603,
+   "abs_err": 0.00017453005602052762,
    "ok": true,
    "hard": true
   },
@@ -4781,9 +4781,9 @@
   },
   {
    "name": "tau t=0.2 m=0.3 CI",
-   "recomputed": 1.3985954680955341,
+   "recomputed": 1.3985954680955315,
    "stored": 1.3983712525649257,
-   "abs_err": 0.00022421553060847366,
+   "abs_err": 0.00022421553060580912,
    "ok": true,
    "hard": true
   },
@@ -4797,9 +4797,9 @@
   },
   {
    "name": "tau t=0.4 m=0.3 CI",
-   "recomputed": 1.552079997754708,
+   "recomputed": 1.5520799977547053,
    "stored": 1.5518311763848538,
-   "abs_err": 0.0002488213698541575,
+   "abs_err": 0.00024882136985149295,
    "ok": true,
    "hard": true
   },
@@ -4813,9 +4813,9 @@
   },
   {
    "name": "tau t=0.8 m=0.3 CI",
-   "recomputed": 2.378280901412244,
+   "recomputed": 2.37828090141224,
    "stored": 2.3778996278228397,
-   "abs_err": 0.00038127358940442946,
+   "abs_err": 0.00038127358940043266,
    "ok": true,
    "hard": true
   },
@@ -4829,9 +4829,9 @@
   },
   {
    "name": "tau t=0.05 m=0.5 CI",
-   "recomputed": 1.1320612324149677,
+   "recomputed": 1.1320612324149655,
    "stored": 1.131879746262826,
-   "abs_err": 0.0001814861521416411,
+   "abs_err": 0.00018148615213942065,
    "ok": true,
    "hard": true
   },
@@ -4845,9 +4845,9 @@
   },
   {
    "name": "tau t=0.1 m=0.5 CI",
-   "recomputed": 1.432629532068419,
+   "recomputed": 1.4326295320684161,
    "stored": 1.43239986037419,
-   "abs_err": 0.00022967169422893896,
+   "abs_err": 0.00022967169422605238,
    "ok": true,
    "hard": true
   },
@@ -4861,9 +4861,9 @@
   },
   {
    "name": "tau t=0.2 m=0.5 CI",
-   "recomputed": 1.446018884131691,
+   "recomputed": 1.4460188841316883,
    "stored": 1.445787065926376,
-   "abs_err": 0.00023181820531492647,
+   "abs_err": 0.00023181820531226194,
    "ok": true,
    "hard": true
   },
@@ -4877,9 +4877,9 @@
   },
   {
    "name": "tau t=0.4 m=0.5 CI",
-   "recomputed": 1.446018884131691,
+   "recomputed": 1.4460188841316883,
    "stored": 1.445787065926376,
-   "abs_err": 0.00023181820531492647,
+   "abs_err": 0.00023181820531226194,
    "ok": true,
    "hard": true
   },
@@ -4893,9 +4893,9 @@
   },
   {
    "name": "tau t=0.8 m=0.5 CI",
-   "recomputed": 1.5919226865776577,
+   "recomputed": 1.5919226865776548,
    "stored": 1.5916674778357442,
-   "abs_err": 0.00025520874191342635,
+   "abs_err": 0.00025520874191053977,
    "ok": true,
    "hard": true
   },
@@ -4984,9 +4984,9 @@
   },
   {
    "name": "probes_tuned cem_nominal B=4 CI",
-   "recomputed": 0.28194933328738053,
+   "recomputed": 0.28194933328738003,
    "stored": 0.28194933328738053,
-   "abs_err": 0.0,
+   "abs_err": 4.996003610813204e-16,
    "ok": true,
    "hard": true
   },
@@ -5000,9 +5000,9 @@
   },
   {
    "name": "probes_tuned cem_nominal B=7 CI",
-   "recomputed": 0.6818561414624343,
+   "recomputed": 0.681856141462433,
    "stored": 0.6818561414624343,
-   "abs_err": 0.0,
+   "abs_err": 1.3322676295501878e-15,
    "ok": true,
    "hard": true
   },
@@ -5016,9 +5016,9 @@
   },
   {
    "name": "probes_tuned cem_nominal B=10 CI",
-   "recomputed": 0.7491901563870479,
+   "recomputed": 0.7491901563870464,
    "stored": 0.7491901563870479,
-   "abs_err": 0.0,
+   "abs_err": 1.4432899320127035e-15,
    "ok": true,
    "hard": true
   },
@@ -5032,9 +5032,9 @@
   },
   {
    "name": "probes_tuned cem_nominal B=16 CI",
-   "recomputed": 1.3645952304326685,
+   "recomputed": 1.3645952304326656,
    "stored": 1.3645952304326685,
-   "abs_err": 0.0,
+   "abs_err": 2.886579864025407e-15,
    "ok": true,
    "hard": true
   },
@@ -5048,9 +5048,9 @@
   },
   {
    "name": "probes_tuned cem_nominal B=31 CI",
-   "recomputed": 2.590160653243976,
+   "recomputed": 2.590160653243971,
    "stored": 2.590160653243976,
-   "abs_err": 0.0,
+   "abs_err": 4.884981308350689e-15,
    "ok": true,
    "hard": true
   },
@@ -5064,9 +5064,9 @@
   },
   {
    "name": "probes_tuned cem_nominal B=46 CI",
-   "recomputed": 2.430876393312176,
+   "recomputed": 2.4308763933121718,
    "stored": 2.430876393312176,
-   "abs_err": 0.0,
+   "abs_err": 4.440892098500626e-15,
    "ok": true,
    "hard": true
   },
@@ -5080,9 +5080,9 @@
   },
   {
    "name": "probes_tuned cem_nominal B=91 CI",
-   "recomputed": 2.692758155030835,
+   "recomputed": 2.69275815503083,
    "stored": 2.692758155030835,
-   "abs_err": 0.0,
+   "abs_err": 4.884981308350689e-15,
    "ok": true,
    "hard": true
   },
@@ -5096,9 +5096,9 @@
   },
   {
    "name": "probes_tuned cem_tuned B=1 CI",
-   "recomputed": 3.0107951737067817,
+   "recomputed": 3.0107951737067755,
    "stored": 3.0107951737067817,
-   "abs_err": 0.0,
+   "abs_err": 6.217248937900877e-15,
    "ok": true,
    "hard": true
   },
@@ -5112,9 +5112,9 @@
   },
   {
    "name": "probes_tuned cem_tuned B=4 CI",
-   "recomputed": 2.753356669457666,
+   "recomputed": 2.7533566694576606,
    "stored": 2.753356669457666,
-   "abs_err": 0.0,
+   "abs_err": 5.329070518200751e-15,
    "ok": true,
    "hard": true
   },
@@ -5128,9 +5128,9 @@
   },
   {
    "name": "probes_tuned cem_tuned B=7 CI",
-   "recomputed": 3.153053475963999,
+   "recomputed": 3.153053475963993,
    "stored": 3.153053475963999,
-   "abs_err": 0.0,
+   "abs_err": 6.217248937900877e-15,
    "ok": true,
    "hard": true
   },
@@ -5144,9 +5144,9 @@
   },
   {
    "name": "probes_tuned cem_tuned B=10 CI",
-   "recomputed": 3.1686768953910875,
+   "recomputed": 3.1686768953910813,
    "stored": 3.1686768953910875,
-   "abs_err": 0.0,
+   "abs_err": 6.217248937900877e-15,
    "ok": true,
    "hard": true
   },
@@ -5160,9 +5160,9 @@
   },
   {
    "name": "probes_tuned cem_tuned B=16 CI",
-   "recomputed": 3.3944099551814464,
+   "recomputed": 3.3944099551814397,
    "stored": 3.3944099551814464,
-   "abs_err": 0.0,
+   "abs_err": 6.661338147750939e-15,
    "ok": true,
    "hard": true
   },
@@ -5176,9 +5176,9 @@
   },
   {
    "name": "probes_tuned cem_tuned B=31 CI",
-   "recomputed": 3.9132735522345135,
+   "recomputed": 3.9132735522345063,
    "stored": 3.9132735522345135,
-   "abs_err": 0.0,
+   "abs_err": 7.105427357601002e-15,
    "ok": true,
    "hard": true
   },
@@ -5192,9 +5192,9 @@
   },
   {
    "name": "probes_tuned cem_tuned B=46 CI",
-   "recomputed": 4.1883159849862235,
+   "recomputed": 4.1883159849862155,
    "stored": 4.1883159849862235,
-   "abs_err": 0.0,
+   "abs_err": 7.993605777301127e-15,
    "ok": true,
    "hard": true
   },
@@ -5208,9 +5208,9 @@
   },
   {
    "name": "probes_tuned cem_tuned B=91 CI",
-   "recomputed": 4.420840436787745,
+   "recomputed": 4.420840436787736,
    "stored": 4.420840436787745,
-   "abs_err": 0.0,
+   "abs_err": 8.881784197001252e-15,
    "ok": true,
    "hard": true
   },
@@ -5224,9 +5224,9 @@
   },
   {
    "name": "probes_tuned decode_tuned CI",
-   "recomputed": 3.0107951737067817,
+   "recomputed": 3.0107951737067755,
    "stored": 3.0107951737067817,
-   "abs_err": 0.0,
+   "abs_err": 6.217248937900877e-15,
    "ok": true,
    "hard": true
   },
@@ -5240,9 +5240,9 @@
   },
   {
    "name": "probes_tuned decode_nominal CI",
-   "recomputed": 1.6069837853659983,
+   "recomputed": 1.6069837853659952,
    "stored": 1.6069837853659983,
-   "abs_err": 0.0,
+   "abs_err": 3.1086244689504383e-15,
    "ok": true,
    "hard": true
   },
