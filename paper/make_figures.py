@@ -142,7 +142,7 @@ def fig_power(curves, out):
             ax.axhspan(m_c - h_c, m_c + h_c, xmin=0.0, xmax=1.0, color=col, alpha=0.14, lw=0)
             ax.axhline(m_c, color=col, lw=0.9)
             ax.axhline(0, color=INK, lw=0.7)
-            ax.set_title(f'$s={sp:g}$:  confirmatory mean ${m_c:+.1f}\\pm{h_c:.1f}$ pp, {k}/{len(conf)} seeds improve', fontsize=6.8)
+            ax.set_title(f'({chr(97 + j)}) $s={sp:g}$:  confirmatory mean ${m_c:+.1f}\\pm{h_c:.1f}$ pp, {k}/{len(conf)} seeds improve', fontsize=6.8)
             ax.set_xlabel('seed'); ax.set_xlim(-0.7, n - 0.3)
             # running interval as seeds accumulate (analytic t quantile each time)
             ax2 = axes[1][j]
@@ -153,6 +153,7 @@ def fig_power(curves, out):
             ax2.axhline(0, color=INK, lw=0.7)
             ax2.axvline(N_EXPLORATORY, color=GREY, lw=0.7, ls=':')
             ax2.set_xlabel('number of seeds used'); ax2.set_xlim(2, n)
+            ax2.set_title(f'({chr(97 + len(cells) + j)}) running mean and 95% interval, $s={sp:g}$', fontsize=6.8)
             invariant(f'power {key}: running interval at n={n} equals the full-sample interval', abs(run[-1, 1] - h_all) < 1e-9)
             rows_csv.append([key, 'running_mean'] + list(run[:, 0])); rows_csv.append([key, 'running_ci95'] + list(run[:, 1]))
     axes[0][0].set_ylabel('paired gain vs nominal AO (pp)'); axes[1][0].set_ylabel('mean and 95% $t$-interval (pp)')
@@ -400,7 +401,7 @@ def fig_headroom(data, out):
     spreads = ['0.0', '1.0', '2.0']
     fig, axes = plt.subplots(1, 3, figsize=(7.16, 3.0), sharey=True, sharex=True)
     rows_csv = []
-    for ax, sp in zip(axes, spreads):
+    for pi, (ax, sp) in enumerate(zip(axes, spreads)):
         ps = [d['per_seed'][f'{sp}|{s}'] for s in range(seeds)]
         for key, lab, grp in HEAD_ROWS:
             x = paired(ps, key, 'ao_nominal')
@@ -410,7 +411,7 @@ def fig_headroom(data, out):
             check(f'headroom paired CI, s={sp}, {key}', h, st['ci95'])
             rows_csv.append([sp, key, m, h] + list(x))
         forest(ax, HEAD_ROWS, lambda k, ps=ps: paired(ps, k, 'ao_nominal'), xlabel='')
-        ax.set_title(f'$s={float(sp):g}$', fontsize=7.5)
+        ax.set_title(f'({chr(97 + pi)}) $s={float(sp):g}$', fontsize=7.5)
     handles = [plt.Line2D([], [], marker=GROUP[g][1], color=GROUP[g][0], mec=INK, mew=0.4, ls='', ms=4.2, label=GROUP[g][2]) for g in GROUP]
     # one shared x-label (three per-panel labels collided), legend underneath it, all inside reserved margins
     fig.tight_layout(rect=(0, 0.14, 1, 1))
@@ -430,7 +431,7 @@ def fig_calibration(curves, data, out):
     fig, axes = plt.subplots(1, len(cells), figsize=(3.5 if len(cells) == 1 else 7.16, 2.4), sharey=True, squeeze=False)
     rows_csv = []
     v5 = load(data / '03_headroom' / 'headroom_v5_FINAL_code_d66def0.json')
-    for ax, key in zip(axes[0], cells):
+    for pi, (ax, key) in enumerate(zip(axes[0], cells)):
         c = d['cells'][key]
         ps = c['per_seed']
         sp = c['spread']
@@ -450,7 +451,7 @@ def fig_calibration(curves, data, out):
         ax.text(errs[-1], mn, ' nominal-model\n decode-aware', va='bottom', ha='right', fontsize=5.8, color=MUTED)
         ax.axhline(0, color=INK, lw=0.7)
         ax.set_xlabel(r'calibration error $e$ (units of the $s=1$ hardware spread)')
-        ax.set_title(f'$s={sp:g}$', fontsize=7.5)
+        ax.set_title(f'({chr(97 + pi)}) $s={sp:g}$', fontsize=7.5)
         # cross-stage consistency (soft): e=0 uses the true curve, so it should agree with the headroom stage's
         # true-PDA rows within their joint 95% interval (different slot streams, same estimand)
         k5 = f'{sp:.1f}'
@@ -701,8 +702,7 @@ def fig_episode(data, out):
             ax.axvline(0, color=INK, lw=0.7)
             ax.set_yticks(y); ax.set_yticklabels([f'{lab[sc]}: {lab[ll]}' for sc, ll in rows], fontsize=6)
             ax.grid(axis='y', alpha=0); ax.set_xlabel(xl)
-            if r_idx == 0:
-                ax.set_title(ttl, fontsize=7.5)
+            ax.set_title(f'({chr(97 + 2 * r_idx + c_idx)}) {ttl}', fontsize=7.5)
     fig.tight_layout()
     save(fig, out, 'fig_episode')
     write_csv(out / 'csv' / 'fig_episode.csv', ['panel', 'metric', 'scheduler', 'solver', 'mean', 'ci95'] + [f'seed{s}' for s in range(5)], rows_csv)
